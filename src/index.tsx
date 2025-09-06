@@ -302,9 +302,9 @@ app.get('/', (c) => {
                 </div>
                 <p class="text-gray-300 mb-4">Stage the largest community activation in crypto history.</p>
                 <div class="flex flex-wrap gap-4 text-sm">
-                  <span class="bg-tron-red/20 text-tron-red px-3 py-1 rounded-full">40 Regional Hubs</span>
-                  <span class="bg-tron-red/20 text-tron-red px-3 py-1 rounded-full">150 City Squads</span>
-                  <span class="bg-tron-red/20 text-tron-red px-3 py-1 rounded-full">3,000+ Funded Deliverables</span>
+                  <span class="bg-tron-red/20 text-tron-red px-3 py-1 rounded-full">Regional Hubs</span>
+                  <span class="bg-tron-red/20 text-tron-red px-3 py-1 rounded-full">City Squads</span>
+                  <span class="bg-tron-red/20 text-tron-red px-3 py-1 rounded-full">Funded Deliverables</span>
                 </div>
               </div>
 
@@ -316,8 +316,8 @@ app.get('/', (c) => {
                 </div>
                 <p class="text-gray-300 mb-4">Make TRON fundamentals common knowledge on every continent.</p>
                 <div class="flex flex-wrap gap-4 text-sm">
-                  <span class="bg-tron-red/20 text-tron-red px-3 py-1 rounded-full">1,000 Learning Assets</span>
-                  <span class="bg-tron-red/20 text-tron-red px-3 py-1 rounded-full">1M+ Course Completions</span>
+                  <span class="bg-tron-red/20 text-tron-red px-3 py-1 rounded-full">Learning Assets</span>
+                  <span class="bg-tron-red/20 text-tron-red px-3 py-1 rounded-full">Course Completions</span>
                 </div>
               </div>
 
@@ -329,7 +329,7 @@ app.get('/', (c) => {
                 </div>
                 <p class="text-gray-300 mb-4">Put real earnings in the hands of global builders.</p>
                 <div class="flex flex-wrap gap-4 text-sm">
-                  <span class="bg-tron-red/20 text-tron-red px-3 py-1 rounded-full">≥ $40M USDD Paid Out</span>
+                  <span class="bg-tron-red/20 text-tron-red px-3 py-1 rounded-full">USDD Funding</span>
                   <span class="bg-tron-red/20 text-tron-red px-3 py-1 rounded-full">Bounties & Grants</span>
                 </div>
               </div>
@@ -342,8 +342,8 @@ app.get('/', (c) => {
                 </div>
                 <p class="text-gray-300 mb-4">Translate community energy into on-chain traction.</p>
                 <div class="flex flex-wrap gap-4 text-sm">
-                  <span class="bg-tron-red/20 text-tron-red px-3 py-1 rounded-full">+50% YoY Active Wallets</span>
-                  <span class="bg-tron-red/20 text-tron-red px-3 py-1 rounded-full">+30 Flagship dApps</span>
+                  <span class="bg-tron-red/20 text-tron-red px-3 py-1 rounded-full">Active Wallets Growth</span>
+                  <span class="bg-tron-red/20 text-tron-red px-3 py-1 rounded-full">Flagship dApps</span>
                 </div>
               </div>
             </div>
