@@ -164,7 +164,7 @@ app.get('/', (c) => {
             
             <div class="text-center cyber-card p-8 rounded-xl" data-aos="fade-up" data-aos-delay="400">
               <div class="text-5xl font-orbitron font-black text-transparent bg-clip-text bg-tron-gradient mb-4 stat-glow" id="stat-funding">$40M</div>
-              <div class="text-tron-dark-red font-rajdhani font-medium uppercase tracking-wider">USDD Funding</div>
+              <div class="text-tron-dark-red font-rajdhani font-medium uppercase tracking-wider">TRX Funding</div>
               <div class="w-full h-0.5 bg-gradient-to-r from-transparent via-tron-dark-red to-transparent mt-2 opacity-50"></div>
             </div>
           </div>
@@ -233,7 +233,7 @@ app.get('/', (c) => {
               </div>
               <p class="text-tron-light-gray leading-relaxed font-exo">
                 With the industry's deepest <span class="text-tron-silver">bounty & grant engine</span>, 
-                contributors earn real <span class="text-tron-red font-medium">TRX/USDD</span> 
+                contributors earn real <span class="text-tron-red font-medium">TRX/USDT</span> 
                 for shipping code, content, art, or events—turning 
                 <span class="text-tron-light">passion</span> into <span class="text-tron-silver">sustainable income</span>.
               </p>
@@ -329,8 +329,9 @@ app.get('/', (c) => {
                 </div>
                 <p class="text-gray-300 mb-4">Put real earnings in the hands of global builders.</p>
                 <div class="flex flex-wrap gap-4 text-sm">
-                  <span class="bg-tron-red/20 text-tron-red px-3 py-1 rounded-full">USDD Funding</span>
-                  <span class="bg-tron-red/20 text-tron-red px-3 py-1 rounded-full">Bounties & Grants</span>
+                  <span class="bg-tron-red/20 text-tron-red px-3 py-1 rounded-full">USDT Funding</span>
+                  <span class="bg-tron-red/20 text-tron-red px-3 py-1 rounded-full">TRX Funding</span>
+                  <span class="bg-tron-red/20 text-tron-red px-3 py-1 rounded-full">Energy / Bandwidth</span>
                 </div>
               </div>
 
