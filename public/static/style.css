@@ -43,6 +43,17 @@ body {
   }
 }
 
+@keyframes tronGlow {
+  0%, 100% {
+    text-shadow: 0 0 5px #FF060A, 0 0 10px #FF060A, 0 0 15px #FF060A;
+    filter: brightness(1);
+  }
+  50% {
+    text-shadow: 0 0 10px #FF060A, 0 0 20px #FF060A, 0 0 30px #FF060A;
+    filter: brightness(1.3);
+  }
+}
+
 @keyframes matrixRain {
   0% { transform: translateY(-100vh); }
   100% { transform: translateY(100vh); }
@@ -51,15 +62,19 @@ body {
 @keyframes hologram {
   0%, 100% {
     opacity: 0.8;
-    filter: hue-rotate(0deg);
+    filter: hue-rotate(0deg) brightness(1);
   }
-  33% {
+  25% {
     opacity: 0.6;
-    filter: hue-rotate(120deg);
+    filter: hue-rotate(15deg) brightness(1.1);
   }
-  66% {
+  50% {
     opacity: 0.9;
-    filter: hue-rotate(240deg);
+    filter: hue-rotate(-10deg) brightness(1.2);
+  }
+  75% {
+    opacity: 0.7;
+    filter: hue-rotate(10deg) brightness(1.1);
   }
 }
 
@@ -135,44 +150,44 @@ body {
   }
 }
 
-/* Neon glow effects */
+/* TRON glow effects */
 .glow-text {
   text-shadow: 0 0 5px currentColor, 0 0 10px currentColor, 0 0 15px currentColor;
 }
 
 .text-shadow-glow {
-  text-shadow: 0 0 10px rgba(0, 255, 255, 0.8), 0 0 20px rgba(0, 255, 255, 0.6), 0 0 30px rgba(0, 255, 255, 0.4);
+  text-shadow: 0 0 10px rgba(255, 6, 10, 0.8), 0 0 20px rgba(255, 6, 10, 0.6), 0 0 30px rgba(255, 6, 10, 0.4);
 }
 
-/* Holographic effects */
+/* TRON Holographic effects */
 .holographic-card {
   background: linear-gradient(45deg, 
-    rgba(255, 0, 128, 0.1) 0%, 
-    rgba(0, 255, 255, 0.1) 25%, 
-    rgba(255, 0, 128, 0.1) 50%, 
-    rgba(0, 255, 255, 0.1) 75%, 
-    rgba(255, 0, 128, 0.1) 100%);
+    rgba(255, 6, 10, 0.1) 0%, 
+    rgba(255, 68, 68, 0.1) 25%, 
+    rgba(255, 6, 10, 0.1) 50%, 
+    rgba(204, 4, 8, 0.1) 75%, 
+    rgba(255, 6, 10, 0.1) 100%);
   background-size: 200% 200%;
   animation: hologram 3s ease-in-out infinite;
-  border: 1px solid rgba(0, 255, 255, 0.3);
+  border: 1px solid rgba(255, 6, 10, 0.3);
   backdrop-filter: blur(10px);
 }
 
-/* Cyber grid pattern */
-.cyber-grid {
+/* TRON grid pattern */
+.tron-grid {
   background-image: 
-    linear-gradient(rgba(0, 255, 255, 0.1) 1px, transparent 1px),
-    linear-gradient(90deg, rgba(0, 255, 255, 0.1) 1px, transparent 1px);
+    linear-gradient(rgba(255, 6, 10, 0.1) 1px, transparent 1px),
+    linear-gradient(90deg, rgba(255, 6, 10, 0.1) 1px, transparent 1px);
   background-size: 50px 50px;
 }
 
-/* Futuristic cards */
+/* TRON Futuristic cards */
 .cyber-card {
   background: linear-gradient(135deg, 
-    rgba(10, 10, 10, 0.9) 0%, 
-    rgba(26, 26, 26, 0.8) 50%, 
-    rgba(10, 10, 10, 0.9) 100%);
-  border: 1px solid rgba(0, 212, 255, 0.2);
+    rgba(0, 0, 0, 0.9) 0%, 
+    rgba(17, 17, 17, 0.8) 50%, 
+    rgba(0, 0, 0, 0.9) 100%);
+  border: 1px solid rgba(255, 6, 10, 0.2);
   backdrop-filter: blur(15px);
   position: relative;
   overflow: hidden;
@@ -188,7 +203,7 @@ body {
   height: 100%;
   background: linear-gradient(90deg, 
     transparent 0%, 
-    rgba(0, 255, 255, 0.1) 50%, 
+    rgba(255, 6, 10, 0.1) 50%, 
     transparent 100%);
   transition: left 0.5s ease;
 }
@@ -198,10 +213,10 @@ body {
 }
 
 .cyber-card:hover {
-  border-color: rgba(0, 255, 255, 0.5);
+  border-color: rgba(255, 6, 10, 0.5);
   box-shadow: 
-    0 0 20px rgba(0, 255, 255, 0.2),
-    inset 0 0 20px rgba(0, 255, 255, 0.1);
+    0 0 20px rgba(255, 6, 10, 0.2),
+    inset 0 0 20px rgba(255, 6, 10, 0.1);
   transform: translateY(-5px);
 }
 
@@ -312,14 +327,15 @@ body {
   border-color: rgba(0, 255, 255, 0.8);
 }
 
-/* Stats counter glow */
+/* TRON Stats counter glow */
 .stat-glow {
-  color: #ff060a;
+  color: #FF060A;
   text-shadow: 
-    0 0 5px #ff060a,
-    0 0 10px #ff060a,
-    0 0 20px #ff060a,
-    0 0 40px #ff060a;
+    0 0 5px #FF060A,
+    0 0 10px #FF060A,
+    0 0 20px #FF060A,
+    0 0 40px #FF060A,
+    0 0 60px #FF060A;
   font-family: 'Orbitron', monospace;
   font-weight: 900;
 }

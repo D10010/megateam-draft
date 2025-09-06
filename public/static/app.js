@@ -169,11 +169,13 @@ document.addEventListener('DOMContentLoaded', function() {
         
         function drawMatrix() {
             // Semi-transparent black background
-            ctx.fillStyle = 'rgba(10, 10, 10, 0.05)';
+            ctx.fillStyle = 'rgba(0, 0, 0, 0.05)';
             ctx.fillRect(0, 0, canvas.width, canvas.height);
             
-            // Green text
-            ctx.fillStyle = '#39FF14';
+            // TRON Red text with slight glow
+            ctx.fillStyle = '#FF060A';
+            ctx.shadowColor = '#FF060A';
+            ctx.shadowBlur = 3;
             ctx.font = fontSize + 'px monospace';
             
             for (let i = 0; i < drops.length; i++) {
@@ -243,7 +245,7 @@ document.addEventListener('DOMContentLoaded', function() {
             particle.className = 'data-particle';
             
             const startX = Math.random() * window.innerWidth;
-            const color = ['#FF060A', '#00D4FF', '#39FF14', '#FF0080'][Math.floor(Math.random() * 4)];
+            const color = ['#FF060A', '#FF4444', '#CC0408', '#C0C0C0'][Math.floor(Math.random() * 4)];
             const size = Math.random() * 3 + 1;
             const duration = Math.random() * 3000 + 2000;
             
