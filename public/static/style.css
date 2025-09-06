@@ -1,0 +1,166 @@
+/* Custom CSS for TRON MEGATEAM */
+
+/* Smooth scrolling */
+html {
+  scroll-behavior: smooth;
+}
+
+/* Custom animations */
+@keyframes fadeIn {
+  from { opacity: 0; }
+  to { opacity: 1; }
+}
+
+@keyframes slideUp {
+  from {
+    opacity: 0;
+    transform: translateY(30px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+/* Gradient text effect */
+.gradient-text {
+  background: linear-gradient(45deg, #FF060A, #ff6b6b);
+  background-clip: text;
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+}
+
+/* Hover effects */
+.hover-glow {
+  transition: all 0.3s ease;
+}
+
+.hover-glow:hover {
+  box-shadow: 0 0 20px rgba(255, 6, 10, 0.3);
+  transform: translateY(-2px);
+}
+
+/* Card animations */
+.card-hover {
+  transition: all 0.3s ease;
+  border: 1px solid rgba(255, 6, 10, 0.2);
+}
+
+.card-hover:hover {
+  border-color: rgba(255, 6, 10, 0.5);
+  transform: translateY(-5px);
+  box-shadow: 0 10px 30px rgba(0, 0, 0, 0.3);
+}
+
+/* Button animations */
+.btn-pulse {
+  animation: pulse 2s infinite;
+}
+
+@keyframes pulse {
+  0% {
+    box-shadow: 0 0 0 0 rgba(255, 6, 10, 0.7);
+  }
+  70% {
+    box-shadow: 0 0 0 10px rgba(255, 6, 10, 0);
+  }
+  100% {
+    box-shadow: 0 0 0 0 rgba(255, 6, 10, 0);
+  }
+}
+
+/* Navigation background blur */
+nav {
+  backdrop-filter: blur(10px);
+  -webkit-backdrop-filter: blur(10px);
+}
+
+/* Custom scrollbar */
+::-webkit-scrollbar {
+  width: 8px;
+}
+
+::-webkit-scrollbar-track {
+  background: #1a1a1a;
+}
+
+::-webkit-scrollbar-thumb {
+  background: #FF060A;
+  border-radius: 4px;
+}
+
+::-webkit-scrollbar-thumb:hover {
+  background: #cc0408;
+}
+
+/* Mobile menu animation */
+.mobile-menu {
+  transform: translateX(100%);
+  transition: transform 0.3s ease;
+}
+
+.mobile-menu.active {
+  transform: translateX(0);
+}
+
+/* Loading animation for stats */
+.counter {
+  font-variant-numeric: tabular-nums;
+}
+
+/* Particle background effect */
+.particles-bg {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  overflow: hidden;
+  z-index: -1;
+}
+
+.particle {
+  position: absolute;
+  background: #FF060A;
+  border-radius: 50%;
+  opacity: 0.1;
+  animation: float 6s ease-in-out infinite;
+}
+
+@keyframes float {
+  0%, 100% {
+    transform: translateY(0px) rotate(0deg);
+  }
+  50% {
+    transform: translateY(-20px) rotate(180deg);
+  }
+}
+
+/* Responsive typography */
+@media (max-width: 768px) {
+  .text-7xl {
+    font-size: 3.5rem;
+  }
+  
+  .text-5xl {
+    font-size: 2.5rem;
+  }
+  
+  .text-3xl {
+    font-size: 1.75rem;
+  }
+}
+
+/* Focus styles for accessibility */
+button:focus,
+a:focus {
+  outline: 2px solid #FF060A;
+  outline-offset: 2px;
+}
+
+/* Print styles */
+@media print {
+  .no-print {
+    display: none;
+  }
+}
