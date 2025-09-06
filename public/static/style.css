@@ -1,7 +1,7 @@
 /* Futuristic CSS for TRON MEGATEAM */
 
-/* Import cyber fonts */
-@import url('https://fonts.googleapis.com/css2?family=Orbitron:wght@400;700;900&family=Exo+2:wght@300;400;600;700&family=Rajdhani:wght@300;400;500;600;700&display=swap');
+/* Import Montserrat font */
+@import url('https://fonts.googleapis.com/css2?family=Montserrat:wght@300;400;500;600;700;800;900&display=swap');
 
 /* Smooth scrolling */
 html {
@@ -11,14 +11,55 @@ html {
 /* Base styles */
 body {
   background: #0A0A0A;
-  font-family: 'Exo 2', sans-serif;
+  font-family: 'Montserrat', sans-serif;
   overflow-x: hidden;
 }
+
+
 
 /* Custom animations */
 @keyframes fadeIn {
   from { opacity: 0; }
   to { opacity: 1; }
+}
+
+@keyframes colorFlash {
+  0% { 
+    background: linear-gradient(45deg, #FF060A, #FF4444, #CC0408);
+    box-shadow: 0 0 20px #FF060A;
+  }
+  14% { 
+    background: linear-gradient(45deg, #00FFFF, #0099FF, #0066CC);
+    box-shadow: 0 0 20px #00FFFF;
+  }
+  28% { 
+    background: linear-gradient(45deg, #FF00FF, #CC00CC, #990099);
+    box-shadow: 0 0 20px #FF00FF;
+  }
+  42% { 
+    background: linear-gradient(45deg, #00FF00, #00CC00, #009900);
+    box-shadow: 0 0 20px #00FF00;
+  }
+  57% { 
+    background: linear-gradient(45deg, #FFFF00, #CCCC00, #999900);
+    box-shadow: 0 0 20px #FFFF00;
+  }
+  71% { 
+    background: linear-gradient(45deg, #FF8800, #CC6600, #994400);
+    box-shadow: 0 0 20px #FF8800;
+  }
+  85% { 
+    background: linear-gradient(45deg, #8800FF, #6600CC, #440099);
+    box-shadow: 0 0 20px #8800FF;
+  }
+  100% { 
+    background: linear-gradient(45deg, #FF060A, #FF4444, #CC0408);
+    box-shadow: 0 0 20px #FF060A;
+  }
+}
+
+.color-flash-hover:hover {
+  animation: colorFlash 0.6s ease-in-out infinite;
 }
 
 @keyframes slideUp {
@@ -290,7 +331,7 @@ body {
     rgba(138, 43, 226, 0.8) 100%);
   border: 1px solid rgba(0, 255, 255, 0.3);
   color: white;
-  font-family: 'Orbitron', monospace;
+  font-family: 'Montserrat', sans-serif;
   font-weight: bold;
   padding: 12px 24px;
   border-radius: 8px;
@@ -335,7 +376,7 @@ body {
     0 0 4px #FF060A,
     0 0 8px #FF060A,
     0 0 12px #FF060A;
-  font-family: 'Orbitron', monospace;
+  font-family: 'Montserrat', sans-serif;
   font-weight: 900;
 }
 

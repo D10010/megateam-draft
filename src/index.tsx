@@ -13,6 +13,463 @@ app.use('/static/*', serveStatic({ root: './' }))
 
 app.use(renderer)
 
+// API endpoint for form submissions to Google Sheets
+app.post('/api/signup', async (c) => {
+  try {
+    const formData = await c.req.json()
+    
+    // Validate required fields
+    const requiredFields = ['firstName', 'lastName', 'email', 'experience', 'country', 'agreement']
+    for (const field of requiredFields) {
+      if (!formData[field] || (field === 'agreement' && formData[field] !== 'on')) {
+        return c.json({ error: `Missing required field: ${field}` }, 400)
+      }
+    }
+    
+    // Validate at least one interest is selected
+    if (!formData.interests || formData.interests.length === 0) {
+      return c.json({ error: 'At least one area of interest must be selected' }, 400)
+    }
+    
+    // Process form data for Google Sheets
+    const timestamp = new Date().toISOString()
+    const skillsArray = Array.isArray(formData.skills) ? formData.skills : []
+    const interestsArray = Array.isArray(formData.interests) ? formData.interests : []
+    
+    const sheetRow = [
+      timestamp,                                    // A: Timestamp
+      formData.firstName || '',                     // B: First Name
+      formData.lastName || '',                      // C: Last Name  
+      formData.email || '',                         // D: Email
+      formData.telegram || '',                      // E: Telegram
+      formData.experience || '',                    // F: Experience Level
+      skillsArray.join(', '),                       // G: Skills (comma separated)
+      formData.otherSkills || '',                   // H: Other Skills
+      interestsArray.join(', '),                    // I: Interests (comma separated)
+      formData.country || '',                       // J: Country
+      formData.timezone || '',                      // K: Timezone
+      formData.projectIdeas || '',                  // L: Project Ideas
+      formData.agreement ? 'Yes' : 'No'             // M: Agreement
+    ]
+    
+    // Submit to Google Sheets
+    const success = await submitToGoogleSheets(sheetRow, c.env)
+    
+    if (success) {
+      return c.json({ 
+        success: true, 
+        message: 'Application submitted successfully! Welcome to TRON MEGATEAM!' 
+      })
+    } else {
+      return c.json({ 
+        error: 'Failed to submit application. Please try again later.' 
+      }, 500)
+    }
+    
+  } catch (error) {
+    console.error('Signup API error:', error)
+    return c.json({ 
+      error: 'Internal server error. Please try again later.' 
+    }, 500)
+  }
+})
+
+// Function to submit data to Google Sheets
+async function submitToGoogleSheets(rowData: any[], env: any) {
+  try {
+    // Get environment variables
+    const GOOGLE_SHEETS_ID = env?.GOOGLE_SHEETS_ID
+    const GOOGLE_SERVICE_ACCOUNT_EMAIL = env?.GOOGLE_SERVICE_ACCOUNT_EMAIL  
+    const GOOGLE_PRIVATE_KEY = env?.GOOGLE_PRIVATE_KEY
+    
+    if (!GOOGLE_SHEETS_ID || !GOOGLE_SERVICE_ACCOUNT_EMAIL || !GOOGLE_PRIVATE_KEY) {
+      console.error('Missing Google Sheets environment variables')
+      return false
+    }
+    
+    // Create JWT token for Google Sheets API authentication
+    const jwtHeader = {
+      alg: 'RS256',
+      typ: 'JWT'
+    }
+    
+    const now = Math.floor(Date.now() / 1000)
+    const jwtPayload = {
+      iss: GOOGLE_SERVICE_ACCOUNT_EMAIL,
+      scope: 'https://www.googleapis.com/auth/spreadsheets',
+      aud: 'https://oauth2.googleapis.com/token',
+      exp: now + 3600,
+      iat: now
+    }
+    
+    // Note: This is a simplified JWT implementation for Cloudflare Workers
+    // In production, you might want to use a more robust JWT library
+    const encodedHeader = btoa(JSON.stringify(jwtHeader)).replace(/=/g, '').replace(/\+/g, '-').replace(/\//g, '_')
+    const encodedPayload = btoa(JSON.stringify(jwtPayload)).replace(/=/g, '').replace(/\+/g, '-').replace(/\//g, '_')
+    
+    // For Cloudflare Workers, we'll use a simpler approach with direct API key
+    // This requires setting up the Google Sheets API with an API key instead of service account
+    const GOOGLE_API_KEY = env?.GOOGLE_API_KEY
+    
+    if (GOOGLE_API_KEY) {
+      // Use Google Sheets API with API key (simpler but requires public sheet)
+      const range = 'Sheet1!A:M'  // Adjust range as needed
+      const url = `https://sheets.googleapis.com/v4/spreadsheets/${GOOGLE_SHEETS_ID}/values/${range}:append?valueInputOption=USER_ENTERED&key=${GOOGLE_API_KEY}`
+      
+      const response = await fetch(url, {
+        method: 'POST',
+        headers: {
+          'Content-Type': 'application/json',
+        },
+        body: JSON.stringify({
+          values: [rowData]
+        })
+      })
+      
+      return response.ok
+    }
+    
+    return false
+    
+  } catch (error) {
+    console.error('Google Sheets submission error:', error)
+    return false
+  }
+}
+
+// MEGATEAM Signup page
+app.get('/signup', (c) => {
+  return c.render(
+    <>
+      {/* Navigation */}
+      <nav class="fixed top-0 left-0 right-0 z-50 bg-gradient-to-r from-tron-black/95 via-tron-dark/95 to-tron-black/95 backdrop-blur-md border-b border-tron-red/30 shadow-lg shadow-tron-red/10">
+        <div class="container mx-auto px-6 py-4">
+          <div class="flex items-center justify-between">
+            <div class="flex items-center space-x-3">
+              <div class="relative">
+                <i class="fas fa-rocket text-tron-red text-2xl"></i>
+                <div class="absolute inset-0 fas fa-rocket text-tron-red text-2xl blur-sm opacity-30"></div>
+              </div>
+              <a href="/" class="text-2xl font-montserrat font-bold tracking-wider hover:opacity-80 transition-opacity">
+                TRON <span class="text-transparent bg-clip-text bg-tron-gradient">MEGATEAM</span>
+              </a>
+            </div>
+            <div class="hidden md:flex items-center space-x-8">
+              <a href="/" class="font-montserrat font-medium text-tron-silver hover:text-tron-red transition-all duration-300">
+                ← Back to Home
+              </a>
+            </div>
+          </div>
+        </div>
+      </nav>
+
+      {/* Signup Form Section */}
+      <section class="min-h-screen flex items-center justify-center relative overflow-hidden pt-20">
+        {/* Background Effects */}
+        <div class="absolute inset-0 bg-gradient-to-br from-tron-red/5 via-tron-black via-tron-gray/2.5 to-tron-red/4"></div>
+        <div class="absolute inset-0 bg-tron-holographic opacity-1.5 animate-hologram"></div>
+        
+
+        
+        <div class="container mx-auto px-6 relative z-20">
+          <div class="max-w-2xl mx-auto">
+            {/* Header */}
+            <div class="text-center mb-12" data-aos="fade-up">
+              <div class="mb-6 relative inline-block">
+                <i class="fas fa-user-plus text-4xl text-transparent bg-clip-text bg-tron-gradient"></i>
+                <div class="absolute inset-0 fas fa-user-plus text-4xl text-tron-red blur-lg opacity-15"></div>
+              </div>
+              <h1 class="text-4xl md:text-5xl font-montserrat font-black mb-6 leading-tight">
+                Join <span class="text-transparent bg-clip-text bg-tron-gradient">MEGATEAM</span>
+              </h1>
+              <p class="text-xl text-tron-light-gray font-montserrat font-light">
+                Be part of the largest builder movement in crypto history. 
+                Start building on TRON today.
+              </p>
+            </div>
+
+            {/* Signup Form */}
+            <div class="cyber-card p-8 rounded-2xl relative overflow-hidden" data-aos="fade-up" data-aos-delay="200">
+              <div class="absolute inset-0 bg-gradient-to-r from-tron-red/5 via-transparent to-tron-light/5"></div>
+              
+              <form id="megateam-signup-form" class="relative z-10 space-y-6">
+                {/* Personal Information */}
+                <div class="grid md:grid-cols-2 gap-6">
+                  <div>
+                    <label for="firstName" class="block text-tron-silver font-montserrat font-medium mb-2">
+                      First Name *
+                    </label>
+                    <input 
+                      type="text" 
+                      id="firstName" 
+                      name="firstName" 
+                      required 
+                      class="w-full px-4 py-3 bg-tron-dark/50 border border-tron-red/30 rounded-lg text-tron-white font-montserrat focus:outline-none focus:border-tron-red focus:ring-1 focus:ring-tron-red transition-all"
+                      placeholder="Enter your first name"
+                    />
+                  </div>
+                  <div>
+                    <label for="lastName" class="block text-tron-silver font-montserrat font-medium mb-2">
+                      Last Name *
+                    </label>
+                    <input 
+                      type="text" 
+                      id="lastName" 
+                      name="lastName" 
+                      required 
+                      class="w-full px-4 py-3 bg-tron-dark/50 border border-tron-red/30 rounded-lg text-tron-white font-montserrat focus:outline-none focus:border-tron-red focus:ring-1 focus:ring-tron-red transition-all"
+                      placeholder="Enter your last name"
+                    />
+                  </div>
+                </div>
+
+                {/* Contact Information */}
+                <div>
+                  <label for="email" class="block text-tron-silver font-montserrat font-medium mb-2">
+                    Email Address *
+                  </label>
+                  <input 
+                    type="email" 
+                    id="email" 
+                    name="email" 
+                    required 
+                    class="w-full px-4 py-3 bg-tron-dark/50 border border-tron-red/30 rounded-lg text-tron-white font-montserrat focus:outline-none focus:border-tron-red focus:ring-1 focus:ring-tron-red transition-all"
+                    placeholder="your.email@example.com"
+                  />
+                </div>
+
+                <div>
+                  <label for="telegram" class="block text-tron-silver font-montserrat font-medium mb-2">
+                    Telegram Username
+                  </label>
+                  <input 
+                    type="text" 
+                    id="telegram" 
+                    name="telegram" 
+                    class="w-full px-4 py-3 bg-tron-dark/50 border border-tron-red/30 rounded-lg text-tron-white font-montserrat focus:outline-none focus:border-tron-red focus:ring-1 focus:ring-tron-red transition-all"
+                    placeholder="@yourusername"
+                  />
+                </div>
+
+                {/* Skills & Experience */}
+                <div>
+                  <label for="experience" class="block text-tron-silver font-montserrat font-medium mb-2">
+                    Development Experience *
+                  </label>
+                  <select 
+                    id="experience" 
+                    name="experience" 
+                    required 
+                    class="w-full px-4 py-3 bg-tron-dark/50 border border-tron-red/30 rounded-lg text-tron-white font-montserrat focus:outline-none focus:border-tron-red focus:ring-1 focus:ring-tron-red transition-all"
+                  >
+                    <option value="">Select your experience level</option>
+                    <option value="beginner">Beginner (0-1 years)</option>
+                    <option value="intermediate">Intermediate (2-5 years)</option>
+                    <option value="advanced">Advanced (5+ years)</option>
+                    <option value="expert">Expert (10+ years)</option>
+                  </select>
+                </div>
+
+                <div>
+                  <label for="skills" class="block text-tron-silver font-montserrat font-medium mb-2">
+                    Primary Skills & Technologies
+                  </label>
+                  <div class="grid grid-cols-2 md:grid-cols-3 gap-3 mb-3">
+                    {/* Skill checkboxes */}
+                    <label class="flex items-center space-x-2 cursor-pointer">
+                      <input type="checkbox" name="skills" value="solidity" class="text-tron-red rounded border-tron-red/30 bg-tron-dark/50 focus:ring-tron-red" />
+                      <span class="text-sm text-tron-silver">Solidity</span>
+                    </label>
+                    <label class="flex items-center space-x-2 cursor-pointer">
+                      <input type="checkbox" name="skills" value="javascript" class="text-tron-red rounded border-tron-red/30 bg-tron-dark/50 focus:ring-tron-red" />
+                      <span class="text-sm text-tron-silver">JavaScript</span>
+                    </label>
+                    <label class="flex items-center space-x-2 cursor-pointer">
+                      <input type="checkbox" name="skills" value="python" class="text-tron-red rounded border-tron-red/30 bg-tron-dark/50 focus:ring-tron-red" />
+                      <span class="text-sm text-tron-silver">Python</span>
+                    </label>
+                    <label class="flex items-center space-x-2 cursor-pointer">
+                      <input type="checkbox" name="skills" value="react" class="text-tron-red rounded border-tron-red/30 bg-tron-dark/50 focus:ring-tron-red" />
+                      <span class="text-sm text-tron-silver">React</span>
+                    </label>
+                    <label class="flex items-center space-x-2 cursor-pointer">
+                      <input type="checkbox" name="skills" value="nodejs" class="text-tron-red rounded border-tron-red/30 bg-tron-dark/50 focus:ring-tron-red" />
+                      <span class="text-sm text-tron-silver">Node.js</span>
+                    </label>
+                    <label class="flex items-center space-x-2 cursor-pointer">
+                      <input type="checkbox" name="skills" value="web3" class="text-tron-red rounded border-tron-red/30 bg-tron-dark/50 focus:ring-tron-red" />
+                      <span class="text-sm text-tron-silver">Web3</span>
+                    </label>
+                  </div>
+                  <textarea 
+                    id="otherSkills" 
+                    name="otherSkills" 
+                    rows="2"
+                    class="w-full px-4 py-3 bg-tron-dark/50 border border-tron-red/30 rounded-lg text-tron-white font-montserrat focus:outline-none focus:border-tron-red focus:ring-1 focus:ring-tron-red transition-all text-sm"
+                    placeholder="Other skills or technologies..."
+                  ></textarea>
+                </div>
+
+                {/* Interest Areas */}
+                <div>
+                  <label for="interests" class="block text-tron-silver font-montserrat font-medium mb-2">
+                    Areas of Interest *
+                  </label>
+                  <div class="grid grid-cols-1 md:grid-cols-2 gap-3">
+                    <label class="flex items-center space-x-2 cursor-pointer">
+                      <input type="checkbox" name="interests" value="dapp-development" class="text-tron-red rounded border-tron-red/30 bg-tron-dark/50 focus:ring-tron-red" />
+                      <span class="text-sm text-tron-silver">DApp Development</span>
+                    </label>
+                    <label class="flex items-center space-x-2 cursor-pointer">
+                      <input type="checkbox" name="interests" value="defi" class="text-tron-red rounded border-tron-red/30 bg-tron-dark/50 focus:ring-tron-red" />
+                      <span class="text-sm text-tron-silver">DeFi Protocols</span>
+                    </label>
+                    <label class="flex items-center space-x-2 cursor-pointer">
+                      <input type="checkbox" name="interests" value="nft" class="text-tron-red rounded border-tron-red/30 bg-tron-dark/50 focus:ring-tron-red" />
+                      <span class="text-sm text-tron-silver">NFT Projects</span>
+                    </label>
+                    <label class="flex items-center space-x-2 cursor-pointer">
+                      <input type="checkbox" name="interests" value="gaming" class="text-tron-red rounded border-tron-red/30 bg-tron-dark/50 focus:ring-tron-red" />
+                      <span class="text-sm text-tron-silver">GameFi</span>
+                    </label>
+                    <label class="flex items-center space-x-2 cursor-pointer">
+                      <input type="checkbox" name="interests" value="infrastructure" class="text-tron-red rounded border-tron-red/30 bg-tron-dark/50 focus:ring-tron-red" />
+                      <span class="text-sm text-tron-silver">Infrastructure</span>
+                    </label>
+                    <label class="flex items-center space-x-2 cursor-pointer">
+                      <input type="checkbox" name="interests" value="education" class="text-tron-red rounded border-tron-red/30 bg-tron-dark/50 focus:ring-tron-red" />
+                      <span class="text-sm text-tron-silver">Education & Tutorials</span>
+                    </label>
+                  </div>
+                </div>
+
+                {/* Location */}
+                <div class="grid md:grid-cols-2 gap-6">
+                  <div>
+                    <label for="country" class="block text-tron-silver font-montserrat font-medium mb-2">
+                      Country *
+                    </label>
+                    <input 
+                      type="text" 
+                      id="country" 
+                      name="country" 
+                      required 
+                      class="w-full px-4 py-3 bg-tron-dark/50 border border-tron-red/30 rounded-lg text-tron-white font-montserrat focus:outline-none focus:border-tron-red focus:ring-1 focus:ring-tron-red transition-all"
+                      placeholder="Your country"
+                    />
+                  </div>
+                  <div>
+                    <label for="timezone" class="block text-tron-silver font-montserrat font-medium mb-2">
+                      Timezone
+                    </label>
+                    <select 
+                      id="timezone" 
+                      name="timezone" 
+                      class="w-full px-4 py-3 bg-tron-dark/50 border border-tron-red/30 rounded-lg text-tron-white font-montserrat focus:outline-none focus:border-tron-red focus:ring-1 focus:ring-tron-red transition-all"
+                    >
+                      <option value="">Select timezone</option>
+                      <option value="UTC-12">UTC-12</option>
+                      <option value="UTC-11">UTC-11</option>
+                      <option value="UTC-10">UTC-10</option>
+                      <option value="UTC-9">UTC-9</option>
+                      <option value="UTC-8">UTC-8</option>
+                      <option value="UTC-7">UTC-7</option>
+                      <option value="UTC-6">UTC-6</option>
+                      <option value="UTC-5">UTC-5</option>
+                      <option value="UTC-4">UTC-4</option>
+                      <option value="UTC-3">UTC-3</option>
+                      <option value="UTC-2">UTC-2</option>
+                      <option value="UTC-1">UTC-1</option>
+                      <option value="UTC+0">UTC+0</option>
+                      <option value="UTC+1">UTC+1</option>
+                      <option value="UTC+2">UTC+2</option>
+                      <option value="UTC+3">UTC+3</option>
+                      <option value="UTC+4">UTC+4</option>
+                      <option value="UTC+5">UTC+5</option>
+                      <option value="UTC+6">UTC+6</option>
+                      <option value="UTC+7">UTC+7</option>
+                      <option value="UTC+8">UTC+8</option>
+                      <option value="UTC+9">UTC+9</option>
+                      <option value="UTC+10">UTC+10</option>
+                      <option value="UTC+11">UTC+11</option>
+                      <option value="UTC+12">UTC+12</option>
+                    </select>
+                  </div>
+                </div>
+
+                {/* Project Ideas */}
+                <div>
+                  <label for="projectIdeas" class="block text-tron-silver font-montserrat font-medium mb-2">
+                    Project Ideas or Goals
+                  </label>
+                  <textarea 
+                    id="projectIdeas" 
+                    name="projectIdeas" 
+                    rows="4"
+                    class="w-full px-4 py-3 bg-tron-dark/50 border border-tron-red/30 rounded-lg text-tron-white font-montserrat focus:outline-none focus:border-tron-red focus:ring-1 focus:ring-tron-red transition-all"
+                    placeholder="Tell us about projects you'd like to build on TRON or how you'd like to contribute to the ecosystem..."
+                  ></textarea>
+                </div>
+
+                {/* Agreement */}
+                <div class="flex items-start space-x-3">
+                  <input 
+                    type="checkbox" 
+                    id="agreement" 
+                    name="agreement" 
+                    required 
+                    class="mt-1 text-tron-red rounded border-tron-red/30 bg-tron-dark/50 focus:ring-tron-red"
+                  />
+                  <label for="agreement" class="text-sm text-tron-light-gray">
+                    I agree to participate in the TRON MEGATEAM community and understand that this is an application to join builder initiatives. 
+                    I consent to being contacted about opportunities and updates. *
+                  </label>
+                </div>
+
+                {/* Submit Button */}
+                <div class="pt-6">
+                  <button 
+                    type="submit"
+                    class="color-flash-hover w-full group relative overflow-hidden bg-gradient-to-r from-tron-red via-tron-light to-tron-dark-red bg-[length:200%_100%] px-8 py-4 rounded-xl text-xl font-montserrat font-bold transition-all duration-700 transform hover:scale-105 border-2 border-tron-red/50 shadow-lg hover:shadow-2xl hover:shadow-tron-red/30"
+                  >
+                    <span class="relative z-10 flex items-center justify-center text-tron-white">
+                      <i class="fas fa-rocket mr-3 animate-pulse"></i>
+                      <span>Join MEGATEAM</span>
+                    </span>
+                    <div class="absolute inset-0 bg-gradient-to-r from-transparent via-white/20 to-transparent -skew-x-12 -translate-x-full group-hover:translate-x-full transition-transform duration-1000"></div>
+                    <div class="absolute -inset-1 bg-tron-gradient rounded-xl blur opacity-5 group-hover:opacity-10 transition-opacity duration-300"></div>
+                  </button>
+                </div>
+              </form>
+            </div>
+
+            {/* Success Message (Initially Hidden) */}
+            <div id="success-message" class="hidden mt-8 cyber-card p-6 rounded-xl bg-gradient-to-r from-green-500/10 to-tron-light/10 border border-green-500/30">
+              <div class="text-center">
+                <i class="fas fa-check-circle text-3xl text-green-400 mb-4"></i>
+                <h3 class="text-xl font-bold text-green-400 mb-2">Application Submitted!</h3>
+                <p class="text-tron-light-gray">
+                  Thank you for joining TRON MEGATEAM! We'll review your application and get back to you soon with next steps.
+                </p>
+              </div>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      {/* Footer */}
+      <footer class="py-8 bg-tron-gray border-t border-tron-red/20">
+        <div class="container mx-auto px-6 text-center">
+          <p class="text-gray-400">
+            © 2024 TRON MEGATEAM. 
+            <span class="text-tron-red">Building the future, together.</span>
+          </p>
+        </div>
+      </footer>
+    </>
+  )
+})
+
 // Main landing page
 app.get('/', (c) => {
   return c.render(
@@ -26,31 +483,31 @@ app.get('/', (c) => {
                 <i class="fas fa-rocket text-tron-red text-2xl"></i>
                 <div class="absolute inset-0 fas fa-rocket text-tron-red text-2xl blur-sm opacity-30"></div>
               </div>
-              <span class="text-2xl font-orbitron font-bold tracking-wider">
+              <span class="text-2xl font-montserrat font-bold tracking-wider">
                 TRON <span class="text-transparent bg-clip-text bg-tron-gradient">MEGATEAM</span>
               </span>
             </div>
             <div class="hidden md:flex items-center space-x-8">
-              <a href="#mission" class="font-rajdhani font-medium text-tron-silver hover:text-tron-red transition-all duration-300 hover:glow-text relative group">
+              <a href="#mission" class="font-montserrat font-medium text-tron-silver hover:text-tron-red transition-all duration-300 hover:glow-text relative group">
                 Mission
                 <span class="absolute bottom-0 left-0 w-0 h-0.5 bg-tron-red transition-all duration-300 group-hover:w-full"></span>
               </a>
-              <a href="#objectives" class="font-rajdhani font-medium text-tron-silver hover:text-tron-red transition-all duration-300 hover:glow-text relative group">
+              <a href="#objectives" class="font-montserrat font-medium text-tron-silver hover:text-tron-red transition-all duration-300 hover:glow-text relative group">
                 Objectives
                 <span class="absolute bottom-0 left-0 w-0 h-0.5 bg-tron-red transition-all duration-300 group-hover:w-full"></span>
               </a>
-              <a href="#structure" class="font-rajdhani font-medium text-tron-silver hover:text-tron-red transition-all duration-300 hover:glow-text relative group">
+              <a href="#structure" class="font-montserrat font-medium text-tron-silver hover:text-tron-red transition-all duration-300 hover:glow-text relative group">
                 Structure
                 <span class="absolute bottom-0 left-0 w-0 h-0.5 bg-tron-red transition-all duration-300 group-hover:w-full"></span>
               </a>
-              <a href="#roadmap" class="font-rajdhani font-medium text-tron-silver hover:text-tron-red transition-all duration-300 hover:glow-text relative group">
+              <a href="#roadmap" class="font-montserrat font-medium text-tron-silver hover:text-tron-red transition-all duration-300 hover:glow-text relative group">
                 Roadmap
                 <span class="absolute bottom-0 left-0 w-0 h-0.5 bg-tron-red transition-all duration-300 group-hover:w-full"></span>
               </a>
-              <button class="relative overflow-hidden bg-gradient-to-r from-tron-red via-tron-light to-tron-red bg-[length:200%_100%] hover:bg-right-bottom px-6 py-2 rounded-lg font-rajdhani font-bold transition-all duration-500 transform hover:scale-105 hover:shadow-lg hover:shadow-tron-red/50 border border-tron-red/50">
+              <a href="/signup" class="color-flash-hover relative overflow-hidden bg-gradient-to-r from-tron-red via-tron-light to-tron-red bg-[length:200%_100%] px-6 py-2 rounded-lg font-montserrat font-bold transition-all duration-500 transform hover:scale-105 border border-tron-red/50 inline-block">
                 <span class="relative z-10 text-tron-white">Join MEGATEAM</span>
                 <div class="absolute inset-0 bg-gradient-to-r from-transparent via-white/20 to-transparent -skew-x-12 -translate-x-full group-hover:translate-x-full transition-transform duration-700"></div>
-              </button>
+              </a>
             </div>
             <button class="md:hidden text-tron-red text-xl hover:text-tron-light transition-colors" id="mobile-menu-btn">
               <i class="fas fa-bars"></i>
@@ -62,30 +519,25 @@ app.get('/', (c) => {
       {/* Hero Section */}
       <section class="min-h-screen flex items-center justify-center relative overflow-hidden pt-20">
         {/* Animated Background */}
-        <div class="absolute inset-0 bg-gradient-to-br from-tron-red/20 via-tron-black via-tron-gray/10 to-tron-red/15"></div>
+        <div class="absolute inset-0 bg-gradient-to-br from-tron-red/5 via-tron-black via-tron-gray/2.5 to-tron-red/4"></div>
         
         {/* TRON Holographic Overlay */}
-        <div class="absolute inset-0 bg-tron-holographic opacity-5 animate-hologram"></div>
+        <div class="absolute inset-0 bg-tron-holographic opacity-1.5 animate-hologram"></div>
         
-        {/* TRON Scan Lines */}
-        <div class="absolute inset-0 pointer-events-none">
-          <div class="absolute w-full h-0.5 bg-tron-red opacity-30 animate-cyber-scan"></div>
-        </div>
+
         
-        {/* 3D Geometric Elements with TRON Colors */}
-        <div class="absolute top-1/4 left-1/4 w-64 h-64 border-2 border-tron-red/20 rotate-45 animate-rotate-3d"></div>
-        <div class="absolute bottom-1/4 right-1/4 w-48 h-48 border-2 border-tron-light/20 rotate-12 animate-float"></div>
+
         
         <div class="container mx-auto px-6 text-center relative z-20" data-aos="fade-up">
           <div class="mb-8 relative">
             <div class="relative inline-block">
               <i class="fas fa-rocket text-6xl text-transparent bg-clip-text bg-tron-gradient"></i>
-              <div class="absolute inset-0 fas fa-rocket text-6xl text-tron-red blur-lg opacity-30"></div>
+              <div class="absolute inset-0 fas fa-rocket text-6xl text-tron-red blur-lg opacity-15"></div>
             </div>
-            <div class="absolute -inset-4 bg-tron-red/5 rounded-full blur-xl animate-pulse"></div>
+            <div class="absolute -inset-4 bg-tron-red/1.5 rounded-full blur-xl animate-pulse"></div>
           </div>
           
-          <h1 class="text-5xl md:text-8xl font-orbitron font-black mb-8 leading-tight tracking-wider">
+          <h1 class="text-5xl md:text-8xl font-montserrat font-black mb-8 leading-tight tracking-wider">
             <span class="inline-block transform hover:scale-105 transition-transform duration-300 text-tron-white">Build</span>{" "}
             <span class="text-transparent bg-clip-text bg-tron-gradient">Everywhere</span>
             <br />
@@ -95,81 +547,19 @@ app.get('/', (c) => {
             <span class="text-tron-silver font-black">Together on </span>
             <span class="text-transparent bg-clip-text bg-gradient-to-r from-tron-red via-tron-light to-tron-dark-red relative">
               TRON
-              <span class="absolute inset-0 text-tron-red blur-sm opacity-30">TRON</span>
+              <span class="absolute inset-0 text-tron-red blur-sm opacity-15">TRON</span>
             </span>
           </h1>
           
-          <div class="relative mb-12">
-            <p class="text-xl md:text-2xl text-tron-light-gray max-w-5xl mx-auto leading-relaxed font-exo font-light">
-              <span class="text-tron-red font-medium">Initialize</span> the largest, most inclusive builder movement in crypto history. 
-              <span class="text-tron-light font-medium">Connect</span> with global communities to create, educate, and prosper on TRON's 
-              <span class="text-tron-silver font-medium">superior</span>, profitable, and sustainable foundation.
-            </p>
-            <div class="absolute -inset-2 bg-gradient-to-r from-transparent via-tron-red/10 to-transparent rounded-lg blur-sm opacity-30"></div>
-          </div>
+
           
-          <div class="flex flex-col md:flex-row gap-6 justify-center items-center">
-            <button class="group relative overflow-hidden bg-gradient-to-r from-tron-red via-tron-light to-tron-dark-red bg-[length:200%_100%] hover:bg-right-bottom px-10 py-5 rounded-xl text-xl font-orbitron font-bold transition-all duration-700 transform hover:scale-110 hover:rotate-1 border-2 border-tron-red/50 shadow-lg hover:shadow-2xl hover:shadow-tron-red/30">
-              <span class="relative z-10 flex items-center text-tron-white">
-                <i class="fas fa-play mr-3 animate-pulse"></i>
-                <span>Initialize Protocol</span>
-              </span>
-              <div class="absolute inset-0 bg-gradient-to-r from-transparent via-white/30 to-transparent -skew-x-12 -translate-x-full group-hover:translate-x-full transition-transform duration-1000"></div>
-              <div class="absolute -inset-1 bg-tron-gradient rounded-xl blur opacity-20 group-hover:opacity-30 transition-opacity duration-300"></div>
-            </button>
-            
-            <button class="group relative overflow-hidden border-2 border-tron-red bg-transparent hover:bg-tron-red/10 px-10 py-5 rounded-xl text-xl font-orbitron font-bold transition-all duration-500 transform hover:scale-105 hover:-rotate-1 hover:shadow-lg hover:shadow-tron-red/30">
-              <span class="relative z-10 flex items-center text-tron-red group-hover:text-tron-light">
-                <i class="fas fa-download mr-3 animate-bounce"></i>
-                <span>Access Documentation</span>
-              </span>
-              <div class="absolute inset-0 bg-gradient-to-r from-transparent via-tron-red/20 to-transparent -skew-x-12 -translate-x-full group-hover:translate-x-full transition-transform duration-700"></div>
-            </button>
-          </div>
+
           
-          {/* Floating Data Particles with TRON Colors */}
-          <div class="absolute inset-0 pointer-events-none">
-            <div class="absolute top-20 left-20 w-2 h-2 bg-tron-red rounded-full animate-float opacity-60" style="animation-delay: 0s;"></div>
-            <div class="absolute top-40 right-32 w-1 h-1 bg-tron-light rounded-full animate-float opacity-80" style="animation-delay: 1s;"></div>
-            <div class="absolute bottom-32 left-1/3 w-1.5 h-1.5 bg-tron-silver rounded-full animate-float opacity-70" style="animation-delay: 2s;"></div>
-            <div class="absolute bottom-20 right-1/4 w-1 h-1 bg-tron-dark-red rounded-full animate-float opacity-60" style="animation-delay: 3s;"></div>
-          </div>
+
         </div>
       </section>
 
-      {/* Stats Section */}
-      <section class="py-20 relative overflow-hidden">
-        <div class="absolute inset-0 bg-gradient-to-r from-tron-black via-tron-gray/50 to-tron-black"></div>
-        <div class="absolute inset-0 tron-grid opacity-20"></div>
-        
-        <div class="container mx-auto px-6 relative z-10">
-          <div class="grid grid-cols-2 md:grid-cols-4 gap-8">
-            <div class="text-center cyber-card p-8 rounded-xl" data-aos="fade-up" data-aos-delay="100">
-              <div class="text-5xl font-orbitron font-black text-transparent bg-clip-text bg-tron-gradient mb-4 stat-glow" id="stat-hubs">40</div>
-              <div class="text-tron-red font-rajdhani font-medium uppercase tracking-wider">Regional Hubs</div>
-              <div class="w-full h-0.5 bg-gradient-to-r from-transparent via-tron-red to-transparent mt-2 opacity-50"></div>
-            </div>
-            
-            <div class="text-center cyber-card p-8 rounded-xl" data-aos="fade-up" data-aos-delay="200">
-              <div class="text-5xl font-orbitron font-black text-transparent bg-clip-text bg-tron-gradient mb-4 stat-glow" id="stat-squads">150</div>
-              <div class="text-tron-light font-rajdhani font-medium uppercase tracking-wider">City Squads</div>
-              <div class="w-full h-0.5 bg-gradient-to-r from-transparent via-tron-light to-transparent mt-2 opacity-50"></div>
-            </div>
-            
-            <div class="text-center cyber-card p-8 rounded-xl" data-aos="fade-up" data-aos-delay="300">
-              <div class="text-5xl font-orbitron font-black text-transparent bg-clip-text bg-tron-gradient mb-4 stat-glow" id="stat-deliverables">3,000+</div>
-              <div class="text-tron-silver font-rajdhani font-medium uppercase tracking-wider">Funded Deliverables</div>
-              <div class="w-full h-0.5 bg-gradient-to-r from-transparent via-tron-silver to-transparent mt-2 opacity-50"></div>
-            </div>
-            
-            <div class="text-center cyber-card p-8 rounded-xl" data-aos="fade-up" data-aos-delay="400">
-              <div class="text-5xl font-orbitron font-black text-transparent bg-clip-text bg-tron-gradient mb-4 stat-glow" id="stat-funding">$40M</div>
-              <div class="text-tron-dark-red font-rajdhani font-medium uppercase tracking-wider">TRX Funding</div>
-              <div class="w-full h-0.5 bg-gradient-to-r from-transparent via-tron-dark-red to-transparent mt-2 opacity-50"></div>
-            </div>
-          </div>
-        </div>
-      </section>
+
 
       {/* Mission Section */}
       <section id="mission" class="py-20 relative">
@@ -177,7 +567,7 @@ app.get('/', (c) => {
         
         <div class="container mx-auto px-6 relative z-10">
           <div class="text-center mb-16" data-aos="fade-up">
-            <h2 class="text-5xl md:text-6xl font-orbitron font-black mb-8">
+            <h2 class="text-5xl md:text-6xl font-montserrat font-black mb-8">
               Our <span class="text-transparent bg-clip-text bg-tron-gradient">Mission</span>
             </h2>
             <div class="w-32 h-1 bg-gradient-to-r from-transparent via-tron-red to-transparent mx-auto mb-8"></div>
@@ -186,15 +576,14 @@ app.get('/', (c) => {
           <div class="max-w-5xl mx-auto text-center mb-16" data-aos="fade-up" data-aos-delay="200">
             <div class="cyber-card p-12 rounded-2xl relative overflow-hidden">
               <div class="absolute inset-0 bg-gradient-to-r from-tron-red/5 via-transparent to-tron-light/5"></div>
-              <blockquote class="text-2xl md:text-3xl font-exo font-light leading-relaxed text-tron-light-gray relative z-10">
+              <blockquote class="text-2xl md:text-3xl font-montserrat font-light leading-relaxed text-tron-light-gray relative z-10">
                 <span class="text-tron-red text-4xl">"</span>
                 <span class="text-transparent bg-clip-text bg-gradient-to-r from-tron-white via-tron-silver to-tron-light">
-                  TRON MEGATEAM exists to ignite the largest, most inclusive builder movement in crypto history
+                  TRON MEGATEAM exists to ignite the largest, most inclusive builder movement in crypto history—uniting global communities to create, educate, and prosper on TRON's 
                 </span>
-                —uniting global communities to create, educate, and prosper on TRON's 
-                <span class="text-tron-silver font-medium">superior</span>, 
+                <span class="text-tron-silver font-medium">scalable</span>, 
                 <span class="text-tron-light font-medium">profitable</span>, and 
-                <span class="text-tron-red font-medium">sustainable</span> foundation.
+                <span class="text-tron-red font-medium">dynamic</span> foundation.
                 <span class="text-tron-red text-4xl">"</span>
               </blockquote>
             </div>
@@ -207,11 +596,11 @@ app.get('/', (c) => {
                   <i class="fas fa-globe text-3xl text-tron-red"></i>
                   <div class="absolute inset-0 fas fa-globe text-3xl text-tron-red blur-sm opacity-25"></div>
                 </div>
-                <h3 class="text-2xl font-orbitron font-bold ml-4 text-tron-red">
+                <h3 class="text-2xl font-montserrat font-bold ml-4 text-tron-red">
                   Global Scale
                 </h3>
               </div>
-              <p class="text-tron-light-gray leading-relaxed font-exo">
+              <p class="text-tron-light-gray leading-relaxed font-montserrat">
                 From <span class="text-tron-silver">Lagos</span> to <span class="text-tron-light">Lima</span>, 
                 <span class="text-tron-red">Berlin</span> to <span class="text-tron-silver">Bangalore</span>, 
                 <span class="text-tron-red">Boston</span> to <span class="text-tron-light">San Francisco</span>—MEGATEAM launches 
@@ -227,11 +616,11 @@ app.get('/', (c) => {
                   <i class="fas fa-coins text-3xl text-tron-light"></i>
                   <div class="absolute inset-0 fas fa-coins text-3xl text-tron-light blur-sm opacity-25"></div>
                 </div>
-                <h3 class="text-2xl font-orbitron font-bold ml-4 text-tron-light">
+                <h3 class="text-2xl font-montserrat font-bold ml-4 text-tron-light">
                   Builder-First Economics
                 </h3>
               </div>
-              <p class="text-tron-light-gray leading-relaxed font-exo">
+              <p class="text-tron-light-gray leading-relaxed font-montserrat">
                 With the industry's deepest <span class="text-tron-silver">bounty & grant engine</span>, 
                 contributors earn real <span class="text-tron-red font-medium">TRX/USDT</span> 
                 for shipping code, content, art, or events—turning 
@@ -420,72 +809,318 @@ app.get('/', (c) => {
         </div>
       </section>
 
-      {/* Roadmap */}
-      <section id="roadmap" class="py-20 bg-tron-gray/30">
-        <div class="container mx-auto px-6">
-          <h2 class="text-4xl font-bold text-center mb-16" data-aos="fade-up">
-            Launch <span class="text-tron-red">Roadmap</span>
-          </h2>
-          
-          <div class="max-w-4xl mx-auto">
-            <div class="space-y-8">
-              {/* Phase 1 */}
-              <div class="flex items-start gap-6" data-aos="fade-right">
-                <div class="bg-tron-red text-white rounded-full w-12 h-12 flex items-center justify-center font-bold text-lg flex-shrink-0">
-                  1
+      {/* Roadmap Infographic */}
+      <section id="roadmap" class="py-20 bg-gradient-to-br from-tron-black via-tron-gray/20 to-tron-black relative overflow-hidden">
+        {/* Background Grid */}
+        <div class="absolute inset-0 bg-tron-grid bg-[size:40px_40px] opacity-10"></div>
+        
+        <div class="container mx-auto px-6 relative z-10">
+          {/* Section Header */}
+          <div class="text-center mb-20" data-aos="fade-up">
+            <h2 class="text-5xl md:text-6xl font-montserrat font-black mb-6">
+              Launch <span class="text-transparent bg-clip-text bg-tron-gradient">Roadmap</span>
+            </h2>
+            <div class="flex items-center justify-center gap-4 mb-4">
+              <div class="h-0.5 w-20 bg-gradient-to-r from-transparent to-tron-red"></div>
+              <i class="fas fa-route text-2xl text-tron-red"></i>
+              <div class="h-0.5 w-20 bg-gradient-to-l from-transparent to-tron-red"></div>
+            </div>
+            <p class="text-xl text-tron-light-gray font-montserrat">
+              Five strategic phases to build the future of TRON development
+            </p>
+          </div>
+
+          {/* Desktop Timeline View */}
+          <div class="hidden lg:block">
+            {/* Timeline Container */}
+            <div class="relative">
+              {/* Main Timeline Line */}
+              <div class="absolute left-1/2 transform -translate-x-1/2 w-1 h-full bg-gradient-to-b from-tron-red via-tron-light to-tron-red opacity-30"></div>
+              
+              {/* Phase Cards */}
+              <div class="space-y-32">
+                {/* Phase 1 - Left */}
+                <div class="flex items-center" data-aos="fade-right">
+                  <div class="w-1/2 pr-12">
+                    <div class="cyber-card p-8 rounded-xl bg-gradient-to-r from-tron-red/10 to-transparent border border-tron-red/30">
+                      <div class="flex items-center gap-4 mb-4">
+                        <div class="bg-gradient-to-r from-tron-red to-tron-light p-4 rounded-lg">
+                          <i class="fas fa-clipboard-list text-2xl text-white"></i>
+                        </div>
+                        <div>
+                          <span class="text-sm text-tron-red font-montserrat font-bold uppercase tracking-wider">Phase 01</span>
+                          <h3 class="text-2xl font-montserrat font-bold text-tron-white">Preparation & Core Design</h3>
+                        </div>
+                      </div>
+                      <p class="text-tron-light-gray leading-relaxed">
+                        Define detailed scope, secure TRONDAO approval, finalize framework and budget allocation.
+                      </p>
+                      <div class="mt-4 flex flex-wrap gap-2">
+                        <span class="bg-tron-red/20 text-tron-red px-3 py-1 rounded-full text-sm">Planning</span>
+                        <span class="bg-tron-red/20 text-tron-red px-3 py-1 rounded-full text-sm">Approval</span>
+                        <span class="bg-tron-red/20 text-tron-red px-3 py-1 rounded-full text-sm">Framework</span>
+                      </div>
+                    </div>
+                  </div>
+                  {/* Center Timeline Node */}
+                  <div class="relative z-20">
+                    <div class="w-16 h-16 bg-gradient-to-r from-tron-red to-tron-light rounded-full flex items-center justify-center border-4 border-tron-black shadow-lg shadow-tron-red/50">
+                      <span class="text-2xl font-bold text-white">1</span>
+                    </div>
+                  </div>
+                  <div class="w-1/2 pl-12"></div>
                 </div>
-                <div>
-                  <h3 class="text-2xl font-bold mb-2">Preparation & Core Design</h3>
-                  <p class="text-gray-300 mb-2">Month 1</p>
-                  <p class="text-gray-400">Define detailed scope, secure TRONDAO approval, finalize framework and budget allocation.</p>
+
+                {/* Phase 2 - Right */}
+                <div class="flex items-center" data-aos="fade-left">
+                  <div class="w-1/2 pr-12"></div>
+                  {/* Center Timeline Node */}
+                  <div class="relative z-20">
+                    <div class="w-16 h-16 bg-gradient-to-r from-tron-light to-tron-red rounded-full flex items-center justify-center border-4 border-tron-black shadow-lg shadow-tron-light/50">
+                      <span class="text-2xl font-bold text-white">2</span>
+                    </div>
+                  </div>
+                  <div class="w-1/2 pl-12">
+                    <div class="cyber-card p-8 rounded-xl bg-gradient-to-l from-tron-light/10 to-transparent border border-tron-light/30">
+                      <div class="flex items-center gap-4 mb-4">
+                        <div class="bg-gradient-to-r from-tron-light to-tron-red p-4 rounded-lg">
+                          <i class="fas fa-code text-2xl text-white"></i>
+                        </div>
+                        <div>
+                          <span class="text-sm text-tron-light font-montserrat font-bold uppercase tracking-wider">Phase 02</span>
+                          <h3 class="text-2xl font-montserrat font-bold text-tron-white">Platform Development</h3>
+                        </div>
+                      </div>
+                      <p class="text-tron-light-gray leading-relaxed">
+                        Build MEGATEAM web portal with bounty listings, submission system, and smart contract integration.
+                      </p>
+                      <div class="mt-4 flex flex-wrap gap-2">
+                        <span class="bg-tron-light/20 text-tron-light px-3 py-1 rounded-full text-sm">Development</span>
+                        <span class="bg-tron-light/20 text-tron-light px-3 py-1 rounded-full text-sm">Smart Contracts</span>
+                        <span class="bg-tron-light/20 text-tron-light px-3 py-1 rounded-full text-sm">Portal</span>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+
+                {/* Phase 3 - Left */}
+                <div class="flex items-center" data-aos="fade-right">
+                  <div class="w-1/2 pr-12">
+                    <div class="cyber-card p-8 rounded-xl bg-gradient-to-r from-tron-silver/10 to-transparent border border-tron-silver/30">
+                      <div class="flex items-center gap-4 mb-4">
+                        <div class="bg-gradient-to-r from-tron-silver to-tron-light p-4 rounded-lg">
+                          <i class="fas fa-shield-alt text-2xl text-tron-black"></i>
+                        </div>
+                        <div>
+                          <span class="text-sm text-tron-silver font-montserrat font-bold uppercase tracking-wider">Phase 03</span>
+                          <h3 class="text-2xl font-montserrat font-bold text-tron-white">Guardian Onboarding</h3>
+                        </div>
+                      </div>
+                      <p class="text-tron-light-gray leading-relaxed">
+                        Recruit and train Guardian reviewers, establish evaluation criteria and accountability systems.
+                      </p>
+                      <div class="mt-4 flex flex-wrap gap-2">
+                        <span class="bg-tron-silver/20 text-tron-silver px-3 py-1 rounded-full text-sm">Recruitment</span>
+                        <span class="bg-tron-silver/20 text-tron-silver px-3 py-1 rounded-full text-sm">Training</span>
+                        <span class="bg-tron-silver/20 text-tron-silver px-3 py-1 rounded-full text-sm">Governance</span>
+                      </div>
+                    </div>
+                  </div>
+                  {/* Center Timeline Node */}
+                  <div class="relative z-20">
+                    <div class="w-16 h-16 bg-gradient-to-r from-tron-silver to-tron-light rounded-full flex items-center justify-center border-4 border-tron-black shadow-lg shadow-tron-silver/50">
+                      <span class="text-2xl font-bold text-tron-black">3</span>
+                    </div>
+                  </div>
+                  <div class="w-1/2 pl-12"></div>
+                </div>
+
+                {/* Phase 4 - Right */}
+                <div class="flex items-center" data-aos="fade-left">
+                  <div class="w-1/2 pr-12"></div>
+                  {/* Center Timeline Node */}
+                  <div class="relative z-20">
+                    <div class="w-16 h-16 bg-gradient-to-r from-tron-red via-yellow-400 to-tron-light rounded-full flex items-center justify-center border-4 border-tron-black shadow-lg shadow-yellow-400/50">
+                      <span class="text-2xl font-bold text-tron-black">4</span>
+                    </div>
+                  </div>
+                  <div class="w-1/2 pl-12">
+                    <div class="cyber-card p-8 rounded-xl bg-gradient-to-l from-yellow-400/10 to-transparent border border-yellow-400/30">
+                      <div class="flex items-center gap-4 mb-4">
+                        <div class="bg-gradient-to-r from-yellow-400 to-tron-red p-4 rounded-lg">
+                          <i class="fas fa-rocket text-2xl text-tron-black"></i>
+                        </div>
+                        <div>
+                          <span class="text-sm text-yellow-400 font-montserrat font-bold uppercase tracking-wider">Phase 04</span>
+                          <h3 class="text-2xl font-montserrat font-bold text-tron-white">Pilot Launch</h3>
+                        </div>
+                      </div>
+                      <p class="text-tron-light-gray leading-relaxed">
+                        Soft launch with select bounties to test platform functionality and gather community feedback.
+                      </p>
+                      <div class="mt-4 flex flex-wrap gap-2">
+                        <span class="bg-yellow-400/20 text-yellow-400 px-3 py-1 rounded-full text-sm">Testing</span>
+                        <span class="bg-yellow-400/20 text-yellow-400 px-3 py-1 rounded-full text-sm">Feedback</span>
+                        <span class="bg-yellow-400/20 text-yellow-400 px-3 py-1 rounded-full text-sm">Beta Launch</span>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+
+                {/* Phase 5 - Center (Full Launch) */}
+                <div class="flex justify-center" data-aos="zoom-in">
+                  <div class="text-center">
+                    <div class="relative mb-8">
+                      <div class="w-20 h-20 bg-gradient-to-r from-tron-red via-tron-light via-yellow-400 via-green-400 to-tron-red rounded-full flex items-center justify-center border-4 border-tron-black shadow-2xl shadow-tron-red/50 mx-auto animate-pulse">
+                        <span class="text-3xl font-bold text-white">5</span>
+                      </div>
+                      <div class="absolute -inset-4 bg-gradient-to-r from-tron-red via-transparent to-tron-red rounded-full blur-xl opacity-30 animate-pulse"></div>
+                    </div>
+                    <div class="cyber-card p-10 rounded-2xl bg-gradient-to-br from-tron-red/20 via-tron-light/10 to-green-400/10 border-2 border-tron-red/50 max-w-lg">
+                      <div class="flex items-center justify-center gap-4 mb-6">
+                        <div class="bg-gradient-to-r from-tron-red to-green-400 p-4 rounded-lg">
+                          <i class="fas fa-flag-checkered text-3xl text-white"></i>
+                        </div>
+                        <div>
+                          <span class="text-sm text-green-400 font-montserrat font-bold uppercase tracking-wider">Phase 05</span>
+                          <h3 class="text-3xl font-montserrat font-bold text-transparent bg-clip-text bg-gradient-to-r from-tron-red to-green-400">Full Public Launch</h3>
+                        </div>
+                      </div>
+                      <p class="text-tron-light-gray leading-relaxed text-lg mb-6">
+                        Official launch to entire TRON community with full bounty and grant programs.
+                      </p>
+                      <div class="flex flex-wrap justify-center gap-2">
+                        <span class="bg-green-400/20 text-green-400 px-4 py-2 rounded-full text-sm font-bold">Global Launch</span>
+                        <span class="bg-tron-red/20 text-tron-red px-4 py-2 rounded-full text-sm font-bold">Full Features</span>
+                        <span class="bg-tron-light/20 text-tron-light px-4 py-2 rounded-full text-sm font-bold">Community Ready</span>
+                      </div>
+                    </div>
+                  </div>
                 </div>
               </div>
+            </div>
+          </div>
 
-              {/* Phase 2 */}
-              <div class="flex items-start gap-6" data-aos="fade-left">
-                <div class="bg-tron-red text-white rounded-full w-12 h-12 flex items-center justify-center font-bold text-lg flex-shrink-0">
-                  2
+          {/* Mobile/Tablet Vertical View */}
+          <div class="lg:hidden">
+            <div class="relative">
+              {/* Vertical Timeline Line */}
+              <div class="absolute left-8 top-0 bottom-0 w-1 bg-gradient-to-b from-tron-red via-tron-light to-green-400 opacity-30"></div>
+              
+              <div class="space-y-12">
+                {/* Mobile Phase 1 */}
+                <div class="flex items-start gap-6" data-aos="fade-up">
+                  <div class="w-16 h-16 bg-gradient-to-r from-tron-red to-tron-light rounded-full flex items-center justify-center border-4 border-tron-black shadow-lg shadow-tron-red/50 flex-shrink-0 relative z-10">
+                    <span class="text-xl font-bold text-white">1</span>
+                  </div>
+                  <div class="cyber-card p-6 rounded-xl bg-gradient-to-r from-tron-red/10 to-transparent border border-tron-red/30 flex-1">
+                    <div class="flex items-center gap-3 mb-3">
+                      <i class="fas fa-clipboard-list text-xl text-tron-red"></i>
+                      <div>
+                        <span class="text-xs text-tron-red font-bold uppercase">Phase 01</span>
+                        <h3 class="text-xl font-bold text-tron-white">Preparation & Core Design</h3>
+                      </div>
+                    </div>
+                    <p class="text-tron-light-gray text-sm mb-3">
+                      Define detailed scope, secure TRONDAO approval, finalize framework and budget allocation.
+                    </p>
+                    <div class="flex flex-wrap gap-1">
+                      <span class="bg-tron-red/20 text-tron-red px-2 py-1 rounded text-xs">Planning</span>
+                      <span class="bg-tron-red/20 text-tron-red px-2 py-1 rounded text-xs">Approval</span>
+                    </div>
+                  </div>
                 </div>
-                <div>
-                  <h3 class="text-2xl font-bold mb-2">Platform Development</h3>
-                  <p class="text-gray-300 mb-2">Months 2-3</p>
-                  <p class="text-gray-400">Build MEGATEAM web portal with bounty listings, submission system, and smart contract integration.</p>
-                </div>
-              </div>
 
-              {/* Phase 3 */}
-              <div class="flex items-start gap-6" data-aos="fade-right">
-                <div class="bg-tron-red text-white rounded-full w-12 h-12 flex items-center justify-center font-bold text-lg flex-shrink-0">
-                  3
+                {/* Mobile Phase 2 */}
+                <div class="flex items-start gap-6" data-aos="fade-up">
+                  <div class="w-16 h-16 bg-gradient-to-r from-tron-light to-tron-red rounded-full flex items-center justify-center border-4 border-tron-black shadow-lg shadow-tron-light/50 flex-shrink-0 relative z-10">
+                    <span class="text-xl font-bold text-white">2</span>
+                  </div>
+                  <div class="cyber-card p-6 rounded-xl bg-gradient-to-r from-tron-light/10 to-transparent border border-tron-light/30 flex-1">
+                    <div class="flex items-center gap-3 mb-3">
+                      <i class="fas fa-code text-xl text-tron-light"></i>
+                      <div>
+                        <span class="text-xs text-tron-light font-bold uppercase">Phase 02</span>
+                        <h3 class="text-xl font-bold text-tron-white">Platform Development</h3>
+                      </div>
+                    </div>
+                    <p class="text-tron-light-gray text-sm mb-3">
+                      Build MEGATEAM web portal with bounty listings, submission system, and smart contract integration.
+                    </p>
+                    <div class="flex flex-wrap gap-1">
+                      <span class="bg-tron-light/20 text-tron-light px-2 py-1 rounded text-xs">Development</span>
+                      <span class="bg-tron-light/20 text-tron-light px-2 py-1 rounded text-xs">Smart Contracts</span>
+                    </div>
+                  </div>
                 </div>
-                <div>
-                  <h3 class="text-2xl font-bold mb-2">Guardian Onboarding</h3>
-                  <p class="text-gray-300 mb-2">Month 3</p>
-                  <p class="text-gray-400">Recruit and train Guardian reviewers, establish evaluation criteria and accountability systems.</p>
-                </div>
-              </div>
 
-              {/* Phase 4 */}
-              <div class="flex items-start gap-6" data-aos="fade-left">
-                <div class="bg-tron-red text-white rounded-full w-12 h-12 flex items-center justify-center font-bold text-lg flex-shrink-0">
-                  4
+                {/* Mobile Phase 3 */}
+                <div class="flex items-start gap-6" data-aos="fade-up">
+                  <div class="w-16 h-16 bg-gradient-to-r from-tron-silver to-tron-light rounded-full flex items-center justify-center border-4 border-tron-black shadow-lg shadow-tron-silver/50 flex-shrink-0 relative z-10">
+                    <span class="text-xl font-bold text-tron-black">3</span>
+                  </div>
+                  <div class="cyber-card p-6 rounded-xl bg-gradient-to-r from-tron-silver/10 to-transparent border border-tron-silver/30 flex-1">
+                    <div class="flex items-center gap-3 mb-3">
+                      <i class="fas fa-shield-alt text-xl text-tron-silver"></i>
+                      <div>
+                        <span class="text-xs text-tron-silver font-bold uppercase">Phase 03</span>
+                        <h3 class="text-xl font-bold text-tron-white">Guardian Onboarding</h3>
+                      </div>
+                    </div>
+                    <p class="text-tron-light-gray text-sm mb-3">
+                      Recruit and train Guardian reviewers, establish evaluation criteria and accountability systems.
+                    </p>
+                    <div class="flex flex-wrap gap-1">
+                      <span class="bg-tron-silver/20 text-tron-silver px-2 py-1 rounded text-xs">Recruitment</span>
+                      <span class="bg-tron-silver/20 text-tron-silver px-2 py-1 rounded text-xs">Training</span>
+                    </div>
+                  </div>
                 </div>
-                <div>
-                  <h3 class="text-2xl font-bold mb-2">Pilot Launch</h3>
-                  <p class="text-gray-300 mb-2">Month 4</p>
-                  <p class="text-gray-400">Soft launch with select bounties to test platform functionality and gather community feedback.</p>
-                </div>
-              </div>
 
-              {/* Phase 5 */}
-              <div class="flex items-start gap-6" data-aos="fade-right">
-                <div class="bg-tron-red text-white rounded-full w-12 h-12 flex items-center justify-center font-bold text-lg flex-shrink-0">
-                  5
+                {/* Mobile Phase 4 */}
+                <div class="flex items-start gap-6" data-aos="fade-up">
+                  <div class="w-16 h-16 bg-gradient-to-r from-yellow-400 to-tron-red rounded-full flex items-center justify-center border-4 border-tron-black shadow-lg shadow-yellow-400/50 flex-shrink-0 relative z-10">
+                    <span class="text-xl font-bold text-tron-black">4</span>
+                  </div>
+                  <div class="cyber-card p-6 rounded-xl bg-gradient-to-r from-yellow-400/10 to-transparent border border-yellow-400/30 flex-1">
+                    <div class="flex items-center gap-3 mb-3">
+                      <i class="fas fa-rocket text-xl text-yellow-400"></i>
+                      <div>
+                        <span class="text-xs text-yellow-400 font-bold uppercase">Phase 04</span>
+                        <h3 class="text-xl font-bold text-tron-white">Pilot Launch</h3>
+                      </div>
+                    </div>
+                    <p class="text-tron-light-gray text-sm mb-3">
+                      Soft launch with select bounties to test platform functionality and gather community feedback.
+                    </p>
+                    <div class="flex flex-wrap gap-1">
+                      <span class="bg-yellow-400/20 text-yellow-400 px-2 py-1 rounded text-xs">Testing</span>
+                      <span class="bg-yellow-400/20 text-yellow-400 px-2 py-1 rounded text-xs">Beta Launch</span>
+                    </div>
+                  </div>
                 </div>
-                <div>
-                  <h3 class="text-2xl font-bold mb-2">Full Public Launch</h3>
-                  <p class="text-gray-300 mb-2">Month 6</p>
-                  <p class="text-gray-400">Official launch to entire TRON community with full bounty and grant programs.</p>
+
+                {/* Mobile Phase 5 */}
+                <div class="flex items-start gap-6" data-aos="fade-up">
+                  <div class="w-16 h-16 bg-gradient-to-r from-tron-red via-yellow-400 to-green-400 rounded-full flex items-center justify-center border-4 border-tron-black shadow-lg shadow-green-400/50 flex-shrink-0 relative z-10 animate-pulse">
+                    <span class="text-xl font-bold text-white">5</span>
+                  </div>
+                  <div class="cyber-card p-6 rounded-xl bg-gradient-to-r from-green-400/10 to-transparent border-2 border-green-400/30 flex-1">
+                    <div class="flex items-center gap-3 mb-3">
+                      <i class="fas fa-flag-checkered text-xl text-green-400"></i>
+                      <div>
+                        <span class="text-xs text-green-400 font-bold uppercase">Phase 05</span>
+                        <h3 class="text-xl font-bold text-transparent bg-clip-text bg-gradient-to-r from-tron-red to-green-400">Full Public Launch</h3>
+                      </div>
+                    </div>
+                    <p class="text-tron-light-gray text-sm mb-3">
+                      Official launch to entire TRON community with full bounty and grant programs.
+                    </p>
+                    <div class="flex flex-wrap gap-1">
+                      <span class="bg-green-400/20 text-green-400 px-2 py-1 rounded text-xs">Global Launch</span>
+                      <span class="bg-tron-red/20 text-tron-red px-2 py-1 rounded text-xs">Full Features</span>
+                    </div>
+                  </div>
                 </div>
               </div>
             </div>
@@ -505,12 +1140,10 @@ app.get('/', (c) => {
               When the world builds on TRON, the future of Web3 belongs to everyone.
             </p>
             <div class="flex flex-col md:flex-row gap-6 justify-center items-center">
-              <button class="bg-tron-red hover:bg-red-700 px-8 py-4 rounded-lg text-xl font-bold transition-all transform hover:scale-105">
+              <a href="/signup" class="color-flash-hover bg-tron-red px-8 py-4 rounded-lg text-xl font-bold transition-all transform hover:scale-105 inline-block text-white">
                 <i class="fas fa-rocket mr-3"></i>Join MEGATEAM
-              </button>
-              <button class="border border-tron-red text-tron-red hover:bg-tron-red hover:text-white px-8 py-4 rounded-lg text-xl font-bold transition-all">
-                <i class="fas fa-file-alt mr-3"></i>Read Documentation
-              </button>
+              </a>
+
             </div>
           </div>
         </div>
@@ -525,8 +1158,10 @@ app.get('/', (c) => {
               <span class="text-2xl font-bold">TRON <span class="text-tron-red">MEGATEAM</span></span>
             </div>
             <div class="flex space-x-6">
-              <a href="#" class="text-gray-400 hover:text-tron-red transition-colors">
-                <i class="fab fa-twitter text-2xl"></i>
+              <a href="https://x.com/TRONMEGATEAM" target="_blank" rel="noopener noreferrer" class="text-gray-400 hover:text-tron-red transition-colors">
+                <svg class="w-6 h-6" fill="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
+                  <path d="M18.244 2.25h3.308l-7.227 8.26 8.502 11.24H16.17l-5.214-6.817L4.99 21.75H1.68l7.73-8.835L1.254 2.25H8.08l4.713 6.231zm-1.161 17.52h1.833L7.084 4.126H5.117z"/>
+                </svg>
               </a>
               <a href="#" class="text-gray-400 hover:text-tron-red transition-colors">
                 <i class="fab fa-discord text-2xl"></i>
@@ -541,7 +1176,7 @@ app.get('/', (c) => {
           </div>
           <div class="text-center mt-6 pt-6 border-t border-gray-700">
             <p class="text-gray-400">
-              © 2024 TRON MEGATEAM. Prepared by Dylan Gillis (SunnyD). 
+              © 2024 TRON MEGATEAM. 
               <span class="text-tron-red">Building the future, together.</span>
             </p>
           </div>

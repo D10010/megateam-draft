@@ -24,9 +24,11 @@ The landing page now uses the official TRON color palette while maintaining its 
 5. **Year-1 Objectives** - Cyber-themed cards with interactive hover effects
 6. **Governance Structure** - 3D visual elements and animated borders
 7. **Platform Features** - Neon-outlined feature cards with glow effects
-8. **Launch Roadmap** - Timeline with futuristic styling and cyber elements
+8. **Launch Roadmap** - Visual infographic timeline with alternating desktop layout
 9. **Interactive CTAs** - Enhanced buttons with ripple effects and screen flashes
 10. **Responsive Design** - Fully optimized for all devices with cyber aesthetics
+11. **📝 Signup Form** - Comprehensive registration form with validation
+12. **📊 Google Sheets Integration** - Automatic submission recording to spreadsheet
 
 #### **🚀 Futuristic Enhancements with Authentic TRON Colors**
 - **Matrix Rain Effect** - Animated background with falling TRON red characters
@@ -63,8 +65,16 @@ The landing page now uses the official TRON color palette while maintaining its 
 
 ### 📊 Data Architecture
 - **Static Content**: All content directly from TRON MEGATEAM proposal document
-- **No Database**: Pure static site with client-side interactivity
+- **Form Data**: Google Sheets integration for signup submissions
+- **Storage Services**: Google Sheets API for persistent data storage
 - **Assets**: Local CSS and JS files served via Hono's static file serving
+
+#### **Google Sheets Integration**
+- **Automatic Recording**: All signup form submissions sent to Google Sheets
+- **Data Fields**: Timestamp, personal info, skills, interests, location, project ideas
+- **API Method**: Google Sheets API with secure authentication
+- **Environment Variables**: Configurable for local development and production
+- **Setup Guide**: Complete documentation in `GOOGLE_SHEETS_SETUP.md`
 
 ### 🎨 Design Elements
 - **TRON Red (#FF060A)**: Primary brand color for accents and CTAs
@@ -94,9 +104,13 @@ The landing page now uses the official TRON color palette while maintaining its 
 5. **Objectives**: Year-1 goals with quantifiable targets
 6. **Structure**: Governance model overview
 7. **Platform**: Feature descriptions for the MEGATEAM portal
-8. **Roadmap**: Implementation timeline
+8. **Roadmap**: Visual infographic timeline with phase details
 9. **CTA**: Final call-to-action for joining
-10. **Footer**: Social links and copyright information
+10. **Signup Form** (`/signup`): Comprehensive registration with Google Sheets integration
+11. **Footer**: Social links and copyright information
+
+### API Endpoints
+- `POST /api/signup` - Form submission endpoint with validation and Google Sheets integration
 
 ## Development
 
@@ -119,11 +133,13 @@ npm run clean-port   # Clean port 3000
 ```
 webapp/
 ├── src/
-│   ├── index.tsx      # Main Hono application with landing page
+│   ├── index.tsx      # Main Hono application with landing page + signup + API
 │   └── renderer.tsx   # JSX renderer with head configuration
 ├── public/static/     # Static assets
-│   ├── app.js        # Interactive JavaScript features
+│   ├── app.js        # Interactive JavaScript + form handling
 │   └── style.css     # Custom CSS animations and styling
+├── .dev.vars         # Environment variables for local development (gitignored)
+├── GOOGLE_SHEETS_SETUP.md # Complete setup guide for Google Sheets integration
 ├── ecosystem.config.cjs # PM2 configuration for development
 ├── wrangler.jsonc    # Cloudflare Pages configuration
 └── package.json      # Dependencies and scripts
@@ -135,12 +151,38 @@ webapp/
 - **Build Output**: Static files in `dist/` directory
 - **Last Updated**: 2025-01-09
 
+## Google Sheets Integration Setup
+
+### Quick Setup Steps
+1. **Create Google Sheet** with headers: Timestamp, First Name, Last Name, Email, etc.
+2. **Make Sheet Public** (Editor permission) or set up Service Account
+3. **Get Google API Key** from Google Cloud Console 
+4. **Configure Environment Variables**:
+   ```bash
+   # Local development (.dev.vars)
+   GOOGLE_API_KEY=your-api-key
+   GOOGLE_SHEETS_ID=your-sheet-id
+   
+   # Production (Cloudflare secrets)
+   npx wrangler secret put GOOGLE_API_KEY
+   npx wrangler secret put GOOGLE_SHEETS_ID
+   ```
+5. **See `GOOGLE_SHEETS_SETUP.md`** for complete instructions
+
+### Form Data Captured
+- Personal information (name, email, telegram)
+- Development experience level and skills
+- Areas of interest in TRON ecosystem
+- Location (country, timezone)  
+- Project ideas and goals
+- Terms agreement confirmation
+
 ## Next Steps for Production
-1. Deploy to Cloudflare Pages
-2. Set up custom domain (optional)
-3. Add analytics tracking
-4. Implement contact forms (if needed)
-5. Add blog/news section (if requested)
+1. **Set up Google Sheets** (see GOOGLE_SHEETS_SETUP.md)
+2. Deploy to Cloudflare Pages with environment variables
+3. Set up custom domain (optional)
+4. Add analytics tracking
+5. Test form submissions end-to-end
 6. Connect to actual MEGATEAM platform when available
 
 ## Credits

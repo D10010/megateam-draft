@@ -53,82 +53,9 @@ document.addEventListener('DOMContentLoaded', function() {
         });
     });
 
-    // Enhanced animated counter for statistics
-    function animateCounter(element, target, duration = 2000) {
-        const start = 0;
-        const startTime = performance.now();
-        
-        function updateCounter(currentTime) {
-            const elapsed = currentTime - startTime;
-            const progress = Math.min(elapsed / duration, 1);
-            
-            // Easing function for smooth animation
-            const easeOut = 1 - Math.pow(1 - progress, 3);
-            const current = Math.floor(start + (target - start) * easeOut);
-            
-            // Add cyber glow effect
-            element.classList.add('stat-glow');
-            
-            if (typeof target === 'string' && target.includes('M')) {
-                element.textContent = '$' + current + 'M';
-            } else if (typeof target === 'string' && target.includes('+')) {
-                element.textContent = current.toLocaleString() + '+';
-            } else {
-                element.textContent = current.toLocaleString();
-            }
-            
-            if (progress < 1) {
-                requestAnimationFrame(updateCounter);
-            } else {
-                // Add completion effect
-                triggerCounterComplete(element);
-            }
-        }
-        
-        requestAnimationFrame(updateCounter);
-    }
 
-    function triggerCounterComplete(element) {
-        element.style.animation = 'glowPulse 1s ease-in-out';
-        setTimeout(() => {
-            element.style.animation = '';
-        }, 1000);
-    }
 
-    // Enhanced Intersection Observer for triggering counter animations
-    const statsObserver = new IntersectionObserver((entries) => {
-        entries.forEach(entry => {
-            if (entry.isIntersecting && !entry.target.classList.contains('animated')) {
-                entry.target.classList.add('animated');
-                
-                // Add cyber scan effect
-                addCyberScanEffect(entry.target.parentElement);
-                
-                const element = entry.target;
-                const id = element.id;
-                
-                switch(id) {
-                    case 'stat-hubs':
-                        animateCounter(element, 40);
-                        break;
-                    case 'stat-squads':
-                        animateCounter(element, 150);
-                        break;
-                    case 'stat-deliverables':
-                        animateCounter(element, '3000+');
-                        break;
-                    case 'stat-funding':
-                        animateCounter(element, '40M');
-                        break;
-                }
-            }
-        });
-    }, { threshold: 0.5 });
 
-    // Observe all stat elements
-    document.querySelectorAll('[id^="stat-"]').forEach(el => {
-        statsObserver.observe(el);
-    });
 
     // Enhanced navbar background on scroll
     const navbar = document.querySelector('nav');
@@ -359,7 +286,7 @@ document.addEventListener('DOMContentLoaded', function() {
             left: 0;
             width: 100%;
             height: 100%;
-            background: rgba(0, 255, 255, 0.1);
+            background: rgba(255, 6, 10, 0.1);
             pointer-events: none;
             z-index: 9998;
             animation: fadeIn 0.1s ease-out reverse;
@@ -370,6 +297,68 @@ document.addEventListener('DOMContentLoaded', function() {
         setTimeout(() => {
             flash.remove();
         }, 100);
+    }
+
+    // Success Effect
+    function addSuccessEffect() {
+        const flash = document.createElement('div');
+        flash.style.cssText = `
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: rgba(0, 255, 0, 0.1);
+            pointer-events: none;
+            z-index: 9998;
+            animation: fadeIn 0.3s ease-out reverse;
+        `;
+        
+        document.body.appendChild(flash);
+        
+        setTimeout(() => {
+            flash.remove();
+        }, 300);
+    }
+
+    // Error Message Display
+    function showErrorMessage(message) {
+        // Remove any existing error messages
+        const existingError = document.getElementById('error-message');
+        if (existingError) {
+            existingError.remove();
+        }
+        
+        // Create error message element
+        const errorDiv = document.createElement('div');
+        errorDiv.id = 'error-message';
+        errorDiv.className = 'mt-4 cyber-card p-4 rounded-xl bg-gradient-to-r from-red-500/10 to-tron-red/10 border border-red-500/30';
+        errorDiv.innerHTML = `
+            <div class="text-center">
+                <i class="fas fa-exclamation-triangle text-2xl text-red-400 mb-2"></i>
+                <h3 class="text-lg font-bold text-red-400 mb-2">Submission Error</h3>
+                <p class="text-tron-light-gray">${message}</p>
+                <button onclick="this.parentElement.parentElement.remove()" class="mt-3 px-4 py-2 bg-tron-red hover:bg-tron-dark-red rounded-lg text-sm font-medium transition-colors">
+                    Close
+                </button>
+            </div>
+        `;
+        
+        // Insert after the form
+        const signupForm = document.getElementById('megateam-signup-form');
+        if (signupForm && signupForm.parentElement) {
+            signupForm.parentElement.insertBefore(errorDiv, signupForm.nextSibling);
+        }
+        
+        // Auto-remove after 10 seconds
+        setTimeout(() => {
+            if (errorDiv && errorDiv.parentElement) {
+                errorDiv.remove();
+            }
+        }, 10000);
+        
+        // Add error flash effect
+        addScreenFlash();
     }
 
     // Cursor Trail Effect
@@ -468,6 +457,127 @@ document.addEventListener('DOMContentLoaded', function() {
 
     // Initialize loading screen
     showLoadingScreen();
+
+    // MEGATEAM Signup Form Handler
+    const signupForm = document.getElementById('megateam-signup-form');
+    if (signupForm) {
+        signupForm.addEventListener('submit', function(e) {
+            e.preventDefault();
+            
+            // Collect form data
+            const formData = new FormData(signupForm);
+            const data = {};
+            
+            // Convert FormData to regular object
+            for (let [key, value] of formData.entries()) {
+                if (data[key]) {
+                    // Handle multiple values (like checkboxes)
+                    if (Array.isArray(data[key])) {
+                        data[key].push(value);
+                    } else {
+                        data[key] = [data[key], value];
+                    }
+                } else {
+                    data[key] = value;
+                }
+            }
+            
+            // Handle checkbox arrays properly
+            const checkboxGroups = ['skills', 'interests'];
+            checkboxGroups.forEach(group => {
+                const checkboxes = signupForm.querySelectorAll(`input[name="${group}"]:checked`);
+                data[group] = Array.from(checkboxes).map(cb => cb.value);
+            });
+            
+            // Basic validation
+            const requiredFields = ['firstName', 'lastName', 'email', 'experience', 'country', 'agreement'];
+            let isValid = true;
+            
+            requiredFields.forEach(field => {
+                const input = signupForm.querySelector(`[name="${field}"]`);
+                if (!data[field] || (field === 'agreement' && !input.checked)) {
+                    isValid = false;
+                    input.style.borderColor = '#FF060A';
+                    setTimeout(() => {
+                        input.style.borderColor = '';
+                    }, 3000);
+                }
+            });
+            
+            // Check at least one interest is selected
+            if (!data.interests || data.interests.length === 0) {
+                isValid = false;
+                const interestSection = signupForm.querySelector('[name="interests"]').closest('div').parentElement;
+                interestSection.style.borderLeft = '3px solid #FF060A';
+                setTimeout(() => {
+                    interestSection.style.borderLeft = '';
+                }, 3000);
+            }
+            
+            if (!isValid) {
+                // Add error flash effect
+                addScreenFlash();
+                return;
+            }
+            
+            // Show loading state
+            const submitBtn = signupForm.querySelector('button[type="submit"]');
+            const originalText = submitBtn.innerHTML;
+            submitBtn.innerHTML = `
+                <span class="relative z-10 flex items-center justify-center text-tron-white">
+                    <i class="fas fa-spinner fa-spin mr-3"></i>
+                    <span>Submitting...</span>
+                </span>
+            `;
+            submitBtn.disabled = true;
+            
+            // Submit to backend API and Google Sheets
+            fetch('/api/signup', {
+                method: 'POST',
+                headers: { 
+                    'Content-Type': 'application/json',
+                    'Accept': 'application/json'
+                },
+                body: JSON.stringify(data)
+            })
+            .then(response => response.json())
+            .then(result => {
+                console.log('MEGATEAM Signup Response:', result);
+                
+                if (result.success) {
+                    // Hide form and show success message
+                    signupForm.style.display = 'none';
+                    document.getElementById('success-message').classList.remove('hidden');
+                    
+                    // Update success message with custom text if provided
+                    if (result.message) {
+                        const successText = document.querySelector('#success-message p');
+                        if (successText) {
+                            successText.textContent = result.message;
+                        }
+                    }
+                    
+                    // Add success effect
+                    addSuccessEffect();
+                } else {
+                    // Show error message
+                    showErrorMessage(result.error || 'Submission failed. Please try again.');
+                    
+                    // Reset submit button
+                    submitBtn.innerHTML = originalText;
+                    submitBtn.disabled = false;
+                }
+            })
+            .catch(error => {
+                console.error('MEGATEAM Signup Error:', error);
+                showErrorMessage('Network error. Please check your connection and try again.');
+                
+                // Reset submit button  
+                submitBtn.innerHTML = originalText;
+                submitBtn.disabled = false;
+            });
+        });
+    }
 
     console.log('🚀 TRON MEGATEAM Futuristic Interface Initialized! 🌐');
     console.log('⚡ Matrix protocols active...');

@@ -22,7 +22,7 @@ export const renderer = jsxRenderer(({ children }) => {
         {/* Google Fonts */}
         <link rel="preconnect" href="https://fonts.googleapis.com" />
         <link rel="preconnect" href="https://fonts.gstatic.com" crossOrigin="" />
-        <link href="https://fonts.googleapis.com/css2?family=Orbitron:wght@400;700;900&family=Exo+2:wght@300;400;600;700&family=Rajdhani:wght@300;400;500;600;700&display=swap" rel="stylesheet" />
+        <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@300;400;500;600;700;800;900&display=swap" rel="stylesheet" />
         
         {/* Custom Tailwind Config */}
         <script dangerouslySetInnerHTML={{
@@ -42,9 +42,8 @@ export const renderer = jsxRenderer(({ children }) => {
                     'tron-silver': '#C0C0C0'
                   },
                   fontFamily: {
-                    'orbitron': ['Orbitron', 'monospace'],
-                    'exo': ['Exo 2', 'sans-serif'],
-                    'rajdhani': ['Rajdhani', 'sans-serif']
+                    'montserrat': ['Montserrat', 'sans-serif'],
+                    'sans': ['Montserrat', 'sans-serif']
                   },
                   animation: {
                     'fade-in': 'fadeIn 0.6s ease-in-out',
@@ -71,20 +70,14 @@ export const renderer = jsxRenderer(({ children }) => {
           `
         }} />
       </head>
-      <body class="bg-tron-black text-tron-white font-exo antialiased overflow-x-hidden relative">
+      <body class="bg-tron-black text-tron-white font-montserrat antialiased overflow-x-hidden relative">
         {/* TRON Grid Background */}
         <div class="fixed inset-0 bg-tron-grid bg-[size:50px_50px] opacity-30 pointer-events-none z-0"></div>
         
         {/* Matrix Rain Canvas */}
         <canvas id="matrix-canvas" class="fixed inset-0 pointer-events-none z-10 opacity-15"></canvas>
         
-        {/* Floating Geometric Shapes with TRON Colors */}
-        <div class="fixed inset-0 pointer-events-none z-10">
-          <div class="absolute top-20 left-10 w-32 h-32 border border-tron-red opacity-20 animate-rotate-3d"></div>
-          <div class="absolute top-40 right-20 w-24 h-24 border border-tron-light opacity-25 animate-float" style="animation-delay: 2s;"></div>
-          <div class="absolute bottom-40 left-1/4 w-20 h-20 border border-tron-dark-red opacity-30 animate-rotate-3d" style="animation-delay: 4s;"></div>
-          <div class="absolute top-1/3 right-1/3 w-16 h-16 border border-tron-silver opacity-15 animate-float" style="animation-delay: 1s;"></div>
-        </div>
+
         {children}
         
         {/* Scripts */}
