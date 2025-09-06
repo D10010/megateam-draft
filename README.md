@@ -71,10 +71,12 @@ The landing page now uses the official TRON color palette while maintaining its 
 
 #### **Google Sheets Integration**
 - **Automatic Recording**: All signup form submissions sent to Google Sheets
-- **Data Fields**: Timestamp, personal info, skills, interests, location, project ideas
+- **Target Sheet**: https://docs.google.com/spreadsheets/d/19OqhjfRDKvbB_orXfQfpUBRpr3bHT5iVrz5NK_s8A9c/edit
+- **Data Fields**: Timestamp, personal info, skills, interests, location, project ideas  
+- **Email Notifications**: Automatic notifications to `tronmegateam@gmail.com`
 - **API Method**: Google Sheets API with secure authentication
 - **Environment Variables**: Configurable for local development and production
-- **Setup Guide**: Complete documentation in `GOOGLE_SHEETS_SETUP.md`
+- **Setup Guides**: `GOOGLE_SHEETS_SETUP.md` and `EMAIL_NOTIFICATION_SETUP.md`
 
 ### 🎨 Design Elements
 - **TRON Red (#FF060A)**: Primary brand color for accents and CTAs
@@ -110,7 +112,7 @@ The landing page now uses the official TRON color palette while maintaining its 
 11. **Footer**: Social links and copyright information
 
 ### API Endpoints
-- `POST /api/signup` - Form submission endpoint with validation and Google Sheets integration
+- `POST /api/signup` - Form submission endpoint with validation, Google Sheets integration, and email notifications
 
 ## Development
 
@@ -140,6 +142,7 @@ webapp/
 │   └── style.css     # Custom CSS animations and styling
 ├── .dev.vars         # Environment variables for local development (gitignored)
 ├── GOOGLE_SHEETS_SETUP.md # Complete setup guide for Google Sheets integration
+├── EMAIL_NOTIFICATION_SETUP.md # Email notification setup guide
 ├── ecosystem.config.cjs # PM2 configuration for development
 ├── wrangler.jsonc    # Cloudflare Pages configuration
 └── package.json      # Dependencies and scripts
@@ -154,20 +157,25 @@ webapp/
 ## Google Sheets Integration Setup
 
 ### Quick Setup Steps
-1. **Create Google Sheet** with headers: Timestamp, First Name, Last Name, Email, etc.
-2. **Make Sheet Public** (Editor permission) or set up Service Account
-3. **Get Google API Key** from Google Cloud Console 
-4. **Configure Environment Variables**:
+1. **✅ Google Sheet**: Already configured - `19OqhjfRDKvbB_orXfQfpUBRpr3bHT5iVrz5NK_s8A9c`
+2. **Make Sheet Public** (Editor permission) for API access
+3. **Get Google API Key** from Google Cloud Console
+4. **Set up Email Service** (Resend or SendGrid) for notifications
+5. **Configure Environment Variables**:
    ```bash
-   # Local development (.dev.vars)
+   # Local development (.dev.vars) 
    GOOGLE_API_KEY=your-api-key
-   GOOGLE_SHEETS_ID=your-sheet-id
+   GOOGLE_SHEETS_ID=19OqhjfRDKvbB_orXfQfpUBRpr3bHT5iVrz5NK_s8A9c
+   NOTIFICATION_EMAIL=tronmegateam@gmail.com
+   RESEND_API_KEY=your-resend-key  # or SENDGRID_API_KEY
    
    # Production (Cloudflare secrets)
    npx wrangler secret put GOOGLE_API_KEY
    npx wrangler secret put GOOGLE_SHEETS_ID
+   npx wrangler secret put NOTIFICATION_EMAIL  
+   npx wrangler secret put RESEND_API_KEY
    ```
-5. **See `GOOGLE_SHEETS_SETUP.md`** for complete instructions
+6. **See setup guides**: `GOOGLE_SHEETS_SETUP.md` and `EMAIL_NOTIFICATION_SETUP.md`
 
 ### Form Data Captured
 - Personal information (name, email, telegram)
@@ -177,13 +185,21 @@ webapp/
 - Project ideas and goals
 - Terms agreement confirmation
 
+### Email Notifications
+- **Automatic emails** sent to `tronmegateam@gmail.com` on each submission
+- **Rich HTML format** with all form data
+- **Direct link** to Google Sheet for full details
+- **Service options**: Resend (recommended) or SendGrid
+
 ## Next Steps for Production
-1. **Set up Google Sheets** (see GOOGLE_SHEETS_SETUP.md)
-2. Deploy to Cloudflare Pages with environment variables
-3. Set up custom domain (optional)
-4. Add analytics tracking
-5. Test form submissions end-to-end
-6. Connect to actual MEGATEAM platform when available
+1. **✅ Google Sheets**: Already configured with your sheet ID
+2. **Set up API credentials** (see GOOGLE_SHEETS_SETUP.md)
+3. **Configure email notifications** (see EMAIL_NOTIFICATION_SETUP.md)
+4. **Deploy to Cloudflare Pages** with environment variables
+5. **Test end-to-end**: Form → Sheet → Email notification
+6. Set up custom domain (optional)
+7. Add analytics tracking
+8. Connect to actual MEGATEAM platform when available
 
 ## Credits
 - **Proposal**: Prepared by Dylan Gillis (SunnyD)

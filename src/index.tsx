@@ -53,12 +53,19 @@ app.post('/api/signup', async (c) => {
     ]
     
     // Submit to Google Sheets
-    const success = await submitToGoogleSheets(sheetRow, c.env)
+    const sheetSuccess = await submitToGoogleSheets(sheetRow, c.env)
     
-    if (success) {
+    if (sheetSuccess) {
+      // Send email notification
+      const emailSuccess = await sendNotificationEmail(formData, c.env)
+      
       return c.json({ 
         success: true, 
-        message: 'Application submitted successfully! Welcome to TRON MEGATEAM!' 
+        message: 'Application submitted successfully! Welcome to TRON MEGATEAM!',
+        details: {
+          sheet_recorded: true,
+          notification_sent: emailSuccess
+        }
       })
     } else {
       return c.json({ 
@@ -133,6 +140,136 @@ async function submitToGoogleSheets(rowData: any[], env: any) {
     
   } catch (error) {
     console.error('Google Sheets submission error:', error)
+    return false
+  }
+}
+
+// Function to send email notification
+async function sendNotificationEmail(formData: any, env: any) {
+  try {
+    const NOTIFICATION_EMAIL = env?.NOTIFICATION_EMAIL || 'tronmegateam@gmail.com'
+    const RESEND_API_KEY = env?.RESEND_API_KEY
+    const SENDGRID_API_KEY = env?.SENDGRID_API_KEY
+    
+    // Prepare email content
+    const emailSubject = '🚀 New TRON MEGATEAM Signup!'
+    const emailContent = generateEmailContent(formData)
+    
+    // Try Resend first (recommended for Cloudflare Workers)
+    if (RESEND_API_KEY) {
+      const success = await sendWithResend(RESEND_API_KEY, NOTIFICATION_EMAIL, emailSubject, emailContent)
+      if (success) return true
+    }
+    
+    // Fallback to SendGrid
+    if (SENDGRID_API_KEY) {
+      const success = await sendWithSendGrid(SENDGRID_API_KEY, NOTIFICATION_EMAIL, emailSubject, emailContent)
+      if (success) return true
+    }
+    
+    // If no email service is configured, log and return false
+    console.log('No email service configured - notification not sent')
+    return false
+    
+  } catch (error) {
+    console.error('Email notification error:', error)
+    return false
+  }
+}
+
+// Generate email content
+function generateEmailContent(formData: any) {
+  const skillsArray = Array.isArray(formData.skills) ? formData.skills : []
+  const interestsArray = Array.isArray(formData.interests) ? formData.interests : []
+  
+  return `
+    <h2>🚀 New TRON MEGATEAM Application Received!</h2>
+    
+    <h3>Personal Information:</h3>
+    <ul>
+      <li><strong>Name:</strong> ${formData.firstName} ${formData.lastName}</li>
+      <li><strong>Email:</strong> ${formData.email}</li>
+      <li><strong>Telegram:</strong> ${formData.telegram || 'Not provided'}</li>
+      <li><strong>Country:</strong> ${formData.country}</li>
+      <li><strong>Timezone:</strong> ${formData.timezone || 'Not specified'}</li>
+    </ul>
+    
+    <h3>Development Profile:</h3>
+    <ul>
+      <li><strong>Experience Level:</strong> ${formData.experience}</li>
+      <li><strong>Technical Skills:</strong> ${skillsArray.length > 0 ? skillsArray.join(', ') : 'None specified'}</li>
+      <li><strong>Other Skills:</strong> ${formData.otherSkills || 'None specified'}</li>
+      <li><strong>Areas of Interest:</strong> ${interestsArray.join(', ')}</li>
+    </ul>
+    
+    <h3>Project Ideas:</h3>
+    <p>${formData.projectIdeas || 'No specific ideas provided'}</p>
+    
+    <h3>Agreement Status:</h3>
+    <p>Terms accepted: <strong>${formData.agreement ? 'Yes' : 'No'}</strong></p>
+    
+    <hr>
+    <p><em>Submitted at: ${new Date().toISOString()}</em></p>
+    <p><em>View full details in the <a href="https://docs.google.com/spreadsheets/d/19OqhjfRDKvbB_orXfQfpUBRpr3bHT5iVrz5NK_s8A9c/edit">Google Sheet</a></em></p>
+  `.trim()
+}
+
+// Send email with Resend (recommended for Cloudflare Workers)
+async function sendWithResend(apiKey: string, toEmail: string, subject: string, htmlContent: string) {
+  try {
+    const response = await fetch('https://api.resend.com/emails', {
+      method: 'POST',
+      headers: {
+        'Authorization': `Bearer ${apiKey}`,
+        'Content-Type': 'application/json',
+      },
+      body: JSON.stringify({
+        from: 'TRON MEGATEAM <noreply@your-domain.com>',
+        to: [toEmail],
+        subject: subject,
+        html: htmlContent,
+      })
+    })
+    
+    return response.ok
+  } catch (error) {
+    console.error('Resend email error:', error)
+    return false
+  }
+}
+
+// Send email with SendGrid
+async function sendWithSendGrid(apiKey: string, toEmail: string, subject: string, htmlContent: string) {
+  try {
+    const response = await fetch('https://api.sendgrid.com/v3/mail/send', {
+      method: 'POST',
+      headers: {
+        'Authorization': `Bearer ${apiKey}`,
+        'Content-Type': 'application/json',
+      },
+      body: JSON.stringify({
+        personalizations: [
+          {
+            to: [{ email: toEmail }],
+            subject: subject
+          }
+        ],
+        from: { 
+          email: 'noreply@your-domain.com',
+          name: 'TRON MEGATEAM'
+        },
+        content: [
+          {
+            type: 'text/html',
+            value: htmlContent
+          }
+        ]
+      })
+    })
+    
+    return response.ok
+  } catch (error) {
+    console.error('SendGrid email error:', error)
     return false
   }
 }

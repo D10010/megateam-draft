@@ -15,15 +15,17 @@ This guide will help you set up Google Sheets integration for the TRON MEGATEAM 
 |---|---|---|---|---|---|---|---|---|---|---|---|---|
 | Timestamp | First Name | Last Name | Email | Telegram | Experience | Skills | Other Skills | Interests | Country | Timezone | Project Ideas | Agreement |
 
-### Step 2: Make Sheet Public (for API Key method)
+### Step 2: Use Your Existing Google Sheet
 
+**✅ ALREADY CONFIGURED**: We're using your existing sheet:
+- **URL**: https://docs.google.com/spreadsheets/d/19OqhjfRDKvbB_orXfQfpUBRpr3bHT5iVrz5NK_s8A9c/edit?gid=0#gid=0
+- **Sheet ID**: `19OqhjfRDKvbB_orXfQfpUBRpr3bHT5iVrz5NK_s8A9c`
+
+**Make sure your sheet has "Editor" permissions**:
 1. Click "Share" button in top right
-2. Click "Change to anyone with the link"
+2. Click "Change to anyone with the link" 
 3. Set permission to "Editor" (allows form to write data)
 4. Click "Done"
-5. Copy the Sheet ID from the URL:
-   - URL: `https://docs.google.com/spreadsheets/d/1BxiMVs0XRA5nFMdKvBdBZjgmUUqptlbs74OgvE2upms/edit`
-   - Sheet ID: `1BxiMVs0XRA5nFMdKvBdBZjgmUUqptlbs74OgvE2upms`
 
 ### Step 3: Get Google API Key
 
@@ -45,14 +47,21 @@ This guide will help you set up Google Sheets integration for the TRON MEGATEAM 
 2. Replace the placeholder values:
    ```
    GOOGLE_API_KEY=your-actual-api-key-here
-   GOOGLE_SHEETS_ID=your-actual-sheet-id-here
+   GOOGLE_SHEETS_ID=19OqhjfRDKvbB_orXfQfpUBRpr3bHT5iVrz5NK_s8A9c
    ```
+   *(Sheet ID is already configured)*
 
 #### For Production (Cloudflare Pages):
 ```bash
 # Set secrets for production
 npx wrangler secret put GOOGLE_API_KEY
 npx wrangler secret put GOOGLE_SHEETS_ID
+# When prompted for GOOGLE_SHEETS_ID, enter: 19OqhjfRDKvbB_orXfQfpUBRpr3bHT5iVrz5NK_s8A9c
+
+# Email notification setup (optional but recommended)
+npx wrangler secret put NOTIFICATION_EMAIL
+npx wrangler secret put RESEND_API_KEY
+# When prompted for NOTIFICATION_EMAIL, enter: tronmegateam@gmail.com
 ```
 
 When prompted, enter your actual values.
