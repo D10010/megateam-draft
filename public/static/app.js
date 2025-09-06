@@ -1,13 +1,23 @@
-// JavaScript for TRON MEGATEAM Landing Page
+// Futuristic JavaScript for TRON MEGATEAM Landing Page
 
 document.addEventListener('DOMContentLoaded', function() {
     // Initialize AOS (Animate On Scroll)
     AOS.init({
-        duration: 800,
+        duration: 1000,
         easing: 'ease-out-cubic',
         once: true,
-        offset: 100
+        offset: 100,
+        anchorPlacement: 'top-bottom'
     });
+
+    // Initialize Matrix Rain Effect
+    initMatrixRain();
+    
+    // Initialize Cyber Effects
+    initCyberEffects();
+    
+    // Initialize Particle System
+    initParticleSystem();
 
     // Mobile menu functionality
     const mobileMenuBtn = document.getElementById('mobile-menu-btn');
@@ -21,12 +31,15 @@ document.addEventListener('DOMContentLoaded', function() {
         });
     }
 
-    // Smooth scrolling for navigation links
+    // Enhanced smooth scrolling for navigation links
     document.querySelectorAll('a[href^="#"]').forEach(anchor => {
         anchor.addEventListener('click', function (e) {
             e.preventDefault();
             const target = document.querySelector(this.getAttribute('href'));
             if (target) {
+                // Add cyber effect on scroll
+                addCyberGlitch();
+                
                 target.scrollIntoView({
                     behavior: 'smooth',
                     block: 'start'
@@ -40,7 +53,7 @@ document.addEventListener('DOMContentLoaded', function() {
         });
     });
 
-    // Animated counter for statistics
+    // Enhanced animated counter for statistics
     function animateCounter(element, target, duration = 2000) {
         const start = 0;
         const startTime = performance.now();
@@ -53,6 +66,9 @@ document.addEventListener('DOMContentLoaded', function() {
             const easeOut = 1 - Math.pow(1 - progress, 3);
             const current = Math.floor(start + (target - start) * easeOut);
             
+            // Add cyber glow effect
+            element.classList.add('stat-glow');
+            
             if (typeof target === 'string' && target.includes('M')) {
                 element.textContent = '$' + current + 'M';
             } else if (typeof target === 'string' && target.includes('+')) {
@@ -63,17 +79,30 @@ document.addEventListener('DOMContentLoaded', function() {
             
             if (progress < 1) {
                 requestAnimationFrame(updateCounter);
+            } else {
+                // Add completion effect
+                triggerCounterComplete(element);
             }
         }
         
         requestAnimationFrame(updateCounter);
     }
 
-    // Intersection Observer for triggering counter animations
+    function triggerCounterComplete(element) {
+        element.style.animation = 'glowPulse 1s ease-in-out';
+        setTimeout(() => {
+            element.style.animation = '';
+        }, 1000);
+    }
+
+    // Enhanced Intersection Observer for triggering counter animations
     const statsObserver = new IntersectionObserver((entries) => {
         entries.forEach(entry => {
             if (entry.isIntersecting && !entry.target.classList.contains('animated')) {
                 entry.target.classList.add('animated');
+                
+                // Add cyber scan effect
+                addCyberScanEffect(entry.target.parentElement);
                 
                 const element = entry.target;
                 const id = element.id;
@@ -101,7 +130,7 @@ document.addEventListener('DOMContentLoaded', function() {
         statsObserver.observe(el);
     });
 
-    // Navbar background on scroll
+    // Enhanced navbar background on scroll
     const navbar = document.querySelector('nav');
     let lastScroll = 0;
     
@@ -109,124 +138,343 @@ document.addEventListener('DOMContentLoaded', function() {
         const currentScroll = window.pageYOffset;
         
         if (currentScroll > 100) {
-            navbar.style.backgroundColor = 'rgba(0, 0, 0, 0.95)';
+            navbar.style.background = 'linear-gradient(90deg, rgba(10, 10, 10, 0.98) 0%, rgba(26, 26, 26, 0.98) 50%, rgba(10, 10, 10, 0.98) 100%)';
+            navbar.style.boxShadow = '0 4px 20px rgba(0, 255, 255, 0.1)';
         } else {
-            navbar.style.backgroundColor = 'rgba(0, 0, 0, 0.9)';
+            navbar.style.background = 'linear-gradient(90deg, rgba(10, 10, 10, 0.95) 0%, rgba(26, 26, 26, 0.95) 50%, rgba(10, 10, 10, 0.95) 100%)';
+            navbar.style.boxShadow = '0 2px 10px rgba(0, 255, 255, 0.05)';
         }
         
         lastScroll = currentScroll;
     });
 
-    // Add particle animation to hero section
-    function createParticles() {
-        const heroSection = document.querySelector('section');
-        if (!heroSection) return;
+    // Matrix Rain Effect
+    function initMatrixRain() {
+        const canvas = document.getElementById('matrix-canvas');
+        if (!canvas) return;
         
-        const particlesContainer = document.createElement('div');
-        particlesContainer.className = 'particles-bg';
-        heroSection.appendChild(particlesContainer);
+        const ctx = canvas.getContext('2d');
+        canvas.width = window.innerWidth;
+        canvas.height = window.innerHeight;
         
-        for (let i = 0; i < 50; i++) {
-            const particle = document.createElement('div');
-            particle.className = 'particle';
-            
-            const size = Math.random() * 4 + 1;
-            const posX = Math.random() * 100;
-            const posY = Math.random() * 100;
-            const delay = Math.random() * 6;
-            
-            particle.style.width = size + 'px';
-            particle.style.height = size + 'px';
-            particle.style.left = posX + '%';
-            particle.style.top = posY + '%';
-            particle.style.animationDelay = delay + 's';
-            
-            particlesContainer.appendChild(particle);
+        const characters = 'ABCDEFGHIJKLMNOPQRSTUVWXYZ0123456789@#$%^&*(){}[]|\\:";\'<>?,./-=+_`~';
+        const fontSize = 14;
+        const columns = canvas.width / fontSize;
+        const drops = [];
+        
+        // Initialize drops
+        for (let x = 0; x < columns; x++) {
+            drops[x] = 1;
         }
+        
+        function drawMatrix() {
+            // Semi-transparent black background
+            ctx.fillStyle = 'rgba(10, 10, 10, 0.05)';
+            ctx.fillRect(0, 0, canvas.width, canvas.height);
+            
+            // Green text
+            ctx.fillStyle = '#39FF14';
+            ctx.font = fontSize + 'px monospace';
+            
+            for (let i = 0; i < drops.length; i++) {
+                const text = characters[Math.floor(Math.random() * characters.length)];
+                ctx.fillText(text, i * fontSize, drops[i] * fontSize);
+                
+                // Reset drop to top randomly
+                if (drops[i] * fontSize > canvas.height && Math.random() > 0.975) {
+                    drops[i] = 0;
+                }
+                drops[i]++;
+            }
+        }
+        
+        setInterval(drawMatrix, 50);
+        
+        // Resize canvas on window resize
+        window.addEventListener('resize', () => {
+            canvas.width = window.innerWidth;
+            canvas.height = window.innerHeight;
+        });
     }
 
-    createParticles();
+    // Cyber Effects
+    function initCyberEffects() {
+        // Add glitch effect to buttons
+        document.querySelectorAll('button, .cyber-button').forEach(button => {
+            button.addEventListener('mouseenter', function() {
+                this.style.animation = 'glitch 0.3s ease-in-out';
+                setTimeout(() => {
+                    this.style.animation = '';
+                }, 300);
+            });
+        });
+        
+        // Add holographic effect to cards
+        document.querySelectorAll('.cyber-card, .holographic-card').forEach(card => {
+            card.addEventListener('mouseenter', function() {
+                this.style.background = 'linear-gradient(45deg, rgba(255, 0, 128, 0.1), rgba(0, 255, 255, 0.1), rgba(255, 0, 128, 0.1))';
+                this.style.animation = 'hologram 2s ease-in-out infinite';
+            });
+            
+            card.addEventListener('mouseleave', function() {
+                this.style.animation = '';
+                this.style.background = '';
+            });
+        });
+    }
 
-    // Form validation and interaction
+    // Particle System
+    function initParticleSystem() {
+        const particleContainer = document.createElement('div');
+        particleContainer.id = 'particle-container';
+        particleContainer.style.cssText = `
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            pointer-events: none;
+            z-index: 1;
+        `;
+        document.body.appendChild(particleContainer);
+        
+        function createParticle() {
+            const particle = document.createElement('div');
+            particle.className = 'data-particle';
+            
+            const startX = Math.random() * window.innerWidth;
+            const color = ['#FF060A', '#00D4FF', '#39FF14', '#FF0080'][Math.floor(Math.random() * 4)];
+            const size = Math.random() * 3 + 1;
+            const duration = Math.random() * 3000 + 2000;
+            
+            particle.style.cssText = `
+                position: absolute;
+                left: ${startX}px;
+                top: -10px;
+                width: ${size}px;
+                height: ${size}px;
+                background: ${color};
+                border-radius: 50%;
+                box-shadow: 0 0 ${size * 3}px ${color};
+                animation: dataStream ${duration}ms linear forwards;
+            `;
+            
+            particleContainer.appendChild(particle);
+            
+            setTimeout(() => {
+                particle.remove();
+            }, duration);
+        }
+        
+        // Create particles periodically
+        setInterval(createParticle, 300);
+    }
+
+    // Cyber Glitch Effect
+    function addCyberGlitch() {
+        const glitchElement = document.createElement('div');
+        glitchElement.style.cssText = `
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: linear-gradient(90deg, transparent 0%, rgba(0, 255, 255, 0.1) 50%, transparent 100%);
+            pointer-events: none;
+            z-index: 9999;
+            animation: cyberScan 0.3s ease-out;
+        `;
+        
+        document.body.appendChild(glitchElement);
+        
+        setTimeout(() => {
+            glitchElement.remove();
+        }, 300);
+    }
+
+    // Cyber Scan Effect
+    function addCyberScanEffect(element) {
+        const scanLine = document.createElement('div');
+        scanLine.style.cssText = `
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 2px;
+            background: linear-gradient(90deg, transparent 0%, #00FFFF 50%, transparent 100%);
+            animation: cyberScan 1s ease-out;
+            z-index: 10;
+        `;
+        
+        element.style.position = 'relative';
+        element.appendChild(scanLine);
+        
+        setTimeout(() => {
+            scanLine.remove();
+        }, 1000);
+    }
+
+    // Enhanced button interactions
     document.querySelectorAll('button').forEach(button => {
         button.addEventListener('click', function(e) {
-            // Add ripple effect
+            // Add cyber ripple effect
             const ripple = document.createElement('span');
             const rect = this.getBoundingClientRect();
             const size = Math.max(rect.width, rect.height);
             const x = e.clientX - rect.left - size / 2;
             const y = e.clientY - rect.top - size / 2;
             
-            ripple.style.width = ripple.style.height = size + 'px';
-            ripple.style.left = x + 'px';
-            ripple.style.top = y + 'px';
-            ripple.classList.add('ripple');
+            ripple.style.cssText = `
+                position: absolute;
+                width: ${size}px;
+                height: ${size}px;
+                left: ${x}px;
+                top: ${y}px;
+                background: radial-gradient(circle, rgba(0, 255, 255, 0.5) 0%, transparent 70%);
+                border-radius: 50%;
+                transform: scale(0);
+                animation: rippleAnimation 0.6s linear;
+                pointer-events: none;
+            `;
             
             this.appendChild(ripple);
             
             setTimeout(() => {
                 ripple.remove();
             }, 600);
+            
+            // Add screen flash
+            addScreenFlash();
         });
     });
 
-    // Lazy loading for images (if any are added later)
-    const imageObserver = new IntersectionObserver((entries, observer) => {
-        entries.forEach(entry => {
-            if (entry.isIntersecting) {
-                const img = entry.target;
-                img.src = img.dataset.src;
-                img.classList.remove('lazy');
-                observer.unobserve(img);
+    // Screen Flash Effect
+    function addScreenFlash() {
+        const flash = document.createElement('div');
+        flash.style.cssText = `
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: rgba(0, 255, 255, 0.1);
+            pointer-events: none;
+            z-index: 9998;
+            animation: fadeIn 0.1s ease-out reverse;
+        `;
+        
+        document.body.appendChild(flash);
+        
+        setTimeout(() => {
+            flash.remove();
+        }, 100);
+    }
+
+    // Cursor Trail Effect
+    function initCursorTrail() {
+        let mouseX = 0, mouseY = 0;
+        let trail = [];
+        
+        document.addEventListener('mousemove', (e) => {
+            mouseX = e.clientX;
+            mouseY = e.clientY;
+            
+            // Create trail particle
+            const particle = {
+                x: mouseX,
+                y: mouseY,
+                life: 20,
+                color: `hsl(${Math.random() * 60 + 180}, 100%, 50%)`
+            };
+            
+            trail.push(particle);
+            
+            if (trail.length > 20) {
+                trail.shift();
             }
         });
-    });
+        
+        function updateTrail() {
+            trail.forEach((particle, index) => {
+                particle.life--;
+                if (particle.life <= 0) {
+                    trail.splice(index, 1);
+                } else {
+                    const element = document.createElement('div');
+                    element.style.cssText = `
+                        position: fixed;
+                        left: ${particle.x}px;
+                        top: ${particle.y}px;
+                        width: ${particle.life / 4}px;
+                        height: ${particle.life / 4}px;
+                        background: ${particle.color};
+                        border-radius: 50%;
+                        pointer-events: none;
+                        z-index: 9999;
+                        opacity: ${particle.life / 20};
+                    `;
+                    
+                    document.body.appendChild(element);
+                    
+                    setTimeout(() => {
+                        element.remove();
+                    }, 50);
+                }
+            });
+            
+            requestAnimationFrame(updateTrail);
+        }
+        
+        updateTrail();
+    }
 
-    document.querySelectorAll('img[data-src]').forEach(img => {
-        imageObserver.observe(img);
-    });
+    // Initialize cursor trail on desktop
+    if (window.innerWidth > 768) {
+        initCursorTrail();
+    }
 
-    // Keyboard navigation
+    // Keyboard navigation with cyber effects
     document.addEventListener('keydown', function(e) {
         if (e.key === 'Escape' && mobileMenu && mobileMenu.classList.contains('active')) {
             mobileMenu.classList.remove('active');
+            addCyberGlitch();
+        }
+        
+        // Arrow key navigation
+        if (e.key === 'ArrowDown' || e.key === 'ArrowUp') {
+            addScreenFlash();
         }
     });
 
-    // Update copyright year
-    const currentYear = new Date().getFullYear();
-    const copyrightElements = document.querySelectorAll('[data-year]');
-    copyrightElements.forEach(el => {
-        el.textContent = el.textContent.replace('2024', currentYear);
-    });
-
-    // Add loading state management
-    window.addEventListener('load', function() {
-        document.body.classList.add('loaded');
+    // Loading screen
+    function showLoadingScreen() {
+        const loadingScreen = document.createElement('div');
+        loadingScreen.className = 'loading-screen';
+        loadingScreen.innerHTML = `
+            <div class="loading-spinner"></div>
+        `;
+        document.body.appendChild(loadingScreen);
         
-        // Trigger initial animations
         setTimeout(() => {
-            document.querySelectorAll('[data-aos]').forEach(el => {
-                el.classList.add('aos-animate');
-            });
-        }, 100);
-    });
+            loadingScreen.style.opacity = '0';
+            setTimeout(() => {
+                loadingScreen.remove();
+            }, 500);
+        }, 1000);
+    }
 
-    console.log('TRON MEGATEAM Landing Page Loaded Successfully! 🚀');
+    // Initialize loading screen
+    showLoadingScreen();
+
+    console.log('🚀 TRON MEGATEAM Futuristic Interface Initialized! 🌐');
+    console.log('⚡ Matrix protocols active...');
+    console.log('🔮 Holographic systems online...');
+    console.log('💎 Cyber enhancement complete!');
 });
 
-// CSS for ripple effect
+// Additional CSS for ripple effect
 const style = document.createElement('style');
 style.textContent = `
-    .ripple {
-        position: absolute;
-        border-radius: 50%;
-        background: rgba(255, 255, 255, 0.3);
-        transform: scale(0);
-        animation: rippleAnimation 0.6s linear;
-        pointer-events: none;
-    }
-    
     @keyframes rippleAnimation {
         to {
             transform: scale(4);

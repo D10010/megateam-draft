@@ -18,23 +18,41 @@ app.get('/', (c) => {
   return c.render(
     <>
       {/* Navigation */}
-      <nav class="fixed top-0 left-0 right-0 z-50 bg-black/90 backdrop-blur-sm border-b border-tron-red/20">
+      <nav class="fixed top-0 left-0 right-0 z-50 bg-gradient-to-r from-tron-dark/95 via-tron-gray/95 to-tron-dark/95 backdrop-blur-md border-b border-cyber-blue/30 shadow-lg shadow-cyber-blue/10">
         <div class="container mx-auto px-6 py-4">
           <div class="flex items-center justify-between">
             <div class="flex items-center space-x-3">
-              <i class="fas fa-rocket text-tron-red text-2xl"></i>
-              <span class="text-2xl font-bold">TRON <span class="text-tron-red">MEGATEAM</span></span>
+              <div class="relative">
+                <i class="fas fa-rocket text-tron-red text-2xl animate-glow-pulse"></i>
+                <div class="absolute inset-0 fas fa-rocket text-tron-red text-2xl blur-sm opacity-50 animate-glow-pulse"></div>
+              </div>
+              <span class="text-2xl font-orbitron font-bold tracking-wider">
+                TRON <span class="text-transparent bg-clip-text bg-neon-gradient animate-glow-pulse">MEGATEAM</span>
+              </span>
             </div>
             <div class="hidden md:flex items-center space-x-8">
-              <a href="#mission" class="hover:text-tron-red transition-colors">Mission</a>
-              <a href="#objectives" class="hover:text-tron-red transition-colors">Objectives</a>
-              <a href="#structure" class="hover:text-tron-red transition-colors">Structure</a>
-              <a href="#roadmap" class="hover:text-tron-red transition-colors">Roadmap</a>
-              <button class="bg-tron-red hover:bg-red-700 px-6 py-2 rounded-lg font-semibold transition-colors">
-                Join MEGATEAM
+              <a href="#mission" class="font-rajdhani font-medium hover:text-cyber-blue transition-all duration-300 hover:glow-text relative group">
+                Mission
+                <span class="absolute bottom-0 left-0 w-0 h-0.5 bg-cyber-blue transition-all duration-300 group-hover:w-full"></span>
+              </a>
+              <a href="#objectives" class="font-rajdhani font-medium hover:text-cyber-blue transition-all duration-300 hover:glow-text relative group">
+                Objectives
+                <span class="absolute bottom-0 left-0 w-0 h-0.5 bg-cyber-blue transition-all duration-300 group-hover:w-full"></span>
+              </a>
+              <a href="#structure" class="font-rajdhani font-medium hover:text-cyber-blue transition-all duration-300 hover:glow-text relative group">
+                Structure
+                <span class="absolute bottom-0 left-0 w-0 h-0.5 bg-cyber-blue transition-all duration-300 group-hover:w-full"></span>
+              </a>
+              <a href="#roadmap" class="font-rajdhani font-medium hover:text-cyber-blue transition-all duration-300 hover:glow-text relative group">
+                Roadmap
+                <span class="absolute bottom-0 left-0 w-0 h-0.5 bg-cyber-blue transition-all duration-300 group-hover:w-full"></span>
+              </a>
+              <button class="relative overflow-hidden bg-gradient-to-r from-tron-red via-neon-pink to-tron-red bg-[length:200%_100%] hover:bg-right-bottom px-6 py-2 rounded-lg font-rajdhani font-bold transition-all duration-500 transform hover:scale-105 hover:shadow-lg hover:shadow-tron-red/50 border border-tron-red/30">
+                <span class="relative z-10">Join MEGATEAM</span>
+                <div class="absolute inset-0 bg-gradient-to-r from-transparent via-white/20 to-transparent -skew-x-12 -translate-x-full group-hover:translate-x-full transition-transform duration-700"></div>
               </button>
             </div>
-            <button class="md:hidden text-tron-red text-xl" id="mobile-menu-btn">
+            <button class="md:hidden text-tron-red text-xl hover:text-cyber-blue transition-colors" id="mobile-menu-btn">
               <i class="fas fa-bars"></i>
             </button>
           </div>
@@ -43,91 +61,183 @@ app.get('/', (c) => {
 
       {/* Hero Section */}
       <section class="min-h-screen flex items-center justify-center relative overflow-hidden pt-20">
-        <div class="absolute inset-0 bg-gradient-to-br from-tron-red/10 via-black to-tron-gray/20"></div>
-        <div class="container mx-auto px-6 text-center relative z-10" data-aos="fade-up">
-          <div class="mb-8">
-            <i class="fas fa-rocket text-tron-red text-6xl mb-6 animate-bounce-slow"></i>
+        {/* Animated Background */}
+        <div class="absolute inset-0 bg-gradient-to-br from-tron-red/20 via-tron-dark via-electric-purple/10 to-cyber-blue/20"></div>
+        
+        {/* Holographic Overlay */}
+        <div class="absolute inset-0 bg-holographic opacity-5 animate-hologram"></div>
+        
+        {/* Cyber Scan Lines */}
+        <div class="absolute inset-0 pointer-events-none">
+          <div class="absolute w-full h-0.5 bg-cyber-blue opacity-30 animate-cyber-scan"></div>
+        </div>
+        
+        {/* 3D Geometric Elements */}
+        <div class="absolute top-1/4 left-1/4 w-64 h-64 border-2 border-cyber-blue/20 rotate-45 animate-rotate-3d"></div>
+        <div class="absolute bottom-1/4 right-1/4 w-48 h-48 border-2 border-neon-pink/20 rotate-12 animate-float"></div>
+        
+        <div class="container mx-auto px-6 text-center relative z-20" data-aos="fade-up">
+          <div class="mb-8 relative">
+            <div class="relative inline-block">
+              <i class="fas fa-rocket text-6xl text-transparent bg-clip-text bg-neon-gradient animate-glow-pulse"></i>
+              <div class="absolute inset-0 fas fa-rocket text-6xl text-cyber-blue blur-lg opacity-50 animate-glow-pulse"></div>
+            </div>
+            <div class="absolute -inset-4 bg-cyber-blue/10 rounded-full blur-xl animate-pulse"></div>
           </div>
-          <h1 class="text-5xl md:text-7xl font-bold mb-6 leading-tight">
-            Build Everywhere.<br />
-            Earn Anywhere.<br />
-            <span class="text-tron-red">Together on TRON.</span>
+          
+          <h1 class="text-5xl md:text-8xl font-orbitron font-black mb-8 leading-tight tracking-wider">
+            <span class="inline-block transform hover:scale-105 transition-transform duration-300">Build</span>{" "}
+            <span class="text-transparent bg-clip-text bg-neon-gradient animate-glow-pulse">Everywhere</span>
+            <br />
+            <span class="inline-block transform hover:scale-105 transition-transform duration-300">Earn</span>{" "}
+            <span class="text-transparent bg-clip-text bg-holographic animate-hologram">Anywhere</span>
+            <br />
+            <span class="text-cyber-blue font-black animate-glow-pulse">Together on </span>
+            <span class="text-transparent bg-clip-text bg-gradient-to-r from-tron-red via-neon-pink to-cyber-blue animate-glow-pulse relative">
+              TRON
+              <span class="absolute inset-0 text-tron-red blur-sm opacity-50">TRON</span>
+            </span>
           </h1>
-          <p class="text-xl md:text-2xl mb-12 text-gray-300 max-w-4xl mx-auto leading-relaxed">
-            Join the largest, most inclusive builder movement in crypto history. 
-            Unite with global communities to create, educate, and prosper on TRON's 
-            superior, profitable, and sustainable foundation.
-          </p>
+          
+          <div class="relative mb-12">
+            <p class="text-xl md:text-2xl text-gray-300 max-w-5xl mx-auto leading-relaxed font-exo font-light">
+              <span class="text-cyber-blue font-medium">Initialize</span> the largest, most inclusive builder movement in crypto history. 
+              <span class="text-neon-pink font-medium">Connect</span> with global communities to create, educate, and prosper on TRON's 
+              <span class="text-tron-green font-medium">superior</span>, profitable, and sustainable foundation.
+            </p>
+            <div class="absolute -inset-2 bg-gradient-to-r from-transparent via-cyber-blue/10 to-transparent rounded-lg blur-sm opacity-30"></div>
+          </div>
+          
           <div class="flex flex-col md:flex-row gap-6 justify-center items-center">
-            <button class="bg-tron-red hover:bg-red-700 px-8 py-4 rounded-lg text-xl font-bold transition-all transform hover:scale-105">
-              <i class="fas fa-play mr-3"></i>Start Building Now
+            <button class="group relative overflow-hidden bg-gradient-to-r from-tron-red via-neon-pink to-electric-purple bg-[length:200%_100%] hover:bg-right-bottom px-10 py-5 rounded-xl text-xl font-orbitron font-bold transition-all duration-700 transform hover:scale-110 hover:rotate-1 border-2 border-transparent hover:border-cyber-blue/50 shadow-lg hover:shadow-2xl hover:shadow-tron-red/50">
+              <span class="relative z-10 flex items-center">
+                <i class="fas fa-play mr-3 animate-pulse"></i>
+                <span class="text-shadow-glow">Initialize Protocol</span>
+              </span>
+              <div class="absolute inset-0 bg-gradient-to-r from-transparent via-white/30 to-transparent -skew-x-12 -translate-x-full group-hover:translate-x-full transition-transform duration-1000"></div>
+              <div class="absolute -inset-1 bg-gradient-to-r from-tron-red via-neon-pink to-electric-purple rounded-xl blur opacity-30 group-hover:opacity-50 transition-opacity duration-300"></div>
             </button>
-            <button class="border border-tron-red text-tron-red hover:bg-tron-red hover:text-white px-8 py-4 rounded-lg text-xl font-bold transition-all">
-              <i class="fas fa-download mr-3"></i>Read Full Proposal
+            
+            <button class="group relative overflow-hidden border-2 border-cyber-blue bg-transparent hover:bg-cyber-blue/10 px-10 py-5 rounded-xl text-xl font-orbitron font-bold transition-all duration-500 transform hover:scale-105 hover:-rotate-1 hover:shadow-lg hover:shadow-cyber-blue/50">
+              <span class="relative z-10 flex items-center text-cyber-blue group-hover:text-white">
+                <i class="fas fa-download mr-3 animate-bounce"></i>
+                <span class="text-shadow-glow">Access Documentation</span>
+              </span>
+              <div class="absolute inset-0 bg-gradient-to-r from-transparent via-cyber-blue/20 to-transparent -skew-x-12 -translate-x-full group-hover:translate-x-full transition-transform duration-700"></div>
             </button>
+          </div>
+          
+          {/* Floating Data Particles */}
+          <div class="absolute inset-0 pointer-events-none">
+            <div class="absolute top-20 left-20 w-2 h-2 bg-cyber-blue rounded-full animate-float opacity-60" style="animation-delay: 0s;"></div>
+            <div class="absolute top-40 right-32 w-1 h-1 bg-neon-pink rounded-full animate-float opacity-80" style="animation-delay: 1s;"></div>
+            <div class="absolute bottom-32 left-1/3 w-1.5 h-1.5 bg-tron-green rounded-full animate-float opacity-70" style="animation-delay: 2s;"></div>
+            <div class="absolute bottom-20 right-1/4 w-1 h-1 bg-electric-purple rounded-full animate-float opacity-60" style="animation-delay: 3s;"></div>
           </div>
         </div>
       </section>
 
       {/* Stats Section */}
-      <section class="py-20 bg-tron-gray/30">
-        <div class="container mx-auto px-6">
-          <div class="grid grid-cols-2 md:grid-cols-4 gap-8 text-center">
-            <div data-aos="fade-up" data-aos-delay="100">
-              <div class="text-4xl font-bold text-tron-red mb-2" id="stat-hubs">40</div>
-              <div class="text-gray-400">Regional Hubs</div>
+      <section class="py-20 relative overflow-hidden">
+        <div class="absolute inset-0 bg-gradient-to-r from-tron-dark via-tron-gray/50 to-tron-dark"></div>
+        <div class="absolute inset-0 cyber-grid opacity-20"></div>
+        
+        <div class="container mx-auto px-6 relative z-10">
+          <div class="grid grid-cols-2 md:grid-cols-4 gap-8">
+            <div class="text-center cyber-card p-8 rounded-xl" data-aos="fade-up" data-aos-delay="100">
+              <div class="text-5xl font-orbitron font-black text-transparent bg-clip-text bg-neon-gradient mb-4 stat-glow" id="stat-hubs">40</div>
+              <div class="text-cyber-blue font-rajdhani font-medium uppercase tracking-wider">Regional Hubs</div>
+              <div class="w-full h-0.5 bg-gradient-to-r from-transparent via-cyber-blue to-transparent mt-2 opacity-50"></div>
             </div>
-            <div data-aos="fade-up" data-aos-delay="200">
-              <div class="text-4xl font-bold text-tron-red mb-2" id="stat-squads">150</div>
-              <div class="text-gray-400">City Squads</div>
+            
+            <div class="text-center cyber-card p-8 rounded-xl" data-aos="fade-up" data-aos-delay="200">
+              <div class="text-5xl font-orbitron font-black text-transparent bg-clip-text bg-neon-gradient mb-4 stat-glow" id="stat-squads">150</div>
+              <div class="text-neon-pink font-rajdhani font-medium uppercase tracking-wider">City Squads</div>
+              <div class="w-full h-0.5 bg-gradient-to-r from-transparent via-neon-pink to-transparent mt-2 opacity-50"></div>
             </div>
-            <div data-aos="fade-up" data-aos-delay="300">
-              <div class="text-4xl font-bold text-tron-red mb-2" id="stat-deliverables">3,000+</div>
-              <div class="text-gray-400">Funded Deliverables</div>
+            
+            <div class="text-center cyber-card p-8 rounded-xl" data-aos="fade-up" data-aos-delay="300">
+              <div class="text-5xl font-orbitron font-black text-transparent bg-clip-text bg-neon-gradient mb-4 stat-glow" id="stat-deliverables">3,000+</div>
+              <div class="text-tron-green font-rajdhani font-medium uppercase tracking-wider">Funded Deliverables</div>
+              <div class="w-full h-0.5 bg-gradient-to-r from-transparent via-tron-green to-transparent mt-2 opacity-50"></div>
             </div>
-            <div data-aos="fade-up" data-aos-delay="400">
-              <div class="text-4xl font-bold text-tron-red mb-2" id="stat-funding">$40M</div>
-              <div class="text-gray-400">USDD Funding</div>
+            
+            <div class="text-center cyber-card p-8 rounded-xl" data-aos="fade-up" data-aos-delay="400">
+              <div class="text-5xl font-orbitron font-black text-transparent bg-clip-text bg-neon-gradient mb-4 stat-glow" id="stat-funding">$40M</div>
+              <div class="text-electric-purple font-rajdhani font-medium uppercase tracking-wider">USDD Funding</div>
+              <div class="w-full h-0.5 bg-gradient-to-r from-transparent via-electric-purple to-transparent mt-2 opacity-50"></div>
             </div>
           </div>
         </div>
       </section>
 
       {/* Mission Section */}
-      <section id="mission" class="py-20">
-        <div class="container mx-auto px-6">
+      <section id="mission" class="py-20 relative">
+        <div class="absolute inset-0 bg-gradient-to-b from-tron-dark via-tron-gray/30 to-tron-dark"></div>
+        
+        <div class="container mx-auto px-6 relative z-10">
           <div class="text-center mb-16" data-aos="fade-up">
-            <h2 class="text-4xl md:text-5xl font-bold mb-6">
-              Our <span class="text-tron-red">Mission</span>
+            <h2 class="text-5xl md:text-6xl font-orbitron font-black mb-8">
+              Our <span class="text-transparent bg-clip-text bg-neon-gradient animate-glow-pulse">Mission</span>
             </h2>
-            <div class="w-24 h-1 bg-tron-red mx-auto mb-8"></div>
+            <div class="w-32 h-1 bg-gradient-to-r from-transparent via-cyber-blue to-transparent mx-auto mb-8 animate-glow-pulse"></div>
           </div>
           
-          <div class="max-w-4xl mx-auto text-center" data-aos="fade-up" data-aos-delay="200">
-            <blockquote class="text-2xl md:text-3xl font-light italic leading-relaxed mb-12 text-gray-300">
-              "TRON MEGATEAM exists to ignite the largest, most inclusive builder movement in crypto history—uniting global communities to create, educate, and prosper on the TRON blockchain's superior, profitable, and sustainable foundation."
-            </blockquote>
+          <div class="max-w-5xl mx-auto text-center mb-16" data-aos="fade-up" data-aos-delay="200">
+            <div class="cyber-card p-12 rounded-2xl relative overflow-hidden">
+              <div class="absolute inset-0 bg-gradient-to-r from-cyber-blue/5 via-transparent to-neon-pink/5"></div>
+              <blockquote class="text-2xl md:text-3xl font-exo font-light leading-relaxed text-gray-200 relative z-10">
+                <span class="text-cyber-blue text-4xl">"</span>
+                <span class="text-transparent bg-clip-text bg-gradient-to-r from-white via-cyber-blue to-neon-pink">
+                  TRON MEGATEAM exists to ignite the largest, most inclusive builder movement in crypto history
+                </span>
+                —uniting global communities to create, educate, and prosper on TRON's 
+                <span class="text-tron-green font-medium">superior</span>, 
+                <span class="text-neon-pink font-medium">profitable</span>, and 
+                <span class="text-cyber-blue font-medium">sustainable</span> foundation.
+                <span class="text-cyber-blue text-4xl">"</span>
+              </blockquote>
+            </div>
           </div>
 
-          <div class="grid md:grid-cols-2 gap-12 mt-16">
-            <div data-aos="fade-right">
-              <h3 class="text-2xl font-bold mb-6 text-tron-red">
-                <i class="fas fa-globe mr-3"></i>Global Scale
-              </h3>
-              <p class="text-gray-300 leading-relaxed">
-                From Lagos to Lima, Berlin to Bangalore, Boston to San Francisco—MEGATEAM launches 
+          <div class="grid md:grid-cols-2 gap-12">
+            <div class="cyber-card p-8 rounded-xl" data-aos="fade-right">
+              <div class="flex items-center mb-6">
+                <div class="relative">
+                  <i class="fas fa-globe text-3xl text-cyber-blue animate-glow-pulse"></i>
+                  <div class="absolute inset-0 fas fa-globe text-3xl text-cyber-blue blur-sm opacity-50 animate-glow-pulse"></div>
+                </div>
+                <h3 class="text-2xl font-orbitron font-bold ml-4 text-cyber-blue">
+                  Global Scale
+                </h3>
+              </div>
+              <p class="text-gray-300 leading-relaxed font-exo">
+                From <span class="text-tron-green">Lagos</span> to <span class="text-neon-pink">Lima</span>, 
+                <span class="text-cyber-blue">Berlin</span> to <span class="text-electric-purple">Bangalore</span>, 
+                <span class="text-tron-red">Boston</span> to <span class="text-tron-green">San Francisco</span>—MEGATEAM launches 
                 hubs and city squads that speak the local language, host IRL hack-nights, and funnel 
                 micro-grants directly to grassroots talent.
               </p>
+              <div class="w-full h-0.5 bg-gradient-to-r from-transparent via-cyber-blue to-transparent mt-4 opacity-50"></div>
             </div>
-            <div data-aos="fade-left">
-              <h3 class="text-2xl font-bold mb-6 text-tron-red">
-                <i class="fas fa-coins mr-3"></i>Builder-First Economics
-              </h3>
-              <p class="text-gray-300 leading-relaxed">
-                With the industry's deepest bounty & grant engine, contributors earn real TRX/USDD 
-                for shipping code, content, art, or events—turning passion into sustainable income.
+            
+            <div class="cyber-card p-8 rounded-xl" data-aos="fade-left">
+              <div class="flex items-center mb-6">
+                <div class="relative">
+                  <i class="fas fa-coins text-3xl text-neon-pink animate-glow-pulse"></i>
+                  <div class="absolute inset-0 fas fa-coins text-3xl text-neon-pink blur-sm opacity-50 animate-glow-pulse"></div>
+                </div>
+                <h3 class="text-2xl font-orbitron font-bold ml-4 text-neon-pink">
+                  Builder-First Economics
+                </h3>
+              </div>
+              <p class="text-gray-300 leading-relaxed font-exo">
+                With the industry's deepest <span class="text-cyber-blue">bounty & grant engine</span>, 
+                contributors earn real <span class="text-tron-red font-medium">TRX/USDD</span> 
+                for shipping code, content, art, or events—turning 
+                <span class="text-neon-pink">passion</span> into <span class="text-tron-green">sustainable income</span>.
               </p>
+              <div class="w-full h-0.5 bg-gradient-to-r from-transparent via-neon-pink to-transparent mt-4 opacity-50"></div>
             </div>
           </div>
         </div>
