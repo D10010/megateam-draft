@@ -172,10 +172,10 @@ document.addEventListener('DOMContentLoaded', function() {
             ctx.fillStyle = 'rgba(0, 0, 0, 0.05)';
             ctx.fillRect(0, 0, canvas.width, canvas.height);
             
-            // TRON Red text with slight glow
+            // TRON Red text with minimal glow
             ctx.fillStyle = '#FF060A';
             ctx.shadowColor = '#FF060A';
-            ctx.shadowBlur = 3;
+            ctx.shadowBlur = 1;
             ctx.font = fontSize + 'px monospace';
             
             for (let i = 0; i < drops.length; i++) {
@@ -257,7 +257,7 @@ document.addEventListener('DOMContentLoaded', function() {
                 height: ${size}px;
                 background: ${color};
                 border-radius: 50%;
-                box-shadow: 0 0 ${size * 3}px ${color};
+                box-shadow: 0 0 ${size * 1.5}px ${color};
                 animation: dataStream ${duration}ms linear forwards;
             `;
             
@@ -413,7 +413,8 @@ document.addEventListener('DOMContentLoaded', function() {
                         border-radius: 50%;
                         pointer-events: none;
                         z-index: 9999;
-                        opacity: ${particle.life / 20};
+                        opacity: ${particle.life / 30};
+                        box-shadow: 0 0 2px ${particle.color};
                     `;
                     
                     document.body.appendChild(element);

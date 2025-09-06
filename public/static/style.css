@@ -34,23 +34,23 @@ body {
 
 @keyframes glowPulse {
   0%, 100% {
-    text-shadow: 0 0 5px currentColor, 0 0 10px currentColor, 0 0 15px currentColor;
+    text-shadow: 0 0 2px currentColor, 0 0 4px currentColor, 0 0 6px currentColor;
     filter: brightness(1);
   }
   50% {
-    text-shadow: 0 0 10px currentColor, 0 0 20px currentColor, 0 0 30px currentColor;
-    filter: brightness(1.2);
+    text-shadow: 0 0 3px currentColor, 0 0 6px currentColor, 0 0 8px currentColor;
+    filter: brightness(1.05);
   }
 }
 
 @keyframes tronGlow {
   0%, 100% {
-    text-shadow: 0 0 5px #FF060A, 0 0 10px #FF060A, 0 0 15px #FF060A;
+    text-shadow: 0 0 2px #FF060A, 0 0 4px #FF060A, 0 0 6px #FF060A;
     filter: brightness(1);
   }
   50% {
-    text-shadow: 0 0 10px #FF060A, 0 0 20px #FF060A, 0 0 30px #FF060A;
-    filter: brightness(1.3);
+    text-shadow: 0 0 3px #FF060A, 0 0 6px #FF060A, 0 0 8px #FF060A;
+    filter: brightness(1.1);
   }
 }
 
@@ -150,13 +150,13 @@ body {
   }
 }
 
-/* TRON glow effects */
+/* TRON glow effects - Reduced intensity */
 .glow-text {
-  text-shadow: 0 0 5px currentColor, 0 0 10px currentColor, 0 0 15px currentColor;
+  text-shadow: 0 0 2px currentColor, 0 0 4px currentColor, 0 0 6px currentColor;
 }
 
 .text-shadow-glow {
-  text-shadow: 0 0 10px rgba(255, 6, 10, 0.8), 0 0 20px rgba(255, 6, 10, 0.6), 0 0 30px rgba(255, 6, 10, 0.4);
+  text-shadow: 0 0 4px rgba(255, 6, 10, 0.6), 0 0 8px rgba(255, 6, 10, 0.4), 0 0 12px rgba(255, 6, 10, 0.2);
 }
 
 /* TRON Holographic effects */
@@ -327,15 +327,14 @@ body {
   border-color: rgba(0, 255, 255, 0.8);
 }
 
-/* TRON Stats counter glow */
+/* TRON Stats counter glow - Reduced intensity */
 .stat-glow {
   color: #FF060A;
   text-shadow: 
-    0 0 5px #FF060A,
-    0 0 10px #FF060A,
-    0 0 20px #FF060A,
-    0 0 40px #FF060A,
-    0 0 60px #FF060A;
+    0 0 2px #FF060A,
+    0 0 4px #FF060A,
+    0 0 8px #FF060A,
+    0 0 12px #FF060A;
   font-family: 'Orbitron', monospace;
   font-weight: 900;
 }

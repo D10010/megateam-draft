@@ -23,11 +23,11 @@ app.get('/', (c) => {
           <div class="flex items-center justify-between">
             <div class="flex items-center space-x-3">
               <div class="relative">
-                <i class="fas fa-rocket text-tron-red text-2xl animate-tron-glow"></i>
-                <div class="absolute inset-0 fas fa-rocket text-tron-red text-2xl blur-sm opacity-50 animate-tron-glow"></div>
+                <i class="fas fa-rocket text-tron-red text-2xl"></i>
+                <div class="absolute inset-0 fas fa-rocket text-tron-red text-2xl blur-sm opacity-30"></div>
               </div>
               <span class="text-2xl font-orbitron font-bold tracking-wider">
-                TRON <span class="text-transparent bg-clip-text bg-tron-gradient animate-tron-glow">MEGATEAM</span>
+                TRON <span class="text-transparent bg-clip-text bg-tron-gradient">MEGATEAM</span>
               </span>
             </div>
             <div class="hidden md:flex items-center space-x-8">
@@ -79,23 +79,23 @@ app.get('/', (c) => {
         <div class="container mx-auto px-6 text-center relative z-20" data-aos="fade-up">
           <div class="mb-8 relative">
             <div class="relative inline-block">
-              <i class="fas fa-rocket text-6xl text-transparent bg-clip-text bg-tron-gradient animate-tron-glow"></i>
-              <div class="absolute inset-0 fas fa-rocket text-6xl text-tron-red blur-lg opacity-50 animate-tron-glow"></div>
+              <i class="fas fa-rocket text-6xl text-transparent bg-clip-text bg-tron-gradient"></i>
+              <div class="absolute inset-0 fas fa-rocket text-6xl text-tron-red blur-lg opacity-30"></div>
             </div>
-            <div class="absolute -inset-4 bg-tron-red/10 rounded-full blur-xl animate-pulse"></div>
+            <div class="absolute -inset-4 bg-tron-red/5 rounded-full blur-xl animate-pulse"></div>
           </div>
           
           <h1 class="text-5xl md:text-8xl font-orbitron font-black mb-8 leading-tight tracking-wider">
             <span class="inline-block transform hover:scale-105 transition-transform duration-300 text-tron-white">Build</span>{" "}
-            <span class="text-transparent bg-clip-text bg-tron-gradient animate-tron-glow">Everywhere</span>
+            <span class="text-transparent bg-clip-text bg-tron-gradient">Everywhere</span>
             <br />
             <span class="inline-block transform hover:scale-105 transition-transform duration-300 text-tron-white">Earn</span>{" "}
             <span class="text-transparent bg-clip-text bg-tron-holographic animate-hologram">Anywhere</span>
             <br />
-            <span class="text-tron-silver font-black animate-tron-glow">Together on </span>
-            <span class="text-transparent bg-clip-text bg-gradient-to-r from-tron-red via-tron-light to-tron-dark-red animate-tron-glow relative">
+            <span class="text-tron-silver font-black">Together on </span>
+            <span class="text-transparent bg-clip-text bg-gradient-to-r from-tron-red via-tron-light to-tron-dark-red relative">
               TRON
-              <span class="absolute inset-0 text-tron-red blur-sm opacity-50">TRON</span>
+              <span class="absolute inset-0 text-tron-red blur-sm opacity-30">TRON</span>
             </span>
           </h1>
           
@@ -109,19 +109,19 @@ app.get('/', (c) => {
           </div>
           
           <div class="flex flex-col md:flex-row gap-6 justify-center items-center">
-            <button class="group relative overflow-hidden bg-gradient-to-r from-tron-red via-tron-light to-tron-dark-red bg-[length:200%_100%] hover:bg-right-bottom px-10 py-5 rounded-xl text-xl font-orbitron font-bold transition-all duration-700 transform hover:scale-110 hover:rotate-1 border-2 border-tron-red/50 shadow-lg hover:shadow-2xl hover:shadow-tron-red/50">
+            <button class="group relative overflow-hidden bg-gradient-to-r from-tron-red via-tron-light to-tron-dark-red bg-[length:200%_100%] hover:bg-right-bottom px-10 py-5 rounded-xl text-xl font-orbitron font-bold transition-all duration-700 transform hover:scale-110 hover:rotate-1 border-2 border-tron-red/50 shadow-lg hover:shadow-2xl hover:shadow-tron-red/30">
               <span class="relative z-10 flex items-center text-tron-white">
                 <i class="fas fa-play mr-3 animate-pulse"></i>
-                <span class="text-shadow-glow">Initialize Protocol</span>
+                <span>Initialize Protocol</span>
               </span>
               <div class="absolute inset-0 bg-gradient-to-r from-transparent via-white/30 to-transparent -skew-x-12 -translate-x-full group-hover:translate-x-full transition-transform duration-1000"></div>
-              <div class="absolute -inset-1 bg-tron-gradient rounded-xl blur opacity-30 group-hover:opacity-50 transition-opacity duration-300"></div>
+              <div class="absolute -inset-1 bg-tron-gradient rounded-xl blur opacity-20 group-hover:opacity-30 transition-opacity duration-300"></div>
             </button>
             
-            <button class="group relative overflow-hidden border-2 border-tron-red bg-transparent hover:bg-tron-red/10 px-10 py-5 rounded-xl text-xl font-orbitron font-bold transition-all duration-500 transform hover:scale-105 hover:-rotate-1 hover:shadow-lg hover:shadow-tron-red/50">
+            <button class="group relative overflow-hidden border-2 border-tron-red bg-transparent hover:bg-tron-red/10 px-10 py-5 rounded-xl text-xl font-orbitron font-bold transition-all duration-500 transform hover:scale-105 hover:-rotate-1 hover:shadow-lg hover:shadow-tron-red/30">
               <span class="relative z-10 flex items-center text-tron-red group-hover:text-tron-light">
                 <i class="fas fa-download mr-3 animate-bounce"></i>
-                <span class="text-shadow-glow">Access Documentation</span>
+                <span>Access Documentation</span>
               </span>
               <div class="absolute inset-0 bg-gradient-to-r from-transparent via-tron-red/20 to-transparent -skew-x-12 -translate-x-full group-hover:translate-x-full transition-transform duration-700"></div>
             </button>
@@ -178,9 +178,9 @@ app.get('/', (c) => {
         <div class="container mx-auto px-6 relative z-10">
           <div class="text-center mb-16" data-aos="fade-up">
             <h2 class="text-5xl md:text-6xl font-orbitron font-black mb-8">
-              Our <span class="text-transparent bg-clip-text bg-tron-gradient animate-tron-glow">Mission</span>
+              Our <span class="text-transparent bg-clip-text bg-tron-gradient">Mission</span>
             </h2>
-            <div class="w-32 h-1 bg-gradient-to-r from-transparent via-tron-red to-transparent mx-auto mb-8 animate-tron-glow"></div>
+            <div class="w-32 h-1 bg-gradient-to-r from-transparent via-tron-red to-transparent mx-auto mb-8"></div>
           </div>
           
           <div class="max-w-5xl mx-auto text-center mb-16" data-aos="fade-up" data-aos-delay="200">
@@ -204,8 +204,8 @@ app.get('/', (c) => {
             <div class="cyber-card p-8 rounded-xl" data-aos="fade-right">
               <div class="flex items-center mb-6">
                 <div class="relative">
-                  <i class="fas fa-globe text-3xl text-tron-red animate-tron-glow"></i>
-                  <div class="absolute inset-0 fas fa-globe text-3xl text-tron-red blur-sm opacity-50 animate-tron-glow"></div>
+                  <i class="fas fa-globe text-3xl text-tron-red"></i>
+                  <div class="absolute inset-0 fas fa-globe text-3xl text-tron-red blur-sm opacity-25"></div>
                 </div>
                 <h3 class="text-2xl font-orbitron font-bold ml-4 text-tron-red">
                   Global Scale
@@ -224,8 +224,8 @@ app.get('/', (c) => {
             <div class="cyber-card p-8 rounded-xl" data-aos="fade-left">
               <div class="flex items-center mb-6">
                 <div class="relative">
-                  <i class="fas fa-coins text-3xl text-tron-light animate-tron-glow"></i>
-                  <div class="absolute inset-0 fas fa-coins text-3xl text-tron-light blur-sm opacity-50 animate-tron-glow"></div>
+                  <i class="fas fa-coins text-3xl text-tron-light"></i>
+                  <div class="absolute inset-0 fas fa-coins text-3xl text-tron-light blur-sm opacity-25"></div>
                 </div>
                 <h3 class="text-2xl font-orbitron font-bold ml-4 text-tron-light">
                   Builder-First Economics
