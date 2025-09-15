@@ -461,24 +461,12 @@ app.get('/', (c) => {
       </nav>
 
       {/* Hero Section */}
-      <section class="min-h-screen flex items-center justify-center relative overflow-hidden pt-20">
-        {/* Animated Background */}
-        <div class="absolute inset-0 bg-gradient-to-br from-tron-red/1 via-tron-black via-tron-gray/2.5 to-tron-red/1"></div>
-        
-        {/* TRON Holographic Overlay */}
-        <div class="absolute inset-0 bg-tron-holographic opacity-[0.45] animate-hologram"></div>
-        
-
-        
-
-        
+      <section class="min-h-screen flex items-center justify-center relative overflow-hidden pt-20">        
         <div class="container mx-auto px-6 text-center relative z-20" data-aos="fade-up">
           <div class="mb-8 relative">
             <div class="relative inline-block">
               <i class="fas fa-rocket text-6xl text-transparent bg-clip-text bg-tron-gradient"></i>
-              <div class="absolute inset-0 fas fa-rocket text-6xl text-tron-red blur-lg opacity-[0.045]"></div>
             </div>
-            <div class="absolute -inset-4 bg-tron-red/[0.45] rounded-full blur-xl animate-pulse"></div>
           </div>
           
           <h1 class="text-5xl md:text-8xl font-montserrat font-black mb-8 leading-tight tracking-wider">
@@ -489,9 +477,8 @@ app.get('/', (c) => {
             <span class="text-transparent bg-clip-text bg-tron-holographic animate-hologram">Anywhere</span>
             <br />
             <span class="text-tron-silver font-black">Together on </span>
-            <span class="text-transparent bg-clip-text bg-gradient-to-r from-tron-red via-tron-light to-tron-dark-red relative">
+            <span class="text-transparent bg-clip-text bg-gradient-to-r from-tron-red via-tron-light to-tron-dark-red">
               TRON
-              <span class="absolute inset-0 text-tron-red blur-sm opacity-[0.045]">TRON</span>
             </span>
           </h1>
           
