@@ -461,7 +461,19 @@ app.get('/', (c) => {
       </nav>
 
       {/* Hero Section */}
-      <section class="min-h-screen flex items-center justify-center relative overflow-hidden pt-20">        
+      <section class="min-h-screen flex items-center justify-center relative overflow-hidden pt-20">
+        {/* Background Video */}
+        <div class="absolute inset-0 w-full h-full overflow-hidden">
+          <iframe 
+            class="absolute top-1/2 left-1/2 min-w-full min-h-full w-auto h-auto transform -translate-x-1/2 -translate-y-1/2 pointer-events-none"
+            src="https://www.youtube.com/embed/gU6Jfz2jOHA?autoplay=1&mute=1&loop=1&playlist=gU6Jfz2jOHA&controls=0&showinfo=0&rel=0&iv_load_policy=3&modestbranding=1&disablekb=1&fs=0&cc_load_policy=0&playsinline=1&enablejsapi=0"
+            title="Background Video"
+            frameborder="0"
+            allow="autoplay; encrypted-media"
+          ></iframe>
+          {/* Overlay for better text readability */}
+          <div class="absolute inset-0 bg-black/40"></div>
+        </div>        
         <div class="container mx-auto px-6 text-center relative z-20" data-aos="fade-up">
           <div class="mb-8 relative">
             <div class="relative inline-block">
