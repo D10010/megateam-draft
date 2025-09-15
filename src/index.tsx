@@ -477,11 +477,11 @@ app.get('/', (c) => {
         <div class="container mx-auto px-6 text-center relative z-20" data-aos="fade-up">
           <div class="mb-8 relative">
             <div class="relative inline-block">
-              <i class="fas fa-rocket text-6xl text-transparent bg-clip-text bg-tron-gradient"></i>
+              <i class="fas fa-rocket text-5xl text-transparent bg-clip-text bg-tron-gradient"></i>
             </div>
           </div>
           
-          <h1 class="text-5xl md:text-8xl font-montserrat font-black mb-8 leading-tight tracking-wider">
+          <h1 class="text-4xl md:text-6xl font-montserrat font-black mb-8 leading-tight tracking-wider">
             <span class="inline-block transform hover:scale-105 transition-transform duration-300 text-tron-white">Build</span>{" "}
             <span class="text-transparent bg-clip-text bg-tron-gradient">Everywhere</span>
             <br />
