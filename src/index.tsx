@@ -429,6 +429,7 @@ app.get('/', (c) => {
                 TRON <span class="text-transparent bg-clip-text bg-tron-gradient">MEGATEAM</span>
               </span>
             </div>
+            {/* Desktop Navigation */}
             <div class="hidden md:flex items-center space-x-8">
               <a href="#mission" class="font-montserrat font-medium text-tron-silver hover:text-tron-red transition-all duration-300 hover:glow-text relative group">
                 Mission
@@ -451,6 +452,38 @@ app.get('/', (c) => {
                   Join MEGATEAM <i class="fas fa-external-link-alt ml-1 text-sm opacity-80"></i>
                 </span>
                 <div class="absolute inset-0 bg-gradient-to-r from-transparent via-white/20 to-transparent -skew-x-12 -translate-x-full group-hover:translate-x-full transition-transform duration-700"></div>
+              </a>
+            </div>
+
+            {/* Mobile Hamburger Button */}
+            <button 
+              id="mobile-menu-toggle"
+              class="md:hidden flex flex-col space-y-1 w-6 h-6 focus:outline-none"
+              onclick="toggleMobileMenu()"
+            >
+              <span class="block w-full h-0.5 bg-tron-red transition-transform duration-300"></span>
+              <span class="block w-full h-0.5 bg-tron-red transition-transform duration-300"></span>
+              <span class="block w-full h-0.5 bg-tron-red transition-transform duration-300"></span>
+            </button>
+          </div>
+
+          {/* Mobile Navigation Menu */}
+          <div id="mobile-menu" class="hidden md:hidden absolute top-full left-0 right-0 bg-gradient-to-b from-tron-black via-tron-dark to-tron-black backdrop-blur-md border-b border-tron-red/30 shadow-lg shadow-tron-red/20">
+            <div class="container mx-auto px-6 py-6 space-y-4">
+              <a href="#mission" class="block font-montserrat font-medium text-tron-silver hover:text-tron-red transition-all duration-300 py-2 border-b border-tron-gray/20">
+                Mission
+              </a>
+              <a href="#objectives" class="block font-montserrat font-medium text-tron-silver hover:text-tron-red transition-all duration-300 py-2 border-b border-tron-gray/20">
+                Objectives
+              </a>
+              <a href="#structure" class="block font-montserrat font-medium text-tron-silver hover:text-tron-red transition-all duration-300 py-2 border-b border-tron-gray/20">
+                Structure
+              </a>
+              <a href="#roadmap" class="block font-montserrat font-medium text-tron-silver hover:text-tron-red transition-all duration-300 py-2 border-b border-tron-gray/20">
+                Roadmap
+              </a>
+              <a href="https://forms.gle/4xFFgTwHXiifMEhV9" target="_blank" rel="noopener noreferrer" class="block bg-tron-red hover:bg-tron-light px-4 py-3 rounded-lg font-montserrat font-bold text-tron-white text-center transition-all duration-300 mt-4">
+                Join MEGATEAM <i class="fas fa-external-link-alt ml-1 text-sm opacity-80"></i>
               </a>
             </div>
             <button class="md:hidden text-tron-red text-xl hover:text-tron-light transition-colors" id="mobile-menu-btn">

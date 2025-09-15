@@ -601,3 +601,46 @@ style.textContent = `
     }
 `;
 document.head.appendChild(style);
+
+// Mobile Menu Toggle Function
+function toggleMobileMenu() {
+    const mobileMenu = document.getElementById('mobile-menu');
+    const hamburgerBtn = document.getElementById('mobile-menu-toggle');
+    
+    if (mobileMenu && hamburgerBtn) {
+        // Toggle menu visibility
+        mobileMenu.classList.toggle('hidden');
+        
+        // Animate hamburger button
+        const spans = hamburgerBtn.querySelectorAll('span');
+        if (mobileMenu.classList.contains('hidden')) {
+            // Menu is closing - reset hamburger
+            spans[0].style.transform = 'rotate(0) translateY(0)';
+            spans[1].style.opacity = '1';
+            spans[2].style.transform = 'rotate(0) translateY(0)';
+        } else {
+            // Menu is opening - animate to X
+            spans[0].style.transform = 'rotate(45deg) translateY(6px)';
+            spans[1].style.opacity = '0';
+            spans[2].style.transform = 'rotate(-45deg) translateY(-6px)';
+        }
+        
+        // Add cyber effect
+        addCyberGlitch();
+    }
+}
+
+// Close mobile menu when clicking on links
+document.addEventListener('DOMContentLoaded', function() {
+    const mobileMenuLinks = document.querySelectorAll('#mobile-menu a[href^="#"]');
+    mobileMenuLinks.forEach(link => {
+        link.addEventListener('click', function() {
+            const mobileMenu = document.getElementById('mobile-menu');
+            const hamburgerBtn = document.getElementById('mobile-menu-toggle');
+            
+            if (mobileMenu && !mobileMenu.classList.contains('hidden')) {
+                toggleMobileMenu();
+            }
+        });
+    });
+});
