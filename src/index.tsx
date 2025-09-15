@@ -461,7 +461,7 @@ app.get('/', (c) => {
       </nav>
 
       {/* Hero Section */}
-      <section class="min-h-screen flex items-center justify-center relative overflow-hidden pt-20">
+      <section class="min-h-screen flex items-center justify-center relative overflow-hidden pt-16 md:pt-20 pb-8 md:pb-0">
         {/* Background Video */}
         <div class="absolute inset-0 w-full h-full overflow-hidden">
           <iframe 
@@ -474,14 +474,14 @@ app.get('/', (c) => {
           {/* Overlay for better text readability */}
           <div class="absolute inset-0 bg-black/40"></div>
         </div>        
-        <div class="container mx-auto px-6 text-center relative z-20" data-aos="fade-up">
-          <div class="mb-8 relative">
+        <div class="container mx-auto px-4 md:px-6 text-center relative z-20" data-aos="fade-up">
+          <div class="mb-4 md:mb-8 relative">
             <div class="relative inline-block">
-              <i class="fas fa-rocket text-5xl text-transparent bg-clip-text bg-tron-gradient"></i>
+              <i class="fas fa-rocket text-3xl md:text-5xl text-transparent bg-clip-text bg-tron-gradient"></i>
             </div>
           </div>
           
-          <h1 class="text-4xl md:text-6xl font-montserrat font-black mb-8 leading-tight tracking-wider">
+          <h1 class="text-2xl md:text-6xl font-montserrat font-black mb-4 md:mb-8 leading-tight md:leading-tight tracking-wider">
             <span class="inline-block transform hover:scale-105 transition-transform duration-300 text-tron-white">Build</span>{" "}
             <span class="text-transparent bg-clip-text bg-tron-gradient">Everywhere</span>
             <br />
