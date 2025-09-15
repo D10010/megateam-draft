@@ -526,8 +526,7 @@ app.get('/', (c) => {
                   TRON MEGATEAM exists to ignite the largest, most inclusive builder movement in crypto history—uniting global communities to create, educate, and prosper on TRON's
                 </span>
                 <span class="text-tron-silver font-medium"> scalable</span>, 
-                <span class="text-tron-light font-medium">profitable</span>, and 
-                <span class="text-tron-red font-medium">dynamic</span> foundation.
+                <span class="text-tron-light font-medium">profitable</span>, and <span class="text-tron-red font-medium">dynamic</span> foundation.
                 <span class="text-tron-red text-4xl">"</span>
               </blockquote>
             </div>
