@@ -523,9 +523,9 @@ app.get('/', (c) => {
               <blockquote class="text-2xl md:text-3xl font-montserrat font-light leading-relaxed text-tron-light-gray relative z-10">
                 <span class="text-tron-red text-4xl">"</span>
                 <span class="text-transparent bg-clip-text bg-gradient-to-r from-tron-white via-tron-silver to-tron-light">
-                  TRON MEGATEAM exists to ignite the largest, most inclusive builder movement in crypto history—uniting global communities to create, educate, and prosper on TRON's 
+                  TRON MEGATEAM exists to ignite the largest, most inclusive builder movement in crypto history—uniting global communities to create, educate, and prosper on TRON's
                 </span>
-                <span class="text-tron-silver font-medium">scalable</span>, 
+                <span class="text-tron-silver font-medium"> scalable</span>, 
                 <span class="text-tron-light font-medium">profitable</span>, and 
                 <span class="text-tron-red font-medium">dynamic</span> foundation.
                 <span class="text-tron-red text-4xl">"</span>
