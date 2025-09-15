@@ -10,6 +10,31 @@ export const renderer = jsxRenderer(({ children }) => {
         <meta name="description" content="Join the largest, most inclusive builder movement in crypto history. Build, earn, and prosper on the TRON blockchain with MEGATEAM." />
         <link rel="icon" type="image/x-icon" href="/favicon.ico" />
         
+        {/* Open Graph / Social Media Meta Tags */}
+        <meta property="og:type" content="website" />
+        <meta property="og:site_name" content="TRON MEGATEAM" />
+        <meta property="og:title" content="TRON MEGATEAM - Building the Future Together" />
+        <meta property="og:description" content="Join the largest, most inclusive builder movement in crypto history. Build, earn, and prosper on the TRON blockchain with MEGATEAM." />
+        <meta property="og:image" content="/thumbnail.jpg" />
+        <meta property="og:image:width" content="400" />
+        <meta property="og:image:height" content="400" />
+        <meta property="og:image:alt" content="MEGATEAM Logo - MT" />
+        <meta property="og:url" content="https://www.megateam.network" />
+        
+        {/* Twitter Card Meta Tags */}
+        <meta name="twitter:card" content="summary_large_image" />
+        <meta name="twitter:title" content="TRON MEGATEAM - Building the Future Together" />
+        <meta name="twitter:description" content="Join the largest, most inclusive builder movement in crypto history. Build, earn, and prosper on the TRON blockchain with MEGATEAM." />
+        <meta name="twitter:image" content="/thumbnail.jpg" />
+        <meta name="twitter:image:alt" content="MEGATEAM Logo - MT" />
+        
+        {/* Additional Meta Tags */}
+        <meta name="theme-color" content="#FF060A" />
+        <meta name="msapplication-TileColor" content="#FF060A" />
+        <meta name="keywords" content="TRON, blockchain, cryptocurrency, DeFi, Web3, builder, developer, MEGATEAM, TRX, USDT" />
+        <meta name="author" content="TRON MEGATEAM" />
+        <link rel="canonical" href="https://www.megateam.network" />
+        
         {/* Tailwind CSS */}
         <script src="https://cdn.tailwindcss.com"></script>
         
