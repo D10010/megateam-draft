@@ -476,9 +476,9 @@ app.get('/', (c) => {
           <div class="mb-8 relative">
             <div class="relative inline-block">
               <i class="fas fa-rocket text-6xl text-transparent bg-clip-text bg-tron-gradient"></i>
-              <div class="absolute inset-0 fas fa-rocket text-6xl text-tron-red blur-lg opacity-15"></div>
+              <div class="absolute inset-0 fas fa-rocket text-6xl text-tron-red blur-lg opacity-[0.045]"></div>
             </div>
-            <div class="absolute -inset-4 bg-tron-red/1.5 rounded-full blur-xl animate-pulse"></div>
+            <div class="absolute -inset-4 bg-tron-red/[0.45] rounded-full blur-xl animate-pulse"></div>
           </div>
           
           <h1 class="text-5xl md:text-8xl font-montserrat font-black mb-8 leading-tight tracking-wider">
@@ -491,7 +491,7 @@ app.get('/', (c) => {
             <span class="text-tron-silver font-black">Together on </span>
             <span class="text-transparent bg-clip-text bg-gradient-to-r from-tron-red via-tron-light to-tron-dark-red relative">
               TRON
-              <span class="absolute inset-0 text-tron-red blur-sm opacity-15">TRON</span>
+              <span class="absolute inset-0 text-tron-red blur-sm opacity-[0.045]">TRON</span>
             </span>
           </h1>
           
