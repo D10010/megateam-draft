@@ -446,7 +446,7 @@ app.get('/', (c) => {
                 Roadmap
                 <span class="absolute bottom-0 left-0 w-0 h-0.5 bg-tron-red transition-all duration-300 group-hover:w-full"></span>
               </a>
-              <a href="https://docs.google.com/forms/d/e/1FAIpQLSdte-rnVQpG6oqNfZCs26nDCu7wVyghueyKkEwmSPp53zECmQ/viewform" target="_blank" rel="noopener noreferrer" class="color-flash-hover relative overflow-hidden bg-gradient-to-r from-tron-red via-tron-light to-tron-red bg-[length:200%_100%] px-6 py-2 rounded-lg font-montserrat font-bold transition-all duration-500 transform hover:scale-105 border border-tron-red/50 inline-block">
+              <a href="https://forms.gle/4xFFgTwHXiifMEhV9" target="_blank" rel="noopener noreferrer" class="color-flash-hover relative overflow-hidden bg-gradient-to-r from-tron-red via-tron-light to-tron-red bg-[length:200%_100%] px-6 py-2 rounded-lg font-montserrat font-bold transition-all duration-500 transform hover:scale-105 border border-tron-red/50 inline-block">
                 <span class="relative z-10 text-tron-white">
                   Join MEGATEAM <i class="fas fa-external-link-alt ml-1 text-sm opacity-80"></i>
                 </span>
@@ -1083,7 +1083,7 @@ app.get('/', (c) => {
               When the world builds on TRON, the future of Web3 belongs to everyone.
             </p>
             <div class="flex flex-col md:flex-row gap-6 justify-center items-center">
-              <a href="https://docs.google.com/forms/d/e/1FAIpQLSdte-rnVQpG6oqNfZCs26nDCu7wVyghueyKkEwmSPp53zECmQ/viewform" target="_blank" rel="noopener noreferrer" class="color-flash-hover bg-tron-red px-8 py-4 rounded-lg text-xl font-bold transition-all transform hover:scale-105 inline-block text-white">
+              <a href="https://forms.gle/4xFFgTwHXiifMEhV9" target="_blank" rel="noopener noreferrer" class="color-flash-hover bg-tron-red px-8 py-4 rounded-lg text-xl font-bold transition-all transform hover:scale-105 inline-block text-white">
                 <i class="fas fa-rocket mr-3"></i>Join MEGATEAM <i class="fas fa-external-link-alt ml-2 text-sm opacity-80"></i>
               </a>
 
