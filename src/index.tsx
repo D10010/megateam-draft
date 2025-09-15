@@ -463,10 +463,10 @@ app.get('/', (c) => {
       {/* Hero Section */}
       <section class="min-h-screen flex items-center justify-center relative overflow-hidden pt-20">
         {/* Animated Background */}
-        <div class="absolute inset-0 bg-gradient-to-br from-tron-red/5 via-tron-black via-tron-gray/2.5 to-tron-red/4"></div>
+        <div class="absolute inset-0 bg-gradient-to-br from-tron-red/1 via-tron-black via-tron-gray/2.5 to-tron-red/1"></div>
         
         {/* TRON Holographic Overlay */}
-        <div class="absolute inset-0 bg-tron-holographic opacity-1.5 animate-hologram"></div>
+        <div class="absolute inset-0 bg-tron-holographic opacity-[0.45] animate-hologram"></div>
         
 
         
