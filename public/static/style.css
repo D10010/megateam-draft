@@ -457,19 +457,77 @@ a:focus {
   width: 8px;
 }
 
-::-webkit-scrollbar-track {
-  background: #0a0a0a;
-  border: 1px solid rgba(0, 255, 255, 0.1);
+/* Mobile enhanced scrollbar */
+@media (max-width: 768px) {
+  ::-webkit-scrollbar {
+    width: 6px;
+  }
+  
+  ::-webkit-scrollbar-track {
+    background: #0a0a0a;
+    border: 1px solid rgba(255, 6, 10, 0.2);
+    box-shadow: 
+      inset 0 0 5px rgba(255, 6, 10, 0.1),
+      inset 0 0 10px rgba(0, 212, 255, 0.1);
+  }
+  
+  ::-webkit-scrollbar-thumb {
+    background: linear-gradient(180deg, 
+      rgba(255, 6, 10, 0.9) 0%, 
+      rgba(255, 68, 68, 0.8) 25%,
+      rgba(0, 212, 255, 0.8) 75%, 
+      rgba(0, 212, 255, 0.9) 100%);
+    border-radius: 6px;
+    box-shadow: 
+      0 0 8px rgba(255, 6, 10, 0.6),
+      0 0 15px rgba(0, 212, 255, 0.4),
+      inset 0 0 3px rgba(255, 255, 255, 0.2);
+    animation: scrollGlow 2s ease-in-out infinite alternate;
+  }
+  
+  ::-webkit-scrollbar-thumb:active {
+    background: linear-gradient(180deg, 
+      rgba(0, 212, 255, 0.9) 0%, 
+      rgba(255, 6, 10, 0.9) 100%);
+    box-shadow: 
+      0 0 12px rgba(255, 6, 10, 0.8),
+      0 0 20px rgba(0, 212, 255, 0.6),
+      inset 0 0 5px rgba(255, 255, 255, 0.3);
+  }
 }
 
-::-webkit-scrollbar-thumb {
-  background: linear-gradient(180deg, #ff060a, #00d4ff);
-  border-radius: 4px;
-  box-shadow: 0 0 10px rgba(0, 255, 255, 0.3);
+/* Desktop scrollbar */
+@media (min-width: 769px) {
+  ::-webkit-scrollbar-track {
+    background: #0a0a0a;
+    border: 1px solid rgba(0, 255, 255, 0.1);
+  }
+
+  ::-webkit-scrollbar-thumb {
+    background: linear-gradient(180deg, #ff060a, #00d4ff);
+    border-radius: 4px;
+    box-shadow: 0 0 10px rgba(0, 255, 255, 0.3);
+  }
+
+  ::-webkit-scrollbar-thumb:hover {
+    background: linear-gradient(180deg, #00d4ff, #ff060a);
+  }
 }
 
-::-webkit-scrollbar-thumb:hover {
-  background: linear-gradient(180deg, #00d4ff, #ff060a);
+/* Scrollbar glow animation for mobile */
+@keyframes scrollGlow {
+  0% {
+    box-shadow: 
+      0 0 5px rgba(255, 6, 10, 0.4),
+      0 0 10px rgba(0, 212, 255, 0.2),
+      inset 0 0 3px rgba(255, 255, 255, 0.1);
+  }
+  100% {
+    box-shadow: 
+      0 0 12px rgba(255, 6, 10, 0.8),
+      0 0 20px rgba(0, 212, 255, 0.6),
+      inset 0 0 5px rgba(255, 255, 255, 0.3);
+  }
 }
 
 /* Loading screen */
