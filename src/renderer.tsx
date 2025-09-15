@@ -15,17 +15,23 @@ export const renderer = jsxRenderer(({ children }) => {
         <meta property="og:site_name" content="TRON MEGATEAM" />
         <meta property="og:title" content="TRON MEGATEAM - Building the Future Together" />
         <meta property="og:description" content="Join the largest, most inclusive builder movement in crypto history. Build, earn, and prosper on the TRON blockchain with MEGATEAM." />
-        <meta property="og:image" content="/thumbnail.jpg" />
+        <meta property="og:image" content="https://tron-megateam.pages.dev/thumbnail.jpg" />
+        <meta property="og:image:secure_url" content="https://tron-megateam.pages.dev/thumbnail.jpg" />
         <meta property="og:image:width" content="400" />
         <meta property="og:image:height" content="400" />
-        <meta property="og:image:alt" content="MEGATEAM Logo - MT" />
+        <meta property="og:image:type" content="image/jpeg" />
+        <meta property="og:image:alt" content="TRON MEGATEAM Logo - MT" />
         <meta property="og:url" content="https://www.megateam.network" />
         
         {/* Twitter Card Meta Tags */}
-        <meta name="twitter:card" content="summary_large_image" />
+        <meta name="twitter:card" content="summary" />
         <meta name="twitter:title" content="TRON MEGATEAM - Building the Future Together" />
         <meta name="twitter:description" content="Join the largest, most inclusive builder movement in crypto history. Build, earn, and prosper on the TRON blockchain with MEGATEAM." />
-        <meta name="twitter:image" content="/thumbnail.jpg" />
+        <meta name="twitter:image" content="https://tron-megateam.pages.dev/thumbnail.jpg" />
+        
+        {/* Additional Messaging App Support */}
+        <meta property="telegram:channel" content="@tronmegateam" />
+        <meta name="format-detection" content="telephone=no" />
         <meta name="twitter:image:alt" content="MEGATEAM Logo - MT" />
         
         {/* Additional Meta Tags */}

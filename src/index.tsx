@@ -403,7 +403,7 @@ app.get('/signup', (c) => {
       <footer class="py-8 bg-tron-gray border-t border-tron-red/20">
         <div class="container mx-auto px-6 text-center">
           <p class="text-gray-400">
-            © 2024 TRON MEGATEAM. 
+            © 2025 TRON MEGATEAM. 
             <span class="text-tron-red">Building the future, together.</span>
           </p>
         </div>
@@ -1120,7 +1120,7 @@ app.get('/', (c) => {
           </div>
           <div class="text-center mt-6 pt-6 border-t border-gray-700">
             <p class="text-gray-400">
-              © 2024 TRON MEGATEAM. 
+              © 2025 TRON MEGATEAM. 
               <span class="text-tron-red">Building the future, together.</span>
             </p>
           </div>
