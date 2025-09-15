@@ -709,7 +709,7 @@ app.get('/', (c) => {
                 <div class="text-center">
                   <i class="fas fa-users text-tron-red text-2xl mb-3"></i>
                   <h4 class="font-bold mb-2">Regional Hubs</h4>
-                  <p class="text-sm text-gray-400">20 regional leads managing local squads</p>
+                  <p class="text-sm text-gray-400">Regional leads managing local squads</p>
                 </div>
                 
                 <div class="text-center">
