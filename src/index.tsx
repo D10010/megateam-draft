@@ -684,23 +684,23 @@ app.get('/', (c) => {
                   {/* Desktop Circular Flow */}
                   <div class="hidden md:block">
                     <div class="relative w-full max-w-4xl mx-auto h-96">
-                      {/* Central Hub - MEGATEAM Logo (TARGET) */}
-                      <div class="absolute top-1/2 left-1/2 transform -translate-x-1/2 -translate-y-1/2 z-10">
-                        <div class="relative">
-                          {/* Pulsing target indicator ring */}
-                          <div class="absolute inset-0 w-32 h-32 rounded-full border-2 border-tron-red opacity-30 animate-ping"></div>
-                          <div class="absolute inset-0 w-28 h-28 rounded-full border-2 border-tron-light opacity-50 animate-pulse"></div>
+                      {/* Central Hub - MEGATEAM Logo (PERFECT CENTER) */}
+                      <div class="absolute" style="top: 50%; left: 50%; transform: translate(-50%, -50%); z-index: 20;">
+                        <div class="relative flex flex-col items-center">
+                          {/* Pulsing target indicator rings - perfectly centered */}
+                          <div class="absolute top-1/2 left-1/2 transform -translate-x-1/2 -translate-y-1/2 w-36 h-36 rounded-full border-2 border-tron-red opacity-20 animate-ping"></div>
+                          <div class="absolute top-1/2 left-1/2 transform -translate-x-1/2 -translate-y-1/2 w-32 h-32 rounded-full border-2 border-tron-light opacity-40 animate-pulse"></div>
                           
-                          {/* Main logo container */}
-                          <div class="relative w-28 h-28 rounded-full flex items-center justify-center border-4 border-tron-white shadow-lg shadow-tron-red/50 overflow-hidden bg-white">
+                          {/* Main logo container - perfect center */}
+                          <div class="w-28 h-28 rounded-full flex items-center justify-center border-4 border-tron-white shadow-lg shadow-tron-red/50 overflow-hidden bg-white relative z-10">
                             <img src="/static/mt-logo.jpg" alt="MEGATEAM Logo" class="w-full h-full object-cover" />
                           </div>
+                          <h4 class="text-center mt-3 font-bold text-tron-white">MEGATEAM</h4>
                         </div>
-                        <h4 class="text-center mt-3 font-bold text-tron-white">MEGATEAM</h4>
                       </div>
                       
-                      {/* Contributors - Top Left */}
-                      <div class="absolute top-4 left-4">
+                      {/* Contributors - Top Left (Perfect 45° positioning) */}
+                      <div class="absolute" style="top: 15%; left: 15%;">
                         <div class="text-center">
                           <div class="w-20 h-20 bg-gradient-to-r from-tron-red to-tron-light rounded-xl flex items-center justify-center shadow-lg shadow-tron-red/30 mb-3 transform hover:scale-105 transition-transform">
                             <i class="fas fa-code text-white text-2xl"></i>
@@ -708,15 +708,15 @@ app.get('/', (c) => {
                           <h4 class="font-bold text-tron-light text-sm">Contributors</h4>
                           <p class="text-xs text-gray-400">Builders & Creatives</p>
                         </div>
-                        {/* Arrow pointing directly to MEGATEAM logo center */}
-                        <div class="absolute top-20 left-20 w-48 h-0.5 bg-gradient-to-r from-tron-red to-transparent transform rotate-45 origin-left"></div>
-                        <div class="absolute top-18 left-18">
-                          <i class="fas fa-location-arrow text-tron-red text-xl transform rotate-45"></i>
+                        {/* Perfect arrow pointing to exact center */}
+                        <div class="absolute top-16 left-16 w-32 h-0.5 bg-gradient-to-r from-tron-red to-transparent transform rotate-45 origin-left"></div>
+                        <div class="absolute top-14 left-14">
+                          <i class="fas fa-location-arrow text-tron-red text-lg transform rotate-45"></i>
                         </div>
                       </div>
                       
-                      {/* Guardians - Top Right */}
-                      <div class="absolute top-4 right-4">
+                      {/* Guardians - Top Right (Perfect 45° positioning) */}
+                      <div class="absolute" style="top: 15%; right: 15%;">
                         <div class="text-center">
                           <div class="w-20 h-20 bg-gradient-to-r from-blue-400 to-cyan-300 rounded-xl flex items-center justify-center shadow-lg shadow-blue-400/30 mb-3 transform hover:scale-105 transition-transform">
                             <i class="fas fa-shield-alt text-white text-2xl"></i>
@@ -724,15 +724,15 @@ app.get('/', (c) => {
                           <h4 class="font-bold text-blue-400 text-sm">Guardians</h4>
                           <p class="text-xs text-gray-400">Verification Layer</p>
                         </div>
-                        {/* Arrow pointing directly to MEGATEAM logo center */}
-                        <div class="absolute top-20 right-20 w-48 h-0.5 bg-gradient-to-l from-blue-400 to-transparent transform -rotate-45 origin-right"></div>
-                        <div class="absolute top-18 right-18">
-                          <i class="fas fa-location-arrow text-blue-400 text-xl transform rotate-135"></i>
+                        {/* Perfect arrow pointing to exact center */}
+                        <div class="absolute top-16 right-16 w-32 h-0.5 bg-gradient-to-l from-blue-400 to-transparent transform -rotate-45 origin-right"></div>
+                        <div class="absolute top-14 right-14">
+                          <i class="fas fa-location-arrow text-blue-400 text-lg transform rotate-135"></i>
                         </div>
                       </div>
                       
-                      {/* Sponsors - Bottom Right */}
-                      <div class="absolute bottom-4 right-4">
+                      {/* Partners - Bottom Right (Perfect 45° positioning) */}
+                      <div class="absolute" style="bottom: 15%; right: 15%;">
                         <div class="text-center">
                           <div class="w-20 h-20 bg-gradient-to-r from-green-400 to-emerald-300 rounded-xl flex items-center justify-center shadow-lg shadow-green-400/30 mb-3 transform hover:scale-105 transition-transform">
                             <i class="fas fa-handshake text-white text-2xl"></i>
@@ -740,15 +740,15 @@ app.get('/', (c) => {
                           <h4 class="font-bold text-green-400 text-sm">Partners</h4>
                           <p class="text-xs text-gray-400">Sponsors & Brands</p>
                         </div>
-                        {/* Arrow pointing directly to MEGATEAM logo center */}
-                        <div class="absolute bottom-20 right-20 w-48 h-0.5 bg-gradient-to-l from-green-400 to-transparent transform rotate-45 origin-right"></div>
-                        <div class="absolute bottom-18 right-18">
-                          <i class="fas fa-location-arrow text-green-400 text-xl transform rotate-225"></i>
+                        {/* Perfect arrow pointing to exact center */}
+                        <div class="absolute bottom-16 right-16 w-32 h-0.5 bg-gradient-to-l from-green-400 to-transparent transform rotate-45 origin-right"></div>
+                        <div class="absolute bottom-14 right-14">
+                          <i class="fas fa-location-arrow text-green-400 text-lg transform rotate-225"></i>
                         </div>
                       </div>
                       
-                      {/* TRON DAO - Bottom Left */}
-                      <div class="absolute bottom-4 left-4">
+                      {/* TRON DAO - Bottom Left (Perfect 45° positioning) */}
+                      <div class="absolute" style="bottom: 15%; left: 15%;">
                         <div class="text-center">
                           <div class="w-20 h-20 bg-gradient-to-r from-yellow-400 to-orange-400 rounded-xl flex items-center justify-center shadow-lg shadow-yellow-400/30 mb-3 transform hover:scale-105 transition-transform">
                             <i class="fas fa-university text-white text-2xl"></i>
@@ -756,10 +756,10 @@ app.get('/', (c) => {
                           <h4 class="font-bold text-yellow-400 text-sm">TRON DAO</h4>
                           <p class="text-xs text-gray-400">Governance & Funding</p>
                         </div>
-                        {/* Arrow pointing directly to MEGATEAM logo center */}
-                        <div class="absolute bottom-20 left-20 w-48 h-0.5 bg-gradient-to-r from-yellow-400 to-transparent transform -rotate-45 origin-left"></div>
-                        <div class="absolute bottom-18 left-18">
-                          <i class="fas fa-location-arrow text-yellow-400 text-xl transform rotate-315"></i>
+                        {/* Perfect arrow pointing to exact center */}
+                        <div class="absolute bottom-16 left-16 w-32 h-0.5 bg-gradient-to-r from-yellow-400 to-transparent transform -rotate-45 origin-left"></div>
+                        <div class="absolute bottom-14 left-14">
+                          <i class="fas fa-location-arrow text-yellow-400 text-lg transform rotate-315"></i>
                         </div>
                       </div>
                       
