@@ -701,10 +701,10 @@ app.get('/', (c) => {
                           <h4 class="font-bold text-tron-light text-sm">Contributors</h4>
                           <p class="text-xs text-gray-400">Builders & Creatives</p>
                         </div>
-                        {/* Arrow to center */}
-                        <div class="absolute top-12 left-24 w-32 h-0.5 bg-gradient-to-r from-tron-red to-tron-red/50 transform rotate-35"></div>
-                        <div class="absolute top-16 left-28">
-                          <i class="fas fa-long-arrow-alt-right text-tron-red text-lg transform rotate-35"></i>
+                        {/* Arrow to center - Top Left to Center (45° angle) */}
+                        <div class="absolute top-16 left-20 w-40 h-0.5 bg-gradient-to-r from-tron-red to-transparent transform rotate-45 origin-left"></div>
+                        <div class="absolute top-14 left-18">
+                          <i class="fas fa-arrow-right text-tron-red text-xl transform rotate-45"></i>
                         </div>
                       </div>
                       
@@ -717,10 +717,10 @@ app.get('/', (c) => {
                           <h4 class="font-bold text-blue-400 text-sm">Guardians</h4>
                           <p class="text-xs text-gray-400">Verification Layer</p>
                         </div>
-                        {/* Arrow to center */}
-                        <div class="absolute top-12 right-24 w-32 h-0.5 bg-gradient-to-l from-blue-400 to-blue-400/50 transform -rotate-35"></div>
-                        <div class="absolute top-16 right-28">
-                          <i class="fas fa-long-arrow-alt-left text-blue-400 text-lg transform -rotate-35"></i>
+                        {/* Arrow to center - Top Right to Center (-45° angle) */}
+                        <div class="absolute top-16 right-20 w-40 h-0.5 bg-gradient-to-l from-blue-400 to-transparent transform -rotate-45 origin-right"></div>
+                        <div class="absolute top-14 right-18">
+                          <i class="fas fa-arrow-left text-blue-400 text-xl transform -rotate-45"></i>
                         </div>
                       </div>
                       
@@ -733,10 +733,10 @@ app.get('/', (c) => {
                           <h4 class="font-bold text-green-400 text-sm">Partners</h4>
                           <p class="text-xs text-gray-400">Sponsors & Brands</p>
                         </div>
-                        {/* Arrow to center */}
-                        <div class="absolute bottom-12 right-24 w-32 h-0.5 bg-gradient-to-l from-green-400 to-green-400/50 transform -rotate-35"></div>
-                        <div class="absolute bottom-16 right-28">
-                          <i class="fas fa-long-arrow-alt-left text-green-400 text-lg transform -rotate-35"></i>
+                        {/* Arrow to center - Bottom Right to Center (45° angle upward) */}
+                        <div class="absolute bottom-16 right-20 w-40 h-0.5 bg-gradient-to-l from-green-400 to-transparent transform rotate-45 origin-right"></div>
+                        <div class="absolute bottom-14 right-18">
+                          <i class="fas fa-arrow-left text-green-400 text-xl transform rotate-45"></i>
                         </div>
                       </div>
                       
@@ -749,10 +749,10 @@ app.get('/', (c) => {
                           <h4 class="font-bold text-yellow-400 text-sm">TRON DAO</h4>
                           <p class="text-xs text-gray-400">Governance & Funding</p>
                         </div>
-                        {/* Arrow to center */}
-                        <div class="absolute bottom-12 left-24 w-32 h-0.5 bg-gradient-to-r from-yellow-400 to-yellow-400/50 transform rotate-35"></div>
-                        <div class="absolute bottom-16 left-28">
-                          <i class="fas fa-long-arrow-alt-right text-yellow-400 text-lg transform rotate-35"></i>
+                        {/* Arrow to center - Bottom Left to Center (-45° angle upward) */}
+                        <div class="absolute bottom-16 left-20 w-40 h-0.5 bg-gradient-to-r from-yellow-400 to-transparent transform -rotate-45 origin-left"></div>
+                        <div class="absolute bottom-14 left-18">
+                          <i class="fas fa-arrow-right text-yellow-400 text-xl transform -rotate-45"></i>
                         </div>
                       </div>
                       
