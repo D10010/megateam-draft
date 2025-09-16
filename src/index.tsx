@@ -435,6 +435,10 @@ app.get('/', (c) => {
                 Mission
                 <span class="absolute bottom-0 left-0 w-0 h-0.5 bg-tron-red transition-all duration-300 group-hover:w-full"></span>
               </a>
+              <a href="#what-is-megateam" class="font-montserrat font-medium text-tron-silver hover:text-tron-red transition-all duration-300 hover:glow-text relative group">
+                What is MEGATEAM?
+                <span class="absolute bottom-0 left-0 w-0 h-0.5 bg-tron-red transition-all duration-300 group-hover:w-full"></span>
+              </a>
               <a href="#objectives" class="font-montserrat font-medium text-tron-silver hover:text-tron-red transition-all duration-300 hover:glow-text relative group">
                 Objectives
                 <span class="absolute bottom-0 left-0 w-0 h-0.5 bg-tron-red transition-all duration-300 group-hover:w-full"></span>
@@ -472,6 +476,9 @@ app.get('/', (c) => {
             <div class="container mx-auto px-6 py-6 space-y-4">
               <a href="#mission" class="block font-montserrat font-medium text-tron-silver hover:text-tron-red transition-all duration-300 py-2 border-b border-tron-gray/20">
                 Mission
+              </a>
+              <a href="#what-is-megateam" class="block font-montserrat font-medium text-tron-silver hover:text-tron-red transition-all duration-300 py-2 border-b border-tron-gray/20">
+                What is MEGATEAM?
               </a>
               <a href="#objectives" class="block font-montserrat font-medium text-tron-silver hover:text-tron-red transition-all duration-300 py-2 border-b border-tron-gray/20">
                 Objectives
@@ -650,7 +657,7 @@ app.get('/', (c) => {
       </section>
 
       {/* What is MEGATEAM Section */}
-      <section class="py-20">
+      <section id="what-is-megateam" class="py-20">
         <div class="container mx-auto px-6">
           <div class="max-w-6xl mx-auto">
             <h2 class="text-4xl font-bold text-center mb-16" data-aos="fade-up">
