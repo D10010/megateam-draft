@@ -690,7 +690,7 @@ app.get('/', (c) => {
                           <div class="w-24 h-24 mx-auto bg-gradient-to-br from-red-500 to-red-700 rounded-2xl flex items-center justify-center shadow-xl mb-4">
                             <i class="fas fa-code text-white text-3xl"></i>
                           </div>
-                          <h4 class="font-black text-white text-lg mb-1">Contributors</h4>
+                          <h4 class="font-black text-white text-lg mb-1"><span class="font-black">Contributors</span></h4>
                           <p class="text-sm text-gray-400">Builders & Creatives</p>
                           
                           {/* Arrow down */}
@@ -701,14 +701,14 @@ app.get('/', (c) => {
                       </div>
                       
                       {/* Middle Row - Left, Center, Right */}
-                      <div class="flex items-center justify-between mb-12">
+                      <div class="flex items-center justify-center gap-16 mb-12">
                         
                         {/* TRON DAO - Left */}
                         <div class="text-center flex-shrink-0">
                           <div class="w-24 h-24 mx-auto bg-gradient-to-br from-yellow-500 to-orange-600 rounded-2xl flex items-center justify-center shadow-xl mb-4">
                             <i class="fas fa-university text-white text-3xl"></i>
                           </div>
-                          <h4 class="font-black text-white text-lg mb-1">TRON DAO</h4>
+                          <h4 class="font-black text-white text-lg mb-1"><span class="font-black">TRON DAO</span></h4>
                           <p class="text-sm text-gray-400">Governance & Funding</p>
                         </div>
                         
@@ -736,7 +736,7 @@ app.get('/', (c) => {
                           <div class="w-24 h-24 mx-auto bg-gradient-to-br from-blue-500 to-blue-700 rounded-2xl flex items-center justify-center shadow-xl mb-4">
                             <i class="fas fa-shield-alt text-white text-3xl"></i>
                           </div>
-                          <h4 class="font-black text-white text-lg mb-1">Guardians</h4>
+                          <h4 class="font-black text-white text-lg mb-1"><span class="font-black">Guardians</span></h4>
                           <p class="text-sm text-gray-400">Verification Layer</p>
                         </div>
                         
@@ -754,7 +754,7 @@ app.get('/', (c) => {
                           <div class="w-24 h-24 mx-auto bg-gradient-to-br from-green-500 to-green-700 rounded-2xl flex items-center justify-center shadow-xl mb-4">
                             <i class="fas fa-handshake text-white text-3xl"></i>
                           </div>
-                          <h4 class="font-black text-white text-lg mb-1">Partners</h4>
+                          <h4 class="font-black text-white text-lg mb-1"><span class="font-black">Partners</span></h4>
                           <p class="text-sm text-gray-400">Sponsors & Brands</p>
                         </div>
                       </div>
@@ -779,8 +779,8 @@ app.get('/', (c) => {
                       
                       {/* MEGATEAM Center */}
                       <div class="text-center">
-                        <div class="w-28 h-28 mx-auto rounded-full bg-gradient-to-br from-tron-red to-tron-dark-red border-4 border-white shadow-xl overflow-hidden mb-3">
-                          <img src="/static/mt-logo.jpg" alt="MEGATEAM Logo" class="w-full h-full object-cover" />
+                        <div class="w-28 h-28 mx-auto rounded-full bg-white border-4 border-white shadow-xl overflow-hidden mb-3 relative">
+                          <img src="/static/mt-logo.jpg" alt="MEGATEAM Logo" class="w-full h-full object-cover" onError="this.style.display='none'; this.parentNode.innerHTML='<div class=\\'w-full h-full bg-gradient-to-br from-tron-red to-tron-dark-red rounded-full flex items-center justify-center\\'><span class=\\'text-white font-black text-2xl\\'>MT</span></div>'" />
                         </div>
                         <h4 class="font-black text-white text-lg">MEGATEAM</h4>
                         <p class="text-sm text-gray-300">Coordination Hub</p>
