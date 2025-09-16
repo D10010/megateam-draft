@@ -687,7 +687,7 @@ app.get('/', (c) => {
                       {/* Central Hub */}
                       <div class="absolute top-1/2 left-1/2 transform -translate-x-1/2 -translate-y-1/2 z-10">
                         <div class="w-28 h-28 rounded-full flex items-center justify-center border-4 border-tron-white shadow-lg shadow-tron-red/50 overflow-hidden">
-                          <img src="/mt-logo.jpg" alt="MEGATEAM Logo" class="w-full h-full object-cover" />
+                          <img src="/static/mt-logo.jpg" alt="MEGATEAM Logo" class="w-full h-full object-cover" />
                         </div>
                         <h4 class="text-center mt-3 font-bold text-tron-white">MEGATEAM</h4>
                       </div>
@@ -793,7 +793,7 @@ app.get('/', (c) => {
                       {/* MEGATEAM Hub */}
                       <div class="text-center">
                         <div class="w-24 h-24 mx-auto rounded-full flex items-center justify-center border-4 border-tron-white shadow-lg shadow-tron-red/50 mb-3 overflow-hidden">
-                          <img src="/mt-logo.jpg" alt="MEGATEAM Logo" class="w-full h-full object-cover" />
+                          <img src="/static/mt-logo.jpg" alt="MEGATEAM Logo" class="w-full h-full object-cover" />
                         </div>
                         <h4 class="font-bold text-tron-white">MEGATEAM HUB</h4>
                         <p class="text-xs text-gray-400">Coordination Layer</p>
