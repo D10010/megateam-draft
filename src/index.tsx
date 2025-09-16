@@ -683,7 +683,7 @@ app.get('/', (c) => {
                 <div class="mt-8 relative">
                   {/* Desktop Circular Flow */}
                   <div class="hidden md:block">
-                    <div class="relative w-full max-w-2xl mx-auto h-80">
+                    <div class="relative w-full max-w-4xl mx-auto h-96">
                       {/* Central Hub */}
                       <div class="absolute top-1/2 left-1/2 transform -translate-x-1/2 -translate-y-1/2 z-10">
                         <div class="w-28 h-28 rounded-full flex items-center justify-center border-4 border-tron-white shadow-lg shadow-tron-red/50 overflow-hidden">
@@ -693,7 +693,7 @@ app.get('/', (c) => {
                       </div>
                       
                       {/* Contributors - Top Left */}
-                      <div class="absolute top-8 left-12">
+                      <div class="absolute top-4 left-4">
                         <div class="text-center">
                           <div class="w-20 h-20 bg-gradient-to-r from-tron-red to-tron-light rounded-xl flex items-center justify-center shadow-lg shadow-tron-red/30 mb-3 transform hover:scale-105 transition-transform">
                             <i class="fas fa-code text-white text-2xl"></i>
@@ -702,14 +702,14 @@ app.get('/', (c) => {
                           <p class="text-xs text-gray-400">Builders & Creatives</p>
                         </div>
                         {/* Arrow to center */}
-                        <div class="absolute top-12 left-20 w-20 h-0.5 bg-gradient-to-r from-tron-red to-tron-red/50 transform rotate-35"></div>
-                        <div class="absolute top-14 left-18">
+                        <div class="absolute top-12 left-24 w-32 h-0.5 bg-gradient-to-r from-tron-red to-tron-red/50 transform rotate-35"></div>
+                        <div class="absolute top-16 left-28">
                           <i class="fas fa-long-arrow-alt-right text-tron-red text-lg transform rotate-35"></i>
                         </div>
                       </div>
                       
                       {/* Guardians - Top Right */}
-                      <div class="absolute top-8 right-12">
+                      <div class="absolute top-4 right-4">
                         <div class="text-center">
                           <div class="w-20 h-20 bg-gradient-to-r from-blue-400 to-cyan-300 rounded-xl flex items-center justify-center shadow-lg shadow-blue-400/30 mb-3 transform hover:scale-105 transition-transform">
                             <i class="fas fa-shield-alt text-white text-2xl"></i>
@@ -718,14 +718,14 @@ app.get('/', (c) => {
                           <p class="text-xs text-gray-400">Verification Layer</p>
                         </div>
                         {/* Arrow to center */}
-                        <div class="absolute top-12 right-20 w-20 h-0.5 bg-gradient-to-l from-blue-400 to-blue-400/50 transform -rotate-35"></div>
-                        <div class="absolute top-14 right-18">
+                        <div class="absolute top-12 right-24 w-32 h-0.5 bg-gradient-to-l from-blue-400 to-blue-400/50 transform -rotate-35"></div>
+                        <div class="absolute top-16 right-28">
                           <i class="fas fa-long-arrow-alt-left text-blue-400 text-lg transform -rotate-35"></i>
                         </div>
                       </div>
                       
                       {/* Sponsors - Bottom Right */}
-                      <div class="absolute bottom-8 right-12">
+                      <div class="absolute bottom-4 right-4">
                         <div class="text-center">
                           <div class="w-20 h-20 bg-gradient-to-r from-green-400 to-emerald-300 rounded-xl flex items-center justify-center shadow-lg shadow-green-400/30 mb-3 transform hover:scale-105 transition-transform">
                             <i class="fas fa-handshake text-white text-2xl"></i>
@@ -734,14 +734,14 @@ app.get('/', (c) => {
                           <p class="text-xs text-gray-400">Sponsors & Brands</p>
                         </div>
                         {/* Arrow to center */}
-                        <div class="absolute top-12 right-20 w-20 h-0.5 bg-gradient-to-l from-green-400 to-green-400/50 transform rotate-35"></div>
-                        <div class="absolute top-14 right-18">
-                          <i class="fas fa-long-arrow-alt-left text-green-400 text-lg transform rotate-35"></i>
+                        <div class="absolute bottom-12 right-24 w-32 h-0.5 bg-gradient-to-l from-green-400 to-green-400/50 transform -rotate-35"></div>
+                        <div class="absolute bottom-16 right-28">
+                          <i class="fas fa-long-arrow-alt-left text-green-400 text-lg transform -rotate-35"></i>
                         </div>
                       </div>
                       
                       {/* TRON DAO - Bottom Left */}
-                      <div class="absolute bottom-8 left-12">
+                      <div class="absolute bottom-4 left-4">
                         <div class="text-center">
                           <div class="w-20 h-20 bg-gradient-to-r from-yellow-400 to-orange-400 rounded-xl flex items-center justify-center shadow-lg shadow-yellow-400/30 mb-3 transform hover:scale-105 transition-transform">
                             <i class="fas fa-university text-white text-2xl"></i>
@@ -750,17 +750,17 @@ app.get('/', (c) => {
                           <p class="text-xs text-gray-400">Governance & Funding</p>
                         </div>
                         {/* Arrow to center */}
-                        <div class="absolute top-12 left-20 w-20 h-0.5 bg-gradient-to-r from-yellow-400 to-yellow-400/50 transform -rotate-35"></div>
-                        <div class="absolute top-14 left-18">
-                          <i class="fas fa-long-arrow-alt-right text-yellow-400 text-lg transform -rotate-35"></i>
+                        <div class="absolute bottom-12 left-24 w-32 h-0.5 bg-gradient-to-r from-yellow-400 to-yellow-400/50 transform rotate-35"></div>
+                        <div class="absolute bottom-16 left-28">
+                          <i class="fas fa-long-arrow-alt-right text-yellow-400 text-lg transform rotate-35"></i>
                         </div>
                       </div>
                       
                       {/* Connecting Lines (Background) */}
                       <div class="absolute inset-0 opacity-20">
-                        <svg class="w-full h-full" viewBox="0 0 400 320">
-                          <circle cx="200" cy="160" r="120" fill="none" stroke="url(#gradient)" stroke-width="2" stroke-dasharray="5,5" class="animate-pulse">
-                            <animateTransform attributeName="transform" type="rotate" values="0 200 160;360 200 160" dur="20s" repeatCount="indefinite"/>
+                        <svg class="w-full h-full" viewBox="0 0 500 400">
+                          <circle cx="250" cy="200" r="150" fill="none" stroke="url(#gradient)" stroke-width="2" stroke-dasharray="5,5" class="animate-pulse">
+                            <animateTransform attributeName="transform" type="rotate" values="0 250 200;360 250 200" dur="20s" repeatCount="indefinite"/>
                           </circle>
                           <defs>
                             <linearGradient id="gradient" x1="0%" y1="0%" x2="100%" y2="0%">
