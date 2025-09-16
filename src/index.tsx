@@ -684,10 +684,17 @@ app.get('/', (c) => {
                   {/* Desktop Circular Flow */}
                   <div class="hidden md:block">
                     <div class="relative w-full max-w-4xl mx-auto h-96">
-                      {/* Central Hub */}
+                      {/* Central Hub - MEGATEAM Logo (TARGET) */}
                       <div class="absolute top-1/2 left-1/2 transform -translate-x-1/2 -translate-y-1/2 z-10">
-                        <div class="w-28 h-28 rounded-full flex items-center justify-center border-4 border-tron-white shadow-lg shadow-tron-red/50 overflow-hidden">
-                          <img src="/static/mt-logo.jpg" alt="MEGATEAM Logo" class="w-full h-full object-cover" />
+                        <div class="relative">
+                          {/* Pulsing target indicator ring */}
+                          <div class="absolute inset-0 w-32 h-32 rounded-full border-2 border-tron-red opacity-30 animate-ping"></div>
+                          <div class="absolute inset-0 w-28 h-28 rounded-full border-2 border-tron-light opacity-50 animate-pulse"></div>
+                          
+                          {/* Main logo container */}
+                          <div class="relative w-28 h-28 rounded-full flex items-center justify-center border-4 border-tron-white shadow-lg shadow-tron-red/50 overflow-hidden bg-white">
+                            <img src="/static/mt-logo.jpg" alt="MEGATEAM Logo" class="w-full h-full object-cover" />
+                          </div>
                         </div>
                         <h4 class="text-center mt-3 font-bold text-tron-white">MEGATEAM</h4>
                       </div>
@@ -701,10 +708,10 @@ app.get('/', (c) => {
                           <h4 class="font-bold text-tron-light text-sm">Contributors</h4>
                           <p class="text-xs text-gray-400">Builders & Creatives</p>
                         </div>
-                        {/* Arrow to center - Top Left to Center (45° angle) */}
-                        <div class="absolute top-16 left-20 w-40 h-0.5 bg-gradient-to-r from-tron-red to-transparent transform rotate-45 origin-left"></div>
-                        <div class="absolute top-14 left-18">
-                          <i class="fas fa-arrow-right text-tron-red text-xl transform rotate-45"></i>
+                        {/* Arrow pointing directly to MEGATEAM logo center */}
+                        <div class="absolute top-20 left-20 w-48 h-0.5 bg-gradient-to-r from-tron-red to-transparent transform rotate-45 origin-left"></div>
+                        <div class="absolute top-18 left-18">
+                          <i class="fas fa-location-arrow text-tron-red text-xl transform rotate-45"></i>
                         </div>
                       </div>
                       
@@ -717,10 +724,10 @@ app.get('/', (c) => {
                           <h4 class="font-bold text-blue-400 text-sm">Guardians</h4>
                           <p class="text-xs text-gray-400">Verification Layer</p>
                         </div>
-                        {/* Arrow to center - Top Right to Center (-45° angle) */}
-                        <div class="absolute top-16 right-20 w-40 h-0.5 bg-gradient-to-l from-blue-400 to-transparent transform -rotate-45 origin-right"></div>
-                        <div class="absolute top-14 right-18">
-                          <i class="fas fa-arrow-left text-blue-400 text-xl transform -rotate-45"></i>
+                        {/* Arrow pointing directly to MEGATEAM logo center */}
+                        <div class="absolute top-20 right-20 w-48 h-0.5 bg-gradient-to-l from-blue-400 to-transparent transform -rotate-45 origin-right"></div>
+                        <div class="absolute top-18 right-18">
+                          <i class="fas fa-location-arrow text-blue-400 text-xl transform rotate-135"></i>
                         </div>
                       </div>
                       
@@ -733,10 +740,10 @@ app.get('/', (c) => {
                           <h4 class="font-bold text-green-400 text-sm">Partners</h4>
                           <p class="text-xs text-gray-400">Sponsors & Brands</p>
                         </div>
-                        {/* Arrow to center - Bottom Right to Center (45° angle upward) */}
-                        <div class="absolute bottom-16 right-20 w-40 h-0.5 bg-gradient-to-l from-green-400 to-transparent transform rotate-45 origin-right"></div>
-                        <div class="absolute bottom-14 right-18">
-                          <i class="fas fa-arrow-left text-green-400 text-xl transform rotate-45"></i>
+                        {/* Arrow pointing directly to MEGATEAM logo center */}
+                        <div class="absolute bottom-20 right-20 w-48 h-0.5 bg-gradient-to-l from-green-400 to-transparent transform rotate-45 origin-right"></div>
+                        <div class="absolute bottom-18 right-18">
+                          <i class="fas fa-location-arrow text-green-400 text-xl transform rotate-225"></i>
                         </div>
                       </div>
                       
@@ -749,10 +756,10 @@ app.get('/', (c) => {
                           <h4 class="font-bold text-yellow-400 text-sm">TRON DAO</h4>
                           <p class="text-xs text-gray-400">Governance & Funding</p>
                         </div>
-                        {/* Arrow to center - Bottom Left to Center (-45° angle upward) */}
-                        <div class="absolute bottom-16 left-20 w-40 h-0.5 bg-gradient-to-r from-yellow-400 to-transparent transform -rotate-45 origin-left"></div>
-                        <div class="absolute bottom-14 left-18">
-                          <i class="fas fa-arrow-right text-yellow-400 text-xl transform -rotate-45"></i>
+                        {/* Arrow pointing directly to MEGATEAM logo center */}
+                        <div class="absolute bottom-20 left-20 w-48 h-0.5 bg-gradient-to-r from-yellow-400 to-transparent transform -rotate-45 origin-left"></div>
+                        <div class="absolute bottom-18 left-18">
+                          <i class="fas fa-location-arrow text-yellow-400 text-xl transform rotate-315"></i>
                         </div>
                       </div>
                       
