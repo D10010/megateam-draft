@@ -720,26 +720,7 @@ app.get('/', (c) => {
               </div>
             </div>
 
-            {/* MEGATEAM Value Props */}
-            <div class="grid md:grid-cols-3 gap-8">
-              <div class="bg-black/50 p-6 rounded-lg border border-tron-red/20" data-aos="fade-up" data-aos-delay="800">
-                <i class="fas fa-shield-alt text-tron-red text-3xl mb-4"></i>
-                <h3 class="text-xl font-bold mb-3">Radical Accountability</h3>
-                <p class="text-gray-300">A Guardian corps of vetted experts verifies every milestone on-chain, so capital flows only when value is delivered.</p>
-              </div>
-              
-              <div class="bg-black/50 p-6 rounded-lg border border-tron-red/20" data-aos="fade-up" data-aos-delay="900">
-                <i class="fas fa-graduation-cap text-tron-red text-3xl mb-4"></i>
-                <h3 class="text-xl font-bold mb-3">Education as Fuel</h3>
-                <p class="text-gray-300">Multilingual media studio drops bite-sized tutorials, long-form explainers, and live workshops—demystifying DeFi, NFTs, gaming, and AI integrations.</p>
-              </div>
-              
-              <div class="bg-black/50 p-6 rounded-lg border border-tron-red/20" data-aos="fade-up" data-aos-delay="1000">
-                <i class="fas fa-chart-line text-tron-red text-3xl mb-4"></i>
-                <h3 class="text-xl font-bold mb-3">Profit With Purpose</h3>
-                <p class="text-gray-300">By amplifying TRON's fundamentals—low fees, stablecoin dominance, and cross-chain tooling—MEGATEAM ensures builders not only learn but earn.</p>
-              </div>
-            </div>
+
           </div>
         </div>
       </section>
@@ -959,6 +940,30 @@ app.get('/', (c) => {
                     Connect with verified builders who have track records, Guardian endorsements, 
                     and deep TRON ecosystem expertise.
                   </p>
+                </div>
+              </div>
+            </div>
+
+            {/* How MEGATEAM Delivers */}
+            <div class="mt-16" data-aos="fade-up" data-aos-delay="500">
+              <h3 class="text-2xl font-bold mb-8 text-tron-red text-center">How MEGATEAM Delivers</h3>
+              <div class="grid md:grid-cols-3 gap-8">
+                <div class="cyber-card p-6 rounded-xl border border-tron-red/20">
+                  <i class="fas fa-shield-alt text-tron-red text-3xl mb-4"></i>
+                  <h3 class="text-xl font-bold mb-3">Radical Accountability</h3>
+                  <p class="text-gray-300">A Guardian corps of vetted experts verifies every milestone on-chain, so capital flows only when value is delivered.</p>
+                </div>
+                
+                <div class="cyber-card p-6 rounded-xl border border-tron-red/20">
+                  <i class="fas fa-graduation-cap text-tron-red text-3xl mb-4"></i>
+                  <h3 class="text-xl font-bold mb-3">Education as Fuel</h3>
+                  <p class="text-gray-300">Multilingual media studio drops bite-sized tutorials, long-form explainers, and live workshops—demystifying DeFi, NFTs, gaming, and AI integrations.</p>
+                </div>
+                
+                <div class="cyber-card p-6 rounded-xl border border-tron-red/20">
+                  <i class="fas fa-chart-line text-tron-red text-3xl mb-4"></i>
+                  <h3 class="text-xl font-bold mb-3">Profit With Purpose</h3>
+                  <p class="text-gray-300">By amplifying TRON's fundamentals—low fees, stablecoin dominance, and cross-chain tooling—MEGATEAM ensures builders not only learn but earn.</p>
                 </div>
               </div>
             </div>
