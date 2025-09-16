@@ -679,122 +679,105 @@ app.get('/', (c) => {
                   career paths while delivering accountability to sponsors and TRON DAO.
                 </p>
                 
-                {/* BRAND NEW MEGATEAM INFOGRAPHIC */}
-                <div class="mt-12 relative">
+                {/* SIMPLE CLEAN INFOGRAPHIC */}
+                <div class="mt-12">
                   
-                  {/* Desktop Layout */}
+                  {/* Desktop Layout - Clean Grid System */}
                   <div class="hidden md:block">
-                    <div class="relative w-full max-w-5xl mx-auto" style="height: 500px;">
+                    <div class="max-w-4xl mx-auto">
                       
-                      {/* Perfect Center - MEGATEAM Logo */}
-                      <div class="absolute inset-0 flex items-center justify-center z-20">
+                      {/* Top Row - Contributors */}
+                      <div class="flex justify-center mb-12">
                         <div class="text-center">
-                          {/* Subtle background glow */}
-                          <div class="absolute inset-0 bg-gradient-radial from-tron-red/10 via-transparent to-transparent rounded-full blur-xl scale-150"></div>
+                          <div class="w-24 h-24 mx-auto bg-gradient-to-br from-red-500 to-red-700 rounded-2xl flex items-center justify-center shadow-xl mb-4">
+                            <i class="fas fa-code text-white text-3xl"></i>
+                          </div>
+                          <h4 class="font-black text-white text-lg mb-1">Contributors</h4>
+                          <p class="text-sm text-gray-400">Builders & Creatives</p>
                           
-                          {/* Main MEGATEAM logo */}
-                          <div class="relative w-36 h-36 mx-auto rounded-full bg-gradient-to-br from-tron-red to-tron-dark-red border-4 border-white shadow-2xl shadow-tron-red/40 overflow-hidden mb-4">
+                          {/* Arrow down */}
+                          <div class="mt-4">
+                            <i class="fas fa-arrow-down text-red-500 text-2xl"></i>
+                          </div>
+                        </div>
+                      </div>
+                      
+                      {/* Middle Row - Left, Center, Right */}
+                      <div class="flex items-center justify-between mb-12">
+                        
+                        {/* TRON DAO - Left */}
+                        <div class="text-center flex-shrink-0">
+                          <div class="w-24 h-24 mx-auto bg-gradient-to-br from-yellow-500 to-orange-600 rounded-2xl flex items-center justify-center shadow-xl mb-4">
+                            <i class="fas fa-university text-white text-3xl"></i>
+                          </div>
+                          <h4 class="font-black text-white text-lg mb-1">TRON DAO</h4>
+                          <p class="text-sm text-gray-400">Governance & Funding</p>
+                        </div>
+                        
+                        {/* Arrow Right */}
+                        <div class="flex-shrink-0 mx-8">
+                          <i class="fas fa-arrow-right text-yellow-500 text-2xl"></i>
+                        </div>
+                        
+                        {/* MEGATEAM Center */}
+                        <div class="text-center flex-shrink-0 mx-8">
+                          <div class="w-36 h-36 mx-auto rounded-full bg-gradient-to-br from-tron-red to-tron-dark-red border-4 border-white shadow-2xl overflow-hidden mb-4">
                             <img src="/static/mt-logo.jpg" alt="MEGATEAM Logo" class="w-full h-full object-cover" />
                           </div>
-                          
                           <h3 class="text-2xl font-black text-white tracking-wider">MEGATEAM</h3>
                           <p class="text-sm text-gray-300 mt-1">Coordination Hub</p>
                         </div>
-                      </div>
-                      
-                      {/* Contributors - Top */}
-                      <div class="absolute top-8 left-1/2 transform -translate-x-1/2">
-                        <div class="text-center">
-                          <div class="w-24 h-24 mx-auto bg-gradient-to-br from-tron-red to-red-600 rounded-2xl flex items-center justify-center shadow-xl shadow-red-500/30 mb-4">
-                            <i class="fas fa-code text-white text-3xl"></i>
-                          </div>
-                          <h4 class="font-black text-white text-base mb-1">Contributors</h4>
-                          <p class="text-sm text-gray-400">Builders & Creatives</p>
-                          
-                          {/* Arrow pointing to center */}
-                          <div class="absolute top-28 left-1/2 transform -translate-x-1/2">
-                            <div class="flex flex-col items-center">
-                              <div class="w-1 h-20 bg-gradient-to-b from-tron-red to-transparent"></div>
-                              <i class="fas fa-chevron-down text-tron-red text-lg -mt-2"></i>
-                            </div>
-                          </div>
+                        
+                        {/* Arrow Left */}
+                        <div class="flex-shrink-0 mx-8">
+                          <i class="fas fa-arrow-left text-blue-500 text-2xl"></i>
                         </div>
-                      </div>
-                      
-                      {/* Guardians - Right */}
-                      <div class="absolute right-8 top-1/2 transform -translate-y-1/2">
-                        <div class="text-center">
-                          <div class="w-24 h-24 mx-auto bg-gradient-to-br from-blue-500 to-blue-700 rounded-2xl flex items-center justify-center shadow-xl shadow-blue-500/30 mb-4">
+                        
+                        {/* Guardians - Right */}
+                        <div class="text-center flex-shrink-0">
+                          <div class="w-24 h-24 mx-auto bg-gradient-to-br from-blue-500 to-blue-700 rounded-2xl flex items-center justify-center shadow-xl mb-4">
                             <i class="fas fa-shield-alt text-white text-3xl"></i>
                           </div>
-                          <h4 class="font-black text-white text-base mb-1">Guardians</h4>
+                          <h4 class="font-black text-white text-lg mb-1">Guardians</h4>
                           <p class="text-sm text-gray-400">Verification Layer</p>
-                          
-                          {/* Arrow pointing to center */}
-                          <div class="absolute right-28 top-1/2 transform -translate-y-1/2">
-                            <div class="flex items-center">
-                              <i class="fas fa-chevron-left text-blue-500 text-lg -mr-2"></i>
-                              <div class="w-20 h-1 bg-gradient-to-l from-blue-500 to-transparent"></div>
-                            </div>
-                          </div>
                         </div>
+                        
                       </div>
                       
-                      {/* Partners - Bottom */}
-                      <div class="absolute bottom-8 left-1/2 transform -translate-x-1/2">
+                      {/* Bottom Row - Partners */}
+                      <div class="flex justify-center">
                         <div class="text-center">
-                          <div class="w-24 h-24 mx-auto bg-gradient-to-br from-green-500 to-green-700 rounded-2xl flex items-center justify-center shadow-xl shadow-green-500/30 mb-4">
+                          
+                          {/* Arrow up */}
+                          <div class="mb-4">
+                            <i class="fas fa-arrow-up text-green-500 text-2xl"></i>
+                          </div>
+                          
+                          <div class="w-24 h-24 mx-auto bg-gradient-to-br from-green-500 to-green-700 rounded-2xl flex items-center justify-center shadow-xl mb-4">
                             <i class="fas fa-handshake text-white text-3xl"></i>
                           </div>
-                          <h4 class="font-black text-white text-base mb-1">Partners</h4>
+                          <h4 class="font-black text-white text-lg mb-1">Partners</h4>
                           <p class="text-sm text-gray-400">Sponsors & Brands</p>
-                          
-                          {/* Arrow pointing to center */}
-                          <div class="absolute bottom-28 left-1/2 transform -translate-x-1/2">
-                            <div class="flex flex-col items-center">
-                              <i class="fas fa-chevron-up text-green-500 text-lg -mb-2"></i>
-                              <div class="w-1 h-20 bg-gradient-to-t from-green-500 to-transparent"></div>
-                            </div>
-                          </div>
-                        </div>
-                      </div>
-                      
-                      {/* TRON DAO - Left */}
-                      <div class="absolute left-8 top-1/2 transform -translate-y-1/2">
-                        <div class="text-center">
-                          <div class="w-24 h-24 mx-auto bg-gradient-to-br from-yellow-500 to-orange-600 rounded-2xl flex items-center justify-center shadow-xl shadow-yellow-500/30 mb-4">
-                            <i class="fas fa-university text-white text-3xl"></i>
-                          </div>
-                          <h4 class="font-black text-white text-base mb-1">TRON DAO</h4>
-                          <p class="text-sm text-gray-400">Governance & Funding</p>
-                          
-                          {/* Arrow pointing to center */}
-                          <div class="absolute left-28 top-1/2 transform -translate-y-1/2">
-                            <div class="flex items-center">
-                              <div class="w-20 h-1 bg-gradient-to-r from-yellow-500 to-transparent"></div>
-                              <i class="fas fa-chevron-right text-yellow-500 text-lg -ml-2"></i>
-                            </div>
-                          </div>
                         </div>
                       </div>
                       
                     </div>
                   </div>
                   
-                  {/* Mobile Layout - Simple Vertical Stack */}
+                  {/* Mobile Layout */}
                   <div class="md:hidden">
                     <div class="flex flex-col items-center space-y-8">
                       
                       {/* Contributors */}
                       <div class="text-center">
-                        <div class="w-20 h-20 mx-auto bg-gradient-to-br from-tron-red to-red-600 rounded-xl flex items-center justify-center shadow-lg mb-3">
+                        <div class="w-20 h-20 mx-auto bg-gradient-to-br from-red-500 to-red-700 rounded-xl flex items-center justify-center shadow-lg mb-3">
                           <i class="fas fa-code text-white text-2xl"></i>
                         </div>
                         <h4 class="font-black text-white">Contributors</h4>
                         <p class="text-xs text-gray-400">Builders & Creatives</p>
                       </div>
                       
-                      <i class="fas fa-arrow-down text-tron-red text-2xl animate-bounce"></i>
+                      <i class="fas fa-arrow-down text-red-500 text-2xl"></i>
                       
                       {/* MEGATEAM Center */}
                       <div class="text-center">
@@ -805,7 +788,7 @@ app.get('/', (c) => {
                         <p class="text-sm text-gray-300">Coordination Hub</p>
                       </div>
                       
-                      <i class="fas fa-arrow-down text-blue-500 text-2xl animate-bounce"></i>
+                      <i class="fas fa-arrow-down text-blue-500 text-2xl"></i>
                       
                       {/* Bottom stakeholders */}
                       <div class="grid grid-cols-3 gap-6 w-full max-w-sm">
