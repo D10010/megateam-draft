@@ -633,20 +633,108 @@ app.get('/', (c) => {
               <p class="text-xl font-semibold text-tron-red">Yet billions still don't know that story.</p>
             </div>
 
-            <div class="grid md:grid-cols-2 lg:grid-cols-3 gap-8">
-              <div class="bg-black/50 p-6 rounded-lg border border-tron-red/20" data-aos="fade-up" data-aos-delay="100">
+            {/* 7 Key Advantages Grid */}
+            <div class="grid md:grid-cols-2 lg:grid-cols-3 gap-8 mb-16">
+              {/* 1. Massive User Base */}
+              <div class="cyber-card p-6 rounded-xl border border-tron-red/20" data-aos="fade-up" data-aos-delay="100">
+                <i class="fas fa-users text-tron-red text-3xl mb-4"></i>
+                <h3 class="text-xl font-bold mb-3 text-tron-light">Massive User Base & High Adoption</h3>
+                <div class="text-gray-300 space-y-2">
+                  <p>• TRON ranks among the <span class="text-white font-semibold">top blockchains by daily active users</span>, with ~2.5–2.8 million DAUs in 2025</p>
+                  <p>• Processes <span class="text-tron-light">millions of transactions daily</span>, driven by stablecoin transfers and dApps</p>
+                  <p>• Developers gain access to a <span class="text-white">large, global audience</span> ready to engage</p>
+                </div>
+              </div>
+
+              {/* 2. Low Fees & Throughput */}
+              <div class="cyber-card p-6 rounded-xl border border-tron-red/20" data-aos="fade-up" data-aos-delay="200">
+                <i class="fas fa-bolt text-tron-red text-3xl mb-4"></i>
+                <h3 class="text-xl font-bold mb-3 text-tron-light">Low Fees, High Throughput & Free Transaction Model</h3>
+                <div class="text-gray-300 space-y-2">
+                  <p>• TRON transactions are <span class="text-white font-semibold">low-cost</span>, with average fees recently reduced to around <span class="text-tron-light">$0.59</span></p>
+                  <p>• Handles <span class="text-white">millions of daily transactions</span> without congestion</p>
+                  <p>• Energy & Bandwidth model allows developers to <span class="text-tron-light">stake TRX to cover resources</span>, enabling users to transact for free</p>
+                </div>
+              </div>
+
+              {/* 3. Developer-Friendly */}
+              <div class="cyber-card p-6 rounded-xl border border-tron-red/20" data-aos="fade-up" data-aos-delay="300">
+                <i class="fas fa-code text-tron-red text-3xl mb-4"></i>
+                <h3 class="text-xl font-bold mb-3 text-tron-light">Developer-Friendly & EVM Compatibility</h3>
+                <div class="text-gray-300 space-y-2">
+                  <p>• TRON uses the <span class="text-white font-semibold">TRON Virtual Machine (TVM)</span>, highly compatible with the Ethereum Virtual Machine</p>
+                  <p>• Smart contracts written in <span class="text-tron-light">Solidity can be ported</span> with minimal changes</p>
+                  <p>• Developers can leverage existing <span class="text-white">Ethereum tools and frameworks</span></p>
+                </div>
+              </div>
+
+              {/* 4. Stablecoin Powerhouse */}
+              <div class="cyber-card p-6 rounded-xl border border-tron-red/20" data-aos="fade-up" data-aos-delay="400">
+                <i class="fas fa-coins text-tron-red text-3xl mb-4"></i>
+                <h3 class="text-xl font-bold mb-3 text-tron-light">Stablecoin Powerhouse</h3>
+                <div class="text-gray-300 space-y-2">
+                  <p>• TRON is the <span class="text-white font-semibold">leading chain for USDT (Tether)</span>, with ~$80B+ in circulation</p>
+                  <p>• Processes <span class="text-tron-light">tens of billions of dollars</span> in USDT transfers daily, outpacing most other blockchains</p>
+                  <p>• Central hub for <span class="text-white">payments, DeFi liquidity, and cross-border transfers</span></p>
+                </div>
+              </div>
+
+              {/* 5. Global Reach */}
+              <div class="cyber-card p-6 rounded-xl border border-tron-red/20" data-aos="fade-up" data-aos-delay="500">
+                <i class="fas fa-globe text-tron-red text-3xl mb-4"></i>
+                <h3 class="text-xl font-bold mb-3 text-tron-light">Global Reach & Ecosystem</h3>
+                <div class="text-gray-300 space-y-2">
+                  <p>• TRON has expanded with acquisitions like <span class="text-white font-semibold">BitTorrent, DLive, and Steemit</span></p>
+                  <p>• Supports over <span class="text-tron-light">300 million user accounts</span> and is integrated across major exchanges and wallets</p>
+                  <p>• Developers benefit from exposure to <span class="text-white">one of the largest crypto user bases</span> worldwide</p>
+                </div>
+              </div>
+
+              {/* 6. DAO Governance */}
+              <div class="cyber-card p-6 rounded-xl border border-tron-red/20" data-aos="fade-up" data-aos-delay="600">
+                <i class="fas fa-university text-tron-red text-3xl mb-4"></i>
+                <h3 class="text-xl font-bold mb-3 text-tron-light">DAO Governance & Incentives</h3>
+                <div class="text-gray-300 space-y-2">
+                  <p>• The <span class="text-white font-semibold">TRON DAO manages</span> network upgrades and ecosystem funding programs such as SunPump and Builders League</p>
+                  <p>• TRON employs <span class="text-tron-light">burning mechanisms</span> that tie network activity to TRX token value</p>
+                  <p>• Developers can access <span class="text-white">grants, incentives, and support</span> through DAO-led initiatives</p>
+                </div>
+              </div>
+            </div>
+
+            {/* 7. Practical Use Cases - Full Width */}
+            <div class="mb-12" data-aos="fade-up" data-aos-delay="700">
+              <div class="cyber-card p-8 rounded-xl border border-tron-red/20">
+                <div class="flex items-center mb-6">
+                  <i class="fas fa-handshake text-tron-red text-3xl mr-4"></i>
+                  <h3 class="text-2xl font-bold text-tron-light">Practical Use Cases: Payments & Remittances</h3>
+                </div>
+                <div class="text-lg text-gray-300 leading-relaxed">
+                  <p class="mb-4">
+                    <span class="text-white font-semibold">TRON is widely used for remittances and cross-border payments</span>, powered by its stablecoin dominance and low fees. The ecosystem also includes gaming, content platforms, and creator monetization.
+                  </p>
+                  <p class="text-tron-light font-medium">
+                    Developers building real-world financial applications can immediately tap into TRON's strong stablecoin flows.
+                  </p>
+                </div>
+              </div>
+            </div>
+
+            {/* MEGATEAM Value Props */}
+            <div class="grid md:grid-cols-3 gap-8">
+              <div class="bg-black/50 p-6 rounded-lg border border-tron-red/20" data-aos="fade-up" data-aos-delay="800">
                 <i class="fas fa-shield-alt text-tron-red text-3xl mb-4"></i>
                 <h3 class="text-xl font-bold mb-3">Radical Accountability</h3>
                 <p class="text-gray-300">A Guardian corps of vetted experts verifies every milestone on-chain, so capital flows only when value is delivered.</p>
               </div>
               
-              <div class="bg-black/50 p-6 rounded-lg border border-tron-red/20" data-aos="fade-up" data-aos-delay="200">
+              <div class="bg-black/50 p-6 rounded-lg border border-tron-red/20" data-aos="fade-up" data-aos-delay="900">
                 <i class="fas fa-graduation-cap text-tron-red text-3xl mb-4"></i>
                 <h3 class="text-xl font-bold mb-3">Education as Fuel</h3>
                 <p class="text-gray-300">Multilingual media studio drops bite-sized tutorials, long-form explainers, and live workshops—demystifying DeFi, NFTs, gaming, and AI integrations.</p>
               </div>
               
-              <div class="bg-black/50 p-6 rounded-lg border border-tron-red/20" data-aos="fade-up" data-aos-delay="300">
+              <div class="bg-black/50 p-6 rounded-lg border border-tron-red/20" data-aos="fade-up" data-aos-delay="1000">
                 <i class="fas fa-chart-line text-tron-red text-3xl mb-4"></i>
                 <h3 class="text-xl font-bold mb-3">Profit With Purpose</h3>
                 <p class="text-gray-300">By amplifying TRON's fundamentals—low fees, stablecoin dominance, and cross-chain tooling—MEGATEAM ensures builders not only learn but earn.</p>
