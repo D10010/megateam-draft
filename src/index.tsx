@@ -649,6 +649,154 @@ app.get('/', (c) => {
         </div>
       </section>
 
+      {/* What is MEGATEAM Section */}
+      <section class="py-20">
+        <div class="container mx-auto px-6">
+          <div class="max-w-6xl mx-auto">
+            <h2 class="text-4xl font-bold text-center mb-16" data-aos="fade-up">
+              What is <span class="text-transparent bg-clip-text bg-tron-gradient">MEGATEAM</span>?
+            </h2>
+            
+            {/* The Problem */}
+            <div class="mb-16" data-aos="fade-up">
+              <h3 class="text-2xl font-bold mb-6 text-tron-red">The Problem</h3>
+              <div class="cyber-card p-8 rounded-xl">
+                <p class="text-lg text-gray-300 leading-relaxed">
+                  Crypto talent is <span class="text-tron-light font-semibold">fragmented across countless Discord servers and Telegram groups</span>. 
+                  Skilled builders bounce between projects without sustainable income paths. Meanwhile, sponsors and TRON DAO 
+                  struggle to find <span class="text-white font-semibold">accountable, proven contributors</span> for meaningful initiatives.
+                </p>
+              </div>
+            </div>
+
+            {/* The Solution */}
+            <div class="mb-16" data-aos="fade-up" data-aos-delay="200">
+              <h3 class="text-2xl font-bold mb-6 text-tron-red">The Solution</h3>
+              <div class="cyber-card p-8 rounded-xl">
+                <p class="text-lg text-gray-300 leading-relaxed mb-6">
+                  <span class="text-transparent bg-clip-text bg-tron-gradient font-semibold">MEGATEAM</span> is a coordinated hub that connects 
+                  <span class="text-tron-light font-semibold">builders, creatives, and guardians</span> on TRON—creating sustainable 
+                  career paths while delivering accountability to sponsors and TRON DAO.
+                </p>
+                
+                {/* Visual Diagram */}
+                <div class="mt-8 relative">
+                  <div class="grid grid-cols-2 md:grid-cols-4 gap-4 items-center">
+                    {/* Contributors */}
+                    <div class="text-center">
+                      <div class="w-16 h-16 mx-auto mb-3 bg-gradient-to-r from-tron-red to-tron-light rounded-full flex items-center justify-center">
+                        <i class="fas fa-code text-white text-xl"></i>
+                      </div>
+                      <h4 class="font-bold text-tron-light">Contributors</h4>
+                      <p class="text-xs text-gray-400">Builders & Creatives</p>
+                    </div>
+                    
+                    {/* Arrow 1 */}
+                    <div class="hidden md:flex justify-center">
+                      <i class="fas fa-arrow-right text-tron-red text-2xl"></i>
+                    </div>
+                    
+                    {/* Guardians */}
+                    <div class="text-center">
+                      <div class="w-16 h-16 mx-auto mb-3 bg-gradient-to-r from-tron-light to-blue-400 rounded-full flex items-center justify-center">
+                        <i class="fas fa-shield-alt text-white text-xl"></i>
+                      </div>
+                      <h4 class="font-bold text-blue-400">Guardians</h4>
+                      <p class="text-xs text-gray-400">Verification Layer</p>
+                    </div>
+                    
+                    {/* Arrow 2 */}
+                    <div class="hidden md:flex justify-center">
+                      <i class="fas fa-arrow-right text-blue-400 text-2xl"></i>
+                    </div>
+                    
+                    {/* Mobile arrows */}
+                    <div class="md:hidden col-span-2 flex justify-center space-x-4">
+                      <i class="fas fa-arrow-down text-tron-red text-xl"></i>
+                      <i class="fas fa-arrow-down text-blue-400 text-xl"></i>
+                    </div>
+                    
+                    {/* Sponsors */}
+                    <div class="text-center">
+                      <div class="w-16 h-16 mx-auto mb-3 bg-gradient-to-r from-blue-400 to-green-400 rounded-full flex items-center justify-center">
+                        <i class="fas fa-handshake text-white text-xl"></i>
+                      </div>
+                      <h4 class="font-bold text-green-400">Sponsors</h4>
+                      <p class="text-xs text-gray-400">Partners & Brands</p>
+                    </div>
+                    
+                    {/* Arrow 3 */}
+                    <div class="hidden md:flex justify-center">
+                      <i class="fas fa-arrow-right text-green-400 text-2xl"></i>
+                    </div>
+                    
+                    {/* TRON DAO */}
+                    <div class="text-center">
+                      <div class="w-16 h-16 mx-auto mb-3 bg-gradient-to-r from-green-400 to-tron-red rounded-full flex items-center justify-center">
+                        <i class="fas fa-university text-white text-xl"></i>
+                      </div>
+                      <h4 class="font-bold text-tron-red">TRON DAO</h4>
+                      <p class="text-xs text-gray-400">Governance & Funding</p>
+                    </div>
+                    
+                    {/* Arrow 4 - Back to Contributors */}
+                    <div class="hidden md:flex justify-center">
+                      <i class="fas fa-arrow-left text-tron-red text-2xl"></i>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </div>
+
+            {/* Why It Matters */}
+            <div data-aos="fade-up" data-aos-delay="400">
+              <h3 class="text-2xl font-bold mb-8 text-tron-red">Why It Matters</h3>
+              
+              <div class="grid md:grid-cols-3 gap-8">
+                {/* For Contributors */}
+                <div class="cyber-card p-6 rounded-xl border-l-4 border-tron-red">
+                  <div class="flex items-center mb-4">
+                    <i class="fas fa-user-tie text-tron-red text-2xl mr-3"></i>
+                    <h4 class="text-xl font-bold text-tron-light">For Contributors</h4>
+                  </div>
+                  <p class="text-gray-300">
+                    <span class="text-tron-light font-semibold">Earn by doing meaningful work</span>. 
+                    Get paid for shipping code, creating content, building communities—with transparent 
+                    milestones and instant TRON payouts.
+                  </p>
+                </div>
+
+                {/* For TRON DAO */}
+                <div class="cyber-card p-6 rounded-xl border-l-4 border-blue-400">
+                  <div class="flex items-center mb-4">
+                    <i class="fas fa-university text-blue-400 text-2xl mr-3"></i>
+                    <h4 class="text-xl font-bold text-blue-400">For TRON DAO</h4>
+                  </div>
+                  <p class="text-gray-300">
+                    <span class="text-blue-400 font-semibold">Higher quality projects, full accountability</span>. 
+                    Every funded initiative gets Guardian oversight, on-chain verification, and 
+                    measurable impact on TRON ecosystem growth.
+                  </p>
+                </div>
+
+                {/* For Sponsors */}
+                <div class="cyber-card p-6 rounded-xl border-l-4 border-green-400">
+                  <div class="flex items-center mb-4">
+                    <i class="fas fa-handshake text-green-400 text-2xl mr-3"></i>
+                    <h4 class="text-xl font-bold text-green-400">For Partners</h4>
+                  </div>
+                  <p class="text-gray-300">
+                    <span class="text-green-400 font-semibold">Access to proven talent</span>. 
+                    Connect with verified builders who have track records, Guardian endorsements, 
+                    and deep TRON ecosystem expertise.
+                  </p>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </section>
+
       {/* Objectives Section */}
       <section id="objectives" class="py-20">
         <div class="container mx-auto px-6">
