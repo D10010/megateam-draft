@@ -686,14 +686,14 @@ app.get('/', (c) => {
                     <div class="relative w-full max-w-2xl mx-auto h-80">
                       {/* Central Hub */}
                       <div class="absolute top-1/2 left-1/2 transform -translate-x-1/2 -translate-y-1/2 z-10">
-                        <div class="w-24 h-24 bg-gradient-to-r from-tron-red via-tron-light to-tron-red rounded-full flex items-center justify-center border-4 border-tron-white shadow-lg shadow-tron-red/50">
-                          <span class="text-white font-black text-lg">MT</span>
+                        <div class="w-28 h-28 rounded-full flex items-center justify-center border-4 border-tron-white shadow-lg shadow-tron-red/50 overflow-hidden">
+                          <img src="/mt-logo.jpg" alt="MEGATEAM Logo" class="w-full h-full object-cover" />
                         </div>
-                        <h4 class="text-center mt-2 font-bold text-tron-white">MEGATEAM</h4>
+                        <h4 class="text-center mt-3 font-bold text-tron-white">MEGATEAM</h4>
                       </div>
                       
                       {/* Contributors - Top Left */}
-                      <div class="absolute top-4 left-8">
+                      <div class="absolute top-8 left-12">
                         <div class="text-center">
                           <div class="w-20 h-20 bg-gradient-to-r from-tron-red to-tron-light rounded-xl flex items-center justify-center shadow-lg shadow-tron-red/30 mb-3 transform hover:scale-105 transition-transform">
                             <i class="fas fa-code text-white text-2xl"></i>
@@ -702,14 +702,14 @@ app.get('/', (c) => {
                           <p class="text-xs text-gray-400">Builders & Creatives</p>
                         </div>
                         {/* Arrow to center */}
-                        <div class="absolute top-10 left-24 w-16 h-0.5 bg-gradient-to-r from-tron-red to-transparent transform rotate-45"></div>
-                        <div class="absolute top-16 left-20">
-                          <i class="fas fa-arrow-right text-tron-red transform rotate-45"></i>
+                        <div class="absolute top-12 left-20 w-20 h-0.5 bg-gradient-to-r from-tron-red to-tron-red/50 transform rotate-35"></div>
+                        <div class="absolute top-14 left-18">
+                          <i class="fas fa-long-arrow-alt-right text-tron-red text-lg transform rotate-35"></i>
                         </div>
                       </div>
                       
                       {/* Guardians - Top Right */}
-                      <div class="absolute top-4 right-8">
+                      <div class="absolute top-8 right-12">
                         <div class="text-center">
                           <div class="w-20 h-20 bg-gradient-to-r from-blue-400 to-cyan-300 rounded-xl flex items-center justify-center shadow-lg shadow-blue-400/30 mb-3 transform hover:scale-105 transition-transform">
                             <i class="fas fa-shield-alt text-white text-2xl"></i>
@@ -718,14 +718,14 @@ app.get('/', (c) => {
                           <p class="text-xs text-gray-400">Verification Layer</p>
                         </div>
                         {/* Arrow to center */}
-                        <div class="absolute top-10 right-24 w-16 h-0.5 bg-gradient-to-l from-blue-400 to-transparent transform -rotate-45"></div>
-                        <div class="absolute top-16 right-20">
-                          <i class="fas fa-arrow-left text-blue-400 transform -rotate-45"></i>
+                        <div class="absolute top-12 right-20 w-20 h-0.5 bg-gradient-to-l from-blue-400 to-blue-400/50 transform -rotate-35"></div>
+                        <div class="absolute top-14 right-18">
+                          <i class="fas fa-long-arrow-alt-left text-blue-400 text-lg transform -rotate-35"></i>
                         </div>
                       </div>
                       
                       {/* Sponsors - Bottom Right */}
-                      <div class="absolute bottom-4 right-8">
+                      <div class="absolute bottom-8 right-12">
                         <div class="text-center">
                           <div class="w-20 h-20 bg-gradient-to-r from-green-400 to-emerald-300 rounded-xl flex items-center justify-center shadow-lg shadow-green-400/30 mb-3 transform hover:scale-105 transition-transform">
                             <i class="fas fa-handshake text-white text-2xl"></i>
@@ -734,14 +734,14 @@ app.get('/', (c) => {
                           <p class="text-xs text-gray-400">Sponsors & Brands</p>
                         </div>
                         {/* Arrow to center */}
-                        <div class="absolute bottom-10 right-24 w-16 h-0.5 bg-gradient-to-l from-green-400 to-transparent transform rotate-45"></div>
-                        <div class="absolute bottom-16 right-20">
-                          <i class="fas fa-arrow-left text-green-400 transform rotate-45"></i>
+                        <div class="absolute top-12 right-20 w-20 h-0.5 bg-gradient-to-l from-green-400 to-green-400/50 transform rotate-35"></div>
+                        <div class="absolute top-14 right-18">
+                          <i class="fas fa-long-arrow-alt-left text-green-400 text-lg transform rotate-35"></i>
                         </div>
                       </div>
                       
                       {/* TRON DAO - Bottom Left */}
-                      <div class="absolute bottom-4 left-8">
+                      <div class="absolute bottom-8 left-12">
                         <div class="text-center">
                           <div class="w-20 h-20 bg-gradient-to-r from-yellow-400 to-orange-400 rounded-xl flex items-center justify-center shadow-lg shadow-yellow-400/30 mb-3 transform hover:scale-105 transition-transform">
                             <i class="fas fa-university text-white text-2xl"></i>
@@ -750,9 +750,9 @@ app.get('/', (c) => {
                           <p class="text-xs text-gray-400">Governance & Funding</p>
                         </div>
                         {/* Arrow to center */}
-                        <div class="absolute bottom-10 left-24 w-16 h-0.5 bg-gradient-to-r from-yellow-400 to-transparent transform -rotate-45"></div>
-                        <div class="absolute bottom-16 left-20">
-                          <i class="fas fa-arrow-right text-yellow-400 transform -rotate-45"></i>
+                        <div class="absolute top-12 left-20 w-20 h-0.5 bg-gradient-to-r from-yellow-400 to-yellow-400/50 transform -rotate-35"></div>
+                        <div class="absolute top-14 left-18">
+                          <i class="fas fa-long-arrow-alt-right text-yellow-400 text-lg transform -rotate-35"></i>
                         </div>
                       </div>
                       
@@ -792,8 +792,8 @@ app.get('/', (c) => {
                       
                       {/* MEGATEAM Hub */}
                       <div class="text-center">
-                        <div class="w-24 h-24 mx-auto bg-gradient-to-r from-tron-red via-tron-light to-tron-red rounded-full flex items-center justify-center border-4 border-tron-white shadow-lg shadow-tron-red/50 mb-3">
-                          <span class="text-white font-black text-lg">MT</span>
+                        <div class="w-24 h-24 mx-auto rounded-full flex items-center justify-center border-4 border-tron-white shadow-lg shadow-tron-red/50 mb-3 overflow-hidden">
+                          <img src="/mt-logo.jpg" alt="MEGATEAM Logo" class="w-full h-full object-cover" />
                         </div>
                         <h4 class="font-bold text-tron-white">MEGATEAM HUB</h4>
                         <p class="text-xs text-gray-400">Coordination Layer</p>
