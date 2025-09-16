@@ -674,9 +674,7 @@ app.get('/', (c) => {
               <h3 class="text-2xl font-bold mb-6 text-tron-red">The Solution</h3>
               <div class="cyber-card p-8 rounded-xl">
                 <p class="text-lg text-gray-300 leading-relaxed mb-6">
-                  <span class="text-transparent bg-clip-text bg-tron-gradient font-semibold">MEGATEAM</span> is a coordinated hub that connects 
-                  <span class="text-tron-light font-semibold">builders, creatives, and guardians</span> on TRON—creating sustainable 
-                  career paths while delivering accountability to sponsors and TRON DAO.
+                  <span class="text-transparent bg-clip-text bg-tron-gradient font-semibold">MEGATEAM</span> is a coordinated hub that connects <span class="text-tron-light font-semibold">builders, creatives, and guardians</span> on TRON—creating sustainable career paths while delivering accountability to sponsors and TRON DAO.
                 </p>
                 
                 {/* SIMPLE CLEAN INFOGRAPHIC */}
