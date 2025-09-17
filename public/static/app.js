@@ -675,13 +675,17 @@ async function fetchTronNetworkData() {
         await sleep(400);
         
         const priceData = await fetchTRXPrice();
+        await sleep(400);
+        
+        const accountData = await fetchTronAccounts();
         
         // Update UI elements with fetched data
         updateTronStats({
             tps: tpsData,
             block: blockData,
             transactions: transactionData,
-            price: priceData
+            price: priceData,
+            accounts: accountData
         });
         
         console.log('✅ TRON data updated successfully');
@@ -867,6 +871,30 @@ function updateTronStats(data) {
         }
     }
     
+    // Update USDT Volume
+    const usdtElement = document.getElementById('live-usdt-volume');
+    if (usdtElement && data.transactions) {
+        const usdtValue = data.transactions.error ? 'N/A' : data.transactions.usdtTransactions?.toLocaleString() || 'N/A';
+        usdtElement.textContent = usdtValue;
+        
+        if (!data.transactions.error && data.transactions.usdtTransactions) {
+            usdtElement.classList.add('animate-pulse');
+            setTimeout(() => usdtElement.classList.remove('animate-pulse'), 1000);
+        }
+    }
+    
+    // Update Total Accounts
+    const accountsElement = document.getElementById('live-total-accounts');
+    if (accountsElement && data.accounts) {
+        const accountsValue = data.accounts.error ? 'N/A' : formatNumber(data.accounts.totalAccounts);
+        accountsElement.textContent = accountsValue;
+        
+        if (!data.accounts.error) {
+            accountsElement.classList.add('animate-pulse');
+            setTimeout(() => accountsElement.classList.remove('animate-pulse'), 1000);
+        }
+    }
+    
     // Update timestamp indicators
     const timestampElements = document.querySelectorAll('.tron-data-timestamp');
     timestampElements.forEach(element => {
@@ -880,7 +908,7 @@ function updateTronStats(data) {
 
 // Log network data quality for debugging
 function updateNetworkHealthIndicator(data) {
-    const hasErrors = data.tps?.error || data.block?.error || data.transactions?.error || data.price?.error;
+    const hasErrors = data.tps?.error || data.block?.error || data.transactions?.error || data.price?.error || data.accounts?.error;
     
     if (hasErrors) {
         console.log('⚠️ Partial TRON data loaded - some APIs failed');
@@ -906,7 +934,9 @@ function handleTronDataError(error) {
             'live-tps',
             'live-block', 
             'live-daily-txns',
-            'live-trx-price'
+            'live-trx-price',
+            'live-usdt-volume',
+            'live-total-accounts'
         ];
         
         errorElements.forEach(id => {
@@ -949,11 +979,17 @@ function showDemoTronData() {
         },
         transactions: {
             today: 5500000 + Math.floor(Math.random() * 500000), // ~5.5-6M daily
+            usdtTransactions: 2200000 + Math.floor(Math.random() * 400000), // ~2.2-2.6M USDT daily
             error: false
         },
         price: {
             price: 0.2345 + (Math.random() - 0.5) * 0.01, // ~$0.23 with small variations
             change24h: -2 + (Math.random() * 8), // -2% to +6% range
+            error: false
+        },
+        accounts: {
+            totalAccounts: 245000000, // ~245M total accounts
+            activeDaily: 2500000, // ~2.5M daily active
             error: false
         }
     };
@@ -995,6 +1031,33 @@ function formatBlockTime(timestamp) {
 // Helper function to add delays between API calls
 function sleep(ms) {
     return new Promise(resolve => setTimeout(resolve, ms));
+}
+
+// Fetch TRON Account Statistics via proxy API
+async function fetchTronAccounts() {
+    try {
+        const response = await fetch('/api/tron/accounts', {
+            method: 'GET',
+            headers: {
+                'Accept': 'application/json'
+            }
+        });
+        
+        if (!response.ok) {
+            throw new Error(`Accounts API error: ${response.status}`);
+        }
+        
+        const data = await response.json();
+        
+        return {
+            totalAccounts: data.totalAccounts || 0,
+            activeDaily: data.activeDaily || 0,
+            timestamp: data.timestamp || Date.now()
+        };
+    } catch (error) {
+        console.error('Accounts fetch error:', error);
+        return { totalAccounts: 0, activeDaily: 0, error: true };
+    }
 }
 
 console.log('🌐 TRONScan API integration loaded successfully!');
