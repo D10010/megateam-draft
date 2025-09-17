@@ -53,6 +53,11 @@ export const renderer = jsxRenderer(({ children }) => {
         {/* Font Awesome Icons */}
         <link href="https://cdn.jsdelivr.net/npm/@fortawesome/fontawesome-free@6.4.0/css/all.min.css" rel="stylesheet" />
         
+        {/* Leaflet.js for Interactive Maps */}
+        <link rel="stylesheet" href="https://unpkg.com/leaflet@1.9.4/dist/leaflet.css"
+          integrity="sha256-p4NxAoJBhIIN+hmNHrzRCf9tD/miZyoHS5obTRR9BMY="
+          crossOrigin="" />
+        
         {/* Custom Styles */}
         <link href="/static/style.css" rel="stylesheet" />
         
@@ -121,6 +126,11 @@ export const renderer = jsxRenderer(({ children }) => {
         {/* Scripts */}
         <script src="https://cdn.jsdelivr.net/npm/aos@2.3.4/dist/aos.js"></script>
         <link href="https://cdn.jsdelivr.net/npm/aos@2.3.4/dist/aos.css" rel="stylesheet" />
+        
+        {/* Leaflet.js JavaScript */}
+        <script src="https://unpkg.com/leaflet@1.9.4/dist/leaflet.js"
+          integrity="sha256-20nQCchB9co0qIjJZRGuk2/Z9VM+kNiyxNV1lvTlZBo="
+          crossOrigin=""></script>
         
         {/* Load mobile-compatible audio system first */}
         <script src="/static/mobile-audio.js"></script>

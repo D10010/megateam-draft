@@ -1539,7 +1539,7 @@ app.get('/', (c) => {
             <div class="cyber-card p-4 sm:p-6 rounded-xl text-center border border-tron-light/20 bg-gradient-to-br from-tron-black/50 via-tron-dark/30 to-tron-black/50">
               <i class="fas fa-crown text-tron-light text-2xl sm:text-3xl mb-3"></i>
               <h3 class="text-xs sm:text-sm font-medium text-gray-400 uppercase tracking-wider mb-2">Super Representatives</h3>
-              <div id="super-reps-count" class="text-xl sm:text-2xl font-black text-white min-h-[2rem]">27</div>
+              <div id="super-reps-count" class="text-xl sm:text-2xl font-black text-white min-h-[2rem]">Loading...</div>
               <div class="text-xs text-gray-500 mt-1">Active SRs</div>
             </div>
 

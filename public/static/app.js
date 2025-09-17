@@ -257,9 +257,15 @@ function initTronDataFetcher() {
     showLoadingState();
     fetchTronNetworkData();
     
+    // Also fetch network infrastructure data immediately
+    setTimeout(fetchNetworkInfrastructureData, 1000);
+    
     // Set up periodic updates every 30 seconds for more responsive data
     // (APIs can handle this frequency easily with parallel requests)
     setInterval(fetchTronNetworkData, 30000);
+    
+    // Set up periodic updates for network infrastructure every 60 seconds
+    setInterval(fetchNetworkInfrastructureData, 60000);
 }
 
 // Main function to fetch all TRON network statistics - OPTIMIZED
@@ -628,13 +634,27 @@ function updateTronStats(data) {
         // Fetch and update network infrastructure data with small delay to ensure DOM is ready
         setTimeout(fetchNetworkInfrastructureData, 500);
         
+        // Also call it again after a longer delay to ensure it persists
+        setTimeout(fetchNetworkInfrastructureData, 2000);
+        
     } catch (error) {
         console.error('❌ Error updating TRON stats UI:', error);
     }
 }
 
+// Global flag to prevent multiple simultaneous infrastructure data fetches
+let fetchingInfrastructureData = false;
+
 // Fetch and update TRON Network Infrastructure data
 async function fetchNetworkInfrastructureData() {
+    // Prevent multiple simultaneous calls
+    if (fetchingInfrastructureData) {
+        console.log('🔗 Infrastructure data fetch already in progress, skipping...');
+        return;
+    }
+    
+    fetchingInfrastructureData = true;
+    
     try {
         console.log('🔗 Fetching TRON network infrastructure data...');
         
@@ -672,15 +692,19 @@ async function fetchNetworkInfrastructureData() {
             if (totalValidatorsElement) {
                 const newValue = witnessesData.totalWitnesses || '427';
                 totalValidatorsElement.textContent = newValue;
-                console.log('✅ Updated total validators to:', newValue);
+                totalValidatorsElement.innerHTML = newValue; // Force innerHTML update too
+                console.log('✅ Updated total validators to:', newValue, '- Element content now:', totalValidatorsElement.textContent);
             } else {
                 console.warn('❌ total-validators element not found');
             }
             
-            // Update Super Representatives count (keep existing value or set to 27)
-            if (superRepsElement && superRepsElement.textContent === 'Loading...') {
+            // Update Super Representatives count (always set to 27)
+            if (superRepsElement) {
                 superRepsElement.textContent = '27';
-                console.log('✅ Updated super reps to: 27');
+                superRepsElement.innerHTML = '27'; // Force innerHTML update too
+                console.log('✅ Updated super reps to: 27 - Element content now:', superRepsElement.textContent);
+            } else {
+                console.warn('❌ super-reps-count element not found');
             }
         }
         
@@ -693,7 +717,8 @@ async function fetchNetworkInfrastructureData() {
             if (continentsElement) {
                 const newValue = nodesData.continents || '7';
                 continentsElement.textContent = newValue;
-                console.log('✅ Updated continents to:', newValue);
+                continentsElement.innerHTML = newValue; // Force innerHTML update too
+                console.log('✅ Updated continents to:', newValue, '- Element content now:', continentsElement.textContent);
             } else {
                 console.warn('❌ continents-count element not found');
             }
@@ -702,8 +727,11 @@ async function fetchNetworkInfrastructureData() {
         // Update Network Health (always show as Healthy)
         if (networkHealthElement) {
             networkHealthElement.textContent = 'Healthy';
+            networkHealthElement.innerHTML = 'Healthy'; // Force innerHTML update too
             networkHealthElement.className = 'text-xl sm:text-2xl font-black text-green-400 min-h-[2rem]';
-            console.log('✅ Updated network health to: Healthy');
+            console.log('✅ Updated network health to: Healthy - Element content now:', networkHealthElement.textContent);
+        } else {
+            console.warn('❌ network-health element not found');
         }
         
         console.log('✅ Network infrastructure data updated');
@@ -723,14 +751,18 @@ async function fetchNetworkInfrastructureData() {
             const element = document.getElementById(id);
             if (element) {
                 element.textContent = value;
+                element.innerHTML = value; // Force innerHTML update too
                 if (id === 'network-health') {
                     element.className = 'text-xl sm:text-2xl font-black text-green-400 min-h-[2rem]';
                 }
-                console.log(`🔧 Set fallback value for ${id}: ${value}`);
+                console.log(`🔧 Set fallback value for ${id}: ${value} - Element content now:`, element.textContent);
             } else {
                 console.warn(`❌ Fallback: ${id} element not found`);
             }
         });
+    } finally {
+        // Reset the flag to allow future calls
+        fetchingInfrastructureData = false;
     }
 }
 
@@ -821,14 +853,14 @@ async function loadTronNetworkMap() {
         console.log('🌐 Loading TRON network nodes map...');
         
         // Check if map container exists
-        const mapContainer = document.getElementById('tron-network-map');
+        const mapContainer = document.getElementById('tron-world-map');
         if (!mapContainer) {
             console.warn('Map container not found, skipping map initialization');
             return;
         }
         
         // Initialize Leaflet map
-        const map = L.map('tron-network-map').setView([20, 0], 2);
+        const map = L.map('tron-world-map').setView([20, 0], 2);
         
         // Add dark tile layer for cyber theme
         L.tileLayer('https://{s}.basemaps.cartocdn.com/dark_all/{z}/{x}/{y}{r}.png', {
@@ -1021,7 +1053,7 @@ function showFallbackMapMessage(map) {
 
 // Show map error message
 function showMapError() {
-    const mapContainer = document.getElementById('tron-network-map');
+    const mapContainer = document.getElementById('tron-world-map');
     if (mapContainer) {
         mapContainer.innerHTML = `
             <div class="map-error" style="display: flex; align-items: center; justify-content: center; height: 400px; background: rgba(0, 0, 0, 0.8); color: #FF060A; text-align: center; border-radius: 8px;">
