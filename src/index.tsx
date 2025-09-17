@@ -496,8 +496,8 @@ app.get('/api/tron/transactions', async (c) => {
     const todayData = data.data && data.data.length > 0 ? data.data[data.data.length - 1] : {}
     
     return c.json({
-      today: todayData.transactionNum || 0,
-      date: todayData.date || new Date().toISOString().split('T')[0],
+      today: todayData.newTransactionSeen || 0,
+      date: todayData.dateDayStr || new Date().toISOString().split('T')[0],
       totalTransactions: data.totalTransaction || 0
     })
   } catch (error) {
@@ -524,12 +524,15 @@ app.get('/api/tron/price', async (c) => {
     const data = await response.json()
     console.log('✅ Price data received:', data)
     
+    // Extract latest price from the data array (most recent entry)
+    const latestData = data.data && data.data.length > 0 ? data.data[data.data.length - 1] : {}
+    
     return c.json({
-      price: data.priceInUsd || 0,
-      volume24h: data.volume24hInUsd || 0,
-      change24h: data.priceChange24h || 0,
-      marketCap: data.marketCapInUsd || 0,
-      rank: data.rank || 0
+      price: parseFloat(latestData.close) || 0,
+      volume24h: parseFloat(latestData.volume) || 0,
+      change24h: parseFloat(data.trx_price_change_ratio) || 0,
+      marketCap: parseFloat(latestData.market_cap) || 0,
+      rank: 0 // Not available in this API
     })
   } catch (error) {
     console.error('❌ Price API error:', error)
