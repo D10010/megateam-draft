@@ -412,6 +412,131 @@ app.get('/signup', (c) => {
   )
 })
 
+// TRONScan API Proxy Endpoints (to bypass CORS)
+app.get('/api/tron/tps', async (c) => {
+  try {
+    console.log('📊 Fetching TPS data from TRONScan API...')
+    const response = await fetch('https://apilist.tronscanapi.com/api/system/tps', {
+      method: 'GET',
+      headers: {
+        'Accept': 'application/json',
+        'User-Agent': 'MEGATEAM-Website/1.0'
+      }
+    })
+    
+    if (!response.ok) {
+      throw new Error(`TPS API error: ${response.status}`)
+    }
+    
+    const data = await response.json()
+    console.log('✅ TPS data received:', data)
+    
+    return c.json({
+      current: data.data?.currentTps || 0,
+      max: data.data?.maxTps || 0,
+      blockHeight: data.data?.blockHeight || 0,
+      timestamp: Date.now()
+    })
+  } catch (error) {
+    console.error('❌ TPS API error:', error)
+    return c.json({ error: 'Failed to fetch TPS data', current: 0, max: 0 }, 500)
+  }
+})
+
+app.get('/api/tron/block', async (c) => {
+  try {
+    console.log('📊 Fetching block data from TRONScan API...')
+    const response = await fetch('https://apilist.tronscanapi.com/api/block/latest', {
+      method: 'GET',
+      headers: {
+        'Accept': 'application/json',
+        'User-Agent': 'MEGATEAM-Website/1.0'
+      }
+    })
+    
+    if (!response.ok) {
+      throw new Error(`Block API error: ${response.status}`)
+    }
+    
+    const data = await response.json()
+    console.log('✅ Block data received:', data)
+    
+    return c.json({
+      height: data.number || 0,
+      hash: data.hash || '',
+      transactions: data.nrOfTrx || 0,
+      timestamp: data.timestamp || Date.now(),
+      size: data.size || 0
+    })
+  } catch (error) {
+    console.error('❌ Block API error:', error)
+    return c.json({ error: 'Failed to fetch block data', height: 0, transactions: 0 }, 500)
+  }
+})
+
+app.get('/api/tron/transactions', async (c) => {
+  try {
+    console.log('📊 Fetching transaction data from TRONScan API...')
+    const response = await fetch('https://apilist.tronscanapi.com/api/overview/dailytransactionnum', {
+      method: 'GET',
+      headers: {
+        'Accept': 'application/json',
+        'User-Agent': 'MEGATEAM-Website/1.0'
+      }
+    })
+    
+    if (!response.ok) {
+      throw new Error(`Transactions API error: ${response.status}`)
+    }
+    
+    const data = await response.json()
+    console.log('✅ Transaction data received:', data)
+    
+    // Get today's transactions (most recent entry)
+    const todayData = data.data && data.data.length > 0 ? data.data[data.data.length - 1] : {}
+    
+    return c.json({
+      today: todayData.transactionNum || 0,
+      date: todayData.date || new Date().toISOString().split('T')[0],
+      totalTransactions: data.totalTransaction || 0
+    })
+  } catch (error) {
+    console.error('❌ Transaction API error:', error)
+    return c.json({ error: 'Failed to fetch transaction data', today: 0, totalTransactions: 0 }, 500)
+  }
+})
+
+app.get('/api/tron/price', async (c) => {
+  try {
+    console.log('📊 Fetching price data from TRONScan API...')
+    const response = await fetch('https://apilist.tronscanapi.com/api/trx/volume', {
+      method: 'GET',
+      headers: {
+        'Accept': 'application/json',
+        'User-Agent': 'MEGATEAM-Website/1.0'
+      }
+    })
+    
+    if (!response.ok) {
+      throw new Error(`Price API error: ${response.status}`)
+    }
+    
+    const data = await response.json()
+    console.log('✅ Price data received:', data)
+    
+    return c.json({
+      price: data.priceInUsd || 0,
+      volume24h: data.volume24hInUsd || 0,
+      change24h: data.priceChange24h || 0,
+      marketCap: data.marketCapInUsd || 0,
+      rank: data.rank || 0
+    })
+  } catch (error) {
+    console.error('❌ Price API error:', error)
+    return c.json({ error: 'Failed to fetch price data', price: 0, volume24h: 0, change24h: 0 }, 500)
+  }
+})
+
 // Main landing page
 app.get('/', (c) => {
   return c.render(

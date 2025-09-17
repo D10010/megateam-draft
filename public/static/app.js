@@ -652,11 +652,11 @@ document.addEventListener('DOMContentLoaded', function() {
 function initTronDataFetcher() {
     console.log('🔗 Initializing TRONScan API integration...');
     
-    // Fetch initial data immediately
-    fetchTronNetworkData();
+    // Fetch initial data after a short delay to let the page load
+    setTimeout(fetchTronNetworkData, 2000);
     
-    // Set up periodic updates every 30 seconds
-    setInterval(fetchTronNetworkData, 30000);
+    // Set up periodic updates every 60 seconds (reduced frequency to respect rate limits)
+    setInterval(fetchTronNetworkData, 60000);
 }
 
 // Main function to fetch all TRON network statistics
@@ -664,13 +664,17 @@ async function fetchTronNetworkData() {
     try {
         console.log('📊 Fetching TRON network statistics...');
         
-        // Fetch data from multiple endpoints in parallel
-        const [tpsData, blockData, transactionData, priceData] = await Promise.all([
-            fetchTPS(),
-            fetchLatestBlock(),
-            fetchDailyTransactions(),
-            fetchTRXPrice()
-        ]);
+        // Fetch data sequentially to respect TRONScan API rate limits (3 RPS max)
+        const tpsData = await fetchTPS();
+        await sleep(400); // Wait 400ms between requests to stay under 3 RPS
+        
+        const blockData = await fetchLatestBlock();
+        await sleep(400);
+        
+        const transactionData = await fetchDailyTransactions();
+        await sleep(400);
+        
+        const priceData = await fetchTRXPrice();
         
         // Update UI elements with fetched data
         updateTronStats({
@@ -688,14 +692,13 @@ async function fetchTronNetworkData() {
     }
 }
 
-// Fetch Current TPS (Transactions Per Second)
+// Fetch Current TPS (Transactions Per Second) via proxy API
 async function fetchTPS() {
     try {
-        const response = await fetch('https://apilist.tronscanapi.com/api/system/tps', {
+        const response = await fetch('/api/tron/tps', {
             method: 'GET',
             headers: {
-                'Accept': 'application/json',
-                'User-Agent': 'MEGATEAM-Website/1.0'
+                'Accept': 'application/json'
             }
         });
         
@@ -706,9 +709,10 @@ async function fetchTPS() {
         const data = await response.json();
         
         return {
-            current: data.currentTps || 0,
-            max: data.maxTps || 0,
-            timestamp: Date.now()
+            current: data.current || 0,
+            max: data.max || 0,
+            blockHeight: data.blockHeight || 0,
+            timestamp: data.timestamp || Date.now()
         };
     } catch (error) {
         console.error('TPS fetch error:', error);
@@ -716,14 +720,13 @@ async function fetchTPS() {
     }
 }
 
-// Fetch Latest Block Information
+// Fetch Latest Block Information via proxy API
 async function fetchLatestBlock() {
     try {
-        const response = await fetch('https://apilist.tronscanapi.com/api/block/latest', {
+        const response = await fetch('/api/tron/block', {
             method: 'GET',
             headers: {
-                'Accept': 'application/json',
-                'User-Agent': 'MEGATEAM-Website/1.0'
+                'Accept': 'application/json'
             }
         });
         
@@ -734,9 +737,9 @@ async function fetchLatestBlock() {
         const data = await response.json();
         
         return {
-            height: data.number || 0,
+            height: data.height || 0,
             hash: data.hash || '',
-            transactions: data.nrOfTrx || 0,
+            transactions: data.transactions || 0,
             timestamp: data.timestamp || Date.now(),
             size: data.size || 0
         };
@@ -746,14 +749,13 @@ async function fetchLatestBlock() {
     }
 }
 
-// Fetch Daily Transaction Statistics
+// Fetch Daily Transaction Statistics via proxy API
 async function fetchDailyTransactions() {
     try {
-        const response = await fetch('https://apilist.tronscanapi.com/api/overview/dailytransactionnum', {
+        const response = await fetch('/api/tron/transactions', {
             method: 'GET',
             headers: {
-                'Accept': 'application/json',
-                'User-Agent': 'MEGATEAM-Website/1.0'
+                'Accept': 'application/json'
             }
         });
         
@@ -763,13 +765,10 @@ async function fetchDailyTransactions() {
         
         const data = await response.json();
         
-        // Get today's transactions (most recent entry)
-        const todayData = data.data && data.data.length > 0 ? data.data[data.data.length - 1] : {};
-        
         return {
-            today: todayData.transactionNum || 0,
-            date: todayData.date || new Date().toISOString().split('T')[0],
-            totalTransactions: data.totalTransaction || 0
+            today: data.today || 0,
+            date: data.date || new Date().toISOString().split('T')[0],
+            totalTransactions: data.totalTransactions || 0
         };
     } catch (error) {
         console.error('Daily transactions fetch error:', error);
@@ -777,14 +776,13 @@ async function fetchDailyTransactions() {
     }
 }
 
-// Fetch TRX Price and Market Data
+// Fetch TRX Price and Market Data via proxy API
 async function fetchTRXPrice() {
     try {
-        const response = await fetch('https://apilist.tronscanapi.com/api/trx/volume', {
+        const response = await fetch('/api/tron/price', {
             method: 'GET',
             headers: {
-                'Accept': 'application/json',
-                'User-Agent': 'MEGATEAM-Website/1.0'
+                'Accept': 'application/json'
             }
         });
         
@@ -795,10 +793,10 @@ async function fetchTRXPrice() {
         const data = await response.json();
         
         return {
-            price: data.priceInUsd || 0,
-            volume24h: data.volume24hInUsd || 0,
-            change24h: data.priceChange24h || 0,
-            marketCap: data.marketCapInUsd || 0,
+            price: data.price || 0,
+            volume24h: data.volume24h || 0,
+            change24h: data.change24h || 0,
+            marketCap: data.marketCap || 0,
             rank: data.rank || 0
         };
     } catch (error) {
@@ -906,43 +904,92 @@ function updateNetworkHealthIndicator(data) {
     }
 }
 
-// Handle API errors gracefully
+// Handle API errors gracefully with fallback data
 function handleTronDataError(error) {
     console.error('🚨 TRON Data Error:', error);
     
-    // Show error state in UI
-    const errorElements = [
-        'tron-tps',
-        'tron-block', 
-        'tron-transactions',
-        'tron-price'
-    ];
+    // Check if it's a rate limit error
+    const isRateLimit = error.toString().includes('rate exceeded') || error.toString().includes('500');
     
-    errorElements.forEach(id => {
-        const element = document.getElementById(id);
-        if (element) {
-            element.textContent = 'Loading...';
-            element.classList.add('animate-pulse', 'text-yellow-400');
-        }
-    });
+    if (isRateLimit) {
+        console.log('⏱️ Rate limit detected, showing demo data...');
+        // Show demo data during rate limits
+        showDemoTronData();
+    } else {
+        // Show loading state for other errors
+        const errorElements = [
+            'tron-tps',
+            'tron-block', 
+            'tron-transactions',
+            'tron-price'
+        ];
+        
+        errorElements.forEach(id => {
+            const element = document.getElementById(id);
+            if (element) {
+                element.textContent = 'Loading...';
+                element.classList.add('animate-pulse', 'text-yellow-400');
+            }
+        });
+    }
     
     // Update health indicator
     const healthIndicator = document.getElementById('tron-network-health');
     if (healthIndicator) {
-        healthIndicator.innerHTML = `
-            <span class="flex items-center">
-                <span class="w-2 h-2 bg-red-500 rounded-full mr-2 animate-pulse"></span>
-                Connection Issues
-            </span>
-        `;
-        healthIndicator.className = 'text-red-400 text-sm';
+        if (isRateLimit) {
+            healthIndicator.innerHTML = `
+                <span class="flex items-center">
+                    <span class="w-2 h-2 bg-yellow-500 rounded-full mr-2 animate-pulse"></span>
+                    Demo Data (API Rate Limited)
+                </span>
+            `;
+            healthIndicator.className = 'text-yellow-400 text-sm';
+        } else {
+            healthIndicator.innerHTML = `
+                <span class="flex items-center">
+                    <span class="w-2 h-2 bg-red-500 rounded-full mr-2 animate-pulse"></span>
+                    Connection Issues
+                </span>
+            `;
+            healthIndicator.className = 'text-red-400 text-sm';
+        }
     }
     
-    // Retry after 60 seconds on error
+    // Retry after 2 minutes for rate limits, 1 minute for other errors
+    const retryDelay = isRateLimit ? 120000 : 60000;
     setTimeout(() => {
         console.log('🔄 Retrying TRON data fetch...');
         fetchTronNetworkData();
-    }, 60000);
+    }, retryDelay);
+}
+
+// Show demo data when APIs are rate-limited
+function showDemoTronData() {
+    const currentTime = Date.now();
+    const demoData = {
+        tps: {
+            current: 85 + Math.floor(Math.random() * 50), // 85-135 TPS
+            max: 1035,
+            error: false
+        },
+        block: {
+            height: 75824000 + Math.floor((currentTime - 1758130000000) / 3000), // Simulated block progression
+            transactions: 200 + Math.floor(Math.random() * 400), // 200-600 transactions per block
+            error: false
+        },
+        transactions: {
+            today: 5500000 + Math.floor(Math.random() * 500000), // ~5.5-6M daily
+            error: false
+        },
+        price: {
+            price: 0.2345 + (Math.random() - 0.5) * 0.01, // ~$0.23 with small variations
+            change24h: -2 + (Math.random() * 8), // -2% to +6% range
+            error: false
+        }
+    };
+    
+    console.log('📊 Displaying demo TRON data during rate limit...');
+    updateTronStats(demoData);
 }
 
 // Format large numbers for display
@@ -975,5 +1022,9 @@ function formatBlockTime(timestamp) {
     }
 }
 
+// Helper function to add delays between API calls
+function sleep(ms) {
+    return new Promise(resolve => setTimeout(resolve, ms));
+}
+
 console.log('🌐 TRONScan API integration loaded successfully!');
-});
