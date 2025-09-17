@@ -874,11 +874,11 @@ app.get('/api/tron/dashboard', async (c) => {
       console.log('⚠️ Transactions API failed, using fallback data')
     }
     
-    let accountsData = { total: 332000000 } // Fallback: current total accounts
+    let accountsData = { rangeTotal: 332000000, total: 10000 } // Fallback: current total accounts
     if (accountResponse.ok) {
       try {
         const accountResult = await accountResponse.json()
-        if (accountResult.total && !accountResult.Error) {
+        if (accountResult.rangeTotal || (accountResult.total && !accountResult.Error)) {
           accountsData = accountResult
         } else {
           console.log('⚠️ Account API rate limited, using fallback data')
@@ -886,6 +886,8 @@ app.get('/api/tron/dashboard', async (c) => {
       } catch (e) {
         console.log('⚠️ Account parsing error, using fallback')
       }
+    } else {
+      console.log('⚠️ Account API failed, using fallback data')
     }
     
     // Process TPS data with better fallback values
@@ -934,10 +936,11 @@ app.get('/api/tron/dashboard', async (c) => {
       atl: marketData.atl?.usd || 0
     }
     
-    // Process account data
+    // Process account data - use rangeTotal for actual total accounts
+    const totalAccounts = accountsData.rangeTotal || accountsData.total || 332000000
     const accounts = {
-      totalAccounts: accountsData.total || 332000000,
-      activeAccounts: Math.round((accountsData.total || 332000000) * 0.02), // ~2% active
+      totalAccounts: totalAccounts,
+      activeAccounts: Math.round(totalAccounts * 0.02), // ~2% active
       newAccounts24h: 250000
     }
     
