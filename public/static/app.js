@@ -772,7 +772,8 @@ async function fetchDailyTransactions() {
         return {
             today: data.today || 0,
             date: data.date || new Date().toISOString().split('T')[0],
-            totalTransactions: data.totalTransactions || 0
+            totalTransactions: data.totalTransactions || 0,
+            usdtTransactions: data.usdtTransactions || 0
         };
     } catch (error) {
         console.error('Daily transactions fetch error:', error);
@@ -988,7 +989,7 @@ function showDemoTronData() {
             error: false
         },
         accounts: {
-            totalAccounts: 245000000, // ~245M total accounts
+            totalAccounts: 76000000, // ~76M total accounts (realistic)
             activeDaily: 2500000, // ~2.5M daily active
             error: false
         }
