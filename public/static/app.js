@@ -690,7 +690,7 @@ async function fetchNetworkInfrastructureData() {
             
             // Update Total Validators
             if (totalValidatorsElement) {
-                const newValue = witnessesData.totalWitnesses || '427';
+                const newValue = witnessesData.totalWitnesses || '127';
                 totalValidatorsElement.textContent = newValue;
                 totalValidatorsElement.innerHTML = newValue; // Force innerHTML update too
                 console.log('✅ Updated total validators to:', newValue, '- Element content now:', totalValidatorsElement.textContent);
@@ -741,7 +741,7 @@ async function fetchNetworkInfrastructureData() {
         
         // Set fallback values
         const fallbackValues = {
-            'total-validators': '427',
+            'total-validators': '127',
             'super-reps-count': '27', 
             'continents-count': '7',
             'network-health': 'Healthy'
