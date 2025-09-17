@@ -643,4 +643,337 @@ document.addEventListener('DOMContentLoaded', function() {
             }
         });
     });
+
+    // TRONScan API Integration for Real-Time Data
+    initTronDataFetcher();
+});
+
+// TRONScan API Integration Functions
+function initTronDataFetcher() {
+    console.log('🔗 Initializing TRONScan API integration...');
+    
+    // Fetch initial data immediately
+    fetchTronNetworkData();
+    
+    // Set up periodic updates every 30 seconds
+    setInterval(fetchTronNetworkData, 30000);
+}
+
+// Main function to fetch all TRON network statistics
+async function fetchTronNetworkData() {
+    try {
+        console.log('📊 Fetching TRON network statistics...');
+        
+        // Fetch data from multiple endpoints in parallel
+        const [tpsData, blockData, transactionData, priceData] = await Promise.all([
+            fetchTPS(),
+            fetchLatestBlock(),
+            fetchDailyTransactions(),
+            fetchTRXPrice()
+        ]);
+        
+        // Update UI elements with fetched data
+        updateTronStats({
+            tps: tpsData,
+            block: blockData,
+            transactions: transactionData,
+            price: priceData
+        });
+        
+        console.log('✅ TRON data updated successfully');
+        
+    } catch (error) {
+        console.error('❌ Error fetching TRON data:', error);
+        handleTronDataError(error);
+    }
+}
+
+// Fetch Current TPS (Transactions Per Second)
+async function fetchTPS() {
+    try {
+        const response = await fetch('https://apilist.tronscanapi.com/api/system/tps', {
+            method: 'GET',
+            headers: {
+                'Accept': 'application/json',
+                'User-Agent': 'MEGATEAM-Website/1.0'
+            }
+        });
+        
+        if (!response.ok) {
+            throw new Error(`TPS API error: ${response.status}`);
+        }
+        
+        const data = await response.json();
+        
+        return {
+            current: data.currentTps || 0,
+            max: data.maxTps || 0,
+            timestamp: Date.now()
+        };
+    } catch (error) {
+        console.error('TPS fetch error:', error);
+        return { current: 0, max: 0, error: true };
+    }
+}
+
+// Fetch Latest Block Information
+async function fetchLatestBlock() {
+    try {
+        const response = await fetch('https://apilist.tronscanapi.com/api/block/latest', {
+            method: 'GET',
+            headers: {
+                'Accept': 'application/json',
+                'User-Agent': 'MEGATEAM-Website/1.0'
+            }
+        });
+        
+        if (!response.ok) {
+            throw new Error(`Block API error: ${response.status}`);
+        }
+        
+        const data = await response.json();
+        
+        return {
+            height: data.number || 0,
+            hash: data.hash || '',
+            transactions: data.nrOfTrx || 0,
+            timestamp: data.timestamp || Date.now(),
+            size: data.size || 0
+        };
+    } catch (error) {
+        console.error('Block fetch error:', error);
+        return { height: 0, transactions: 0, error: true };
+    }
+}
+
+// Fetch Daily Transaction Statistics
+async function fetchDailyTransactions() {
+    try {
+        const response = await fetch('https://apilist.tronscanapi.com/api/overview/dailytransactionnum', {
+            method: 'GET',
+            headers: {
+                'Accept': 'application/json',
+                'User-Agent': 'MEGATEAM-Website/1.0'
+            }
+        });
+        
+        if (!response.ok) {
+            throw new Error(`Daily transactions API error: ${response.status}`);
+        }
+        
+        const data = await response.json();
+        
+        // Get today's transactions (most recent entry)
+        const todayData = data.data && data.data.length > 0 ? data.data[data.data.length - 1] : {};
+        
+        return {
+            today: todayData.transactionNum || 0,
+            date: todayData.date || new Date().toISOString().split('T')[0],
+            totalTransactions: data.totalTransaction || 0
+        };
+    } catch (error) {
+        console.error('Daily transactions fetch error:', error);
+        return { today: 0, totalTransactions: 0, error: true };
+    }
+}
+
+// Fetch TRX Price and Market Data
+async function fetchTRXPrice() {
+    try {
+        const response = await fetch('https://apilist.tronscanapi.com/api/trx/volume', {
+            method: 'GET',
+            headers: {
+                'Accept': 'application/json',
+                'User-Agent': 'MEGATEAM-Website/1.0'
+            }
+        });
+        
+        if (!response.ok) {
+            throw new Error(`Price API error: ${response.status}`);
+        }
+        
+        const data = await response.json();
+        
+        return {
+            price: data.priceInUsd || 0,
+            volume24h: data.volume24hInUsd || 0,
+            change24h: data.priceChange24h || 0,
+            marketCap: data.marketCapInUsd || 0,
+            rank: data.rank || 0
+        };
+    } catch (error) {
+        console.error('Price fetch error:', error);
+        return { price: 0, volume24h: 0, change24h: 0, error: true };
+    }
+}
+
+// Update UI elements with fetched TRON statistics
+function updateTronStats(data) {
+    // Update Current TPS
+    const tpsElement = document.getElementById('tron-tps');
+    if (tpsElement && data.tps) {
+        const tpsValue = data.tps.error ? 'N/A' : data.tps.current.toLocaleString();
+        tpsElement.textContent = tpsValue;
+        
+        // Add pulse animation for live updates
+        if (!data.tps.error) {
+            tpsElement.classList.add('animate-pulse');
+            setTimeout(() => tpsElement.classList.remove('animate-pulse'), 1000);
+        }
+    }
+    
+    // Update Latest Block Height
+    const blockElement = document.getElementById('tron-block');
+    if (blockElement && data.block) {
+        const blockValue = data.block.error ? 'N/A' : `#${data.block.height.toLocaleString()}`;
+        blockElement.textContent = blockValue;
+        
+        if (!data.block.error) {
+            blockElement.classList.add('animate-pulse');
+            setTimeout(() => blockElement.classList.remove('animate-pulse'), 1000);
+        }
+    }
+    
+    // Update Daily Transactions
+    const transactionsElement = document.getElementById('tron-transactions');
+    if (transactionsElement && data.transactions) {
+        const transValue = data.transactions.error ? 'N/A' : data.transactions.today.toLocaleString();
+        transactionsElement.textContent = transValue;
+        
+        if (!data.transactions.error) {
+            transactionsElement.classList.add('animate-pulse');
+            setTimeout(() => transactionsElement.classList.remove('animate-pulse'), 1000);
+        }
+    }
+    
+    // Update TRX Price
+    const priceElement = document.getElementById('tron-price');
+    if (priceElement && data.price) {
+        if (data.price.error) {
+            priceElement.textContent = 'N/A';
+        } else {
+            const price = data.price.price;
+            const change = data.price.change24h;
+            const changeColor = change >= 0 ? 'text-green-400' : 'text-red-400';
+            const changeSymbol = change >= 0 ? '+' : '';
+            
+            priceElement.innerHTML = `
+                $${price.toFixed(4)}
+                <span class="text-sm ${changeColor} ml-2">
+                    ${changeSymbol}${change.toFixed(2)}%
+                </span>
+            `;
+            
+            priceElement.classList.add('animate-pulse');
+            setTimeout(() => priceElement.classList.remove('animate-pulse'), 1000);
+        }
+    }
+    
+    // Update timestamp indicators
+    const timestampElements = document.querySelectorAll('.tron-data-timestamp');
+    timestampElements.forEach(element => {
+        element.textContent = `Last updated: ${new Date().toLocaleTimeString()}`;
+        element.classList.add('text-xs', 'text-tron-light-gray', 'opacity-70');
+    });
+    
+    // Show network health indicator
+    updateNetworkHealthIndicator(data);
+}
+
+// Update network health indicator based on data quality
+function updateNetworkHealthIndicator(data) {
+    const healthIndicator = document.getElementById('tron-network-health');
+    if (!healthIndicator) return;
+    
+    const hasErrors = data.tps?.error || data.block?.error || data.transactions?.error || data.price?.error;
+    
+    if (hasErrors) {
+        healthIndicator.innerHTML = `
+            <span class="flex items-center">
+                <span class="w-2 h-2 bg-yellow-500 rounded-full mr-2 animate-pulse"></span>
+                Partial Data
+            </span>
+        `;
+        healthIndicator.className = 'text-yellow-400 text-sm';
+    } else {
+        healthIndicator.innerHTML = `
+            <span class="flex items-center">
+                <span class="w-2 h-2 bg-green-500 rounded-full mr-2 animate-pulse"></span>
+                Live Data Active
+            </span>
+        `;
+        healthIndicator.className = 'text-green-400 text-sm';
+    }
+}
+
+// Handle API errors gracefully
+function handleTronDataError(error) {
+    console.error('🚨 TRON Data Error:', error);
+    
+    // Show error state in UI
+    const errorElements = [
+        'tron-tps',
+        'tron-block', 
+        'tron-transactions',
+        'tron-price'
+    ];
+    
+    errorElements.forEach(id => {
+        const element = document.getElementById(id);
+        if (element) {
+            element.textContent = 'Loading...';
+            element.classList.add('animate-pulse', 'text-yellow-400');
+        }
+    });
+    
+    // Update health indicator
+    const healthIndicator = document.getElementById('tron-network-health');
+    if (healthIndicator) {
+        healthIndicator.innerHTML = `
+            <span class="flex items-center">
+                <span class="w-2 h-2 bg-red-500 rounded-full mr-2 animate-pulse"></span>
+                Connection Issues
+            </span>
+        `;
+        healthIndicator.className = 'text-red-400 text-sm';
+    }
+    
+    // Retry after 60 seconds on error
+    setTimeout(() => {
+        console.log('🔄 Retrying TRON data fetch...');
+        fetchTronNetworkData();
+    }, 60000);
+}
+
+// Format large numbers for display
+function formatNumber(num) {
+    if (num >= 1000000000) {
+        return (num / 1000000000).toFixed(1) + 'B';
+    } else if (num >= 1000000) {
+        return (num / 1000000).toFixed(1) + 'M';
+    } else if (num >= 1000) {
+        return (num / 1000).toFixed(1) + 'K';
+    }
+    return num.toLocaleString();
+}
+
+// Format blockchain time to readable format
+function formatBlockTime(timestamp) {
+    const date = new Date(timestamp);
+    const now = new Date();
+    const diffMs = now - date;
+    const diffSecs = Math.floor(diffMs / 1000);
+    
+    if (diffSecs < 60) {
+        return `${diffSecs}s ago`;
+    } else if (diffSecs < 3600) {
+        return `${Math.floor(diffSecs / 60)}m ago`;
+    } else if (diffSecs < 86400) {
+        return `${Math.floor(diffSecs / 3600)}h ago`;
+    } else {
+        return `${Math.floor(diffSecs / 86400)}d ago`;
+    }
+}
+
+console.log('🌐 TRONScan API integration loaded successfully!');
 });

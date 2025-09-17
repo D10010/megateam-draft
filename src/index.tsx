@@ -614,6 +614,108 @@ app.get('/', (c) => {
         </div>
       </section>
 
+      {/* Real-Time TRON Network Statistics */}
+      <section class="py-20 bg-gradient-to-b from-tron-black via-tron-dark/50 to-tron-black relative overflow-hidden">
+        <div class="absolute inset-0 bg-tron-grid bg-[size:30px_30px] opacity-20 pointer-events-none"></div>
+        <div class="container mx-auto px-6 relative z-10">
+          <div class="text-center mb-16" data-aos="fade-up">
+            <h2 class="text-5xl md:text-6xl font-montserrat font-black mb-8">
+              Live <span class="text-transparent bg-clip-text bg-tron-gradient">TRON</span> Network
+            </h2>
+            <p class="text-xl text-gray-300 max-w-3xl mx-auto">
+              Real-time blockchain statistics showing why TRON is the ideal platform for builders
+            </p>
+            <div class="w-32 h-1 bg-gradient-to-r from-transparent via-tron-red to-transparent mx-auto mt-8"></div>
+          </div>
+
+          {/* Real-Time Stats Grid */}
+          <div class="grid md:grid-cols-2 lg:grid-cols-4 gap-8 mb-16">
+            {/* Current TPS */}
+            <div class="cyber-card p-6 rounded-xl text-center" data-aos="fade-up" data-aos-delay="100">
+              <i class="fas fa-tachometer-alt text-tron-red text-4xl mb-4"></i>
+              <h3 class="text-sm font-medium text-gray-400 uppercase tracking-wider mb-2">Current TPS</h3>
+              <div id="live-tps" class="text-3xl font-black text-white mb-2">--</div>
+              <div class="text-xs text-gray-500">Transactions/Second</div>
+            </div>
+
+            {/* Latest Block */}
+            <div class="cyber-card p-6 rounded-xl text-center" data-aos="fade-up" data-aos-delay="200">
+              <i class="fas fa-cube text-tron-light text-4xl mb-4"></i>
+              <h3 class="text-sm font-medium text-gray-400 uppercase tracking-wider mb-2">Latest Block</h3>
+              <div id="live-block" class="text-3xl font-black text-white mb-2">--</div>
+              <div class="text-xs text-gray-500">Block Height</div>
+            </div>
+
+            {/* Daily Transactions */}
+            <div class="cyber-card p-6 rounded-xl text-center" data-aos="fade-up" data-aos-delay="300">
+              <i class="fas fa-exchange-alt text-tron-red text-4xl mb-4"></i>
+              <h3 class="text-sm font-medium text-gray-400 uppercase tracking-wider mb-2">Daily Txns</h3>
+              <div id="live-daily-txns" class="text-3xl font-black text-white mb-2">--</div>
+              <div class="text-xs text-gray-500">24h Volume</div>
+            </div>
+
+            {/* TRX Price */}
+            <div class="cyber-card p-6 rounded-xl text-center" data-aos="fade-up" data-aos-delay="400">
+              <i class="fas fa-dollar-sign text-tron-light text-4xl mb-4"></i>
+              <h3 class="text-sm font-medium text-gray-400 uppercase tracking-wider mb-2">TRX Price</h3>
+              <div id="live-trx-price" class="text-3xl font-black text-white mb-2">--</div>
+              <div class="text-xs text-gray-500">USD</div>
+            </div>
+          </div>
+
+          {/* Network Health Indicators */}
+          <div class="grid md:grid-cols-3 gap-8" data-aos="fade-up" data-aos-delay="500">
+            {/* USDT Dominance */}
+            <div class="cyber-card p-8 rounded-xl">
+              <div class="flex items-center mb-4">
+                <i class="fas fa-coins text-tron-red text-2xl mr-3"></i>
+                <h3 class="text-xl font-bold text-tron-light">USDT Powerhouse</h3>
+              </div>
+              <p class="text-gray-300 mb-4">TRON processes more USDT transfers than any other blockchain</p>
+              <div class="flex items-center">
+                <span class="text-sm text-gray-400">Daily USDT Volume:</span>
+                <span id="live-usdt-volume" class="ml-2 text-tron-light font-semibold">Loading...</span>
+              </div>
+            </div>
+
+            {/* Energy Efficiency */}
+            <div class="cyber-card p-8 rounded-xl">
+              <div class="flex items-center mb-4">
+                <i class="fas fa-bolt text-tron-light text-2xl mr-3"></i>
+                <h3 class="text-xl font-bold text-tron-light">Energy Model</h3>
+              </div>
+              <p class="text-gray-300 mb-4">Stake TRX to get free transactions through Energy system</p>
+              <div class="flex items-center">
+                <span class="text-sm text-gray-400">Avg Fee:</span>
+                <span class="ml-2 text-tron-light font-semibold">$0.59</span>
+              </div>
+            </div>
+
+            {/* Network Growth */}
+            <div class="cyber-card p-8 rounded-xl">
+              <div class="flex items-center mb-4">
+                <i class="fas fa-users text-tron-red text-2xl mr-3"></i>
+                <h3 class="text-xl font-bold text-tron-light">Active Users</h3>
+              </div>
+              <p class="text-gray-300 mb-4">2.5M+ daily active users building on TRON</p>
+              <div class="flex items-center">
+                <span class="text-sm text-gray-400">Total Accounts:</span>
+                <span id="live-total-accounts" class="ml-2 text-tron-light font-semibold">Loading...</span>
+              </div>
+            </div>
+          </div>
+
+          {/* Data Source */}
+          <div class="text-center mt-12">
+            <p class="text-sm text-gray-500">
+              <i class="fas fa-database mr-2"></i>
+              Real-time data from <a href="https://tronscan.org" target="_blank" class="text-tron-light hover:text-tron-red transition-colors">TRONScan API</a>
+              • Updated every 30 seconds
+            </p>
+          </div>
+        </div>
+      </section>
+
       {/* Core Narrative */}
       <section class="py-20 bg-tron-gray/30">
         <div class="container mx-auto px-6">
