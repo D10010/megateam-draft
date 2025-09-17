@@ -808,7 +808,7 @@ async function fetchTRXPrice() {
 // Update UI elements with fetched TRON statistics
 function updateTronStats(data) {
     // Update Current TPS
-    const tpsElement = document.getElementById('tron-tps');
+    const tpsElement = document.getElementById('live-tps');
     if (tpsElement && data.tps) {
         const tpsValue = data.tps.error ? 'N/A' : data.tps.current.toLocaleString();
         tpsElement.textContent = tpsValue;
@@ -821,7 +821,7 @@ function updateTronStats(data) {
     }
     
     // Update Latest Block Height
-    const blockElement = document.getElementById('tron-block');
+    const blockElement = document.getElementById('live-block');
     if (blockElement && data.block) {
         const blockValue = data.block.error ? 'N/A' : `#${data.block.height.toLocaleString()}`;
         blockElement.textContent = blockValue;
@@ -833,7 +833,7 @@ function updateTronStats(data) {
     }
     
     // Update Daily Transactions
-    const transactionsElement = document.getElementById('tron-transactions');
+    const transactionsElement = document.getElementById('live-daily-txns');
     if (transactionsElement && data.transactions) {
         const transValue = data.transactions.error ? 'N/A' : data.transactions.today.toLocaleString();
         transactionsElement.textContent = transValue;
@@ -845,7 +845,7 @@ function updateTronStats(data) {
     }
     
     // Update TRX Price
-    const priceElement = document.getElementById('tron-price');
+    const priceElement = document.getElementById('live-trx-price');
     if (priceElement && data.price) {
         if (data.price.error) {
             priceElement.textContent = 'N/A';
@@ -878,29 +878,14 @@ function updateTronStats(data) {
     updateNetworkHealthIndicator(data);
 }
 
-// Update network health indicator based on data quality
+// Log network data quality for debugging
 function updateNetworkHealthIndicator(data) {
-    const healthIndicator = document.getElementById('tron-network-health');
-    if (!healthIndicator) return;
-    
     const hasErrors = data.tps?.error || data.block?.error || data.transactions?.error || data.price?.error;
     
     if (hasErrors) {
-        healthIndicator.innerHTML = `
-            <span class="flex items-center">
-                <span class="w-2 h-2 bg-yellow-500 rounded-full mr-2 animate-pulse"></span>
-                Partial Data
-            </span>
-        `;
-        healthIndicator.className = 'text-yellow-400 text-sm';
+        console.log('⚠️ Partial TRON data loaded - some APIs failed');
     } else {
-        healthIndicator.innerHTML = `
-            <span class="flex items-center">
-                <span class="w-2 h-2 bg-green-500 rounded-full mr-2 animate-pulse"></span>
-                Live Data Active
-            </span>
-        `;
-        healthIndicator.className = 'text-green-400 text-sm';
+        console.log('✅ All TRON data loaded successfully');
     }
 }
 
@@ -918,10 +903,10 @@ function handleTronDataError(error) {
     } else {
         // Show loading state for other errors
         const errorElements = [
-            'tron-tps',
-            'tron-block', 
-            'tron-transactions',
-            'tron-price'
+            'live-tps',
+            'live-block', 
+            'live-daily-txns',
+            'live-trx-price'
         ];
         
         errorElements.forEach(id => {
@@ -933,26 +918,11 @@ function handleTronDataError(error) {
         });
     }
     
-    // Update health indicator
-    const healthIndicator = document.getElementById('tron-network-health');
-    if (healthIndicator) {
-        if (isRateLimit) {
-            healthIndicator.innerHTML = `
-                <span class="flex items-center">
-                    <span class="w-2 h-2 bg-yellow-500 rounded-full mr-2 animate-pulse"></span>
-                    Demo Data (API Rate Limited)
-                </span>
-            `;
-            healthIndicator.className = 'text-yellow-400 text-sm';
-        } else {
-            healthIndicator.innerHTML = `
-                <span class="flex items-center">
-                    <span class="w-2 h-2 bg-red-500 rounded-full mr-2 animate-pulse"></span>
-                    Connection Issues
-                </span>
-            `;
-            healthIndicator.className = 'text-red-400 text-sm';
-        }
+    // Log status for debugging
+    if (isRateLimit) {
+        console.log('⚠️ TRONScan API rate limited, showing demo data');
+    } else {
+        console.log('❌ TRONScan API connection issues');
     }
     
     // Retry after 2 minutes for rate limits, 1 minute for other errors
