@@ -994,7 +994,7 @@ function showDemoTronData() {
         transactions: {
             today: 5500000 + Math.floor(Math.random() * 500000), // ~5.5-6M daily
             usdtTransactions: 2200000 + Math.floor(Math.random() * 400000), // ~2.2-2.6M USDT daily  
-            usdtVolume: 330000000 + Math.floor(Math.random() * 50000000), // ~$330-380M daily volume
+            usdtVolume: 35000000000 + Math.floor(Math.random() * 5000000000), // ~$35-40B daily volume (real TRONScan data)
             error: false
         },
         price: {
