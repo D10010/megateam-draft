@@ -773,7 +773,8 @@ async function fetchDailyTransactions() {
             today: data.today || 0,
             date: data.date || new Date().toISOString().split('T')[0],
             totalTransactions: data.totalTransactions || 0,
-            usdtTransactions: data.usdtTransactions || 0
+            usdtTransactions: data.usdtTransactions || 0,
+            usdtVolume: data.usdtVolume || 0
         };
     } catch (error) {
         console.error('Daily transactions fetch error:', error);
@@ -872,23 +873,35 @@ function updateTronStats(data) {
         }
     }
     
-    // Update USDT Volume
+    // Update USDT Volume (show USD value, not transaction count)
     const usdtElement = document.getElementById('live-usdt-volume');
     if (usdtElement && data.transactions) {
-        const usdtValue = data.transactions.error ? 'N/A' : data.transactions.usdtTransactions?.toLocaleString() || 'N/A';
-        usdtElement.textContent = usdtValue;
+        if (data.transactions.error) {
+            usdtElement.textContent = 'N/A';
+        } else {
+            // Show volume in billions for better readability
+            const volume = data.transactions.usdtVolume || 0;
+            const volumeInBillions = (volume / 1000000000).toFixed(2);
+            usdtElement.textContent = `$${volumeInBillions}B`;
+        }
         
-        if (!data.transactions.error && data.transactions.usdtTransactions) {
+        if (!data.transactions.error && data.transactions.usdtVolume) {
             usdtElement.classList.add('animate-pulse');
             setTimeout(() => usdtElement.classList.remove('animate-pulse'), 1000);
         }
     }
     
-    // Update Total Accounts
+    // Update Total Accounts (show in millions for readability)
     const accountsElement = document.getElementById('live-total-accounts');
     if (accountsElement && data.accounts) {
-        const accountsValue = data.accounts.error ? 'N/A' : formatNumber(data.accounts.totalAccounts);
-        accountsElement.textContent = accountsValue;
+        if (data.accounts.error) {
+            accountsElement.textContent = 'N/A';
+        } else {
+            // Show accounts in millions for better readability  
+            const accounts = data.accounts.totalAccounts || 0;
+            const accountsInMillions = (accounts / 1000000).toFixed(1);
+            accountsElement.textContent = `${accountsInMillions}M`;
+        }
         
         if (!data.accounts.error) {
             accountsElement.classList.add('animate-pulse');
@@ -980,7 +993,8 @@ function showDemoTronData() {
         },
         transactions: {
             today: 5500000 + Math.floor(Math.random() * 500000), // ~5.5-6M daily
-            usdtTransactions: 2200000 + Math.floor(Math.random() * 400000), // ~2.2-2.6M USDT daily
+            usdtTransactions: 2200000 + Math.floor(Math.random() * 400000), // ~2.2-2.6M USDT daily  
+            usdtVolume: 330000000 + Math.floor(Math.random() * 50000000), // ~$330-380M daily volume
             error: false
         },
         price: {
@@ -989,8 +1003,8 @@ function showDemoTronData() {
             error: false
         },
         accounts: {
-            totalAccounts: 76000000, // ~76M total accounts (realistic)
-            activeDaily: 2500000, // ~2.5M daily active
+            totalAccounts: 332000000, // ~332M total accounts (from TRONScan)
+            activeDaily: 229000, // ~229K new accounts daily
             error: false
         }
     };
