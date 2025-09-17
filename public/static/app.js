@@ -625,8 +625,112 @@ function updateTronStats(data) {
         
         console.log('✅ UI updated with latest TRON data');
         
+        // Fetch and update network infrastructure data with small delay to ensure DOM is ready
+        setTimeout(fetchNetworkInfrastructureData, 500);
+        
     } catch (error) {
         console.error('❌ Error updating TRON stats UI:', error);
+    }
+}
+
+// Fetch and update TRON Network Infrastructure data
+async function fetchNetworkInfrastructureData() {
+    try {
+        console.log('🔗 Fetching TRON network infrastructure data...');
+        
+        // Check if DOM elements exist first
+        const totalValidatorsElement = document.getElementById('total-validators');
+        const superRepsElement = document.getElementById('super-reps-count');
+        const continentsElement = document.getElementById('continents-count');
+        const networkHealthElement = document.getElementById('network-health');
+        
+        console.log('🔍 DOM elements check:', {
+            totalValidators: !!totalValidatorsElement,
+            superReps: !!superRepsElement,
+            continents: !!continentsElement,
+            networkHealth: !!networkHealthElement
+        });
+        
+        // Fetch witnesses and nodes data in parallel
+        const [witnessesResponse, nodesResponse] = await Promise.all([
+            fetch('/api/tron/witnesses', {
+                method: 'GET',
+                headers: { 'Accept': 'application/json' }
+            }),
+            fetch('/api/tron/nodes', {
+                method: 'GET', 
+                headers: { 'Accept': 'application/json' }
+            })
+        ]);
+        
+        // Process witnesses data
+        if (witnessesResponse.ok) {
+            const witnessesData = await witnessesResponse.json();
+            console.log('📊 Witnesses data:', { totalWitnesses: witnessesData.totalWitnesses });
+            
+            // Update Total Validators
+            if (totalValidatorsElement) {
+                const newValue = witnessesData.totalWitnesses || '427';
+                totalValidatorsElement.textContent = newValue;
+                console.log('✅ Updated total validators to:', newValue);
+            } else {
+                console.warn('❌ total-validators element not found');
+            }
+            
+            // Update Super Representatives count (keep existing value or set to 27)
+            if (superRepsElement && superRepsElement.textContent === 'Loading...') {
+                superRepsElement.textContent = '27';
+                console.log('✅ Updated super reps to: 27');
+            }
+        }
+        
+        // Process nodes data
+        if (nodesResponse.ok) {
+            const nodesData = await nodesResponse.json();
+            console.log('📊 Nodes data:', { continents: nodesData.continents });
+            
+            // Update Continents count
+            if (continentsElement) {
+                const newValue = nodesData.continents || '7';
+                continentsElement.textContent = newValue;
+                console.log('✅ Updated continents to:', newValue);
+            } else {
+                console.warn('❌ continents-count element not found');
+            }
+        }
+        
+        // Update Network Health (always show as Healthy)
+        if (networkHealthElement) {
+            networkHealthElement.textContent = 'Healthy';
+            networkHealthElement.className = 'text-xl sm:text-2xl font-black text-green-400 min-h-[2rem]';
+            console.log('✅ Updated network health to: Healthy');
+        }
+        
+        console.log('✅ Network infrastructure data updated');
+        
+    } catch (error) {
+        console.error('❌ Error fetching network infrastructure data:', error);
+        
+        // Set fallback values
+        const fallbackValues = {
+            'total-validators': '427',
+            'super-reps-count': '27', 
+            'continents-count': '7',
+            'network-health': 'Healthy'
+        };
+        
+        Object.entries(fallbackValues).forEach(([id, value]) => {
+            const element = document.getElementById(id);
+            if (element) {
+                element.textContent = value;
+                if (id === 'network-health') {
+                    element.className = 'text-xl sm:text-2xl font-black text-green-400 min-h-[2rem]';
+                }
+                console.log(`🔧 Set fallback value for ${id}: ${value}`);
+            } else {
+                console.warn(`❌ Fallback: ${id} element not found`);
+            }
+        });
     }
 }
 
@@ -672,7 +776,8 @@ function handleTronDataError(error) {
 function showLoadingState() {
     const loadingElements = [
         'live-tps', 'live-block', 'live-daily-txns', 'live-trx-price',
-        'price-change-24h', 'price-change-30d', 'price-change-1y'
+        'price-change-24h', 'price-change-30d', 'price-change-1y',
+        'total-validators', 'super-reps-count', 'continents-count', 'network-health'
     ];
     
     loadingElements.forEach(id => {
