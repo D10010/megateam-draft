@@ -93,7 +93,8 @@ export const renderer = jsxRenderer(({ children }) => {
                     'float': 'float 6s ease-in-out infinite',
                     'rotate-3d': 'rotate3d 20s linear infinite',
                     'cyber-scan': 'cyberScan 2s linear infinite',
-                    'tron-glow': 'tronGlow 2s ease-in-out infinite alternate'
+                    'tron-glow': 'tronGlow 2s ease-in-out infinite alternate',
+                    'fade-in': 'fadeIn 0.3s ease-out'
                   },
                   backgroundImage: {
                     'tron-grid': "linear-gradient(rgba(255, 6, 10, 0.1) 1px, transparent 1px), linear-gradient(90deg, rgba(255, 6, 10, 0.1) 1px, transparent 1px)",
@@ -120,6 +121,11 @@ export const renderer = jsxRenderer(({ children }) => {
         {/* Scripts */}
         <script src="https://cdn.jsdelivr.net/npm/aos@2.3.4/dist/aos.js"></script>
         <link href="https://cdn.jsdelivr.net/npm/aos@2.3.4/dist/aos.css" rel="stylesheet" />
+        
+        {/* Load mobile-compatible audio system first */}
+        <script src="/static/mobile-audio.js"></script>
+        
+        {/* Main application script */}
         <script src="/static/app.js"></script>
       </body>
     </html>
