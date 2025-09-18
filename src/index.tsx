@@ -913,12 +913,33 @@ app.get('/api/tron/dashboard', async (c) => {
       size: blockData.size || 0
     }
     
-    // Process transaction data with correct field mapping
+    // Process transaction data with percentage calculations
     let todayTransactions = 8500000 // Default fallback
+    let transactionChanges = { change24h: 0, change7d: 0, change30d: 0 } // Default changes
+    
     if (transactionsData.data && transactionsData.data.length > 0) {
-      const latestDay = transactionsData.data[0]
-      // Use newTransactionSeen for total daily transactions
-      todayTransactions = latestDay.newTransactionSeen || latestDay.num || 8500000
+      const days = transactionsData.data
+      const today = days[0]
+      todayTransactions = today.newTransactionSeen || today.num || 8500000
+      
+      // Calculate percentage changes with available data
+      if (days.length >= 2) {
+        const yesterday = days[1]
+        const yesterdayTxns = yesterday.newTransactionSeen || yesterday.num || todayTransactions
+        transactionChanges.change24h = yesterdayTxns > 0 ? ((todayTransactions - yesterdayTxns) / yesterdayTxns * 100) : 0
+      }
+      
+      if (days.length >= 7) {
+        const weekAgo = days[6]
+        const weekAgoTxns = weekAgo.newTransactionSeen || weekAgo.num || todayTransactions
+        transactionChanges.change7d = weekAgoTxns > 0 ? ((todayTransactions - weekAgoTxns) / weekAgoTxns * 100) : 0
+      }
+      
+      if (days.length >= 30) {
+        const monthAgo = days[29]
+        const monthAgoTxns = monthAgo.newTransactionSeen || monthAgo.num || todayTransactions
+        transactionChanges.change30d = monthAgoTxns > 0 ? ((todayTransactions - monthAgoTxns) / monthAgoTxns * 100) : 0
+      }
     }
     
     const transactions = {
@@ -926,7 +947,11 @@ app.get('/api/tron/dashboard', async (c) => {
       date: new Date().toISOString().split('T')[0],
       totalTransactions: 8500000000, // 8.5B+ total transactions
       usdtTransactions: transactionsData.data?.[0]?.usdt_transaction || 0,
-      usdtVolume: 0
+      usdtVolume: 0,
+      // Add percentage changes
+      change24h: transactionChanges.change24h,
+      change7d: transactionChanges.change7d,
+      change30d: transactionChanges.change30d
     }
     
     // Process price data with extended information
@@ -1431,7 +1456,24 @@ app.get('/', (c) => {
               <i class="fas fa-exchange-alt text-tron-red text-3xl sm:text-4xl mb-3 sm:mb-4"></i>
               <h3 class="text-xs sm:text-sm font-medium text-gray-400 uppercase tracking-wider mb-2">Daily Txns</h3>
               <div id="live-daily-txns" class="text-2xl sm:text-3xl font-black text-white mb-2 min-h-[2rem]">--</div>
-              <div class="text-xs text-gray-500">24h Volume</div>
+              
+              {/* Transaction changes */}
+              <div class="grid grid-cols-3 gap-2 mt-3 text-center">
+                <div>
+                  <div class="text-xs text-gray-500 mb-1">24h</div>
+                  <div id="txn-change-24h" class="text-sm font-medium">--</div>
+                </div>
+                <div>
+                  <div class="text-xs text-gray-500 mb-1">7d</div>
+                  <div id="txn-change-7d" class="text-sm font-medium">--</div>
+                </div>
+                <div>
+                  <div class="text-xs text-gray-500 mb-1">30d</div>
+                  <div id="txn-change-30d" class="text-sm font-medium">--</div>
+                </div>
+              </div>
+              
+              <div class="text-xs text-gray-500 mt-2">24h Volume</div>
             </div>
 
             {/* TRX Price */}

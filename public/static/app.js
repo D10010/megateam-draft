@@ -543,6 +543,30 @@ function updateTronStats(data) {
             dailyTxElement.textContent = data.transactions.today ? data.transactions.today.toLocaleString() : '0';
         }
         
+        // Update 24h transaction change
+        const txnChange24hElement = document.getElementById('txn-change-24h');
+        if (txnChange24hElement && data.transactions) {
+            const change24h = data.transactions.change24h || 0;
+            txnChange24hElement.textContent = `${change24h >= 0 ? '+' : ''}${change24h.toFixed(1)}%`;
+            txnChange24hElement.className = `text-sm font-medium ${change24h >= 0 ? 'text-green-400' : 'text-red-400'}`;
+        }
+        
+        // Update 7d transaction change
+        const txnChange7dElement = document.getElementById('txn-change-7d');
+        if (txnChange7dElement && data.transactions) {
+            const change7d = data.transactions.change7d || 0;
+            txnChange7dElement.textContent = `${change7d >= 0 ? '+' : ''}${change7d.toFixed(1)}%`;
+            txnChange7dElement.className = `text-sm font-medium ${change7d >= 0 ? 'text-green-400' : 'text-red-400'}`;
+        }
+        
+        // Update 30d transaction change
+        const txnChange30dElement = document.getElementById('txn-change-30d');
+        if (txnChange30dElement && data.transactions) {
+            const change30d = data.transactions.change30d || 0;
+            txnChange30dElement.textContent = `${change30d >= 0 ? '+' : ''}${change30d.toFixed(1)}%`;
+            txnChange30dElement.className = `text-sm font-medium ${change30d >= 0 ? 'text-green-400' : 'text-red-400'}`;
+        }
+        
         // Update Total Transactions display
         const totalTxElement = document.getElementById('tron-total-tx');
         if (totalTxElement && data.transactions) {
@@ -809,6 +833,7 @@ function showLoadingState() {
     const loadingElements = [
         'live-tps', 'live-block', 'live-daily-txns', 'live-trx-price',
         'price-change-24h', 'price-change-30d', 'price-change-1y',
+        'txn-change-24h', 'txn-change-7d', 'txn-change-30d',
         'total-validators', 'super-reps-count', 'continents-count', 'network-health'
     ];
     
