@@ -650,85 +650,98 @@ function updateTronStats(rawData) {
     try {
         console.log('🔄 Updating TRON statistics in UI...');
         
-        // Enhanced flatten: Handle data.data or direct data
-        let flatData = rawData;
-        if (rawData?.data && typeof rawData.data === 'object') {
-            flatData = rawData.data;
-            console.log('🔍 Using nested data.data structure');
-        } else if (rawData?.data?.data && typeof rawData.data.data === 'object') {
-            flatData = rawData.data.data;
-            console.log('🔍 Using deep nested data.data.data structure');
-        }
+        // ENHANCED: Deep flatten all API data for comprehensive key mapping
+        let allData = {};
         
-        console.log('🔍 Merged flat data keys:', Object.keys(flatData || {}));
-        console.log('🔍 Sample values:', {
-            tps: flatData?.tps || flatData?.current || 'not found',
-            block: flatData?.block || flatData?.height || flatData?.latestBlock || 'not found',
-            transactions: flatData?.transactions || flatData?.today || flatData?.txCount || 'not found'
+        // Flatten the raw data recursively
+        const flattenedRaw = flattenApiData(rawData.data || rawData);
+        Object.assign(allData, flattenedRaw);
+        
+        // Also parse nested structure for backward compatibility
+        const parsedData = parseNestedApiData(rawData);
+        const flattenedParsed = flattenApiData(parsedData);
+        Object.assign(allData, flattenedParsed);
+        
+        console.log('🔍 Flattened API keys:', Object.keys(allData).slice(0, 20));
+        console.log('🔍 Key samples:', {
+            tps_variants: Object.keys(allData).filter(k => k.includes('tps') || k.includes('current')),
+            block_variants: Object.keys(allData).filter(k => k.includes('block') || k.includes('height')),
+            price_variants: Object.keys(allData).filter(k => k.includes('price'))
         });
         
-        // Parse nested API data structure with enhanced mapping
-        const data = parseNestedApiData(rawData);
-        
-        // Enhanced stat selectors with multiple key fallbacks
+        // Deep flatten utility for recursive API data merging
+        function flattenApiData(obj, prefix = '') {
+            const flat = {};
+            for (const [k, v] of Object.entries(obj)) {
+                const key = prefix ? `${prefix}_${k}` : k;
+                if (typeof v === 'object' && v !== null && !Array.isArray(v)) {
+                    Object.assign(flat, flattenApiData(v, key));
+                } else {
+                    flat[key] = v;
+                }
+            }
+            return flat;
+        }
+
+        // Enhanced stat selectors with comprehensive API key variants
         const statSelectors = {
-            // Core Performance Stats  
+            // Core Performance Stats with all API variants
             'live-tps': { 
-                keys: ['tps.current', 'tps', 'transactionCount', 'current'], 
+                keys: ['tps_current', 'tps', 'transactionCount', 'current', 'tpsCount', 'transactions_per_second'], 
                 type: 'number',
                 fallback: 0 
             },
             'live-block': { 
-                keys: ['block.height', 'block', 'latestBlock', 'height', 'blockHeight'], 
+                keys: ['block_height', 'block', 'latestBlock', 'height', 'blockHeight', 'latest_block_height'], 
                 type: 'number',
                 fallback: 0 
             },
             'live-daily-txns': { 
-                keys: ['transactions.today', 'transactions', 'txCount', 'dailyTransactions', 'today'], 
+                keys: ['transactions_today', 'transactions24h', 'txCount24h', 'txns', 'daily_transactions', 'txCount'], 
                 type: 'number',
                 fallback: 0 
             },
             'live-trx-price': { 
-                keys: ['price.price', 'price', 'trxPrice', 'currentPrice'], 
+                keys: ['price_price', 'price', 'trxPrice', 'currentPrice', 'price_usd', 'usd_price'], 
                 type: 'price',
                 fallback: 0 
             },
             
-            // Change percentages
+            // Change percentages with flattened variants
             'txn-change-24h': { 
-                keys: ['transactions.change24h', 'change24h', 'priceChange24h'], 
+                keys: ['transactions_change24h', 'change24h', 'priceChange24h', 'txn_change_24h'], 
                 type: 'percent',
                 fallback: null 
             },
             'txn-change-7d': { 
-                keys: ['transactions.change7d', 'change7d', 'weekChange'], 
+                keys: ['transactions_change7d', 'change7d', 'weekChange', 'txn_change_7d'], 
                 type: 'percent',
                 fallback: null 
             },
             'price-change-24h': { 
-                keys: ['price.change24h', 'priceChange24h', 'change24h'], 
+                keys: ['price_change24h', 'priceChange24h', 'change24h', 'price_24h_change'], 
                 type: 'percent',
                 fallback: null 
             },
             'price-change-30d': { 
-                keys: ['price.change30d', 'priceChange30d', 'monthChange'], 
+                keys: ['price_change30d', 'priceChange30d', 'monthChange', 'price_30d_change'], 
                 type: 'percent',
                 fallback: null 
             },
             'price-change-1y': { 
-                keys: ['price.change1y', 'priceChange1y', 'yearChange'], 
+                keys: ['price_change1y', 'priceChange1y', 'yearChange', 'price_1y_change'], 
                 type: 'percent',
                 fallback: null 
             },
             
-            // Volume and other stats
+            // Volume and account stats with variants
             'live-usdt-volume': { 
-                keys: ['transactions.usdtVolume', 'usdtVolume', 'volume24h'], 
+                keys: ['transactions_usdtVolume', 'usdtVolume', 'volume24h', 'usdt_volume', 'usdtTxVolume'], 
                 type: 'volume',
                 fallback: 0 
             },
             'live-total-accounts': { 
-                keys: ['accounts.totalAccounts', 'totalAccounts', 'accountCount'], 
+                keys: ['accounts_totalAccounts', 'totalAccounts', 'accountCount', 'total_accounts', 'account_count'], 
                 type: 'number',
                 fallback: 0 
             }
@@ -739,9 +752,8 @@ function updateTronStats(rawData) {
             return path.split('.').reduce((current, key) => current?.[key], obj);
         }
 
-        // Enhanced batch DOM update with multiple key fallbacks
+        // Enhanced batch DOM update with comprehensive flattened data
         let updatedCount = 0;
-        const allData = { ...flatData, ...data };
         
         Object.entries(statSelectors).forEach(([elementId, config]) => {
             const element = document.getElementById(elementId);
@@ -752,12 +764,19 @@ function updateTronStats(rawData) {
             
             let value = config.fallback;
             
-            // Try multiple key paths
+            // Try multiple flattened keys
             for (const key of config.keys) {
+                // Try direct key access first (flattened)
+                if (allData[key] !== undefined && allData[key] !== null && allData[key] !== '') {
+                    value = allData[key];
+                    console.log(`✅ Found ${elementId} value: ${value} (flattened key: ${key})`);
+                    break;
+                }
+                // Try nested path as fallback
                 const testValue = getNestedValue(allData, key);
                 if (testValue !== undefined && testValue !== null && testValue !== '') {
                     value = testValue;
-                    console.log(`✅ Found ${elementId} value: ${value} (key: ${key})`);
+                    console.log(`✅ Found ${elementId} value: ${value} (nested key: ${key})`);
                     break;
                 }
             }
@@ -778,144 +797,8 @@ function updateTronStats(rawData) {
             console.log(`✅ Updated ${elementId}: ${displayValue}`);
         });
 
-        console.log(`🏁 Batch DOM update complete - ${updatedCount} elements updated`);
-        console.log('🔍 All available data keys:', Object.keys(allData));
-        
-        // PERFORMANCE OPTIMIZATION: Batch all DOM queries and updates - LEGACY FALLBACK
-        const updateMap = {
-            // TPS & Performance Stats
-            'live-tps': {
-                value: data.tps?.current ? data.tps.current.toLocaleString() : '0',
-                fallback: '0'
-            },
-            'tron-max-tps': {
-                value: data.tps?.max ? data.tps.max.toLocaleString() : '2,000',
-                fallback: '2,000'
-            },
-            
-            // Block Stats
-            'live-block': {
-                value: data.block?.height ? data.block.height.toLocaleString() : '0',
-                fallback: '0'
-            },
-            'tron-block-tx': {
-                value: data.block?.transactions ? data.block.transactions.toLocaleString() : '0',
-                fallback: '0'
-            },
-            
-            // Transaction Stats
-            'live-daily-txns': {
-                value: data.transactions?.today ? data.transactions.today.toLocaleString() : '0',
-                fallback: '0'
-            },
-            
-            // Transaction Change Percentages (with styling)
-            'txn-change-24h': {
-                value: data.transactions?.change24h != null ? 
-                    `${data.transactions.change24h >= 0 ? '+' : ''}${data.transactions.change24h.toFixed(1)}%` : '--',
-                className: data.transactions?.change24h != null ?
-                    `text-sm font-medium ${data.transactions.change24h >= 0 ? 'text-green-400' : 'text-red-400'}` : 'text-sm font-medium text-gray-400',
-                fallback: '--'
-            },
-            'txn-change-7d': {
-                value: data.transactions?.change7d != null ? 
-                    `${data.transactions.change7d >= 0 ? '+' : ''}${data.transactions.change7d.toFixed(1)}%` : '--',
-                className: data.transactions?.change7d != null ?
-                    `text-sm font-medium ${data.transactions.change7d >= 0 ? 'text-green-400' : 'text-red-400'}` : 'text-sm font-medium text-gray-400',
-                fallback: '--'
-            },
-            
-            // Additional Transaction Stats
-            'tron-total-tx': {
-                value: data.transactions?.totalTransactions ? 
-                    formatLargeNumber(data.transactions.totalTransactions) : '8.5B+',
-                fallback: '8.5B+'
-            },
-            
-            // Price Stats
-            'live-trx-price': {
-                value: data.price?.price ? `$${data.price.price.toFixed(4)}` : '$0.0000',
-                fallback: '$0.0000'
-            },
-            'price-change-24h': {
-                value: data.price?.change24h != null ? 
-                    `${data.price.change24h >= 0 ? '+' : ''}${data.price.change24h.toFixed(2)}%` : '--',
-                className: data.price?.change24h != null ?
-                    `text-sm font-medium ${data.price.change24h >= 0 ? 'text-green-400' : 'text-red-400'}` : 'text-sm font-medium text-gray-400',
-                fallback: '--'
-            },
-            'price-change-30d': {
-                value: data.price?.change30d != null ? 
-                    `${data.price.change30d >= 0 ? '+' : ''}${data.price.change30d.toFixed(2)}%` : '--',
-                className: data.price?.change30d != null ?
-                    `text-sm font-medium ${data.price.change30d >= 0 ? 'text-green-400' : 'text-red-400'}` : 'text-sm font-medium text-gray-400',
-                fallback: '--'
-            },
-            'price-change-1y': {
-                value: data.price?.change1y != null ? 
-                    `${data.price.change1y >= 0 ? '+' : ''}${data.price.change1y.toFixed(1)}%` : '--',
-                className: data.price?.change1y != null ?
-                    `text-sm font-medium ${data.price.change1y >= 0 ? 'text-green-400' : 'text-red-400'}` : 'text-sm font-medium text-gray-400',
-                fallback: '--'
-            },
-            'trx-change': {
-                value: data.price?.change24h != null ? 
-                    `${data.price.change24h >= 0 ? '+' : ''}${data.price.change24h.toFixed(2)}%` : '0.00%',
-                className: data.price?.change24h != null ?
-                    (data.price.change24h >= 0 ? 'text-green-400' : 'text-red-400') : 'text-gray-400',
-                fallback: '0.00%'
-            },
-            'trx-market-cap': {
-                value: data.price?.marketCap ? formatLargeNumber(data.price.marketCap) : '$0',
-                fallback: '$0'
-            },
-            'trx-volume': {
-                value: data.price?.volume24h ? formatLargeNumber(data.price.volume24h) : '$0',
-                fallback: '$0'
-            },
-            
-            // Account Stats
-            'live-total-accounts': {
-                value: data.accounts?.totalAccounts ? formatLargeNumber(data.accounts.totalAccounts) : '250M+',
-                fallback: '250M+'
-            },
-            'tron-active-accounts': {
-                value: data.accounts?.activeAccounts ? formatLargeNumber(data.accounts.activeAccounts) : '2M+',
-                fallback: '2M+'
-            },
-            
-            // Network Health
-            'tron-uptime': {
-                value: '100%',
-                fallback: '100%'
-            },
-            'last-update': {
-                value: new Date().toLocaleTimeString(),
-                fallback: '--'
-            }
-        };
-        
-        // BATCH DOM UPDATES: Single pass through all elements (huge performance gain!)
-        const elementsToUpdate = Object.keys(updateMap);
-        const elements = {}; // Cache DOM queries
-        
-        // Single batch DOM query
-        elementsToUpdate.forEach(id => {
-            elements[id] = document.getElementById(id);
-        });
-        
-        // Single batch DOM update
-        Object.entries(updateMap).forEach(([id, config]) => {
-            const element = elements[id];
-            if (element) {
-                element.textContent = config.value || config.fallback;
-                if (config.className) {
-                    element.className = config.className;
-                }
-            }
-        });
-        
-        console.log(`✅ UI updated with latest TRON data (${elementsToUpdate.length} elements in batch)`);
+        console.log(`🏁 Enhanced DOM update complete - ${updatedCount} elements updated`);
+        console.log('🔍 All available flattened keys:', Object.keys(allData).slice(0, 10));
         
         // Performance logging
         const updateEndTime = performance.now();
