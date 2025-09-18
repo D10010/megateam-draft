@@ -294,9 +294,26 @@ async function loadTRONStats() {
             });
         }
         
-        // PRIORITY 2: Try individual working endpoints if dashboard data is incomplete
+        // PRIORITY 2: Try new stats endpoint with mocks
         if (Object.keys(allData).length < 10) {
-            console.log('🔄 Dashboard incomplete, trying individual endpoints...');
+            console.log('🔄 Dashboard incomplete, trying /api/stats endpoint...');
+            try {
+                const data = await cachedFetch('/api/stats?type=all');
+                if (data && Object.keys(data).length > 0) {
+                    const flatData = deepFlatten(data);
+                    Object.assign(allData, flatData);
+                    console.log('✅ /api/stats success with keys:', Object.keys(data));
+                } else {
+                    console.log('⚠️ /api/stats returned empty data, using mocks');
+                }
+            } catch (e) {
+                console.warn('⚠️ /api/stats failed:', e.message);
+            }
+        }
+        
+        // PRIORITY 3: Try individual working endpoints if still incomplete
+        if (Object.keys(allData).length < 5) {
+            console.log('🔄 Stats endpoint incomplete, trying individual endpoints...');
             const endpoints = [
                 '/api/tron/tps',
                 '/api/tron/block', 
@@ -319,15 +336,9 @@ async function loadTRONStats() {
             }
         }
         
-        // Mock if empty
-        if (Object.keys(allData).length === 0) {
-            allData = { tps: 45, block: 75850596, transactions24h: 9124874, trxPrice: 0.341, totalAccounts: 300000000, total: 427, srCount: 27 };
-            console.log('🔄 Using mock data');
-        }
-        
-        // FALLBACK 3: Use static fallback if all working endpoints fail
-        if (Object.keys(allData).length < 3) {
-            console.log('🔧 All working endpoints failed, using static fallback...');
+        // FALLBACK: Always use full mock data if insufficient data
+        if (Object.keys(allData).length < 5) {
+            console.log('🔄 Using full mock data - insufficient real data');
             allData = {
                 'tps.current': 45, 'tps.max': 2000,
                 'block.height': 75850596, 'transactions.today': 9124874,
@@ -1156,9 +1167,9 @@ async function fetchNetworkInfrastructureData() {
     } catch (error) {
         console.error('❌ Error fetching network infrastructure data:', error);
         
-        // Set fallback values
+        // Set fallback values  
         const fallbackValues = {
-            'total-validators': '127',
+            'total-validators': '427',
             'super-reps-count': '27', 
             'continents-count': '7',
             'network-health': 'Healthy'
@@ -1416,27 +1427,30 @@ function initTronNetworkMap() {
 // Load Leaflet library and marker cluster plugin dynamically
 function loadLeafletThenMap() {
     console.log('🚀 loadMap called');
-    // Local Leaflet
+    if (mapLoaded) return;
+    mapLoaded = true;
     const script = document.createElement('script');
-    script.src = '/static/leaflet.js';  // Download & place in public/static
-    script.onload = () => {
-        console.log('📄 Leaflet loaded');
-        const link = document.createElement('link');
-        link.rel = 'stylesheet';
-        link.href = '/static/leaflet.css';  // Downloaded
-        document.head.appendChild(link);
-        initLeafletMap().then(() => console.log('🗺️ Map ready'));
-    };
+    script.src = '/static/leaflet.js';  // Confirm in Network tab
     script.onerror = () => {
-        console.error('❌ Failed to load local Leaflet JavaScript');
+        console.error('❌ Leaflet script fail - 404 or CORS issue');  // Log 404
         // Fallback to CDN
         const fallbackScript = document.createElement('script');
         fallbackScript.src = 'https://unpkg.com/leaflet@1.9.4/dist/leaflet.js';
         fallbackScript.onload = () => {
-            console.log('📦 Fallback Leaflet loaded');
-            initLeafletMap().then(() => console.log('🗺️ Map ready (fallback)'));
+            console.log('📦 Fallback Leaflet loaded from CDN');
+            initLeafletMap().then(() => console.log('🗺️ Map ready (CDN fallback)'));
         };
+        fallbackScript.onerror = () => console.error('❌ CDN Leaflet also failed');
         document.head.appendChild(fallbackScript);
+    };
+    script.onload = () => {
+        console.log('📄 Leaflet loaded from local files');
+        const link = document.createElement('link');
+        link.rel = 'stylesheet';
+        link.href = '/static/leaflet.css';
+        link.onerror = () => console.error('❌ Leaflet CSS fail');
+        document.head.appendChild(link);
+        initLeafletMap().then(() => console.log('🗺️ Map ready'));
     };
     document.head.appendChild(script);
 }

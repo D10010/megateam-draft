@@ -136,7 +136,7 @@ export const renderer = jsxRenderer(({ children }) => {
         <script src="/static/mobile-audio.js"></script>
         
         {/* Main application script */}
-        <script src="/static/app.js?v=2025091804"></script>
+        <script src="/static/app.js?v=2025091805"></script>
       </body>
     </html>
   )
