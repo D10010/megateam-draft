@@ -804,24 +804,49 @@ function updateTronStats(rawData) {
         const updateEndTime = performance.now();
         console.log(`🚀 DOM update completed in ${(updateEndTime - performance.now()).toFixed(1)}ms`);
         
-        // ENHANCED: Trigger map initialization after stats are loaded and updated
-        setTimeout(() => {
-            if (!globalMapLoaded) {
-                console.log('🗺️ Stats loaded successfully, forcing direct map initialization...');
-                
-                // Force direct map loading without waiting for observers
-                const mapContainer = document.getElementById('tron-world-map');
-                if (mapContainer && typeof L === 'undefined') {
-                    console.log('📦 Loading Leaflet directly for immediate map initialization...');
-                    loadLeafletThenMap();
-                } else if (mapContainer && typeof L !== 'undefined') {
-                    console.log('📦 Leaflet available, initializing map immediately...');
+        // ENHANCED: Trigger map initialization after stats are loaded and updated - ALWAYS RUN
+        console.log('🗺️ Stats loaded successfully, forcing IMMEDIATE map initialization (bypassing flags)...');
+        
+        // AGGRESSIVE: Force immediate map loading - NO CONDITIONS
+        const mapContainer = document.getElementById('tron-world-map');
+        console.log('🔍 Map container status:', { 
+            exists: !!mapContainer, 
+            visible: mapContainer?.offsetHeight > 0,
+            leafletAvailable: typeof L !== 'undefined',
+            globalMapLoaded,
+            mapLoaded: typeof mapLoaded !== 'undefined' ? mapLoaded : 'undefined'
+        });
+        
+        if (mapContainer) {
+            if (typeof L === 'undefined') {
+                console.log('📦 Leaflet not available, loading and initializing...');
+                loadLeafletThenMap();
+            } else {
+                console.log('📦 Leaflet available, initializing map IMMEDIATELY...');
+                initLeafletMap();
+            }
+            
+            // MULTIPLE BACKUP ATTEMPTS: Ensure map loads no matter what
+            setTimeout(() => {
+                console.log('⏰ BACKUP 1: Checking map status after 1s...');
+                if (!mapLoaded) {
+                    console.log('⏰ BACKUP 1: Map not loaded, forcing initialization...');
                     initLeafletMap();
                 }
-                
-                globalMapLoaded = true;
-            }
-        }, 2000);
+            }, 1000);
+            
+            setTimeout(() => {
+                console.log('⏰ BACKUP 2: Final check after 3s...');
+                if (!mapLoaded) {
+                    console.log('⏰ BACKUP 2: Map still not loaded, final attempt...');
+                    initLeafletMap();
+                }
+            }, 3000);
+        } else {
+            console.error('❌ Map container not found during forced initialization');
+        }
+        
+        globalMapLoaded = true;
         
         // Fetch and update network infrastructure data with small delay to ensure DOM is ready
         setTimeout(fetchNetworkInfrastructureData, 500);
@@ -1308,156 +1333,280 @@ function loadMarkerClusterPlugin() {
     }
 }
 
-// ENHANCED: Initialize Leaflet map with supernode data fetching and flexible coordinate extraction
-async function initLeafletMap() {
+// Global flag to prevent duplicate map initialization
+let mapLoaded = false;
+
+// SYNCHRONOUS MAP INIT: Fix async race conditions with proper DOM readiness and CSS forcing
+function initLeafletMap() {
+    // Prevent duplicate initialization
+    if (mapLoaded) {
+        console.log('🗺️ Map already loaded, skipping duplicate initialization');
+        return;
+    }
+    mapLoaded = true;
+    
     try {
-        console.log('🌐 Initializing enhanced Leaflet map with supernode support...');
+        console.log('🌐 Starting SYNCHRONOUS Leaflet map initialization...');
         
-        const mapContainer = document.getElementById('tron-world-map');
-        if (!mapContainer) {
-            console.error('❌ Map container not found during Leaflet init');
+        // 1. DOM READINESS CHECK - Ensure container exists and is visible
+        const mapEl = document.getElementById('tron-world-map');
+        if (!mapEl) {
+            console.error('❌ Map container #tron-world-map not found');
+            mapLoaded = false;
             return;
         }
         
-        // Clear any previous content and reset container
-        mapContainer.innerHTML = '';
-        mapContainer._leaflet_id = null; // Clear Leaflet's internal reference
+        // 2. FORCE CSS DIMENSIONS - Critical fix for rendering
+        mapEl.style.height = '400px';
+        mapEl.style.width = '100%';
+        mapEl.style.minHeight = '400px';
+        mapEl.style.display = 'block';
+        mapEl.style.position = 'relative';
+        console.log('📐 Forced CSS dimensions: 400px height, 100% width');
         
-        // Remove loading class, add loaded class
-        mapContainer.classList.remove('map-loading', 'map-initializing');
-        mapContainer.classList.add('map-loaded');
+        // 3. CLEAR PREVIOUS STATE
+        mapEl.innerHTML = '';
+        if (mapEl._leaflet_id) {
+            delete mapEl._leaflet_id;
+        }
+        mapEl.classList.remove('map-loading', 'map-initializing');
+        mapEl.classList.add('map-loaded');
         
-        // Initialize Leaflet map with error handling
+        // 4. ENSURE LEAFLET IS LOADED - Dynamic loading if needed
+        if (typeof L === 'undefined') {
+            console.log('📦 Leaflet not loaded, injecting dynamically...');
+            
+            // Inject Leaflet CSS
+            const leafletCSS = document.createElement('link');
+            leafletCSS.rel = 'stylesheet';
+            leafletCSS.href = 'https://unpkg.com/leaflet@1.9.4/dist/leaflet.css';
+            document.head.appendChild(leafletCSS);
+            
+            // Inject Leaflet JS
+            const leafletJS = document.createElement('script');
+            leafletJS.src = 'https://unpkg.com/leaflet@1.9.4/dist/leaflet.js';
+            leafletJS.onload = () => {
+                console.log('✅ Leaflet loaded dynamically, retrying initialization...');
+                mapLoaded = false; // Reset flag to allow retry
+                setTimeout(() => initLeafletMap(), 100); // Retry with delay
+            };
+            leafletJS.onerror = () => {
+                console.error('❌ Failed to load Leaflet dynamically');
+                showMapError('Failed to load map library');
+                mapLoaded = false;
+            };
+            document.head.appendChild(leafletJS);
+            return;
+        }
+        
+        // 5. INITIALIZE MAP SYNCHRONOUSLY
         let map;
         try {
             map = L.map('tron-world-map', {
                 center: [20, 0],
                 zoom: 2,
-                zoomControl: false, // We'll add it positioned later
-                attributionControl: true
+                zoomControl: true,
+                attributionControl: true,
+                preferCanvas: false // Use SVG for better compatibility
             });
-            
-            console.log('✅ Leaflet map instance created');
+            console.log('✅ Leaflet map instance created successfully');
         } catch (mapError) {
-            console.error('❌ Failed to create Leaflet map:', mapError);
-            // Try to remove and recreate the container
-            const parent = mapContainer.parentNode;
-            const newContainer = document.createElement('div');
-            newContainer.id = 'tron-world-map';
-            newContainer.className = mapContainer.className;
-            parent.replaceChild(newContainer, mapContainer);
-            
-            try {
-                map = L.map('tron-world-map', {
-                    center: [20, 0],
-                    zoom: 2,
-                    zoomControl: false,
-                    attributionControl: true
-                });
-                console.log('✅ Leaflet map created after container reset');
-            } catch (secondError) {
-                console.error('❌ Failed to create map after reset:', secondError);
-                showMapError('Failed to initialize map');
-                return;
-            }
+            console.error('❌ Map creation failed:', mapError);
+            showMapError('Map initialization failed');
+            mapLoaded = false;
+            return;
         }
         
-        // Add zoom control in bottom left
-        L.control.zoom({
-            position: 'bottomleft'
-        }).addTo(map);
-        
-        // Add dark tile layer with fallback
+        // 6. ADD TILE LAYER SYNCHRONOUSLY
         try {
-            L.tileLayer('https://{s}.basemaps.cartocdn.com/dark_all/{z}/{x}/{y}{r}.png', {
-                attribution: '&copy; <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a> contributors &copy; <a href="https://carto.com/attributions">CARTO</a>',
+            const tileLayer = L.tileLayer('https://{s}.basemaps.cartocdn.com/dark_all/{z}/{x}/{y}{r}.png', {
+                attribution: '&copy; OpenStreetMap &copy; CARTO',
                 subdomains: 'abcd',
-                maxZoom: 19,
-                errorTileUrl: 'data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAAEAAAABCAYAAAAfFcSJAAAADUlEQVR42mNk+M9QDwADhgGAWjR9awAAAABJRU5ErkJggg==' // Transparent fallback
-            }).addTo(map);
-            console.log('🗺️ Tile layer added successfully');
+                maxZoom: 18
+            });
+            tileLayer.addTo(map);
+            console.log('🗺️ Dark tile layer added');
         } catch (tileError) {
-            console.error('❌ Tile layer error:', tileError);
-            // Fallback to OpenStreetMap
+            console.error('❌ Tile error, using OSM fallback:', tileError);
             L.tileLayer('https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png', {
-                attribution: '&copy; <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a>',
-                maxZoom: 19
+                attribution: '&copy; OpenStreetMap',
+                maxZoom: 18
             }).addTo(map);
-            console.log('🔄 Using OpenStreetMap fallback tiles');
         }
         
-        // ENHANCED: Fetch supernode data using the proxy API endpoint
-        console.log('📡 Fetching supernode validator data via proxy API...');
-        const data = await cachedFetch('/api/stats?type=supernode', 60000); // Use proxy endpoint
-        console.log('🗺️ Supernode:', data);
+        // 7. FETCH DATA AND RENDER PINS - Use cached data if available
+        console.log('📡 Fetching validator data synchronously...');
         
-        let nodeCount = 0;
-        const nodes = (data.data || data) || [];
+        // Use existing cached data first, then async fetch
+        const cachedKey = '/api/stats?type=supernode';
+        let nodeData = null;
         
-        // Limit to 50 for performance as suggested
-        nodes.slice(0, 50).forEach(node => {
-            // ENHANCED: Deep geo hunt with all coordinate patterns
-            let lat = node.latitude || node.lat || (node.location?.coordinates?.[1]) || (node.geo?.lat) || null;
-            let lng = node.longitude || node.lng || (node.location?.coordinates?.[0]) || (node.geo?.lng) || null;
-            
-            // Fallback: Mock coordinates for top SRs if no real coords available
-            if (!lat || !lng) {
-                const mocks = {  // Sample for demo; real coords would come from enhanced API
-                    'TRON Foundation': [1.3521, 103.8198],  // Singapore
-                    'Tron Foundation': [1.3521, 103.8198],  // Singapore (variant)
-                    'BigONE': [39.9042, 116.4074],  // Beijing
-                    'Binance Staking': [35.9375, 14.3754],  // Malta
-                    'Poloniex': [40.7128, -74.0060],  // NYC
-                    'Huobi Pool': [22.3193, 114.1694],  // Hong Kong
-                    'OKEx Pool': [35.6762, 139.6503],  // Tokyo
-                    'BitTorrent': [37.7749, -122.4194],  // San Francisco
-                    'TRONALLIANCE': [35.9078, 127.7669],  // Seoul
-                    'CryptoGuyInTX': [32.7767, -96.7970],  // Dallas
-                };
-                const name = node.name || node.address?.slice(0, 6);
-                if (mocks[name]) {
-                    [lat, lng] = mocks[name];
-                    console.log(`🔧 Applied mock coords for ${name}: [${lat}, ${lng}]`);
-                } else {
-                    return;  // Skip unknowns
-                }
+        try {
+            const cached = sessionStorage.getItem(cachedKey);
+            if (cached) {
+                nodeData = JSON.parse(cached);
+                console.log('💾 Using cached validator data');
             }
-            
-            // Validate coordinates are within valid ranges
-            if (lat && lng && Math.abs(lat) <= 90 && Math.abs(lng) <= 180) {
-                const popup = `<b>${node.name || 'SR'}</b><br>Type: ${node.type || 'Super Rep'}<br>Site: <a href="${node.url || '#'}" target="_blank">View</a>`;
-                L.marker([lat, lng]).addTo(map).bindPopup(popup);
-                nodeCount++;
-                
-                console.log(`📍 Plotted ${node.name || 'Unnamed'} at [${lat}, ${lng}]`);
-            }
-        });
-        
-        // If no valid nodes plotted, add demo pins
-        if (nodeCount === 0) {
-            console.warn('❌ No valid nodes; adding demos');
-            // Demo pins for visualization
-            L.marker([1.3521, 103.8198]).addTo(map).bindPopup('<b>Demo: Singapore Hub</b><br>Type: TRON Foundation');
-            L.marker([40.7128, -74.0060]).addTo(map).bindPopup('<b>Demo: NYC Validator</b><br>Type: US Node');
-            L.marker([35.6762, 139.6503]).addTo(map).bindPopup('<b>Demo: Tokyo Node</b><br>Type: Asia Validator');
-            L.marker([51.5074, -0.1278]).addTo(map).bindPopup('<b>Demo: London Hub</b><br>Type: EU Validator');
-            nodeCount = 4;
-            console.log('🎯 Added 4 demo pins for visualization');
+        } catch (e) {
+            console.warn('⚠️ Cache read failed, will fetch fresh');
         }
         
-        console.log(`🎯 Plotted ${nodeCount} nodes`);
+        // If no cached data, fetch async but don't wait
+        if (!nodeData) {
+            console.log('🔄 No cached data, fetching async...');
+            cachedFetch('/api/stats?type=supernode', 60000)
+                .then(data => {
+                    console.log('📊 Fresh validator data received:', data);
+                    renderValidatorPins(map, data);
+                })
+                .catch(error => {
+                    console.error('❌ Async fetch failed:', error);
+                    renderFallbackPins(map);
+                });
+        } else {
+            // Render immediately with cached data
+            renderValidatorPins(map, nodeData);
+        }
+        
+        // 8. ENSURE MAP RENDERS PROPERLY
+        setTimeout(() => {
+            try {
+                map.invalidateSize();
+                console.log('🔄 Map size invalidated for proper rendering');
+            } catch (e) {
+                console.warn('⚠️ Size invalidation failed:', e);
+            }
+        }, 100);
+        
+        console.log('✅ SYNCHRONOUS map initialization complete!');
+        
+        // Update container state
         const container = document.querySelector('.map-container');
         if (container) {
             container.classList.remove('initializing');
             container.classList.add('loaded');
         }
         
-        console.log(`✅ TRON validator map initialization complete! ${nodeCount} validators plotted`);
+    } catch (error) {
+        console.error('❌ Critical error in synchronous map init:', error);
+        showMapError('Map initialization failed');
+        mapLoaded = false;
+    }
+}
+
+// ENHANCED PIN RENDERING with proper coordinate parsing and validation
+function renderValidatorPins(map, data) {
+    try {
+        console.log('📍 Rendering validator pins...');
+        let nodeCount = 0;
+        const nodes = data?.data || data || [];
+        
+        if (!Array.isArray(nodes)) {
+            console.warn('⚠️ Invalid node data format, using fallback pins');
+            renderFallbackPins(map);
+            return;
+        }
+        
+        // Process up to 50 nodes for performance
+        nodes.slice(0, 50).forEach(node => {
+            // ENHANCED coordinate extraction with parseFloat validation
+            let lat = parseFloat(node.latitude || node.lat || node.location?.coordinates?.[1] || node.geo?.lat || 0);
+            let lng = parseFloat(node.longitude || node.lng || node.location?.coordinates?.[0] || node.geo?.lng || 0);
+            
+            // Mock coordinates for known validators if no real data
+            if (!lat || !lng || isNaN(lat) || isNaN(lng)) {
+                const mockCoords = {
+                    'TRON Foundation': [1.3521, 103.8198],
+                    'Binance Staking': [35.9375, 14.3754],
+                    'Poloniex': [40.7128, -74.0060],
+                    'Huobi': [22.3193, 114.1694],
+                    'OKEx': [35.6762, 139.6503],
+                    'BitTorrent': [37.7749, -122.4194]
+                };
+                
+                const name = node.name || node.address?.substring(0, 10) || 'Unknown';
+                const coords = mockCoords[name] || mockCoords[Object.keys(mockCoords)[nodeCount % Object.keys(mockCoords).length]];
+                [lat, lng] = coords;
+                console.log(`🔧 Applied mock coords for ${name}: [${lat}, ${lng}]`);
+            }
+            
+            // Validate coordinate ranges
+            if (lat && lng && Math.abs(lat) <= 90 && Math.abs(lng) <= 180) {
+                try {
+                    const popup = `
+                        <div style="min-width: 200px;">
+                            <b>${node.name || 'Validator'}</b><br>
+                            <small>Type: ${node.type || 'Super Representative'}</small><br>
+                            ${node.url ? `<a href="${node.url}" target="_blank" style="color: #ff6b35;">Visit Site</a>` : ''}
+                        </div>
+                    `;
+                    
+                    L.marker([lat, lng], {
+                        icon: L.divIcon({
+                            className: 'tron-validator-pin',
+                            html: '<div style="background: #ff6b35; width: 10px; height: 10px; border-radius: 50%; border: 2px solid #fff;"></div>',
+                            iconSize: [14, 14],
+                            iconAnchor: [7, 7]
+                        })
+                    }).addTo(map).bindPopup(popup);
+                    
+                    nodeCount++;
+                    console.log(`📍 Plotted ${node.name || 'Validator'} at [${lat}, ${lng}]`);
+                } catch (markerError) {
+                    console.error('❌ Marker creation failed:', markerError);
+                }
+            }
+        });
+        
+        console.log(`✅ Rendered ${nodeCount} validator pins`);
+        
+        // If no pins rendered, add fallback pins
+        if (nodeCount === 0) {
+            renderFallbackPins(map);
+        }
         
     } catch (error) {
-        console.error('❌ Error initializing enhanced TRON validator map:', error);
-        showMapError('Failed to load validator map');
+        console.error('❌ Pin rendering failed:', error);
+        renderFallbackPins(map);
     }
+}
+
+// FALLBACK PINS for visualization when data is unavailable
+function renderFallbackPins(map) {
+    console.log('🎯 Rendering fallback demo pins...');
+    
+    const demoPins = [
+        { name: 'TRON Foundation', coords: [1.3521, 103.8198], region: 'Singapore' },
+        { name: 'US Validator Hub', coords: [40.7128, -74.0060], region: 'New York' },
+        { name: 'EU Validator Node', coords: [51.5074, -0.1278], region: 'London' },
+        { name: 'Asia Pacific Hub', coords: [35.6762, 139.6503], region: 'Tokyo' },
+        { name: 'Canada Node', coords: [45.4215, -75.6972], region: 'Ottawa' }
+    ];
+    
+    demoPins.forEach(pin => {
+        try {
+            const popup = `
+                <div style="min-width: 180px;">
+                    <b>${pin.name}</b><br>
+                    <small>Region: ${pin.region}</small><br>
+                    <small style="color: #ff6b35;">Demo Pin</small>
+                </div>
+            `;
+            
+            L.marker(pin.coords, {
+                icon: L.divIcon({
+                    className: 'tron-demo-pin',
+                    html: '<div style="background: #ff6b35; width: 12px; height: 12px; border-radius: 50%; border: 2px solid #fff; box-shadow: 0 2px 4px rgba(0,0,0,0.3);"></div>',
+                    iconSize: [16, 16],
+                    iconAnchor: [8, 8]
+                })
+            }).addTo(map).bindPopup(popup);
+        } catch (e) {
+            console.error('❌ Demo pin failed:', e);
+        }
+    });
+    
+    console.log('✅ Added 5 demo validator pins');
 }
 
 // ENHANCED: Fetch TRON node data with robust caching and fallbacks
