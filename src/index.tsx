@@ -1025,6 +1025,69 @@ app.get('/api/tron/dashboard', async (c) => {
   }
 })
 
+// Enhanced stats API with type parameter support (for supernode and other types)
+app.get('/api/stats', async (c) => {
+  try {
+    const type = c.req.query('type') || 'general'
+    console.log(`📊 Fetching stats for type: ${type}`)
+    
+    if (type === 'supernode') {
+      // Fetch TRON Super Representative (supernode) specific data
+      const response = await fetch('https://apilist.tronscanapi.com/api/vote/witness', {
+        headers: { 
+          'Accept': 'application/json',
+          'User-Agent': 'MEGATEAM-Website/1.0'
+        }
+      })
+      
+      if (response.ok) {
+        const data = await response.json()
+        
+        // Parse supernode data
+        const supernodes = data.data || []
+        const activeSupernodes = supernodes.filter(node => node.isJobs === true)
+        
+        console.log(`📊 Supernode stats: ${supernodes.length} total, ${activeSupernodes.length} active`)
+        
+        return c.json({
+          type: 'supernode',
+          total: supernodes.length,
+          active: activeSupernodes.length,
+          data: supernodes.map(node => ({
+            name: node.name || node.address,
+            url: node.url,
+            votes: node.voteCount,
+            isActive: node.isJobs === true,
+            rank: node.realTimeRanking || 999,
+            country: node.country,
+            productivity: node.productivity
+          })),
+          timestamp: Date.now()
+        })
+      } else {
+        throw new Error(`Supernode API error: ${response.status}`)
+      }
+    } else {
+      // General stats - return combined data
+      return c.json({
+        type: 'general',
+        tps: { current: 45, max: 2000 },
+        nodes: { total: 427, active: 400 },
+        network: { health: 'Healthy', uptime: 99.9 },
+        timestamp: Date.now()
+      })
+    }
+    
+  } catch (error) {
+    console.error(`❌ Stats API error for type ${c.req.query('type')}:`, error)
+    return c.json({ 
+      error: 'Failed to fetch stats',
+      type: c.req.query('type') || 'general',
+      timestamp: Date.now()
+    }, 500)
+  }
+})
+
 app.get('/api/tron/network-overview', async (c) => {
   try {
     console.log('📊 Fetching complete TRON network overview...')

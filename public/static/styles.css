@@ -1,0 +1,356 @@
+/* TRON MEGATEAM Enhanced Styles */
+
+/* Map Container States */
+#tron-world-map {
+    height: 400px;
+    width: 100%;
+    border-radius: 8px;
+    overflow: hidden;
+    border: 2px solid rgba(0, 255, 255, 0.3);
+    transition: all 0.3s ease;
+}
+
+#tron-world-map.map-initializing {
+    background: linear-gradient(45deg, #000000, #1a1a1a);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+#tron-world-map.map-initializing::before {
+    content: "🗺️ Initializing TRON Network Map...";
+    color: #00FFFF;
+    font-size: 16px;
+    font-weight: bold;
+    animation: pulse 2s infinite;
+}
+
+#tron-world-map.map-loading {
+    background: linear-gradient(45deg, #000000, #1a1a1a);
+    position: relative;
+}
+
+#tron-world-map.map-loading::after {
+    content: "";
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    width: 40px;
+    height: 40px;
+    border: 3px solid rgba(0, 255, 255, 0.3);
+    border-top: 3px solid #00FFFF;
+    border-radius: 50%;
+    animation: spin 1s linear infinite;
+    z-index: 1000;
+}
+
+#tron-world-map.map-loaded {
+    border-color: rgba(255, 6, 10, 0.5);
+    box-shadow: 0 0 20px rgba(255, 6, 10, 0.2);
+}
+
+/* TRON Cluster Markers */
+.tron-cluster {
+    background: radial-gradient(circle, #FF060A, #CC0408);
+    border: 2px solid #ffffff;
+    border-radius: 50%;
+    text-align: center;
+    color: white;
+    font-weight: bold;
+    box-shadow: 0 3px 10px rgba(255, 6, 10, 0.4);
+    transition: all 0.2s ease;
+}
+
+.tron-cluster:hover {
+    transform: scale(1.1);
+    box-shadow: 0 5px 15px rgba(255, 6, 10, 0.6);
+}
+
+.tron-cluster div {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    height: 100%;
+    width: 100%;
+    border-radius: 50%;
+}
+
+.tron-cluster-small {
+    width: 30px;
+    height: 30px;
+    font-size: 11px;
+}
+
+.tron-cluster-medium {
+    width: 40px;
+    height: 40px;
+    font-size: 13px;
+}
+
+.tron-cluster-large {
+    width: 50px;
+    height: 50px;
+    font-size: 15px;
+    background: radial-gradient(circle, #FF060A, #FF4444);
+}
+
+/* TRON Node Popup */
+.tron-node-popup {
+    background: linear-gradient(135deg, #000000, #1a1a1a);
+    color: #00FFFF;
+    border: 1px solid #FF060A;
+    border-radius: 8px;
+    padding: 10px;
+    min-width: 200px;
+    font-family: 'Arial', sans-serif;
+}
+
+.tron-node-popup h3 {
+    color: #FF060A;
+    margin: 0 0 8px 0;
+    font-size: 16px;
+    font-weight: bold;
+    border-bottom: 1px solid rgba(255, 6, 10, 0.3);
+    padding-bottom: 4px;
+}
+
+.tron-node-popup p {
+    margin: 4px 0;
+    font-size: 12px;
+    line-height: 1.4;
+}
+
+.tron-node-popup strong {
+    color: #ffffff;
+}
+
+.status-active {
+    color: #00FF00;
+    font-weight: bold;
+}
+
+.status-inactive {
+    color: #FF6B6B;
+    font-weight: bold;
+}
+
+/* Map Error State */
+.map-error {
+    background: linear-gradient(135deg, #000000, #1a1a1a);
+    color: #FF060A;
+    border: 2px solid rgba(255, 6, 10, 0.5);
+    border-radius: 8px;
+    padding: 20px;
+    text-align: center;
+    animation: fadeIn 0.5s ease;
+}
+
+.map-error h3 {
+    margin: 0 0 10px 0;
+    font-size: 18px;
+}
+
+.map-error p {
+    margin: 5px 0;
+    opacity: 0.9;
+}
+
+/* Fallback Message */
+.fallback-message {
+    pointer-events: none;
+}
+
+/* Loading Animation */
+.animate-pulse {
+    animation: pulse 2s cubic-bezier(0.4, 0, 0.6, 1) infinite;
+}
+
+@keyframes pulse {
+    0%, 100% {
+        opacity: 1;
+    }
+    50% {
+        opacity: 0.5;
+    }
+}
+
+@keyframes spin {
+    0% { transform: translate(-50%, -50%) rotate(0deg); }
+    100% { transform: translate(-50%, -50%) rotate(360deg); }
+}
+
+@keyframes fadeIn {
+    from { opacity: 0; transform: translateY(10px); }
+    to { opacity: 1; transform: translateY(0); }
+}
+
+/* Notification Animations */
+@keyframes slideInRight {
+    from {
+        transform: translateX(100%);
+        opacity: 0;
+    }
+    to {
+        transform: translateX(0);
+        opacity: 1;
+    }
+}
+
+@keyframes slideOutRight {
+    from {
+        transform: translateX(0);
+        opacity: 1;
+    }
+    to {
+        transform: translateX(100%);
+        opacity: 0;
+    }
+}
+
+/* Leaflet Map Overrides for TRON Theme */
+.leaflet-container {
+    background: #000000;
+    font-family: 'Arial', sans-serif;
+}
+
+.leaflet-popup-content-wrapper {
+    background: transparent;
+    border-radius: 8px;
+    box-shadow: 0 5px 20px rgba(0, 0, 0, 0.8);
+}
+
+.leaflet-popup-tip {
+    background: rgba(0, 0, 0, 0.8);
+}
+
+.leaflet-control-zoom {
+    border: none;
+    box-shadow: 0 2px 10px rgba(0, 0, 0, 0.3);
+}
+
+.leaflet-control-zoom a {
+    background-color: rgba(0, 0, 0, 0.8);
+    color: #00FFFF;
+    border: 1px solid rgba(255, 6, 10, 0.3);
+    transition: all 0.2s ease;
+}
+
+.leaflet-control-zoom a:hover {
+    background-color: rgba(255, 6, 10, 0.1);
+    color: #FF060A;
+    border-color: #FF060A;
+}
+
+.leaflet-control-attribution {
+    background: rgba(0, 0, 0, 0.6);
+    color: #999999;
+    font-size: 10px;
+}
+
+.leaflet-control-attribution a {
+    color: #00FFFF;
+}
+
+/* Responsive Design */
+@media (max-width: 768px) {
+    #tron-world-map {
+        height: 300px;
+    }
+    
+    .tron-cluster-large {
+        width: 40px;
+        height: 40px;
+        font-size: 13px;
+    }
+    
+    .tron-cluster-medium {
+        width: 32px;
+        height: 32px;
+        font-size: 11px;
+    }
+    
+    .tron-cluster-small {
+        width: 24px;
+        height: 24px;
+        font-size: 9px;
+    }
+    
+    .tron-node-popup {
+        min-width: 150px;
+        font-size: 11px;
+    }
+}
+
+/* TRON Brand Colors and Effects */
+.text-tron-red {
+    color: #FF060A;
+}
+
+.text-tron-cyan {
+    color: #00FFFF;
+}
+
+.bg-tron-dark {
+    background-color: #000000;
+}
+
+.border-tron-red {
+    border-color: #FF060A;
+}
+
+.border-tron-cyan {
+    border-color: #00FFFF;
+}
+
+/* Additional Loading States */
+.loading-stats {
+    position: relative;
+    overflow: hidden;
+}
+
+.loading-stats::after {
+    content: "";
+    position: absolute;
+    top: 0;
+    left: -100%;
+    width: 100%;
+    height: 100%;
+    background: linear-gradient(
+        90deg, 
+        transparent, 
+        rgba(0, 255, 255, 0.1), 
+        transparent
+    );
+    animation: shimmer 1.5s infinite;
+}
+
+@keyframes shimmer {
+    0% {
+        left: -100%;
+    }
+    100% {
+        left: 100%;
+    }
+}
+
+/* Enhanced Focus States for Accessibility */
+.leaflet-control-zoom a:focus,
+button:focus {
+    outline: 2px solid #00FFFF;
+    outline-offset: 2px;
+}
+
+/* Print Styles */
+@media print {
+    #tron-world-map {
+        height: 400px;
+        border: 1px solid #000;
+        background: white;
+    }
+    
+    .tron-cluster {
+        background: #666;
+        color: white;
+    }
+}
