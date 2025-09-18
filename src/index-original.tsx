@@ -2,9 +2,6 @@ import { Hono } from 'hono'
 import { serveStatic } from 'hono/cloudflare-workers'
 import { cors } from 'hono/cors'
 import { renderer } from './renderer'
-import { tronFetch, externalFetch, handleApiError, tronBatchFetch } from './utils/api'
-import { TRON_MOCKS, DASHBOARD_FALLBACK, STATS_FALLBACK, SUPERNODE_FALLBACK } from './utils/mocks'
-import { mapWitnessToLocation, getContinent } from './utils/geo'
 
 const app = new Hono()
 
@@ -415,18 +412,34 @@ app.get('/signup', (c) => {
   )
 })
 
-// OPTIMIZED: TRONScan API Proxy Endpoints using shared utilities
+// TRONScan API Proxy Endpoints (to bypass CORS)
 app.get('/api/tron/tps', async (c) => {
   try {
-    const data = await tronFetch('system/tps');
+    console.log('📊 Fetching TPS data from TRONScan API...')
+    const response = await fetch('https://apilist.tronscanapi.com/api/system/tps', {
+      method: 'GET',
+      headers: {
+        'Accept': 'application/json',
+        'User-Agent': 'MEGATEAM-Website/1.0'
+      }
+    })
+    
+    if (!response.ok) {
+      throw new Error(`TPS API error: ${response.status}`)
+    }
+    
+    const data = await response.json()
+    console.log('✅ TPS data received:', data)
+    
     return c.json({
       current: data.data?.currentTps || 0,
       max: data.data?.maxTps || 0,
       blockHeight: data.data?.blockHeight || 0,
       timestamp: Date.now()
-    });
+    })
   } catch (error) {
-    return handleApiError('TPS', error, TRON_MOCKS.tps, c);
+    console.error('❌ TPS API error:', error)
+    return c.json({ error: 'Failed to fetch TPS data', current: 0, max: 0 }, 500)
   }
 })
 
@@ -537,42 +550,97 @@ app.get('/api/tron/accounts', async (c) => {
   }
 })
 
-// OPTIMIZED: Price endpoint using shared utilities and centralized mocks
 app.get('/api/tron/price', async (c) => {
   try {
-    // Try comprehensive API first, fallback to simple API if rate limited
-    let priceData;
+    console.log('📊 Fetching TRX price with extended data from CoinGecko API...')
+    
+    // Try comprehensive API first
     try {
-      priceData = await externalFetch('https://api.coingecko.com/api/v3/coins/tron?localization=false&tickers=false&market_data=true&community_data=false&developer_data=false&sparkline=false');
-    } catch (error) {
-      console.log('⚠️ CoinGecko comprehensive API failed, trying simple API...');
-      const simpleData = await externalFetch('https://api.coingecko.com/api/v3/simple/price?ids=tron&vs_currencies=usd&include_24hr_change=true&include_market_cap=true');
-      const tronData = simpleData.tron || {};
+      const response = await fetch('https://api.coingecko.com/api/v3/coins/tron?localization=false&tickers=false&market_data=true&community_data=false&developer_data=false&sparkline=false', {
+        method: 'GET',
+        headers: {
+          'Accept': 'application/json',
+          'User-Agent': 'MEGATEAM-Website/1.0'
+        }
+      })
       
+      if (response.ok) {
+        const data = await response.json()
+        console.log('✅ Comprehensive TRX data received')
+        
+        const marketData = data.market_data || {}
+        
+        return c.json({
+          price: marketData.current_price?.usd || 0.341,
+          volume24h: marketData.total_volume?.usd || 815000000,
+          change24h: marketData.price_change_percentage_24h || -0.5,
+          change30d: marketData.price_change_percentage_30d || -2.3,
+          change1y: marketData.price_change_percentage_1y || 127,
+          marketCap: marketData.market_cap?.usd || 32300000000,
+          rank: data.market_cap_rank || 11,
+          ath: marketData.ath?.usd || 0.431,
+          atl: marketData.atl?.usd || 0.0018,
+          lastUpdated: marketData.last_updated || new Date().toISOString()
+        })
+      } else if (response.status === 429) {
+        console.log('⚠️ CoinGecko rate limited, trying simple API fallback...')
+        
+        // Fallback to simple API
+        const simpleResponse = await fetch('https://api.coingecko.com/api/v3/simple/price?ids=tron&vs_currencies=usd&include_24hr_change=true&include_market_cap=true', {
+          headers: { 'Accept': 'application/json', 'User-Agent': 'MEGATEAM-Website/1.0' }
+        })
+        
+        if (simpleResponse.ok) {
+          const simpleData = await simpleResponse.json()
+          const tronData = simpleData.tron || {}
+          
+          return c.json({
+            price: tronData.usd || 0.341,
+            volume24h: 815000000, // Default fallback
+            change24h: tronData.usd_24h_change || -0.5,
+            change30d: -2.3, // Default fallback
+            change1y: 127, // Default fallback
+            marketCap: tronData.usd_market_cap || 32300000000,
+            rank: 11,
+            ath: 0.431,
+            atl: 0.0018,
+            lastUpdated: new Date().toISOString()
+          })
+        } else {
+          throw new Error('Simple API also failed')
+        }
+      } else {
+        throw new Error(`Comprehensive API error: ${response.status}`)
+      }
+    } catch (fetchError) {
+      console.log('⚠️ CoinGecko APIs unavailable, using reliable fallback data')
+      
+      // Return reasonable fallback values based on current market conditions
       return c.json({
-        ...TRON_MOCKS.price,
-        price: tronData.usd || TRON_MOCKS.price.price,
-        change24h: tronData.usd_24h_change || TRON_MOCKS.price.change24h,
-        marketCap: tronData.usd_market_cap || TRON_MOCKS.price.marketCap,
+        price: 0.341,
+        volume24h: 815000000,
+        change24h: -0.5,
+        change30d: -2.3,
+        change1y: 127,
+        marketCap: 32300000000,
+        rank: 11,
+        ath: 0.431,
+        atl: 0.0018,
         lastUpdated: new Date().toISOString()
-      });
+      })
     }
     
-    const marketData = priceData.market_data || {};
-    return c.json({
-      price: marketData.current_price?.usd || TRON_MOCKS.price.price,
-      volume24h: marketData.total_volume?.usd || TRON_MOCKS.price.volume24h,
-      change24h: marketData.price_change_percentage_24h || TRON_MOCKS.price.change24h,
-      change30d: marketData.price_change_percentage_30d || TRON_MOCKS.price.change30d,
-      change1y: marketData.price_change_percentage_1y || TRON_MOCKS.price.change1y,
-      marketCap: marketData.market_cap?.usd || TRON_MOCKS.price.marketCap,
-      rank: priceData.market_cap_rank || TRON_MOCKS.price.rank,
-      ath: marketData.ath?.usd || TRON_MOCKS.price.ath,
-      atl: marketData.atl?.usd || TRON_MOCKS.price.atl,
-      lastUpdated: marketData.last_updated || new Date().toISOString()
-    });
   } catch (error) {
-    return handleApiError('Price', error, TRON_MOCKS.price, c);
+    console.error('❌ Price API error:', error)
+    return c.json({ 
+      price: 0.341,
+      volume24h: 815000000,
+      change24h: -0.5,
+      change30d: -2.3,
+      change1y: 127,
+      marketCap: 32300000000,
+      rank: 11
+    })
   }
 })
 
@@ -973,58 +1041,42 @@ app.get('/api/tron/dashboard', async (c) => {
   }
 })
 
-// OPTIMIZED: Enhanced stats API with consolidated endpoints
+// Enhanced stats API with type parameter support and proper proxy handling
 app.get('/api/stats', async (c) => {
   const { type = 'all' } = c.req.query();
-  
   try {
-    // Handle Trongrid proxy requests
+    let url;
     if (type === 'supernode') {
-      const res = await fetch('https://api.trongrid.io/v1/nodes', { 
-        headers: { 
-          'TRON-PRO-API-KEY': process.env.TRONGRID_KEY || 'your-free-key-here',
-          'User-Agent': 'MEGATEAM/1.0' 
-        } 
-      });
-      
-      if (res.ok) {
-        const data = await res.json();
-        return c.json(data);
-      } else {
-        throw new Error(`Trongrid status ${res.status}`);
-      }
+      url = 'https://api.trongrid.io/v1/nodes';
+    } else {
+      url = 'https://api.trongrid.io/v1/status';
     }
-    
-    // Handle consolidated stats using shared utilities
-    if (type === 'all') {
-      console.log('🔄 Fetching consolidated stats...');
-      
-      // Use batch fetch with rate limiting
-      const endpoints = [
-        'system/status',
-        'system/tps',
-        'vote/witness?limit=100',
-        'account/list?limit=1'
-      ];
-      
-      const results = await tronBatchFetch(endpoints, 300);
-      
-      return c.json({
-        system: results.status,
-        tps: results.tps,
-        supernode: results.witness,
-        account: results.limit,
-        timestamp: Date.now(),
-        type: 'combined',
-        source: 'optimized_batch'
-      });
-    }
-    
-    // Fallback to centralized mocks
-    return c.json(STATS_FALLBACK);
-    
-  } catch (error) {
-    return handleApiError('Stats', error, STATS_FALLBACK, c);
+    const res = await fetch(url, { 
+      headers: { 
+        'TRON-PRO-API-KEY': process.env.TRONGRID_KEY || 'your-free-key-here',  // Add to .dev.vars
+        'User-Agent': 'MEGATEAM/1.0' 
+      } 
+    });
+    console.log('Proxy res:', res.status);
+    if (!res.ok) throw new Error(`Status ${res.status}`);
+    const data = await res.json();
+    console.log('Proxy data keys:', Object.keys(data));
+    return c.json(data);
+  } catch (e) {
+    console.error('Proxy fail:', e);
+    const mockData = {
+      tps: { current: 45, max: 2000 },
+      block: { height: 75850596 },
+      transactions: { today: 9124874, change24h: -1.67, change7d: -7.05 },
+      price: { price: 0.341, change24h: 3.5, change30d: 0.4, change1y: 134.9 },
+      accounts: { totalAccounts: 300000000 },
+      usdtVolume: 35000000000,
+      totalValidators: 427,
+      superReps: 27,
+      continents: 7,
+      networkHealth: 'Healthy'
+    };
+    return c.json(mockData);
   }
 });
 

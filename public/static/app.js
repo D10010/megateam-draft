@@ -2167,9 +2167,7 @@ document.addEventListener('DOMContentLoaded', function() {
 console.log('🌐 TRON MEGATEAM application fully loaded! (Audio system managed by mobile-audio.js)');
 
 // Enhanced map variables and functions
-let allMarkers = [];
-let filteredNodes = [];
-let globalMap = null;
+// (Variables declared earlier in the file)
 
 function updateMapMarkers(map, nodes) {
     // Clear existing markers
