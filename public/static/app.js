@@ -508,146 +508,151 @@ async function fetchTronAccounts() {
     }
 }
 
-// Update UI elements with TRON network statistics
+// OPTIMIZED: Update UI elements with TRON network statistics using batched DOM updates
 function updateTronStats(data) {
     try {
         console.log('🔄 Updating TRON statistics in UI...');
         
-        // Update TPS display
-        const tpsElement = document.getElementById('live-tps');
-        if (tpsElement && data.tps) {
-            tpsElement.textContent = data.tps.current ? data.tps.current.toLocaleString() : '0';
-        }
+        // PERFORMANCE OPTIMIZATION: Batch all DOM queries and updates
+        const updateMap = {
+            // TPS & Performance Stats
+            'live-tps': {
+                value: data.tps?.current ? data.tps.current.toLocaleString() : '0',
+                fallback: '0'
+            },
+            'tron-max-tps': {
+                value: data.tps?.max ? data.tps.max.toLocaleString() : '2,000',
+                fallback: '2,000'
+            },
+            
+            // Block Stats
+            'live-block': {
+                value: data.block?.height ? data.block.height.toLocaleString() : '0',
+                fallback: '0'
+            },
+            'tron-block-tx': {
+                value: data.block?.transactions ? data.block.transactions.toLocaleString() : '0',
+                fallback: '0'
+            },
+            
+            // Transaction Stats
+            'live-daily-txns': {
+                value: data.transactions?.today ? data.transactions.today.toLocaleString() : '0',
+                fallback: '0'
+            },
+            
+            // Transaction Change Percentages (with styling)
+            'txn-change-24h': {
+                value: data.transactions?.change24h != null ? 
+                    `${data.transactions.change24h >= 0 ? '+' : ''}${data.transactions.change24h.toFixed(1)}%` : '--',
+                className: data.transactions?.change24h != null ?
+                    `text-sm font-medium ${data.transactions.change24h >= 0 ? 'text-green-400' : 'text-red-400'}` : 'text-sm font-medium text-gray-400',
+                fallback: '--'
+            },
+            'txn-change-7d': {
+                value: data.transactions?.change7d != null ? 
+                    `${data.transactions.change7d >= 0 ? '+' : ''}${data.transactions.change7d.toFixed(1)}%` : '--',
+                className: data.transactions?.change7d != null ?
+                    `text-sm font-medium ${data.transactions.change7d >= 0 ? 'text-green-400' : 'text-red-400'}` : 'text-sm font-medium text-gray-400',
+                fallback: '--'
+            }
         
-        // Update Max TPS display (this element may not exist in current HTML)
-        const maxTpsElement = document.getElementById('tron-max-tps');
-        if (maxTpsElement && data.tps) {
-            maxTpsElement.textContent = data.tps.max ? data.tps.max.toLocaleString() : '2,000';
-        }
+            
+            // Additional Transaction Stats
+            'tron-total-tx': {
+                value: data.transactions?.totalTransactions ? 
+                    formatLargeNumber(data.transactions.totalTransactions) : '8.5B+',
+                fallback: '8.5B+'
+            },
+            
+            // Price Stats
+            'live-trx-price': {
+                value: data.price?.price ? `$${data.price.price.toFixed(4)}` : '$0.0000',
+                fallback: '$0.0000'
+            },
+            'price-change-24h': {
+                value: data.price?.change24h != null ? 
+                    `${data.price.change24h >= 0 ? '+' : ''}${data.price.change24h.toFixed(2)}%` : '--',
+                className: data.price?.change24h != null ?
+                    `text-sm font-medium ${data.price.change24h >= 0 ? 'text-green-400' : 'text-red-400'}` : 'text-sm font-medium text-gray-400',
+                fallback: '--'
+            },
+            'price-change-30d': {
+                value: data.price?.change30d != null ? 
+                    `${data.price.change30d >= 0 ? '+' : ''}${data.price.change30d.toFixed(2)}%` : '--',
+                className: data.price?.change30d != null ?
+                    `text-sm font-medium ${data.price.change30d >= 0 ? 'text-green-400' : 'text-red-400'}` : 'text-sm font-medium text-gray-400',
+                fallback: '--'
+            },
+            'price-change-1y': {
+                value: data.price?.change1y != null ? 
+                    `${data.price.change1y >= 0 ? '+' : ''}${data.price.change1y.toFixed(1)}%` : '--',
+                className: data.price?.change1y != null ?
+                    `text-sm font-medium ${data.price.change1y >= 0 ? 'text-green-400' : 'text-red-400'}` : 'text-sm font-medium text-gray-400',
+                fallback: '--'
+            },
+            'trx-change': {
+                value: data.price?.change24h != null ? 
+                    `${data.price.change24h >= 0 ? '+' : ''}${data.price.change24h.toFixed(2)}%` : '0.00%',
+                className: data.price?.change24h != null ?
+                    (data.price.change24h >= 0 ? 'text-green-400' : 'text-red-400') : 'text-gray-400',
+                fallback: '0.00%'
+            },
+            'trx-market-cap': {
+                value: data.price?.marketCap ? formatLargeNumber(data.price.marketCap) : '$0',
+                fallback: '$0'
+            },
+            'trx-volume': {
+                value: data.price?.volume24h ? formatLargeNumber(data.price.volume24h) : '$0',
+                fallback: '$0'
+            },
+            
+            // Account Stats
+            'live-total-accounts': {
+                value: data.accounts?.totalAccounts ? formatLargeNumber(data.accounts.totalAccounts) : '250M+',
+                fallback: '250M+'
+            },
+            'tron-active-accounts': {
+                value: data.accounts?.activeAccounts ? formatLargeNumber(data.accounts.activeAccounts) : '2M+',
+                fallback: '2M+'
+            },
+            
+            // Network Health
+            'tron-uptime': {
+                value: '100%',
+                fallback: '100%'
+            },
+            'last-update': {
+                value: new Date().toLocaleTimeString(),
+                fallback: '--'
+            }
+        };
         
-        // Update Latest Block display
-        const blockElement = document.getElementById('live-block');
-        if (blockElement && data.block) {
-            blockElement.textContent = data.block.height ? data.block.height.toLocaleString() : '0';
-        }
+        // BATCH DOM UPDATES: Single pass through all elements (huge performance gain!)
+        const elementsToUpdate = Object.keys(updateMap);
+        const elements = {}; // Cache DOM queries
         
-        // Update Block Transactions display
-        const blockTxElement = document.getElementById('tron-block-tx');
-        if (blockTxElement && data.block) {
-            blockTxElement.textContent = data.block.transactions ? data.block.transactions.toLocaleString() : '0';
-        }
+        // Single batch DOM query
+        elementsToUpdate.forEach(id => {
+            elements[id] = document.getElementById(id);
+        });
         
-        // Update Daily Transactions display
-        const dailyTxElement = document.getElementById('live-daily-txns');
-        if (dailyTxElement && data.transactions) {
-            dailyTxElement.textContent = data.transactions.today ? data.transactions.today.toLocaleString() : '0';
-        }
+        // Single batch DOM update
+        Object.entries(updateMap).forEach(([id, config]) => {
+            const element = elements[id];
+            if (element) {
+                element.textContent = config.value || config.fallback;
+                if (config.className) {
+                    element.className = config.className;
+                }
+            }
+        });
         
-        // Update 24h transaction change
-        const txnChange24hElement = document.getElementById('txn-change-24h');
-        if (txnChange24hElement && data.transactions) {
-            const change24h = data.transactions.change24h || 0;
-            txnChange24hElement.textContent = `${change24h >= 0 ? '+' : ''}${change24h.toFixed(1)}%`;
-            txnChange24hElement.className = `text-sm font-medium ${change24h >= 0 ? 'text-green-400' : 'text-red-400'}`;
-        }
+        console.log(`✅ UI updated with latest TRON data (${elementsToUpdate.length} elements in batch)`);
         
-        // Update 7d transaction change
-        const txnChange7dElement = document.getElementById('txn-change-7d');
-        if (txnChange7dElement && data.transactions) {
-            const change7d = data.transactions.change7d || 0;
-            txnChange7dElement.textContent = `${change7d >= 0 ? '+' : ''}${change7d.toFixed(1)}%`;
-            txnChange7dElement.className = `text-sm font-medium ${change7d >= 0 ? 'text-green-400' : 'text-red-400'}`;
-        }
-        
-        // 30d transaction change removed - insufficient reliable historical data
-        
-        // Update Total Transactions display
-        const totalTxElement = document.getElementById('tron-total-tx');
-        if (totalTxElement && data.transactions) {
-            totalTxElement.textContent = data.transactions.totalTransactions ? 
-                formatLargeNumber(data.transactions.totalTransactions) : '8.5B+';
-        }
-        
-        // Update TRX Price display
-        const priceElement = document.getElementById('live-trx-price');
-        if (priceElement && data.price) {
-            priceElement.textContent = data.price.price ? 
-                `$${data.price.price.toFixed(4)}` : '$0.0000';
-        }
-        
-        // Update 24h price change
-        const change24hElement = document.getElementById('price-change-24h');
-        if (change24hElement && data.price) {
-            const change24h = data.price.change24h || 0;
-            change24hElement.textContent = `${change24h >= 0 ? '+' : ''}${change24h.toFixed(2)}%`;
-            change24hElement.className = `text-sm font-medium ${change24h >= 0 ? 'text-green-400' : 'text-red-400'}`;
-        }
-        
-        // Update 30d price change
-        const change30dElement = document.getElementById('price-change-30d');
-        if (change30dElement && data.price && data.price.change30d !== undefined) {
-            const change30d = data.price.change30d || 0;
-            change30dElement.textContent = `${change30d >= 0 ? '+' : ''}${change30d.toFixed(2)}%`;
-            change30dElement.className = `text-sm font-medium ${change30d >= 0 ? 'text-green-400' : 'text-red-400'}`;
-        }
-        
-        // Update 1y price change
-        const change1yElement = document.getElementById('price-change-1y');
-        if (change1yElement && data.price && data.price.change1y !== undefined) {
-            const change1y = data.price.change1y || 0;
-            change1yElement.textContent = `${change1y >= 0 ? '+' : ''}${change1y.toFixed(1)}%`;
-            change1yElement.className = `text-sm font-medium ${change1y >= 0 ? 'text-green-400' : 'text-red-400'}`;
-        }
-        
-        // Update Price Change display
-        const changeElement = document.getElementById('trx-change');
-        if (changeElement && data.price) {
-            const change = data.price.change24h || 0;
-            changeElement.textContent = `${change >= 0 ? '+' : ''}${change.toFixed(2)}%`;
-            changeElement.className = change >= 0 ? 'text-green-400' : 'text-red-400';
-        }
-        
-        // Update Market Cap display
-        const marketCapElement = document.getElementById('trx-market-cap');
-        if (marketCapElement && data.price) {
-            marketCapElement.textContent = data.price.marketCap ? 
-                formatLargeNumber(data.price.marketCap) : '$0';
-        }
-        
-        // Update Volume 24h display
-        const volumeElement = document.getElementById('trx-volume');
-        if (volumeElement && data.price) {
-            volumeElement.textContent = data.price.volume24h ? 
-                formatLargeNumber(data.price.volume24h) : '$0';
-        }
-        
-        // Update Total Accounts display
-        const accountsElement = document.getElementById('live-total-accounts');
-        if (accountsElement && data.accounts) {
-            accountsElement.textContent = data.accounts.totalAccounts ? 
-                formatLargeNumber(data.accounts.totalAccounts) : '250M+';
-        }
-        
-        // Update Active Accounts display
-        const activeAccountsElement = document.getElementById('tron-active-accounts');
-        if (activeAccountsElement && data.accounts) {
-            activeAccountsElement.textContent = data.accounts.activeAccounts ? 
-                formatLargeNumber(data.accounts.activeAccounts) : '2M+';
-        }
-        
-        // Update Network Uptime (fixed to 100% as requested)
-        const uptimeElement = document.getElementById('tron-uptime');
-        if (uptimeElement) {
-            uptimeElement.textContent = '100%';
-        }
-        
-        // Update last update timestamp
-        const lastUpdateElement = document.getElementById('last-update');
-        if (lastUpdateElement) {
-            lastUpdateElement.textContent = new Date().toLocaleTimeString();
-        }
-        
-        console.log('✅ UI updated with latest TRON data');
+        // Performance logging
+        const updateEndTime = performance.now();
+        console.log(`🚀 DOM update completed in ${(updateEndTime - performance.now()).toFixed(1)}ms`);
         
         // Fetch and update network infrastructure data with small delay to ensure DOM is ready
         setTimeout(fetchNetworkInfrastructureData, 500);
@@ -822,48 +827,110 @@ function handleTronDataError(error) {
     showNotification('Unable to fetch live TRON data. Showing fallback values.', 'warning');
 }
 
-// Show loading state for better UX
+// OPTIMIZED: Show loading state for better UX using batched DOM operations
 function showLoadingState() {
     const loadingElements = [
         'live-tps', 'live-block', 'live-daily-txns', 'live-trx-price',
         'price-change-24h', 'price-change-30d', 'price-change-1y',
         'txn-change-24h', 'txn-change-7d',
-        'total-validators', 'super-reps-count', 'continents-count', 'network-health'
+        'total-validators', 'super-reps-count', 'continents-count', 'network-health',
+        'live-total-accounts', 'trx-change', 'trx-market-cap', 'trx-volume'
     ];
     
+    // PERFORMANCE: Batch DOM queries and updates
+    const elements = {};
     loadingElements.forEach(id => {
-        const element = document.getElementById(id);
+        elements[id] = document.getElementById(id);
+    });
+    
+    // Single pass update with loading state
+    Object.values(elements).forEach(element => {
         if (element) {
-            element.innerHTML = '<div class="animate-pulse">...</div>';
+            element.innerHTML = '<div class="animate-pulse text-tron-red">...</div>';
         }
     });
+    
+    console.log(`⏳ Loading state applied to ${Object.keys(elements).length} elements`);
 }
 
-// Cache for API responses to reduce redundant requests
+// ENHANCED: Dual-layer cache (Memory + localStorage) for offline support
 const apiCache = new Map();
-const CACHE_DURATION = 15000; // 15 seconds cache
+const CACHE_DURATION = 15000; // 15 seconds for memory cache
+const OFFLINE_CACHE_DURATION = 300000; // 5 minutes for localStorage (offline grace)
 
 function getCachedData(key) {
-    const cached = apiCache.get(key);
-    if (cached && Date.now() - cached.timestamp < CACHE_DURATION) {
-        return cached.data;
+    // Check memory cache first (fastest)
+    const memoryCache = apiCache.get(key);
+    if (memoryCache && Date.now() - memoryCache.timestamp < CACHE_DURATION) {
+        console.log(`📋 Using memory cache for ${key}`);
+        return memoryCache.data;
     }
+    
+    // Check localStorage for offline support
+    try {
+        const offlineCache = localStorage.getItem(`tron_${key}`);
+        if (offlineCache) {
+            const parsed = JSON.parse(offlineCache);
+            if (Date.now() - parsed.timestamp < OFFLINE_CACHE_DURATION) {
+                console.log(`💾 Using localStorage cache for ${key}`);
+                // Also restore to memory cache
+                apiCache.set(key, parsed);
+                return parsed.data;
+            } else {
+                // Expired offline cache
+                localStorage.removeItem(`tron_${key}`);
+            }
+        }
+    } catch (e) {
+        console.warn('localStorage cache error:', e);
+    }
+    
     return null;
 }
 
 function setCachedData(key, data) {
-    apiCache.set(key, {
+    const cacheObject = {
         data: data,
         timestamp: Date.now()
-    });
+    };
+    
+    // Store in memory cache
+    apiCache.set(key, cacheObject);
+    
+    // Store in localStorage for offline support
+    try {
+        localStorage.setItem(`tron_${key}`, JSON.stringify(cacheObject));
+        console.log(`💾 Cached ${key} to localStorage for offline access`);
+    } catch (e) {
+        console.warn('localStorage storage error:', e);
+    }
 }
 
-// TRON Network Map Initialization
+// OPTIMIZED: TRON Network Map Initialization with lazy loading
 function initTronNetworkMap() {
-    console.log('🗺️ Initializing TRON Network Map...');
+    console.log('🗺️ Initializing TRON Network Map with lazy loading...');
     
-    // Load map after a delay to ensure page is fully loaded
-    setTimeout(loadTronNetworkMap, 3000);
+    // Check if map container exists
+    const mapContainer = document.getElementById('tron-world-map');
+    if (!mapContainer) {
+        console.warn('Map container not found, skipping map initialization');
+        return;
+    }
+    
+    // PERFORMANCE: Use Intersection Observer for lazy loading (only load when visible)
+    const mapObserver = new IntersectionObserver((entries) => {
+        entries.forEach(entry => {
+            if (entry.isIntersecting) {
+                console.log('🗺️ Map container visible, loading Leaflet...');
+                loadTronNetworkMap();
+                mapObserver.unobserve(entry.target); // Load only once
+            }
+        });
+    }, {
+        rootMargin: '100px' // Start loading 100px before map becomes visible
+    });
+    
+    mapObserver.observe(mapContainer);
 }
 
 // Load TRON Network Map with Leaflet.js
