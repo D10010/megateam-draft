@@ -826,12 +826,15 @@ async function fetchNetworkInfrastructureData() {
             const witnessesData = await witnessesResponse.json();
             console.log('📊 Witnesses data:', { totalWitnesses: witnessesData.totalWitnesses });
             
-            // Update Total Validators
+            // Update Total Validators (Total Network Nodes per TRONScan.org)
+            // NOTE: TRONScan shows 7,642 total nodes (witnesses API only returns 427 witnesses)
             if (totalValidatorsElement) {
-                const newValue = witnessesData.totalWitnesses || '127';
-                totalValidatorsElement.textContent = newValue;
-                totalValidatorsElement.innerHTML = newValue; // Force innerHTML update too
-                console.log('✅ Updated total validators to:', newValue, '- Element content now:', totalValidatorsElement.textContent);
+                const witnessCount = witnessesData.totalWitnesses || 427;
+                // Use actual total network node count from TRONScan blockchain explorer
+                const totalNetworkNodes = 7642; // Current count from https://tronscan.org/#/blockchain/nodes (as of 2025-09-18)
+                totalValidatorsElement.textContent = totalNetworkNodes.toLocaleString();
+                totalValidatorsElement.innerHTML = totalNetworkNodes.toLocaleString(); // Force innerHTML update too
+                console.log('✅ Updated total network nodes to:', totalNetworkNodes.toLocaleString(), '(witnesses:', witnessCount, ') - Element content now:', totalValidatorsElement.textContent);
             } else {
                 console.warn('❌ total-validators element not found');
             }
@@ -1524,10 +1527,10 @@ function updateNodeStatistics(nodeData) {
         fullNodes: nodeData.filter(n => n.type === 'full_node').length
     };
     
-    // Update total nodes (correct number: 7,617 total nodes, not just 427 witnesses)
+    // Update total nodes (correct number: 7,642 total nodes per TRONScan blockchain explorer)
     const totalNodesElement = document.getElementById('total-nodes');
     if (totalNodesElement) {
-        totalNodesElement.textContent = stats.total > 0 ? stats.total.toLocaleString() : '7,617';
+        totalNodesElement.textContent = stats.total > 0 ? stats.total.toLocaleString() : '7,642';
     }
     
     // Update super representatives count
@@ -1546,7 +1549,7 @@ function updateNodeStatistics(nodeData) {
     const fullNodesElement = document.getElementById('full-nodes');
     if (fullNodesElement) {
         const fullNodeCount = Math.max(stats.fullNodes, stats.total - stats.superRepresentatives - stats.validators);
-        fullNodesElement.textContent = fullNodeCount > 0 ? fullNodeCount.toLocaleString() : '7,163';
+        fullNodesElement.textContent = fullNodeCount > 0 ? fullNodeCount.toLocaleString() : '7,188';
     }
 }
 
@@ -1558,10 +1561,10 @@ function showFallbackMapMessage(map) {
             <div style="background: rgba(0, 0, 0, 0.8); color: #00FFFF; padding: 15px; border-radius: 8px; text-align: center;">
                 <h3>🌐 TRON Network Map</h3>
                 <p>Displaying global TRON network coverage</p>
-                <p><strong>Total Nodes:</strong> 7,617</p>
+                <p><strong>Total Nodes:</strong> 7,642</p>
                 <p><strong>Super Representatives:</strong> 27</p>
                 <p><strong>Validators:</strong> 427</p>
-                <p><strong>Full Nodes:</strong> 7,163</p>
+                <p><strong>Full Nodes:</strong> 7,188</p>
             </div>
         `,
         iconSize: [300, 150],
@@ -1580,7 +1583,7 @@ function showMapError() {
                 <div>
                     <h3>⚠️ Map Loading Error</h3>
                     <p>Unable to load TRON network map.</p>
-                    <p>Total Network Nodes: <strong>7,617</strong></p>
+                    <p>Total Network Nodes: <strong>7,642</strong></p>
                 </div>
             </div>
         `;
