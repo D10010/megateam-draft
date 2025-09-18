@@ -622,14 +622,166 @@ function parseNestedApiData(rawData) {
 }
 
 // OPTIMIZED: Update UI elements with TRON network statistics using batched DOM updates
+// Enhanced formatter utility
+function formatValue(val, type = 'number') {
+    if (val === null || val === undefined || val === '') return '--';
+    
+    if (type === 'price' && typeof val === 'number') {
+        return '$' + val.toFixed(4);
+    }
+    
+    if (type === 'volume' && typeof val === 'number') {
+        if (val >= 1e9) return '$' + (val / 1e9).toFixed(1) + 'B';
+        if (val >= 1e6) return '$' + (val / 1e6).toFixed(1) + 'M';
+        if (val >= 1e3) return '$' + (val / 1e3).toFixed(1) + 'K';
+        return '$' + val.toFixed(2);
+    }
+    
+    if (typeof val === 'number') {
+        if (val >= 1e6) return (val / 1e6).toFixed(1) + 'M';
+        if (val >= 1e3) return (val / 1e3).toFixed(1) + 'K';
+        return val.toLocaleString();
+    }
+    
+    return val.toString();
+}
+
 function updateTronStats(rawData) {
     try {
         console.log('🔄 Updating TRON statistics in UI...');
         
-        // Parse nested API data structure
+        // Enhanced flatten: Handle data.data or direct data
+        let flatData = rawData;
+        if (rawData?.data && typeof rawData.data === 'object') {
+            flatData = rawData.data;
+            console.log('🔍 Using nested data.data structure');
+        } else if (rawData?.data?.data && typeof rawData.data.data === 'object') {
+            flatData = rawData.data.data;
+            console.log('🔍 Using deep nested data.data.data structure');
+        }
+        
+        console.log('🔍 Merged flat data keys:', Object.keys(flatData || {}));
+        console.log('🔍 Sample values:', {
+            tps: flatData?.tps || flatData?.current || 'not found',
+            block: flatData?.block || flatData?.height || flatData?.latestBlock || 'not found',
+            transactions: flatData?.transactions || flatData?.today || flatData?.txCount || 'not found'
+        });
+        
+        // Parse nested API data structure with enhanced mapping
         const data = parseNestedApiData(rawData);
         
-        // PERFORMANCE OPTIMIZATION: Batch all DOM queries and updates
+        // Enhanced stat selectors with multiple key fallbacks
+        const statSelectors = {
+            // Core Performance Stats  
+            'live-tps': { 
+                keys: ['tps.current', 'tps', 'transactionCount', 'current'], 
+                type: 'number',
+                fallback: 0 
+            },
+            'live-block': { 
+                keys: ['block.height', 'block', 'latestBlock', 'height', 'blockHeight'], 
+                type: 'number',
+                fallback: 0 
+            },
+            'live-daily-txns': { 
+                keys: ['transactions.today', 'transactions', 'txCount', 'dailyTransactions', 'today'], 
+                type: 'number',
+                fallback: 0 
+            },
+            'live-trx-price': { 
+                keys: ['price.price', 'price', 'trxPrice', 'currentPrice'], 
+                type: 'price',
+                fallback: 0 
+            },
+            
+            // Change percentages
+            'txn-change-24h': { 
+                keys: ['transactions.change24h', 'change24h', 'priceChange24h'], 
+                type: 'percent',
+                fallback: null 
+            },
+            'txn-change-7d': { 
+                keys: ['transactions.change7d', 'change7d', 'weekChange'], 
+                type: 'percent',
+                fallback: null 
+            },
+            'price-change-24h': { 
+                keys: ['price.change24h', 'priceChange24h', 'change24h'], 
+                type: 'percent',
+                fallback: null 
+            },
+            'price-change-30d': { 
+                keys: ['price.change30d', 'priceChange30d', 'monthChange'], 
+                type: 'percent',
+                fallback: null 
+            },
+            'price-change-1y': { 
+                keys: ['price.change1y', 'priceChange1y', 'yearChange'], 
+                type: 'percent',
+                fallback: null 
+            },
+            
+            // Volume and other stats
+            'live-usdt-volume': { 
+                keys: ['transactions.usdtVolume', 'usdtVolume', 'volume24h'], 
+                type: 'volume',
+                fallback: 0 
+            },
+            'live-total-accounts': { 
+                keys: ['accounts.totalAccounts', 'totalAccounts', 'accountCount'], 
+                type: 'number',
+                fallback: 0 
+            }
+        };
+
+        // Helper function to get nested value by path
+        function getNestedValue(obj, path) {
+            return path.split('.').reduce((current, key) => current?.[key], obj);
+        }
+
+        // Enhanced batch DOM update with multiple key fallbacks
+        let updatedCount = 0;
+        const allData = { ...flatData, ...data };
+        
+        Object.entries(statSelectors).forEach(([elementId, config]) => {
+            const element = document.getElementById(elementId);
+            if (!element) {
+                console.warn(`⚠️ Missing element: ${elementId}`);
+                return;
+            }
+            
+            let value = config.fallback;
+            
+            // Try multiple key paths
+            for (const key of config.keys) {
+                const testValue = getNestedValue(allData, key);
+                if (testValue !== undefined && testValue !== null && testValue !== '') {
+                    value = testValue;
+                    console.log(`✅ Found ${elementId} value: ${value} (key: ${key})`);
+                    break;
+                }
+            }
+            
+            // Format and update element
+            let displayValue;
+            if (config.type === 'percent' && value !== null) {
+                displayValue = `${value >= 0 ? '+' : ''}${parseFloat(value).toFixed(1)}%`;
+                element.className = `text-sm font-medium ${value >= 0 ? 'text-green-400' : 'text-red-400'}`;
+            } else {
+                displayValue = formatValue(value, config.type);
+                element.classList.remove('loading');
+                element.classList.add('loaded');
+            }
+            
+            element.textContent = displayValue;
+            updatedCount++;
+            console.log(`✅ Updated ${elementId}: ${displayValue}`);
+        });
+
+        console.log(`🏁 Batch DOM update complete - ${updatedCount} elements updated`);
+        console.log('🔍 All available data keys:', Object.keys(allData));
+        
+        // PERFORMANCE OPTIMIZATION: Batch all DOM queries and updates - LEGACY FALLBACK
         const updateMap = {
             // TPS & Performance Stats
             'live-tps': {
@@ -1302,10 +1454,13 @@ async function initLeafletMap() {
                 zoomToBoundsOnClick: true
             });
             
-            // Add nodes to map
-            nodeData.forEach(node => {
-                if (node.lat && node.lng) {
-                    const marker = L.circleMarker([node.lat, node.lng], {
+            // Add nodes to map with enhanced logging
+            let validPins = 0, invalidPins = 0;
+            
+            nodeData.forEach((node, index) => {
+                if (node.lat && node.lng && !isNaN(node.lat) && !isNaN(node.lng)) {
+                    try {
+                        const marker = L.circleMarker([node.lat, node.lng], {
                         radius: 6,
                         fillColor: node.type === 'super_representative' ? '#FF060A' : 
                                  node.type === 'validator' ? '#FF4444' : '#00FFFF',
@@ -1327,8 +1482,33 @@ async function initLeafletMap() {
                     `);
                     
                     markers.addLayer(marker);
+                    validPins++;
+                    
+                    if (index < 5) {
+                        console.log(`📍 Pin ${index} added:`, { 
+                            name: node.name, 
+                            coords: [node.lat, node.lng], 
+                            type: node.type 
+                        });
+                    }
+                    } catch (pinError) {
+                        console.error(`❌ Failed to add pin ${index}:`, pinError, node);
+                        invalidPins++;
+                    }
+                } else {
+                    invalidPins++;
+                    if (index < 10) {
+                        console.warn(`⚠️ Invalid pin coords ${index}:`, { 
+                            name: node.name, 
+                            lat: node.lat, 
+                            lng: node.lng 
+                        });
+                    }
                 }
             });
+            
+            console.log(`📍 Pin summary: ${validPins} valid, ${invalidPins} invalid`);
+        
             
             map.addLayer(markers);
             
@@ -1375,21 +1555,46 @@ async function fetchTronNodeDataEnhanced() {
             if (data && Array.isArray(data) && data.length > 0) {
                 console.log(`✅ Got ${data.length} nodes from ${url}`);
                 
-                // Process and normalize the data
-                const processedData = data.map(node => ({
-                    name: node.name || node.address || node.url || 'Unknown Node',
-                    type: determineNodeType(node),
-                    lat: parseFloat(node.lat || node.latitude || generateRandomLat()),
-                    lng: parseFloat(node.lng || node.longitude || generateRandomLng()),
-                    country: node.country || node.location?.country || 'Unknown',
-                    city: node.city || node.location?.city || null,
-                    continent: node.continent || null,
-                    status: node.status || node.isJobs || 'active'
-                })).filter(node => 
-                    node.lat && node.lng && 
-                    !isNaN(node.lat) && !isNaN(node.lng) &&
-                    Math.abs(node.lat) <= 90 && Math.abs(node.lng) <= 180
-                );
+                // Enhanced coordinate extraction with detailed logging
+                console.log('🔍 Raw node data sample:', data.slice(0, 2));
+                
+                const processedData = data.map((node, index) => {
+                    // Try multiple coordinate key patterns
+                    const lat = node.lat || node.latitude || node.geo?.lat || node.location?.lat || node.coordinates?.lat;
+                    const lng = node.lng || node.longitude || node.geo?.lng || node.location?.lng || node.coordinates?.lng || 
+                               node.lon || node.location?.lon || node.coordinates?.lon;
+                    
+                    const processedNode = {
+                        name: node.name || node.address || node.url || `Node-${index}`,
+                        type: determineNodeType(node),
+                        lat: lat ? parseFloat(lat) : generateRandomLat(),
+                        lng: lng ? parseFloat(lng) : generateRandomLng(),
+                        country: node.country || node.location?.country || 'Unknown',
+                        city: node.city || node.location?.city || null,
+                        continent: node.continent || null,
+                        status: node.status || node.isJobs || 'active',
+                        hasRealCoords: !!(lat && lng)
+                    };
+                    
+                    if (index < 3) {
+                        console.log(`🔍 Node ${index} coord extraction:`, {
+                            original: { lat: node.lat, lng: node.lng, latitude: node.latitude, longitude: node.longitude },
+                            processed: { lat: processedNode.lat, lng: processedNode.lng, hasReal: processedNode.hasRealCoords }
+                        });
+                    }
+                    
+                    return processedNode;
+                }).filter(node => {
+                    const isValid = node.lat && node.lng && 
+                        !isNaN(node.lat) && !isNaN(node.lng) &&
+                        Math.abs(node.lat) <= 90 && Math.abs(node.lng) <= 180;
+                    
+                    if (!isValid && node.name) {
+                        console.warn(`⚠️ Invalid coords for ${node.name}:`, { lat: node.lat, lng: node.lng });
+                    }
+                    
+                    return isValid;
+                });
                 
                 if (processedData.length > 0) {
                     console.log(`✅ Processed ${processedData.length} valid nodes`);
