@@ -319,9 +319,24 @@ async function loadTRONStats() {
             }
         }
         
+        // Mock if empty
+        if (Object.keys(allData).length === 0) {
+            allData = { tps: 45, block: 75850596, transactions24h: 9124874, trxPrice: 0.341, totalAccounts: 300000000, total: 427, srCount: 27 };
+            console.log('🔄 Using mock data');
+        }
+        
         // FALLBACK 3: Use static fallback if all working endpoints fail
         if (Object.keys(allData).length < 3) {
             console.log('🔧 All working endpoints failed, using static fallback...');
+            allData = {
+                'tps.current': 45, 'tps.max': 2000,
+                'block.height': 75850596, 'transactions.today': 9124874,
+                'price.price': 0.341, 'accounts.totalAccounts': 300000000,
+                'transactions.change24h': -1.67, 'transactions.change7d': -7.05,
+                'price.change24h': 3.5, 'price.change30d': 0.4, 'price.change1y': 134.9,
+                'usdtVolume': 35000000000, 'totalValidators': 427, 'superReps': 27,
+                'continents': 7, 'networkHealth': 'Healthy'
+            };
         }
         
     } catch (error) {
@@ -329,8 +344,12 @@ async function loadTRONStats() {
         // Use fallback static data
         allData = {
             'tps.current': 45, 'tps.max': 2000,
-            'block.height': 75830000, 'transactions.today': 9124874,
-            'price.price': 0.341, 'accounts.totalAccounts': 332000000
+            'block.height': 75850596, 'transactions.today': 9124874,
+            'price.price': 0.341, 'accounts.totalAccounts': 300000000,
+            'transactions.change24h': -1.67, 'transactions.change7d': -7.05,
+            'price.change24h': 3.5, 'price.change30d': 0.4, 'price.change1y': 134.9,
+            'usdtVolume': 35000000000, 'totalValidators': 427, 'superReps': 27,
+            'continents': 7, 'networkHealth': 'Healthy'
         };
     }
 
@@ -1396,50 +1415,30 @@ function initTronNetworkMap() {
 
 // Load Leaflet library and marker cluster plugin dynamically
 function loadLeafletThenMap() {
-    // Add CSS first
-    if (!document.querySelector('link[href*="leaflet.css"]')) {
+    console.log('🚀 loadMap called');
+    // Local Leaflet
+    const script = document.createElement('script');
+    script.src = '/static/leaflet.js';  // Download & place in public/static
+    script.onload = () => {
+        console.log('📄 Leaflet loaded');
         const link = document.createElement('link');
         link.rel = 'stylesheet';
-        link.href = 'https://unpkg.com/leaflet@1.9.4/dist/leaflet.css';
-        link.integrity = 'sha256-p4NxAoJBhIIN+hmNHrzRCf9tD/miZyoHS5obTRR9BMY=';
-        link.crossOrigin = '';
+        link.href = '/static/leaflet.css';  // Downloaded
         document.head.appendChild(link);
-        console.log('🎨 Leaflet CSS loaded');
-    }
-    
-    // Add MarkerCluster CSS
-    if (!document.querySelector('link[href*="MarkerCluster"]')) {
-        const clusterCSS = document.createElement('link');
-        clusterCSS.rel = 'stylesheet';
-        clusterCSS.href = 'https://unpkg.com/leaflet.markercluster@1.4.1/dist/MarkerCluster.css';
-        document.head.appendChild(clusterCSS);
-        
-        const clusterDefaultCSS = document.createElement('link');
-        clusterDefaultCSS.rel = 'stylesheet';
-        clusterDefaultCSS.href = 'https://unpkg.com/leaflet.markercluster@1.4.1/dist/MarkerCluster.Default.css';
-        document.head.appendChild(clusterDefaultCSS);
-        console.log('🎨 Leaflet MarkerCluster CSS loaded');
-    }
-    
-    // Load Leaflet JavaScript first
-    if (!document.querySelector('script[src*="leaflet.js"]')) {
-        const script = document.createElement('script');
-        script.src = 'https://unpkg.com/leaflet@1.9.4/dist/leaflet.js';
-        script.integrity = 'sha256-20nQCchB9co0qIjJZRGuk2/Z9VM+kNiyxNV1lvTlZBo=';
-        script.crossOrigin = '';
-        script.onload = () => {
-            console.log('📦 Leaflet JavaScript loaded successfully');
-            loadMarkerClusterPlugin();
+        initLeafletMap().then(() => console.log('🗺️ Map ready'));
+    };
+    script.onerror = () => {
+        console.error('❌ Failed to load local Leaflet JavaScript');
+        // Fallback to CDN
+        const fallbackScript = document.createElement('script');
+        fallbackScript.src = 'https://unpkg.com/leaflet@1.9.4/dist/leaflet.js';
+        fallbackScript.onload = () => {
+            console.log('📦 Fallback Leaflet loaded');
+            initLeafletMap().then(() => console.log('🗺️ Map ready (fallback)'));
         };
-        script.onerror = () => {
-            console.error('❌ Failed to load Leaflet JavaScript');
-            showMapError('Failed to load mapping library');
-        };
-        document.head.appendChild(script);
-        console.log('📦 Loading Leaflet JavaScript...');
-    } else {
-        loadMarkerClusterPlugin();
-    }
+        document.head.appendChild(fallbackScript);
+    };
+    document.head.appendChild(script);
 }
 
 // Load MarkerCluster plugin after Leaflet is loaded
