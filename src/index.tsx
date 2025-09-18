@@ -940,7 +940,7 @@ app.get('/api/tron/dashboard', async (c) => {
     
     // Process transaction data with percentage calculations
     let todayTransactions = 8500000 // Default fallback
-    let transactionChanges = { change24h: 0, change7d: 0, change30d: 0 } // Default changes
+    let transactionChanges = { change24h: 0, change7d: 0 } // Default changes (30d removed)
     
     if (transactionsData.data && transactionsData.data.length > 0) {
       const days = transactionsData.data
@@ -964,12 +964,7 @@ app.get('/api/tron/dashboard', async (c) => {
         console.log(`📈 7d change: ${todayTransactions} vs ${weekAgoTxns} = ${transactionChanges.change7d.toFixed(2)}%`)
       }
       
-      if (days.length >= 30) {
-        const monthAgo = days[29]
-        const monthAgoTxns = monthAgo.newTransactionSeen || monthAgo.num || todayTransactions
-        transactionChanges.change30d = monthAgoTxns > 0 ? ((todayTransactions - monthAgoTxns) / monthAgoTxns * 100) : 0
-        console.log(`📈 30d change: ${todayTransactions} vs ${monthAgoTxns} = ${transactionChanges.change30d.toFixed(2)}%`)
-      }
+      // 30d change removed - insufficient reliable historical data
     }
     
     const transactions = {
@@ -978,10 +973,9 @@ app.get('/api/tron/dashboard', async (c) => {
       totalTransactions: 8500000000, // 8.5B+ total transactions
       usdtTransactions: transactionsData.data?.[0]?.usdt_transaction || 0,
       usdtVolume: 0,
-      // Add percentage changes
+      // Add percentage changes (30d removed - insufficient reliable data)
       change24h: transactionChanges.change24h,
-      change7d: transactionChanges.change7d,
-      change30d: transactionChanges.change30d
+      change7d: transactionChanges.change7d
     }
     
     // Process price data with extended information
@@ -1488,7 +1482,7 @@ app.get('/', (c) => {
               <div id="live-daily-txns" class="text-2xl sm:text-3xl font-black text-white mb-2 min-h-[2rem]">--</div>
               
               {/* Transaction changes */}
-              <div class="grid grid-cols-3 gap-2 mt-3 text-center">
+              <div class="grid grid-cols-2 gap-3 mt-3 text-center">
                 <div>
                   <div class="text-xs text-gray-500 mb-1">24h</div>
                   <div id="txn-change-24h" class="text-sm font-medium">--</div>
@@ -1496,10 +1490,6 @@ app.get('/', (c) => {
                 <div>
                   <div class="text-xs text-gray-500 mb-1">7d</div>
                   <div id="txn-change-7d" class="text-sm font-medium">--</div>
-                </div>
-                <div>
-                  <div class="text-xs text-gray-500 mb-1">30d</div>
-                  <div id="txn-change-30d" class="text-sm font-medium">--</div>
                 </div>
               </div>
               

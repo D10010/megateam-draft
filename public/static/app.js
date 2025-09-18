@@ -559,13 +559,7 @@ function updateTronStats(data) {
             txnChange7dElement.className = `text-sm font-medium ${change7d >= 0 ? 'text-green-400' : 'text-red-400'}`;
         }
         
-        // Update 30d transaction change
-        const txnChange30dElement = document.getElementById('txn-change-30d');
-        if (txnChange30dElement && data.transactions) {
-            const change30d = data.transactions.change30d || 0;
-            txnChange30dElement.textContent = `${change30d >= 0 ? '+' : ''}${change30d.toFixed(1)}%`;
-            txnChange30dElement.className = `text-sm font-medium ${change30d >= 0 ? 'text-green-400' : 'text-red-400'}`;
-        }
+        // 30d transaction change removed - insufficient reliable historical data
         
         // Update Total Transactions display
         const totalTxElement = document.getElementById('tron-total-tx');
@@ -833,7 +827,7 @@ function showLoadingState() {
     const loadingElements = [
         'live-tps', 'live-block', 'live-daily-txns', 'live-trx-price',
         'price-change-24h', 'price-change-30d', 'price-change-1y',
-        'txn-change-24h', 'txn-change-7d', 'txn-change-30d',
+        'txn-change-24h', 'txn-change-7d',
         'total-validators', 'super-reps-count', 'continents-count', 'network-health'
     ];
     
