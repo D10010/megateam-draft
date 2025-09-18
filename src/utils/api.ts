@@ -1,125 +1,88 @@
-/**
- * Shared API utilities for TRON MEGATEAM
- * Eliminates duplicate fetch patterns and error handling
- */
+// utils/api.ts - Shared Fetch & Error Handling
+import type { Context } from 'hono';
 
-import type { Context } from 'hono'
-
-// Standard headers for TRONScan API calls
-const TRONSCAN_HEADERS = {
-  'Accept': 'application/json',
-  'User-Agent': 'MEGATEAM-Website/1.0'
-} as const
-
-// Standard headers for external APIs (CoinGecko, etc.)
-const EXTERNAL_HEADERS = {
-  'Accept': 'application/json',
-  'User-Agent': 'MEGATEAM-Website/1.0'
-} as const
-
-/**
- * Unified fetch wrapper for TRONScan API calls
- */
-export async function tronFetch(endpoint: string, options: RequestInit = {}) {
-  const url = endpoint.startsWith('http') 
-    ? endpoint 
-    : `https://apilist.tronscanapi.com/api/${endpoint}`
-  
-  console.log(`🔄 Fetching ${endpoint}...`)
-  
-  const response = await fetch(url, {
-    method: 'GET',
-    ...options,
-    headers: { 
-      ...TRONSCAN_HEADERS, 
-      ...options.headers 
-    }
-  })
-  
-  if (!response.ok) {
-    throw new Error(`${endpoint} API error: ${response.status}`)
-  }
-  
-  const data = await response.json()
-  console.log(`✅ ${endpoint} data received`)
-  
-  return data
-}
-
-/**
- * Unified fetch wrapper for external APIs (CoinGecko, etc.)
- */
-export async function externalFetch(url: string, options: RequestInit = {}) {
-  const endpoint = url.split('/').pop() || 'external'
-  console.log(`🔄 Fetching ${endpoint}...`)
-  
-  const response = await fetch(url, {
-    method: 'GET',
-    ...options,
-    headers: { 
-      ...EXTERNAL_HEADERS, 
-      ...options.headers 
-    }
-  })
-  
-  if (!response.ok) {
-    throw new Error(`${endpoint} API error: ${response.status}`)
-  }
-  
-  const data = await response.json()
-  console.log(`✅ ${endpoint} data received`)
-  
-  return data
-}
-
-/**
- * Unified error handler for API endpoints
- */
-export function handleApiError(endpointName: string, error: any, fallbackData: any, c: Context, statusCode = 500) {
-  console.error(`❌ ${endpointName} API error:`, error.message || error)
-  
-  return c.json({ 
-    error: `Failed to fetch ${endpointName} data`,
-    fallback: true,
-    ...fallbackData 
-  }, statusCode)
-}
-
-/**
- * Batch fetch with rate limiting for TRONScan API (3 RPS limit)
- */
-export async function tronBatchFetch(endpoints: string[], delayMs = 350) {
-  const results: { [key: string]: any } = {}
-  
-  for (let i = 0; i < endpoints.length; i++) {
-    const endpoint = endpoints[i]
-    const key = endpoint.split('/').pop() || `endpoint_${i}`
-    
-    try {
-      results[key] = await tronFetch(endpoint)
-      
-      // Add delay between requests (except for the last one)
-      if (i < endpoints.length - 1) {
-        await new Promise(resolve => setTimeout(resolve, delayMs))
-      }
-    } catch (error) {
-      console.warn(`⚠️ ${endpoint} failed:`, error)
-      results[key] = null
-    }
-  }
-  
-  return results
-}
-
-/**
- * Parallel fetch with Promise.all (for APIs without rate limits)
- */
-export async function parallelFetch(fetchers: Promise<any>[]) {
+export async function tronApiFetch(endpoint: string, options: RequestInit = {}, c?: Context) {
   try {
-    const results = await Promise.all(fetchers)
-    return results
+    const res = await fetch(`https://apilist.tronscanapi.com/api/${endpoint}`, {
+      ...options,
+      headers: { 
+        'Accept': 'application/json',
+        'User-Agent': 'MEGATEAM-Website/1.0',
+        'Cache-Control': 'no-cache',
+        ...options.headers
+      }
+    });
+    
+    if (!res.ok) {
+      throw new Error(`${endpoint} API error: ${res.status}`);
+    }
+    
+    const data = await res.json();
+    console.log(`✅ ${endpoint} data:`, Object.keys(data).length > 0 ? Object.keys(data) : 'empty');
+    return data;
   } catch (error) {
-    console.error('❌ Parallel fetch error:', error)
-    throw error
+    const errorMsg = error instanceof Error ? error.message : String(error);
+    console.error(`❌ ${endpoint} API error:`, errorMsg);
+    return null;
   }
+}
+
+export async function coinGeckoFetch(params: string = 'ids=tron&vs_currencies=usd&include_24hr_change=true&include_market_cap=true') {
+  try {
+    const res = await fetch(`https://api.coingecko.com/api/v3/simple/price?${params}`, {
+      headers: {
+        'Accept': 'application/json',
+        'User-Agent': 'MEGATEAM-Website/1.0'
+      }
+    });
+    
+    if (!res.ok) {
+      throw new Error(`CoinGecko API error: ${res.status}`);
+    }
+    
+    const data = await res.json();
+    console.log('✅ CoinGecko data:', Object.keys(data));
+    return data;
+  } catch (error) {
+    console.error('❌ CoinGecko API error:', error);
+    return null;
+  }
+}
+
+export function handleApiError(endpoint: string, fallback: any, c: Context) {
+  console.warn(`🔧 Using fallback data for ${endpoint}`);
+  return c.json({ 
+    error: `Failed to fetch ${endpoint}`, 
+    fallback: true,
+    timestamp: new Date().toISOString(),
+    ...fallback 
+  }, 500);
+}
+
+export function createSuccessResponse(data: any, c: Context) {
+  return c.json({
+    success: true,
+    timestamp: new Date().toISOString(),
+    ...data
+  });
+}
+
+// Rate limiting helper
+export async function withRateLimit(fn: () => Promise<any>, delay: number = 300): Promise<any> {
+  const result = await fn();
+  if (delay > 0) {
+    await new Promise(resolve => setTimeout(resolve, delay));
+  }
+  return result;
+}
+
+// Parallel fetch helper
+export async function fetchParallel(endpoints: { [key: string]: string }, context?: Context) {
+  const promises = Object.entries(endpoints).map(async ([key, endpoint]) => {
+    const data = await tronApiFetch(endpoint, {}, context);
+    return [key, data];
+  });
+  
+  const results = await Promise.all(promises);
+  return Object.fromEntries(results);
 }

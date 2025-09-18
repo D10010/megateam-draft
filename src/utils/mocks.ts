@@ -1,111 +1,77 @@
-/**
- * Centralized mock data for TRON MEGATEAM
- * Single source of truth for fallback values
- */
-
-// Current TRON network stats (updated regularly based on real data)
-export const TRON_MOCKS = {
-  // TPS (Transactions Per Second)
-  tps: {
-    current: 45,
+// utils/mocks.ts - Central Fallbacks
+export const TRON_FALLBACKS = {
+  tps: { 
+    current: 45, 
     max: 2000,
     timestamp: Date.now()
   },
-
-  // Block information
-  block: {
-    height: 75850596,
+  block: { 
+    height: 75850596, 
     transactions: 156,
     hash: '',
-    timestamp: Date.now(),
-    size: 0
+    size: 0,
+    timestamp: Date.now()
   },
-
-  // Daily transactions
-  transactions: {
-    today: 9124874,
-    change24h: -1.67,
-    change7d: -7.05,
-    totalTransactions: 8500000000,
-    usdtTransactions: 0,
-    usdtVolume: 0,
-    date: new Date().toISOString().split('T')[0]
+  transactions: { 
+    today: 9124874, 
+    change24h: -1.67, 
+    change7d: -7.05
   },
-
-  // TRX price data
-  price: {
-    price: 0.341,
-    change24h: 3.5,
-    change30d: 0.4,
+  price: { 
+    price: 0.341, 
+    change24h: 3.5, 
+    change30d: 0.4, 
     change1y: 134.9,
-    marketCap: 32300000000,
     volume24h: 815000000,
+    marketCap: 32300000000,
     rank: 11,
-    ath: 0.431,
-    atl: 0.0018
+    ath: 0.3004,
+    atl: 0.0019,
+    lastUpdated: new Date().toISOString()
   },
-
-  // Account statistics
-  accounts: {
-    totalAccounts: 300000000,
+  accounts: { 
+    totalAccounts: 332000000, 
+    activeDaily: 229000,
     activeAccounts: 6000000,
-    newAccounts24h: 250000
+    rangeTotal: 332000000,
+    total: 10000
   },
-
-  // Network validators
-  validators: {
-    totalValidators: 427,
-    superReps: 27,
+  validators: { 
+    total: 427, 
+    superReps: 27, 
     continents: 7,
-    networkHealth: 'Healthy'
+    totalWitnesses: 127,
+    candidates: 100
   },
-
-  // USDT ecosystem
-  usdt: {
-    volume: 35000000000,
-    circulation: 80000000000,
-    transfers: 2500000
+  usdt: { 
+    volume: 35000000000 
   },
-
-  // Network infrastructure
   network: {
     health: 'Healthy',
-    uptime: 99.9,
-    decentralization: 'Excellent'
+    uptime: 99.9
   }
-} as const
+};
 
-// Enhanced fallback for dashboard API
 export const DASHBOARD_FALLBACK = {
-  tps: TRON_MOCKS.tps,
-  block: TRON_MOCKS.block,
-  transactions: TRON_MOCKS.transactions,
-  price: TRON_MOCKS.price,
-  accounts: TRON_MOCKS.accounts,
-  usdtVolume: TRON_MOCKS.usdt.volume,
-  totalValidators: TRON_MOCKS.validators.totalValidators,
-  superReps: TRON_MOCKS.validators.superReps,
-  continents: TRON_MOCKS.validators.continents,
-  networkHealth: TRON_MOCKS.validators.networkHealth,
+  tps: TRON_FALLBACKS.tps,
+  block: TRON_FALLBACKS.block,
+  transactions: TRON_FALLBACKS.transactions,
+  price: TRON_FALLBACKS.price,
+  accounts: TRON_FALLBACKS.accounts,
   timestamp: Date.now(),
   fallback: true
-}
+};
 
-// Enhanced fallback for stats API
 export const STATS_FALLBACK = {
-  tps: TRON_MOCKS.tps,
-  block: TRON_MOCKS.block,
-  transactions: TRON_MOCKS.transactions,
-  price: TRON_MOCKS.price,
-  accounts: TRON_MOCKS.accounts,
-  usdtVolume: TRON_MOCKS.usdt.volume,
-  totalValidators: TRON_MOCKS.validators.totalValidators,
-  superReps: TRON_MOCKS.validators.superReps,
-  continents: TRON_MOCKS.validators.continents,
-  networkHealth: TRON_MOCKS.validators.networkHealth
-}
+  system: { status: 'healthy' },
+  tps: TRON_FALLBACKS.tps,
+  nodes: { total: 427, active: 400 },
+  network: TRON_FALLBACKS.network,
+  timestamp: Date.now(),
+  type: 'general',
+  source: 'fallback'
+};
 
-// Fallback supernode data with geographic distribution
 export const SUPERNODE_FALLBACK = [
   { name: 'TRON Foundation', address: 'TLyqzVGLV1srkB7dToTAEqgDSfPtXRJZYH', url: 'https://tron.network', votes: 40000000000, rank: 1, country: 'Singapore', latitude: 1.3521, longitude: 103.8198, isActive: true },
   { name: 'Binance Staking', address: 'TFvvacKsjWKgDcai2dtAAns1DkFhk4C3GY', url: 'https://binance.com', votes: 39000000000, rank: 2, country: 'Malta', latitude: 35.9375, longitude: 14.3754, isActive: true },
@@ -127,11 +93,14 @@ export const SUPERNODE_FALLBACK = [
   { name: 'TRON India', address: 'TIndiaY7K4F8w3Z2v9P6Q1m5R2jK8T3X', url: 'https://tronindia.org', votes: 23000000000, rank: 18, country: 'India', latitude: 28.6139, longitude: 77.2090, isActive: true },
   { name: 'CoinEx', address: 'TCoinExZ9K2F5w7Y4v3P8Q6m4R9jK1T5X', url: 'https://coinex.com', votes: 22000000000, rank: 19, country: 'Hong Kong', latitude: 22.3193, longitude: 114.1694, isActive: true },
   { name: 'TRON Australia', address: 'TAustraliaK8F1w6Z3Y2v7P9Q3m6R8jK2T', url: 'https://tronaustralia.org', votes: 21000000000, rank: 20, country: 'Australia', latitude: -33.8688, longitude: 151.2093, isActive: true },
-  { name: 'Multiplier', address: 'TMultiplierF4w9Z6Y1v2P5Q8m1R7jK9T', url: 'https://multiplier.network', votes: 20000000000, rank: 21, country: 'Singapore', latitude: 1.3521, longitude: 103.8198, isActive: true },
-  { name: 'TRON Korea', address: 'TKoreaX6K7F3w8Z5Y4v1P2Q9m3R6jK4T', url: 'https://tronkorea.org', votes: 19000000000, rank: 22, country: 'South Korea', latitude: 37.5665, longitude: 126.9780, isActive: true },
-  { name: 'TRON Vietnam', address: 'TVietnamF9K1w4Z8Y7v5P3Q6m8R1jK7T', url: 'https://tronvietnam.org', votes: 18000000000, rank: 23, country: 'Vietnam', latitude: 21.0285, longitude: 105.8542, isActive: true },
-  { name: 'TRON Mexico', address: 'TMexicoK2F7w1Z9Y6v4P8Q2m5R4jK8T6', url: 'https://tronmexico.org', votes: 17000000000, rank: 24, country: 'Mexico', latitude: 19.4326, longitude: -99.1332, isActive: true },
-  { name: 'TRON Turkey', address: 'TTurkeyF5K9w2Z7Y3v6P4Q7m2R9jK3T1', url: 'https://tronturkey.org', votes: 16000000000, rank: 25, country: 'Turkey', latitude: 41.0082, longitude: 28.9784, isActive: true },
-  { name: 'TRON Africa', address: 'TAfricaK8F6w5Z1Y9v2P7Q4m6R2jK9T4', url: 'https://tronafrica.org', votes: 15000000000, rank: 26, country: 'Nigeria', latitude: 6.5244, longitude: 3.3792, isActive: true },
+  { name: 'TRON Korea', address: 'TKoreaY2K9F5w3Z6v8P2Q7m3R6jK9T1X', url: 'https://tronkorea.org', votes: 20000000000, rank: 21, country: 'South Korea', latitude: 37.5665, longitude: 126.9780, isActive: true },
+  { name: 'TRON France', address: 'TFranceX5K7F1w9Z3v6P8Q1m7R9jK2T4', url: 'https://tronfrance.org', votes: 19000000000, rank: 22, country: 'France', latitude: 48.8566, longitude: 2.3522, isActive: true },
+  { name: 'TRON Italy', address: 'TItalyZ8K3F4w7Y2v5P9Q4m2R5jK8T6X', url: 'https://tronitaly.org', votes: 18000000000, rank: 23, country: 'Italy', latitude: 41.9028, longitude: 12.4964, isActive: true },
+  { name: 'TRON Spain', address: 'TSpainY1K6F9w2Z5v8P3Q6m8R1jK4T7X', url: 'https://tronspain.org', votes: 17000000000, rank: 24, country: 'Spain', latitude: 40.4168, longitude: -3.7038, isActive: true },
+  { name: 'TRON Netherlands', address: 'TNetherlandsK4F7w5Z8v1P6Q9m1R4jK7T', url: 'https://tronnetherlands.org', votes: 16000000000, rank: 25, country: 'Netherlands', latitude: 52.3676, longitude: 4.9041, isActive: true },
+  { name: 'TRON UK', address: 'TUKX7K2F8w4Z7v3P2Q8m5R7jK1T9X', url: 'https://tronuk.org', votes: 15000000000, rank: 26, country: 'United Kingdom', latitude: 51.5074, longitude: -0.1278, isActive: true },
   { name: 'Community Node', address: 'TCommunityF3K4w8Z2Y5v9P1Q3m9R5jK6', url: 'https://community.org', votes: 14000000000, rank: 27, country: 'United States', latitude: 40.7128, longitude: -74.0060, isActive: true }
-]
+];
+
+// Legacy compatibility
+export const TRON_MOCKS = TRON_FALLBACKS;

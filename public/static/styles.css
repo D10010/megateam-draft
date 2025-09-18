@@ -2,12 +2,14 @@
 
 /* Map Container States */
 #tron-world-map {
-    height: 400px;
+    height: 100%;
     width: 100%;
-    border-radius: 8px;
+    border-radius: 12px;
     overflow: hidden;
-    border: 2px solid rgba(0, 255, 255, 0.3);
+    border: none;
     transition: all 0.3s ease;
+    position: relative;
+    z-index: 10;
 }
 
 #tron-world-map.map-initializing {
@@ -46,8 +48,51 @@
 }
 
 #tron-world-map.map-loaded {
-    border-color: rgba(255, 6, 10, 0.5);
-    box-shadow: 0 0 20px rgba(255, 6, 10, 0.2);
+    border: none;
+    box-shadow: none;
+}
+
+/* Red Glowing Dot Markers */
+.custom-red-glow-marker {
+    background: none !important;
+    border: none !important;
+}
+
+.custom-red-glow-validator {
+    background: none !important;
+    border: none !important;
+}
+
+/* Pulse glow animation for markers */
+@keyframes pulse-glow {
+    0%, 100% { 
+        opacity: 1; 
+        transform: translate(-50%, -50%) scale(1); 
+    }
+    50% { 
+        opacity: 0.7; 
+        transform: translate(-50%, -50%) scale(1.2); 
+    }
+}
+
+/* Enhanced dot styling */
+.glow-container .inner-dot {
+    animation: subtle-pulse 3s infinite ease-in-out;
+}
+
+@keyframes subtle-pulse {
+    0%, 100% { 
+        box-shadow: 
+            0 0 4px rgba(255, 107, 53, 0.8),
+            0 0 8px rgba(255, 107, 53, 0.4),
+            inset 0 0 3px rgba(255, 255, 255, 0.3);
+    }
+    50% { 
+        box-shadow: 
+            0 0 8px rgba(255, 107, 53, 1),
+            0 0 16px rgba(255, 107, 53, 0.6),
+            inset 0 0 6px rgba(255, 255, 255, 0.5);
+    }
 }
 
 /* TRON Cluster Markers */
@@ -215,13 +260,21 @@
 }
 
 .leaflet-popup-content-wrapper {
-    background: transparent;
-    border-radius: 8px;
-    box-shadow: 0 5px 20px rgba(0, 0, 0, 0.8);
+    background: linear-gradient(135deg, rgba(0, 0, 0, 0.95), rgba(26, 26, 26, 0.95));
+    backdrop-filter: blur(10px);
+    border: 1px solid rgba(255, 107, 53, 0.3);
+    border-radius: 12px;
+    box-shadow: 
+        0 5px 20px rgba(0, 0, 0, 0.8),
+        0 0 30px rgba(255, 107, 53, 0.1);
+    color: white;
 }
 
 .leaflet-popup-tip {
-    background: rgba(0, 0, 0, 0.8);
+    background: rgba(0, 0, 0, 0.95);
+    border: 1px solid rgba(255, 107, 53, 0.3);
+    border-bottom: none;
+    border-right: none;
 }
 
 .leaflet-control-zoom {
@@ -231,15 +284,17 @@
 
 .leaflet-control-zoom a {
     background-color: rgba(0, 0, 0, 0.8);
-    color: #00FFFF;
-    border: 1px solid rgba(255, 6, 10, 0.3);
+    color: #ff6b35;
+    border: 1px solid rgba(255, 107, 53, 0.3);
     transition: all 0.2s ease;
+    backdrop-filter: blur(5px);
 }
 
 .leaflet-control-zoom a:hover {
-    background-color: rgba(255, 6, 10, 0.1);
-    color: #FF060A;
-    border-color: #FF060A;
+    background-color: rgba(255, 107, 53, 0.1);
+    color: #ff6b35;
+    border-color: #ff6b35;
+    box-shadow: 0 0 10px rgba(255, 107, 53, 0.3);
 }
 
 .leaflet-control-attribution {
