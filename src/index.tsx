@@ -449,11 +449,10 @@ app.get('/api/stats', async (c) => {
 // Keep other optimized endpoints (signup, nodes, network-overview) but use shared utilities
 // ... [Include remaining optimized endpoints using the new utilities]
 
-// Main landing page (unchanged)
+// Complete landing page with full proposal content
 app.get('/', (c) => {
   return c.render(
     <>
-      {/* [Include the full JSX template from original file] */}
       {/* Navigation */}
       <nav class="fixed top-0 left-0 right-0 z-50 bg-gradient-to-r from-tron-black/95 via-tron-dark/95 to-tron-black/95 backdrop-blur-md border-b border-tron-red/30 shadow-lg shadow-tron-red/10">
         <div class="container mx-auto px-6 py-4">
@@ -467,7 +466,30 @@ app.get('/', (c) => {
                 TRON <span class="text-transparent bg-clip-text bg-tron-gradient">MEGATEAM</span>
               </span>
             </div>
-            {/* ... rest of navigation ... */}
+            {/* Desktop Navigation */}
+            <div class="hidden md:flex items-center space-x-8">
+              <a href="#mission" class="text-tron-silver hover:text-tron-red transition-colors font-medium">Mission</a>
+              <a href="#objectives" class="text-tron-silver hover:text-tron-red transition-colors font-medium">Objectives</a>
+              <a href="#governance" class="text-tron-silver hover:text-tron-red transition-colors font-medium">Governance</a>
+              <a href="#roadmap" class="text-tron-silver hover:text-tron-red transition-colors font-medium">Roadmap</a>
+              <a href="/signup" class="bg-tron-red hover:bg-tron-dark-red px-6 py-2 rounded-lg font-bold transition-colors">Sign Up</a>
+            </div>
+            {/* Mobile Menu Button */}
+            <div class="md:hidden">
+              <button id="mobile-menu-btn" class="text-tron-white hover:text-tron-red transition-colors">
+                <i class="fas fa-bars text-2xl"></i>
+              </button>
+            </div>
+          </div>
+          {/* Mobile Menu */}
+          <div id="mobile-menu" class="md:hidden hidden mt-4 pb-4 border-t border-tron-red/30">
+            <div class="flex flex-col space-y-4 pt-4">
+              <a href="#mission" class="text-tron-silver hover:text-tron-red transition-colors font-medium">Mission</a>
+              <a href="#objectives" class="text-tron-silver hover:text-tron-red transition-colors font-medium">Objectives</a>
+              <a href="#governance" class="text-tron-silver hover:text-tron-red transition-colors font-medium">Governance</a>
+              <a href="#roadmap" class="text-tron-silver hover:text-tron-red transition-colors font-medium">Roadmap</a>
+              <a href="/signup" class="bg-tron-red hover:bg-tron-dark-red px-6 py-2 rounded-lg font-bold transition-colors text-center">Sign Up</a>
+            </div>
           </div>
         </div>
       </nav>
@@ -608,6 +630,293 @@ app.get('/', (c) => {
               <div class="text-center">
                 <div class="stat-exchanges text-2xl font-bold text-tron-light loading">--</div>
                 <div class="text-sm text-gray-400">Exchange Nodes</div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      {/* Mission Statement Section */}
+      <section id="mission" class="py-20 bg-gradient-to-b from-tron-black to-tron-dark">
+        <div class="container mx-auto px-6">
+          <div class="text-center mb-12" data-aos="fade-up">
+            <h2 class="text-4xl md:text-5xl font-bold mb-6 text-tron-red">
+              TRON MEGATEAM Mission Statement
+            </h2>
+            <div class="max-w-4xl mx-auto bg-tron-dark/50 p-8 rounded-xl border border-tron-red/20">
+              <p class="text-xl md:text-2xl text-gray-300 italic leading-relaxed">
+                "TRON MEGATEAM exists to ignite the largest, most inclusive builder-movement in crypto history—uniting global communities to create, educate, and prosper on the TRON blockchain's superior, profitable, and sustainable foundation."
+              </p>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      {/* Core Narrative Section */}
+      <section class="py-20 bg-tron-dark/50">
+        <div class="container mx-auto px-6">
+          <div class="text-center mb-12" data-aos="fade-up">
+            <h2 class="text-4xl md:text-5xl font-bold mb-6 text-tron-red">
+              Core Narrative
+            </h2>
+          </div>
+          <div class="max-w-5xl mx-auto">
+            <p class="text-lg md:text-xl text-gray-300 mb-8 leading-relaxed">
+              Since Bitcoin's genesis, enthusiasts have dreamed of a network that is accessible, low-cost, lightning-fast, and profitable for builders at every level. TRON quietly became that network—powering more USDT transfers than any chain on earth, leading in stablecoin velocity, and delivering an unparalleled energy-rental model that lets developers run at near-zero gas cost.
+            </p>
+            <div class="grid grid-cols-1 md:grid-cols-2 gap-8 mt-12">
+              <div class="bg-tron-black/50 p-6 rounded-xl border border-tron-red/20">
+                <h3 class="text-xl font-bold text-tron-light mb-4">
+                  <i class="fas fa-globe-americas text-tron-red mr-3"></i>
+                  Global Activation, Local Soul
+                </h3>
+                <p class="text-gray-300">From Lagos to Lima, Berlin to Bangalore, Boston to San Francisco, MEGATEAM launches hubs and city squads that turn TRON enthusiasm into funded projects.</p>
+              </div>
+              <div class="bg-tron-black/50 p-6 rounded-xl border border-tron-red/20">
+                <h3 class="text-xl font-bold text-tron-light mb-4">
+                  <i class="fas fa-coins text-tron-red mr-3"></i>
+                  Builder-First Economics
+                </h3>
+                <p class="text-gray-300">With the industry's deepest bounty & grant engine, we fund everything from dApp prototypes to educational content.</p>
+              </div>
+              <div class="bg-tron-black/50 p-6 rounded-xl border border-tron-red/20">
+                <h3 class="text-xl font-bold text-tron-light mb-4">
+                  <i class="fas fa-shield-alt text-tron-red mr-3"></i>
+                  Radical Accountability
+                </h3>
+                <p class="text-gray-300">A Guardian corps of vetted experts verifies every milestone, ensuring quality and preventing waste.</p>
+              </div>
+              <div class="bg-tron-black/50 p-6 rounded-xl border border-tron-red/20">
+                <h3 class="text-xl font-bold text-tron-light mb-4">
+                  <i class="fas fa-graduation-cap text-tron-red mr-3"></i>
+                  Education as Fuel
+                </h3>
+                <p class="text-gray-300">MEGATEAM's multilingual media studio drops bite-sized tutorials, making TRON development accessible worldwide.</p>
+              </div>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      {/* Intentions & North-Star Objectives */}
+      <section id="objectives" class="py-20 bg-gradient-to-b from-tron-dark/30 to-tron-black/50">
+        <div class="container mx-auto px-6">
+          <div class="text-center mb-12" data-aos="fade-up">
+            <h2 class="text-4xl md:text-5xl font-bold mb-6 text-tron-red">
+              Intentions & North-Star Objectives
+            </h2>
+            <p class="text-xl text-gray-300 max-w-3xl mx-auto">
+              Our Year-1 roadmap with quantifiable targets across six strategic pillars
+            </p>
+          </div>
+          <div class="overflow-x-auto">
+            <table class="min-w-full bg-tron-dark/50 border border-tron-red/20 rounded-lg overflow-hidden">
+              <thead class="bg-tron-red/20">
+                <tr>
+                  <th class="px-6 py-4 text-left text-tron-red font-bold text-lg">Pillar</th>
+                  <th class="px-6 py-4 text-left text-tron-red font-bold text-lg">Year-1 Intent</th>
+                  <th class="px-6 py-4 text-left text-tron-red font-bold text-lg">Quantifiable Targets</th>
+                </tr>
+              </thead>
+              <tbody class="text-gray-300">
+                <tr class="border-t border-tron-red/10">
+                  <td class="px-6 py-4 font-bold text-tron-light">Scale</td>
+                  <td class="px-6 py-4">Stage the largest community activation in crypto history.</td>
+                  <td class="px-6 py-4 text-tron-light font-medium">40 regional hubs • 150 city squads • 3,000+ funded deliverables</td>
+                </tr>
+                <tr class="border-t border-tron-red/10 bg-tron-black/20">
+                  <td class="px-6 py-4 font-bold text-tron-light">Education</td>
+                  <td class="px-6 py-4">Make TRON fundamentals common knowledge on every continent.</td>
+                  <td class="px-6 py-4 text-tron-light font-medium">1,000 multilingual learning assets • 1M+ unique course completions</td>
+                </tr>
+                <tr class="border-t border-tron-red/10">
+                  <td class="px-6 py-4 font-bold text-tron-light">Economic Impact</td>
+                  <td class="px-6 py-4">Put real earnings in the hands of global builders.</td>
+                  <td class="px-6 py-4 text-tron-light font-medium">≥ USDD 40M paid out in bounties, grants, and seed tickets</td>
+                </tr>
+                <tr class="border-t border-tron-red/10 bg-tron-black/20">
+                  <td class="px-6 py-4 font-bold text-tron-light">Network Growth</td>
+                  <td class="px-6 py-4">Translate community energy into on-chain traction.</td>
+                  <td class="px-6 py-4 text-tron-light font-medium">+50% YoY TRON daily active wallets • +30 flagship dApps live</td>
+                </tr>
+                <tr class="border-t border-tron-red/10">
+                  <td class="px-6 py-4 font-bold text-tron-light">Sustainability</td>
+                  <td class="px-6 py-4">Reinforce TRON's profitability narrative.</td>
+                  <td class="px-6 py-4 text-tron-light font-medium">Public KPI dashboard linking MEGATEAM spend to TX volume, TVL, fee burn</td>
+                </tr>
+                <tr class="border-t border-tron-red/10 bg-tron-black/20">
+                  <td class="px-6 py-4 font-bold text-tron-light">Cultural Leadership</td>
+                  <td class="px-6 py-4">Position TRON as the builder chain of choice for Web3.</td>
+                  <td class="px-6 py-4 text-tron-light font-medium">Host "TRON Mega-World Expo" • Top-3 social engagement among all L1s</td>
+                </tr>
+              </tbody>
+            </table>
+          </div>
+        </div>
+      </section>
+
+      {/* Rallying Cry Section */}
+      <section class="py-20 bg-tron-black/50">
+        <div class="container mx-auto px-6 text-center">
+          <div class="max-w-4xl mx-auto" data-aos="fade-up">
+            <h2 class="text-4xl md:text-5xl font-bold mb-8 text-tron-red">
+              Rallying Cry
+            </h2>
+            <div class="bg-gradient-to-r from-tron-red/20 to-tron-light/20 p-8 rounded-xl border border-tron-red/30">
+              <p class="text-3xl md:text-4xl text-tron-light italic font-bold mb-6">
+                "Build Everywhere. Earn Anywhere. Together on TRON."
+              </p>
+              <p class="text-lg md:text-xl text-gray-300 leading-relaxed">
+                With MEGATEAM, TRON shifts from quiet powerhouse to global front-runner—not through slogans, but by funding real people to build real products that generate real value for real communities. The future doesn't wait. Let's build it.
+              </p>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      {/* Structure and Governance Section */}
+      <section id="governance" class="py-20 bg-tron-dark/50">
+        <div class="container mx-auto px-6">
+          <div class="text-center mb-12" data-aos="fade-up">
+            <h2 class="text-4xl md:text-5xl font-bold mb-6 text-tron-red">
+              Structure and Governance
+            </h2>
+            <p class="text-xl text-gray-300 max-w-3xl mx-auto">
+              A hybrid model balancing decentralized participation with operational efficiency
+            </p>
+          </div>
+          <div class="grid grid-cols-1 lg:grid-cols-2 gap-12">
+            {/* Organizational Hierarchy */}
+            <div class="bg-tron-black/50 p-8 rounded-xl border border-tron-red/20">
+              <h3 class="text-2xl font-bold text-tron-light mb-6">
+                <i class="fas fa-sitemap text-tron-red mr-3"></i>
+                Organizational Structure
+              </h3>
+              <div class="space-y-4">
+                <div class="pl-0">
+                  <div class="text-tron-red font-bold text-lg">Global Council</div>
+                </div>
+                <div class="pl-6">
+                  <div class="text-tron-light font-semibold">Program Director / COO</div>
+                </div>
+                <div class="pl-12 space-y-2">
+                  <div class="text-gray-300">• Core Engineering & Product</div>
+                  <div class="text-gray-300">• Security & Compliance</div>
+                  <div class="text-gray-300">• Regional Hub Leads (40)</div>
+                  <div class="pl-6 text-gray-400">└ Local Squad Captains (150)</div>
+                  <div class="text-gray-300">• Guardian Committee</div>
+                  <div class="pl-6 text-gray-400">└ Independent audit & quality control</div>
+                </div>
+              </div>
+            </div>
+            
+            {/* Governance Principles */}
+            <div class="bg-tron-black/50 p-8 rounded-xl border border-tron-red/20">
+              <h3 class="text-2xl font-bold text-tron-light mb-6">
+                <i class="fas fa-balance-scale text-tron-red mr-3"></i>
+                Governance Principles
+              </h3>
+              <div class="space-y-4">
+                <div class="flex items-start">
+                  <i class="fas fa-check-circle text-tron-red mr-3 mt-1"></i>
+                  <div>
+                    <div class="text-tron-light font-semibold">DAO Partnership</div>
+                    <div class="text-gray-300 text-sm">Strategic input from existing TRON DAOs</div>
+                  </div>
+                </div>
+                <div class="flex items-start">
+                  <i class="fas fa-users text-tron-red mr-3 mt-1"></i>
+                  <div>
+                    <div class="text-tron-light font-semibold">Community Leadership</div>
+                    <div class="text-gray-300 text-sm">Hub leads elected by local communities</div>
+                  </div>
+                </div>
+                <div class="flex items-start">
+                  <i class="fas fa-shield-alt text-tron-red mr-3 mt-1"></i>
+                  <div>
+                    <div class="text-tron-light font-semibold">Guardian Reviewers</div>
+                    <div class="text-gray-300 text-sm">Independent verification of all deliverables</div>
+                  </div>
+                </div>
+                <div class="flex items-start">
+                  <i class="fas fa-vote-yea text-tron-red mr-3 mt-1"></i>
+                  <div>
+                    <div class="text-tron-light font-semibold">Transparent Decisions</div>
+                    <div class="text-gray-300 text-sm">Public voting on major initiatives</div>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      {/* Rollout Roadmap */}
+      <section id="roadmap" class="py-20 bg-gradient-to-b from-tron-black to-tron-dark">
+        <div class="container mx-auto px-6">
+          <div class="text-center mb-12" data-aos="fade-up">
+            <h2 class="text-4xl md:text-5xl font-bold mb-6 text-tron-red">
+              Year-1 Rollout Roadmap
+            </h2>
+            <p class="text-xl text-gray-300 max-w-3xl mx-auto">
+              Phased deployment ensuring sustainable growth and community engagement
+            </p>
+          </div>
+          <div class="relative max-w-6xl mx-auto">
+            {/* Timeline Line */}
+            <div class="hidden md:block absolute left-1/2 transform -translate-x-1/2 h-full border-l-2 border-tron-red/50"></div>
+            
+            <div class="space-y-12">
+              {/* Phase 1 */}
+              <div class="relative flex flex-col md:flex-row items-center">
+                <div class="w-full md:w-1/2 text-center md:text-right md:pr-8 mb-4 md:mb-0">
+                  <div class="bg-tron-dark/50 p-6 rounded-xl border border-tron-red/20">
+                    <h3 class="text-xl font-bold text-tron-red mb-2">Phase 1: Seed</h3>
+                    <p class="text-gray-300 mb-2">Initial setup, secure leadership</p>
+                    <div class="text-tron-light font-semibold">Months 1-2</div>
+                  </div>
+                </div>
+                <div class="hidden md:block absolute left-1/2 transform -translate-x-1/2 bg-tron-red rounded-full w-6 h-6 border-4 border-tron-black"></div>
+                <div class="w-full md:w-1/2 md:pl-8"></div>
+              </div>
+              
+              {/* Phase 2 */}
+              <div class="relative flex flex-col md:flex-row items-center">
+                <div class="w-full md:w-1/2 md:pr-8"></div>
+                <div class="hidden md:block absolute left-1/2 transform -translate-x-1/2 bg-tron-light rounded-full w-6 h-6 border-4 border-tron-black"></div>
+                <div class="w-full md:w-1/2 text-center md:text-left md:pl-8">
+                  <div class="bg-tron-dark/50 p-6 rounded-xl border border-tron-red/20">
+                    <h3 class="text-xl font-bold text-tron-light mb-2">Phase 2: Portal MVP</h3>
+                    <p class="text-gray-300 mb-2">Launch core platform & first hubs</p>
+                    <div class="text-tron-light font-semibold">Months 2-3</div>
+                  </div>
+                </div>
+              </div>
+              
+              {/* Phase 3 */}
+              <div class="relative flex flex-col md:flex-row items-center">
+                <div class="w-full md:w-1/2 text-center md:text-right md:pr-8 mb-4 md:mb-0">
+                  <div class="bg-tron-dark/50 p-6 rounded-xl border border-tron-red/20">
+                    <h3 class="text-xl font-bold text-tron-red mb-2">Phase 3: Ambassador Onboarding</h3>
+                    <p class="text-gray-300 mb-2">Scale to 40 regional hubs</p>
+                    <div class="text-tron-light font-semibold">Months 3-6</div>
+                  </div>
+                </div>
+                <div class="hidden md:block absolute left-1/2 transform -translate-x-1/2 bg-tron-red rounded-full w-6 h-6 border-4 border-tron-black"></div>
+                <div class="w-full md:w-1/2 md:pl-8"></div>
+              </div>
+              
+              {/* Phase 4 */}
+              <div class="relative flex flex-col md:flex-row items-center">
+                <div class="w-full md:w-1/2 md:pr-8"></div>
+                <div class="hidden md:block absolute left-1/2 transform -translate-x-1/2 bg-tron-light rounded-full w-6 h-6 border-4 border-tron-black"></div>
+                <div class="w-full md:w-1/2 text-center md:text-left md:pl-8">
+                  <div class="bg-tron-dark/50 p-6 rounded-xl border border-tron-red/20">
+                    <h3 class="text-xl font-bold text-tron-light mb-2">Phase 4: Full Launch</h3>
+                    <p class="text-gray-300 mb-2">150 city squads, major campaigns</p>
+                    <div class="text-tron-light font-semibold">Months 6-12</div>
+                  </div>
+                </div>
               </div>
             </div>
           </div>
