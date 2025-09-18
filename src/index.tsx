@@ -490,6 +490,130 @@ app.get('/', (c) => {
         </div>
       </section>
 
+      {/* TRON Live Statistics Dashboard */}
+      <section class="py-20 bg-gradient-to-b from-tron-dark/30 to-tron-black/50">
+        <div class="container mx-auto px-6">
+          <div class="text-center mb-16" data-aos="fade-up">
+            <h2 class="text-4xl md:text-5xl font-bold mb-6">
+              <span class="text-transparent bg-clip-text bg-tron-gradient">TRON</span> Live Statistics
+            </h2>
+            <p class="text-xl text-gray-300 max-w-3xl mx-auto">
+              Real-time blockchain metrics and network performance indicators
+            </p>
+          </div>
+          
+          <div class="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-6 gap-6 mb-12">
+            {/* Current TPS */}
+            <div class="cyber-card p-4 sm:p-6 rounded-xl text-center" data-aos="fade-up" data-aos-delay="100">
+              <i class="fas fa-tachometer-alt text-tron-red text-3xl sm:text-4xl mb-3 sm:mb-4"></i>
+              <h3 class="text-xs sm:text-sm font-medium text-gray-400 uppercase tracking-wider mb-2">Current TPS</h3>
+              <div class="stat-tps text-2xl sm:text-3xl font-black text-white mb-2 min-h-[2rem] loading">--</div>
+              <div class="text-xs text-gray-500">Transactions/Second</div>
+            </div>
+
+            {/* Latest Block */}
+            <div class="cyber-card p-4 sm:p-6 rounded-xl text-center" data-aos="fade-up" data-aos-delay="200">
+              <i class="fas fa-cube text-tron-light text-3xl sm:text-4xl mb-3 sm:mb-4"></i>
+              <h3 class="text-xs sm:text-sm font-medium text-gray-400 uppercase tracking-wider mb-2">Latest Block</h3>
+              <div class="stat-block text-2xl sm:text-3xl font-black text-white mb-2 min-h-[2rem] loading">--</div>
+              <div class="text-xs text-gray-500">Block Height</div>
+            </div>
+
+            {/* Daily Transactions */}
+            <div class="cyber-card p-4 sm:p-6 rounded-xl text-center" data-aos="fade-up" data-aos-delay="300">
+              <i class="fas fa-exchange-alt text-tron-red text-3xl sm:text-4xl mb-3 sm:mb-4"></i>
+              <h3 class="text-xs sm:text-sm font-medium text-gray-400 uppercase tracking-wider mb-2">Daily Txns</h3>
+              <div class="stat-txns-24h text-2xl sm:text-3xl font-black text-white mb-2 min-h-[2rem] loading">--</div>
+              <div class="text-xs text-gray-500">Transactions Today</div>
+            </div>
+
+            {/* TRX Price */}
+            <div class="cyber-card p-4 sm:p-6 rounded-xl text-center" data-aos="fade-up" data-aos-delay="400">
+              <i class="fas fa-dollar-sign text-tron-light text-3xl sm:text-4xl mb-3 sm:mb-4"></i>
+              <h3 class="text-xs sm:text-sm font-medium text-gray-400 uppercase tracking-wider mb-2">TRX Price</h3>
+              <div class="stat-trx-price text-2xl sm:text-3xl font-black text-white mb-2 min-h-[2rem] loading">--</div>
+              <div class="text-xs text-gray-500">USD</div>
+            </div>
+
+            {/* Total Accounts */}
+            <div class="cyber-card p-4 sm:p-6 rounded-xl text-center" data-aos="fade-up" data-aos-delay="500">
+              <i class="fas fa-users text-tron-red text-3xl sm:text-4xl mb-3 sm:mb-4"></i>
+              <h3 class="text-xs sm:text-sm font-medium text-gray-400 uppercase tracking-wider mb-2">Accounts</h3>
+              <div class="stat-accounts text-2xl sm:text-3xl font-black text-white mb-2 min-h-[2rem] loading">--</div>
+              <div class="text-xs text-gray-500">Total Users</div>
+            </div>
+
+            {/* USDT Volume */}
+            <div class="cyber-card p-4 sm:p-6 rounded-xl text-center" data-aos="fade-up" data-aos-delay="600">
+              <i class="fas fa-coins text-tron-light text-3xl sm:text-4xl mb-3 sm:mb-4"></i>
+              <h3 class="text-xs sm:text-sm font-medium text-gray-400 uppercase tracking-wider mb-2">USDT Volume</h3>
+              <div class="stat-usdt-volume text-2xl sm:text-3xl font-black text-white mb-2 min-h-[2rem] loading">--</div>
+              <div class="text-xs text-gray-500">24H Volume</div>
+            </div>
+          </div>
+
+          {/* Validator Network Map */}
+          <div class="bg-gradient-to-br from-tron-dark/50 to-tron-black/50 rounded-2xl p-8 border border-tron-red/20" data-aos="fade-up">
+            <div class="flex flex-col lg:flex-row items-start justify-between mb-8">
+              <div>
+                <h3 class="text-3xl font-bold mb-4">
+                  <i class="fas fa-globe-americas text-tron-red mr-3"></i>
+                  Global Validator Network
+                </h3>
+                <p class="text-gray-300 mb-6">Real-time visualization of TRON Super Representatives worldwide</p>
+              </div>
+              
+              {/* Filter Controls */}
+              <div class="flex flex-wrap gap-2 mb-4 lg:mb-0">
+                <button class="filter-button active px-4 py-2 bg-tron-red/20 border border-tron-red/30 rounded-lg text-sm font-medium hover:bg-tron-red/30 transition-colors" data-filter="all">
+                  All Nodes
+                </button>
+                <button class="filter-button px-4 py-2 bg-tron-dark/50 border border-gray-600 rounded-lg text-sm font-medium hover:bg-tron-red/20 transition-colors" data-filter="super-reps">
+                  Super Reps
+                </button>
+                <button class="filter-button px-4 py-2 bg-tron-dark/50 border border-gray-600 rounded-lg text-sm font-medium hover:bg-tron-red/20 transition-colors" data-filter="exchanges">
+                  Exchanges
+                </button>
+                <button class="filter-button px-4 py-2 bg-tron-dark/50 border border-gray-600 rounded-lg text-sm font-medium hover:bg-tron-red/20 transition-colors" data-filter="cloud">
+                  Cloud Providers
+                </button>
+              </div>
+            </div>
+            
+            {/* Map Container */}
+            <div class="map-container relative bg-tron-black/30 rounded-xl overflow-hidden border border-tron-red/20 initializing">
+              <div id="validator-map" class="w-full h-96 lg:h-[500px]"></div>
+              <div class="absolute inset-0 flex items-center justify-center bg-tron-black/80 loading-overlay">
+                <div class="text-center">
+                  <i class="fas fa-spinner fa-spin text-tron-red text-3xl mb-4"></i>
+                  <p class="text-tron-light font-medium">Initializing global network map...</p>
+                </div>
+              </div>
+            </div>
+            
+            {/* Network Stats */}
+            <div class="grid grid-cols-2 md:grid-cols-4 gap-4 mt-8">
+              <div class="text-center">
+                <div class="stat-validators text-2xl font-bold text-tron-red loading">--</div>
+                <div class="text-sm text-gray-400">Total Validators</div>
+              </div>
+              <div class="text-center">
+                <div class="stat-super-reps text-2xl font-bold text-tron-light loading">--</div>
+                <div class="text-sm text-gray-400">Super Representatives</div>
+              </div>
+              <div class="text-center">
+                <div class="stat-continents text-2xl font-bold text-tron-red loading">--</div>
+                <div class="text-sm text-gray-400">Continents</div>
+              </div>
+              <div class="text-center">
+                <div class="stat-exchanges text-2xl font-bold text-tron-light loading">--</div>
+                <div class="text-sm text-gray-400">Exchange Nodes</div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </section>
+
       {/* Add message about optimization */}
       <section class="py-8 bg-tron-dark/50">
         <div class="container mx-auto px-6">
