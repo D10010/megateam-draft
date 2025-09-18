@@ -1027,6 +1027,21 @@ app.get('/api/tron/dashboard', async (c) => {
 
 // Enhanced stats API with type parameter support and proper proxy handling
 app.get('/api/stats', async (c) => {
+  const { type = 'all' } = c.req.query();
+  try {
+    const url = type === 'supernode' ? 'https://apilist.tronscanapi.com/api/supernode/list?limit=500' : 'https://apilist.tronscanapi.com/api/system/status'; // etc.
+    const res = await fetch(url, { headers: { 'User-Agent': 'MEGATEAM/1.0' } });
+    if (!res.ok) throw new Error(res.status);
+    const data = await res.json();
+    console.log('Proxy data:', data); // Server log
+    return c.json(data);
+  } catch (e) {
+    console.error('Proxy fail:', e);
+    return c.json({ error: e.message }, 503);
+  }
+});
+
+app.get('/api/stats-original', async (c) => {
   const type = c.req.query('type') || 'general'
   console.log(`📊 Fetching stats for type: ${type}`)
   

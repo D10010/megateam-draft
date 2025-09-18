@@ -1232,83 +1232,33 @@ function showLoadingState() {
 const setLoadingState = showLoadingState;
 
 // ENHANCED: Robust cached fetch utility with retry and fallback
-async function cachedFetch(url, ttl = 30000) { // 30s TTL
-    console.log('🔄 Attempting fetch:', url);
-    const cacheKey = `tron_cache_${btoa(url)}`; // Base64 for safe key
-    
-    // Check sessionStorage first (short-term)
-    let cached = sessionStorage.getItem(cacheKey);
-    if (cached) {
-        try {
-            const { data, ts } = JSON.parse(cached);
-            if (Date.now() - ts < ttl) {
-                console.log('📋 Session cache hit for', cacheKey.substring(0, 20) + '...');
-                return data;
-            }
-        } catch (e) {
-            console.warn('Session cache parse error:', e);
-            sessionStorage.removeItem(cacheKey);
-        }
+async function cachedFetch(url, ttl = 30000) {
+  console.log('🔍 Fetch start:', url);
+  const cacheKey = `tron_${btoa(url)}`;
+  let cached = sessionStorage.getItem(cacheKey) || localStorage.getItem(cacheKey);
+  if (cached) {
+    const { data, ts } = JSON.parse(cached);
+    if (Date.now() - ts < ttl) {
+      console.log('✅ Cache hit:', cacheKey);
+      return data;
+    } else {
+      console.log('🗑️ Cache stale, fresh fetch');
     }
-    
-    // Fallback to localStorage
-    cached = localStorage.getItem(cacheKey);
-    if (cached) {
-        try {
-            const { data, ts } = JSON.parse(cached);
-            if (Date.now() - ts < ttl) {
-                console.log('💾 Local cache hit for', cacheKey.substring(0, 20) + '...');
-                sessionStorage.setItem(cacheKey, cached); // Sync to session
-                return data;
-            }
-        } catch (e) {
-            console.warn('Local cache parse error:', e);
-            localStorage.removeItem(cacheKey);
-        }
-    }
-    
-    // Fresh fetch with retry
-    for (let attempt = 1; attempt <= 3; attempt++) {
-        try {
-            console.log(`🚀 Fetch attempt ${attempt} for ${url}`);
-            const res = await fetch(url, { 
-                headers: { 
-                    'User-Agent': 'MEGATEAM/1.0',
-                    'Accept': 'application/json'
-                },
-                cache: 'no-cache' // Force fresh data
-            });
-            
-            if (!res.ok) {
-                throw new Error(`HTTP ${res.status}: ${res.statusText}`);
-            }
-            
-            const data = await res.json();
-            
-            // Cache successful response
-            const toCache = { data, ts: Date.now() };
-            try {
-                sessionStorage.setItem(cacheKey, JSON.stringify(toCache));
-                localStorage.setItem(cacheKey, JSON.stringify(toCache));
-                console.log('💾 Fresh data cached for', cacheKey.substring(0, 20) + '...');
-            } catch (cacheError) {
-                console.warn('Cache storage failed:', cacheError);
-            }
-            
-            return data;
-            
-        } catch (error) {
-            console.error(`❌ Fetch attempt ${attempt} failed:`, error.message);
-            if (attempt === 3) {
-                console.warn('🚨 All retries failed; returning null for fallback');
-                return null; // Trigger fallback in update
-            }
-            // Exponential backoff
-            await new Promise(resolve => setTimeout(resolve, 1000 * attempt));
-        }
-    }
-    
-    return null; // Final fallback
+  }
+  try {
+    const res = await fetch(url);
+    console.log('📡 Fetch response:', res.status, res.ok ? 'OK' : 'FAIL');
+    if (!res.ok) throw new Error(`Status ${res.status}`);
+    const data = await res.json();
+    console.log('📦 Raw data shape:', Object.keys(data));
+    const toCache = { data, ts: Date.now() };
+    sessionStorage.setItem(cacheKey, JSON.stringify(toCache));
+    localStorage.setItem(cacheKey, JSON.stringify(toCache));
+    return data;
+  } catch (e) {
+    console.error('❌ Fetch error:', e);
+    return null;
+  }
 }
 
 // Legacy cache functions for backwards compatibility
@@ -1352,6 +1302,7 @@ function initTronNetworkMap() {
     
     // Enhanced map loader function
     const loadMap = () => {
+        console.log('🚀 loadMap called');
         if (mapLoaded || globalMapLoaded) {
             console.log('📍 Map already loaded, skipping...');
             return;
@@ -1370,7 +1321,7 @@ function initTronNetworkMap() {
             loadLeafletThenMap();
         } else {
             console.log('📦 Leaflet already available, initializing map...');
-            initLeafletMap();
+            initLeafletMap().then(() => console.log('🗺️ Map ready'));
         }
     };
     
@@ -2263,6 +2214,12 @@ document.addEventListener('DOMContentLoaded', function() {
     setTimeout(() => {
         initTronNetworkMap();
     }, 2000); // Delay map initialization to let stats load first
+
+    console.log('DOM ready - init map');
+    const container = document.querySelector('.map-container');
+    if (container) {
+      loadMap();  // Force immediate
+    }
     
     console.log('✅ All TRON systems initialization started!');
 });
