@@ -1389,174 +1389,68 @@ async function initLeafletMap() {
         // ENHANCED: Fetch supernode data using the proxy API endpoint
         console.log('📡 Fetching supernode validator data via proxy API...');
         const data = await cachedFetch('/api/stats?type=supernode', 60000); // Use proxy endpoint
-        console.log('🗺️ Supernode raw:', data);
+        console.log('🗺️ Supernode:', data);
         
         let nodeCount = 0;
+        const nodes = (data.data || data) || [];
         
-        if (data && (data.data || data).length > 0) {
-            const nodes = data.data || data;
+        // Limit to 50 for performance as suggested
+        nodes.slice(0, 50).forEach(node => {
+            // ENHANCED: Deep geo hunt with all coordinate patterns
+            let lat = node.latitude || node.lat || (node.location?.coordinates?.[1]) || (node.geo?.lat) || null;
+            let lng = node.longitude || node.lng || (node.location?.coordinates?.[0]) || (node.geo?.lng) || null;
             
-            console.log(`🎯 Processing ${nodes.length} supernode validators for map plotting...`);
-            
-            // Create markers array - simplified approach without clustering for compatibility
-            const markers = [];
-            
-            nodes.forEach((node, i) => {
-                // ENHANCED: Flexible coordinate extraction - try common key patterns
-                const lat = node.latitude || node.lat || node.location?.lat || node.geo?.lat || node.coordinates?.latitude || 0;
-                const lng = node.longitude || node.lng || node.location?.lng || node.geo?.lng || node.coordinates?.longitude || 0;
-                
-                console.log(`🔍 Node ${i} coordinate extraction:`, {
-                    name: node.name || `Node-${i}`,
-                    original: { lat: node.lat, lng: node.lng, latitude: node.latitude, longitude: node.longitude },
-                    extracted: { lat, lng },
-                    hasCoords: !!(lat && lng && lat !== 0 && lng !== 0)
-                });
-                
-                // Only add valid coordinates
-                if (lat && lng && lat !== 0 && lng !== 0 && !isNaN(lat) && !isNaN(lng)) {
-                    try {
-                        // Enhanced marker styling based on node rank/type
-                        const isTopValidator = node.rank <= 27 || node.isActive === true || node.isJobs === true;
-                        const markerColor = isTopValidator ? '#FF060A' : '#FF4444'; // TRON Red for top validators
-                        const markerSize = isTopValidator ? 8 : 6;
-                        
-                        const marker = L.circleMarker([lat, lng], {
-                            radius: markerSize,
-                            fillColor: markerColor,
-                            color: '#ffffff',
-                            weight: isTopValidator ? 2 : 1,
-                            opacity: 1,
-                            fillOpacity: 0.8
-                        });
-                        
-                        // Enhanced popup with validator information
-                        const nodeName = node.name || node.address || `Validator ${i + 1}`;
-                        const nodeRank = node.rank || i + 1;
-                        const nodeVotes = node.votes ? node.votes.toLocaleString() : 'N/A';
-                        const nodeType = isTopValidator ? 'Super Representative' : 'Validator';
-                        
-                        marker.bindPopup(`
-                            <div class="tron-node-popup" style="font-family: 'Montserrat', sans-serif;">
-                                <h3 style="color: #FF060A; margin-bottom: 8px; font-size: 16px;">${nodeName}</h3>
-                                <p style="margin: 4px 0; color: #333;"><strong>Type:</strong> ${nodeType}</p>
-                                <p style="margin: 4px 0; color: #333;"><strong>Rank:</strong> #${nodeRank}</p>
-                                <p style="margin: 4px 0; color: #333;"><strong>Votes:</strong> ${nodeVotes}</p>
-                                <p style="margin: 4px 0; color: #333;"><strong>Status:</strong> <span style="color: #00FF00;">Active</span></p>
-                                ${node.url ? `<p style="margin: 4px 0; color: #333;"><strong>Website:</strong> <a href="${node.url}" target="_blank" style="color: #FF060A;">${node.url.substring(0, 30)}...</a></p>` : ''}
-                                <p style="margin: 6px 0 0 0; font-size: 12px; color: #666;">Coordinates: ${lat.toFixed(4)}, ${lng.toFixed(4)}</p>
-                            </div>
-                        `);
-                        
-                        // Add marker directly to map
-                        marker.addTo(map);
-                        markers.push(marker);
-                        nodeCount++;
-                        
-                        console.log(`📍 Added validator pin ${nodeCount}:`, { 
-                            name: nodeName, 
-                            coords: [lat, lng], 
-                            rank: nodeRank,
-                            type: nodeType
-                        });
-                        
-                    } catch (markerError) {
-                        console.error(`❌ Failed to create marker for node ${i}:`, markerError, node);
-                    }
+            // Fallback: Mock coordinates for top SRs if no real coords available
+            if (!lat || !lng) {
+                const mocks = {  // Sample for demo; real coords would come from enhanced API
+                    'TRON Foundation': [1.3521, 103.8198],  // Singapore
+                    'Tron Foundation': [1.3521, 103.8198],  // Singapore (variant)
+                    'BigONE': [39.9042, 116.4074],  // Beijing
+                    'Binance Staking': [35.9375, 14.3754],  // Malta
+                    'Poloniex': [40.7128, -74.0060],  // NYC
+                    'Huobi Pool': [22.3193, 114.1694],  // Hong Kong
+                    'OKEx Pool': [35.6762, 139.6503],  // Tokyo
+                    'BitTorrent': [37.7749, -122.4194],  // San Francisco
+                    'TRONALLIANCE': [35.9078, 127.7669],  // Seoul
+                    'CryptoGuyInTX': [32.7767, -96.7970],  // Dallas
+                };
+                const name = node.name || node.address?.slice(0, 6);
+                if (mocks[name]) {
+                    [lat, lng] = mocks[name];
+                    console.log(`🔧 Applied mock coords for ${name}: [${lat}, ${lng}]`);
                 } else {
-                    // For nodes without coordinates, add to known locations with slight randomization
-                    const fallbackLocations = [
-                        { lat: 37.7749, lng: -122.4194 }, // San Francisco
-                        { lat: 40.7128, lng: -74.0060 },  // New York
-                        { lat: 51.5074, lng: -0.1278 },   // London
-                        { lat: 35.6762, lng: 139.6503 },  // Tokyo
-                        { lat: 1.3521, lng: 103.8198 },   // Singapore
-                        { lat: 52.5200, lng: 13.4050 },   // Berlin
-                        { lat: -33.8688, lng: 151.2093 }  // Sydney
-                    ];
-                    
-                    const fallback = fallbackLocations[i % fallbackLocations.length];
-                    const randomLat = fallback.lat + (Math.random() - 0.5) * 0.5;
-                    const randomLng = fallback.lng + (Math.random() - 0.5) * 0.5;
-                    
-                    try {
-                        const marker = L.circleMarker([randomLat, randomLng], {
-                            radius: 5,
-                            fillColor: '#888888',
-                            color: '#ffffff',
-                            weight: 1,
-                            opacity: 0.7,
-                            fillOpacity: 0.6
-                        });
-                        
-                        const nodeName = node.name || node.address || `Validator ${i + 1}`;
-                        marker.bindPopup(`
-                            <div class="tron-node-popup">
-                                <h3>${nodeName}</h3>
-                                <p><strong>Type:</strong> Validator</p>
-                                <p><strong>Status:</strong> Active (Approx. Location)</p>
-                                <p style="font-size: 12px; color: #666;">Note: Actual coordinates not available</p>
-                            </div>
-                        `);
-                        
-                        // Add marker directly to map
-                        marker.addTo(map);
-                        markers.push(marker);
-                        nodeCount++;
-                        
-                    } catch (fallbackError) {
-                        console.warn(`⚠️ Failed to add fallback marker for node ${i}:`, fallbackError);
-                    }
+                    return;  // Skip unknowns
                 }
-            });
+            }
             
-            // Markers already added to map individually
-            
-            console.log(`🎯 Plotted ${nodeCount} validators on world map`);
-            
-        } else {
-            console.warn('⚠️ No supernode data received, adding static fallback pins...');
-            
-            // Static fallback: Add demo pins for major TRON validator locations
-            const staticValidators = [
-                { name: 'TRON Foundation', lat: 1.3521, lng: 103.8198, rank: 1 },
-                { name: 'Binance Staking', lat: 35.9375, lng: 14.3754, rank: 2 },
-                { name: 'Huobi Pool', lat: 1.3521, lng: 103.8198, rank: 3 },
-                { name: 'OKEx Pool', lat: 35.9375, lng: 14.3754, rank: 4 },
-                { name: 'Poloniex', lat: 40.7128, lng: -74.0060, rank: 5 },
-                { name: 'TRON Europe', lat: 52.5200, lng: 13.4050, rank: 6 },
-                { name: 'TRON Asia', lat: 35.6762, lng: 139.6503, rank: 7 },
-                { name: 'BitTorrent', lat: 37.7749, lng: -122.4194, rank: 8 }
-            ];
-            
-            staticValidators.forEach((validator, i) => {
-                const marker = L.circleMarker([validator.lat, validator.lng], {
-                    radius: 8,
-                    fillColor: '#FF060A',
-                    color: '#ffffff',
-                    weight: 2,
-                    opacity: 1,
-                    fillOpacity: 0.8
-                });
-                
-                marker.bindPopup(`
-                    <div class="tron-node-popup">
-                        <h3>${validator.name}</h3>
-                        <p><strong>Type:</strong> Super Representative</p>
-                        <p><strong>Rank:</strong> #${validator.rank}</p>
-                        <p><strong>Status:</strong> <span style="color: #00FF00;">Active</span></p>
-                    </div>
-                `);
-                
-                map.addLayer(marker);
+            // Validate coordinates are within valid ranges
+            if (lat && lng && Math.abs(lat) <= 90 && Math.abs(lng) <= 180) {
+                const popup = `<b>${node.name || 'SR'}</b><br>Type: ${node.type || 'Super Rep'}<br>Site: <a href="${node.url || '#'}" target="_blank">View</a>`;
+                L.marker([lat, lng]).addTo(map).bindPopup(popup);
                 nodeCount++;
-            });
-            
-            console.log(`🎯 Added ${nodeCount} static fallback validator pins`);
+                
+                console.log(`📍 Plotted ${node.name || 'Unnamed'} at [${lat}, ${lng}]`);
+            }
+        });
+        
+        // If no valid nodes plotted, add demo pins
+        if (nodeCount === 0) {
+            console.warn('❌ No valid nodes; adding demos');
+            // Demo pins for visualization
+            L.marker([1.3521, 103.8198]).addTo(map).bindPopup('<b>Demo: Singapore Hub</b><br>Type: TRON Foundation');
+            L.marker([40.7128, -74.0060]).addTo(map).bindPopup('<b>Demo: NYC Validator</b><br>Type: US Node');
+            L.marker([35.6762, 139.6503]).addTo(map).bindPopup('<b>Demo: Tokyo Node</b><br>Type: Asia Validator');
+            L.marker([51.5074, -0.1278]).addTo(map).bindPopup('<b>Demo: London Hub</b><br>Type: EU Validator');
+            nodeCount = 4;
+            console.log('🎯 Added 4 demo pins for visualization');
         }
         
-        // Update statistics with actual plotted count
-        updateMapStatistics(nodeCount);
+        console.log(`🎯 Plotted ${nodeCount} nodes`);
+        const container = document.querySelector('.map-container');
+        if (container) {
+            container.classList.remove('initializing');
+            container.classList.add('loaded');
+        }
         
         console.log(`✅ TRON validator map initialization complete! ${nodeCount} validators plotted`);
         

@@ -1031,6 +1031,71 @@ app.get('/api/stats', async (c) => {
   console.log(`📊 Fetching stats for type: ${type}`)
   
   try {
+    // ENHANCED: Multi-merge proxy endpoint for combined data fetching
+    if (type === 'all') {
+      console.log('🔄 Fetching combined stats from all endpoints...')
+      const allData = {}
+      const endpoints = {
+        system: 'https://apilist.tronscanapi.com/api/system/status',
+        asset: 'https://apilist.tronscanapi.com/api/asset?asset=TRX', 
+        supernode: 'https://apilist.tronscanapi.com/api/supernode/list?limit=100',
+        account: 'https://apilist.tronscanapi.com/api/account/list?limit=10',
+        // Add more as needed
+      }
+      
+      for (const [key, url] of Object.entries(endpoints)) {
+        try {
+          console.log(`🔄 Fetching ${key} from ${url}`)
+          const res = await fetch(url, {
+            headers: { 
+              'Accept': 'application/json',
+              'User-Agent': 'MEGATEAM-Website/1.0'
+            }
+          })
+          if (res.ok) {
+            const data = await res.json()
+            allData[key] = data.data || data  // Pre-flatten as suggested
+            console.log(`✅ ${key} API success`)
+          } else {
+            console.warn(`⚠️ ${key} API failed: ${res.status}`)
+            allData[key] = null
+          }
+        } catch (error) {
+          console.warn(`⚠️ ${key} API error:`, error.message)
+          allData[key] = null
+        }
+      }
+      
+      return c.json({
+        ...allData,
+        timestamp: Date.now(),
+        type: 'combined',
+        source: 'batch_api'
+      })
+    }
+    
+    // Handle individual endpoint requests
+    if (['system', 'asset', 'account'].includes(type)) {
+      const endpointMap = {
+        system: 'https://apilist.tronscanapi.com/api/system/status',
+        asset: 'https://apilist.tronscanapi.com/api/asset?asset=TRX',
+        account: 'https://apilist.tronscanapi.com/api/account/list?limit=10'
+      }
+      
+      if (endpointMap[type]) {
+        const res = await fetch(endpointMap[type], {
+          headers: { 
+            'Accept': 'application/json',
+            'User-Agent': 'MEGATEAM-Website/1.0'
+          }
+        })
+        if (res.ok) {
+          const data = await res.json()
+          return c.json({ type, data: data.data || data, timestamp: Date.now() })
+        }
+      }
+    }
+    
     let url
     
     if (type === 'supernode') {
