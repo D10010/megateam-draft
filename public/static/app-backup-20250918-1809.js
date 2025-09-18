@@ -268,229 +268,28 @@ function initTronDataFetcher() {
     setInterval(fetchNetworkInfrastructureData, 60000);
 }
 
-// Enhanced stats loading with comprehensive key mapping and deep flattening
-async function loadTRONStats() {
-    console.log('📊 Loading TRON stats with working endpoints first...');
-    let allData = {};
-    
-    try {
-        // PRIORITY 1: Try working combined dashboard endpoint first
-        console.log('🎯 Trying combined dashboard endpoint (FIXED VERSION v2)...');
-        const dashboardData = await cachedFetch('/api/tron/dashboard');
-        if (dashboardData && !dashboardData.error && dashboardData.tps) {
-            allData = deepFlatten(dashboardData);
-            console.log('✅ Dashboard endpoint success - keys:', Object.keys(allData).slice(0, 20));
-            console.log('📊 Sample dashboard data:', {
-                tps: dashboardData.tps?.current,
-                block: dashboardData.block?.height, 
-                price: dashboardData.price?.price,
-                transactions: dashboardData.transactions?.today
-            });
-        } else {
-            console.log('❌ Dashboard data invalid:', { 
-                exists: !!dashboardData, 
-                error: dashboardData?.error, 
-                hasTps: !!dashboardData?.tps 
-            });
-        }
-        
-        // PRIORITY 2: Try individual working endpoints if dashboard data is incomplete
-        if (Object.keys(allData).length < 10) {
-            console.log('🔄 Dashboard incomplete, trying individual endpoints...');
-            const endpoints = [
-                '/api/tron/tps',
-                '/api/tron/block', 
-                '/api/tron/transactions',
-                '/api/tron/price',
-                '/api/tron/accounts'
-            ];
-            
-            for (const endpoint of endpoints) {
-                try {
-                    const data = await cachedFetch(endpoint);
-                    if (data && !data.error) {
-                        const flatData = deepFlatten(data);
-                        Object.assign(allData, flatData);
-                        console.log(`✅ ${endpoint} success`);
-                    }
-                } catch (e) {
-                    console.warn(`⚠️ ${endpoint} failed:`, e.message);
-                }
-            }
-        }
-        
-        // FALLBACK 3: Use static fallback if all working endpoints fail
-        if (Object.keys(allData).length < 3) {
-            console.log('🔧 All working endpoints failed, using static fallback...');
-        }
-        
-    } catch (error) {
-        console.error('❌ All stats endpoints failed:', error);
-        // Use fallback static data
-        allData = {
-            'tps.current': 45, 'tps.max': 2000,
-            'block.height': 75830000, 'transactions.today': 9124874,
-            'price.price': 0.341, 'accounts.totalAccounts': 332000000
-        };
-    }
-
-    console.log('🔍 Final flattened data keys:', Object.keys(allData).slice(0, 20));
-    
-    // Enhanced stat selectors with more key variants
-    const statSelectors = {
-        'live-tps': { 
-            keys: ['tps.current', 'tps_current', 'current', 'currentTps', 'tps', 'transactionCount'], 
-            fallback: 0 
-        },
-        'live-block': { 
-            keys: ['block.height', 'block_height', 'height', 'blockHeight', 'block', 'latestBlock'], 
-            fallback: 0 
-        },
-        'live-daily-txns': { 
-            keys: ['transactions.today', 'transactions_today', 'today', 'newTransactionSeen', 'txns', 'dailyTransactions'], 
-            fallback: 0 
-        },
-        'live-trx-price': { 
-            keys: ['price.price', 'price_price', 'price', 'trxPrice', 'usd', 'currentPrice'], 
-            fallback: 0 
-        },
-        'txn-change-24h': { 
-            keys: ['transactions.change24h', 'transactions_change24h', 'change24h', 'txnChange24h'], 
-            fallback: null 
-        },
-        'txn-change-7d': { 
-            keys: ['transactions.change7d', 'transactions_change7d', 'change7d', 'txnChange7d'], 
-            fallback: null 
-        },
-        'price-change-24h': { 
-            keys: ['price.change24h', 'price_change24h', 'priceChange24h', 'change24h'], 
-            fallback: null 
-        },
-        'price-change-30d': { 
-            keys: ['price.change30d', 'price_change30d', 'priceChange30d', 'change30d'], 
-            fallback: null 
-        },
-        'price-change-1y': { 
-            keys: ['price.change1y', 'price_change1y', 'priceChange1y', 'change1y'], 
-            fallback: null 
-        },
-        'live-usdt-volume': { 
-            keys: ['transactions.usdtVolume', 'transactions_usdtVolume', 'usdtVolume', 'volume'], 
-            fallback: 0 
-        },
-        'live-total-accounts': { 
-            keys: ['accounts.totalAccounts', 'accounts_totalAccounts', 'totalAccounts', 'rangeTotal'], 
-            fallback: 0 
-        }
-    };
-
-    // Update DOM elements
-    let updatedCount = 0;
-    Object.entries(statSelectors).forEach(([elementId, { keys, fallback }]) => {
-        const el = document.getElementById(elementId);
-        if (!el) {
-            console.warn(`❌ No element for ${elementId}`);
-            return;
-        }
-        
-        let value = fallback;
-        for (const key of keys) {
-            // Try direct access first
-            let testValue = allData[key];
-            // Then try nested path
-            if (testValue === undefined || testValue === null) {
-                testValue = getNestedValue(allData, key);
-            }
-            if (testValue !== undefined && testValue !== null && testValue !== '') {
-                value = testValue;
-                console.log(`✅ Found ${elementId}: ${value} (key: ${key})`);
-                break;
-            }
-        }
-        
-        // Debug: Show what keys were tried for elements that failed
-        if (value === fallback) {
-            console.log(`🔍 Debug ${elementId}: available keys matching pattern:`, 
-                Object.keys(allData).filter(k => keys.some(pattern => k.includes(pattern.split('.')[0])))
-            );
-        }
-        
-        // Format and display value
-        if (elementId.includes('change') && value !== null) {
-            const displayValue = `${value >= 0 ? '+' : ''}${parseFloat(value).toFixed(1)}%`;
-            el.textContent = displayValue;
-            el.className = `text-sm font-medium ${value >= 0 ? 'text-green-400' : 'text-red-400'}`;
-        } else if (elementId.includes('price') && value !== null) {
-            el.textContent = `$${parseFloat(value).toFixed(4)}`;
-        } else {
-            el.textContent = value !== null && value !== fallback ? formatValue(value) : '--';
-        }
-        
-        el.classList.toggle('loading', value === fallback);
-        el.classList.toggle('loaded', value !== fallback);
-        updatedCount++;
-        console.log(`🔄 Updated ${elementId}: ${el.textContent}`);
-    });
-    
-    console.log(`✅ Updated ${updatedCount} stat elements`);
-    return allData;
-}
-
-// Deep flatten utility for recursive API data merging
-function deepFlatten(obj, prefix = '') {
-    const flat = {};
-    for (const [k, v] of Object.entries(obj || {})) {
-        const key = prefix ? `${prefix}.${k}` : k;
-        if (typeof v === 'object' && v !== null && !Array.isArray(v)) {
-            Object.assign(flat, deepFlatten(v, key));
-        } else {
-            flat[key] = v;
-        }
-    }
-    return flat;
-}
-
-// Helper function to get nested value by path
-function getNestedValue(obj, path) {
-    if (!path.includes('.')) {
-        return obj?.[path];
-    }
-    return path.split('.').reduce((current, key) => current?.[key], obj);
-}
-
-function formatValue(val) {
-    if (typeof val === 'number') {
-        if (val >= 1e6) return (val / 1e6).toFixed(1) + 'M';
-        if (val >= 1e3) return (val / 1e3).toFixed(1) + 'K';
-        return val.toFixed(2);
-    }
-    return val || '--';
-}
-
 // ENHANCED: Robust TRON network statistics loader with multiple fallbacks
 async function fetchTronNetworkData() {
     console.log('📊 Starting TRON network data fetch...');
     const startTime = performance.now();
     
     try {
-        // Use enhanced stats loading with working endpoints
-        console.log('🎯 Loading all TRON stats...');
-        const allData = await loadTRONStats();
+        // First try: Combined dashboard endpoint with caching
+        console.log('🎯 Trying combined dashboard API...');
+        const dashboardData = await cachedFetch('/api/tron/dashboard', 30000);
         
-        if (allData && Object.keys(allData).length > 0) {
+        if (dashboardData && !dashboardData.error) {
             const endTime = performance.now();
-            console.log(`🚀 Stats loaded successfully in ${(endTime - startTime).toFixed(0)}ms`);
-            console.log('📈 Sample loaded data:', {
-                tps: allData['tps.current'] || allData.current,
-                block: allData['block.height'] || allData.height,  
-                price: allData['price.price'] || allData.price,
-                transactions: allData['transactions.today'] || allData.today
-            });
+            console.log(`🚀 Dashboard API succeeded in ${(endTime - startTime).toFixed(0)}ms`);
+            
+            updateTronStats(dashboardData);
             return;
+        } else {
+            console.warn('⚠️ Dashboard API returned error or null, trying direct APIs...');
         }
         
     } catch (error) {
-        console.error('❌ Stats loading failed:', error.message);
+        console.error('❌ Dashboard API failed:', error.message);
     }
     
     try {
@@ -823,6 +622,29 @@ function parseNestedApiData(rawData) {
 }
 
 // OPTIMIZED: Update UI elements with TRON network statistics using batched DOM updates
+// Enhanced formatter utility
+function formatValue(val, type = 'number') {
+    if (val === null || val === undefined || val === '') return '--';
+    
+    if (type === 'price' && typeof val === 'number') {
+        return '$' + val.toFixed(4);
+    }
+    
+    if (type === 'volume' && typeof val === 'number') {
+        if (val >= 1e9) return '$' + (val / 1e9).toFixed(1) + 'B';
+        if (val >= 1e6) return '$' + (val / 1e6).toFixed(1) + 'M';
+        if (val >= 1e3) return '$' + (val / 1e3).toFixed(1) + 'K';
+        return '$' + val.toFixed(2);
+    }
+    
+    if (typeof val === 'number') {
+        if (val >= 1e6) return (val / 1e6).toFixed(1) + 'M';
+        if (val >= 1e3) return (val / 1e3).toFixed(1) + 'K';
+        return val.toLocaleString();
+    }
+    
+    return val.toString();
+}
 
 function updateTronStats(rawData) {
     try {
@@ -1514,8 +1336,8 @@ function loadMarkerClusterPlugin() {
 // Global flag to prevent duplicate map initialization
 let mapLoaded = false;
 
-// Enhanced map loading with improved geo filtering and 427+ nodes
-async function initLeafletMap() {
+// SYNCHRONOUS MAP INIT: Fix async race conditions with proper DOM readiness and CSS forcing
+function initLeafletMap() {
     // Prevent duplicate initialization
     if (mapLoaded) {
         console.log('🗺️ Map already loaded, skipping duplicate initialization');
@@ -1629,54 +1451,22 @@ async function initLeafletMap() {
             console.warn('⚠️ Cache read failed, will fetch fresh');
         }
         
-        // Load enhanced map data from working endpoint
-        const data = await cachedFetch('/api/tron/witnesses');
-        console.log('🗺️ Map data from witnesses endpoint:', data);
-
-        allMarkers = [];
-        // Process witnesses data with improved geo parsing
-        const nodes = (data.witnesses || data.data || data.superRepresentatives || []).slice(0, 500);
-        
-        nodes.forEach((node, index) => {
-            // Enhanced coordinate extraction - more lenient approach
-            let lat = parseFloat(node.latitude || node.lat || node.location?.coordinates?.[1] || node.geo?.lat || 0);
-            let lng = parseFloat(node.longitude || node.lng || node.location?.coordinates?.[0] || node.geo?.lng || 0);
-            
-            // If no coordinates, use distributed global positions
-            if (isNaN(lat) || isNaN(lng) || lat === 0 && lng === 0) {
-                // Distribute nodes globally based on index
-                lat = (Math.random() - 0.5) * 160; // -80 to +80 latitude
-                lng = (Math.random() - 0.5) * 360; // -180 to +180 longitude
-                console.log(`🌍 Generated coords for ${node.name || 'Node'}: [${lat.toFixed(2)}, ${lng.toFixed(2)}]`);
-            }
-            
-            const popup = `<b>${node.name || node.address?.slice(0,8) || 'SR'}</b><br>Type: ${node.type || 'Super Rep'}<br>Site: <a href="${node.url || '#'}" target="_blank">Link</a>`;
-            const marker = L.marker([lat, lng]).bindPopup(popup);
-            
-            allMarkers.push({ 
-                marker: marker, 
-                type: node.type || 'Super Rep',
-                name: node.name || 'Unknown',
-                exchange: isExchangeNode(node),
-                continent: getNodeContinent(lat, lng)
-            });
-        });
-
-        filteredNodes = [...allMarkers];
-        updateMapMarkers(map, filteredNodes);
-        globalMap = map;
-
-        // Add demo markers if no real data
-        if (filteredNodes.length === 0) {
-            addDemoMarkers(map);
+        // If no cached data, fetch async but don't wait
+        if (!nodeData) {
+            console.log('🔄 No cached data, fetching async...');
+            cachedFetch('/api/stats?type=supernode', 60000)
+                .then(data => {
+                    console.log('📊 Fresh validator data received:', data);
+                    renderValidatorPins(map, data);
+                })
+                .catch(error => {
+                    console.error('❌ Async fetch failed:', error);
+                    renderFallbackPins(map);
+                });
+        } else {
+            // Render immediately with cached data
+            renderValidatorPins(map, nodeData);
         }
-
-        console.log(`🎯 Plotted ${filteredNodes.length} nodes`);
-        
-        // Setup filters
-        setTimeout(() => {
-            setupMapFilters();
-        }, 1000);
         
         // 8. ENSURE MAP RENDERS PROPERLY
         setTimeout(() => {
@@ -2268,82 +2058,3 @@ document.addEventListener('DOMContentLoaded', function() {
 });
 
 console.log('🌐 TRON MEGATEAM application fully loaded! (Audio system managed by mobile-audio.js)');
-
-// Enhanced map variables and functions
-let allMarkers = [];
-let filteredNodes = [];
-let globalMap = null;
-
-function updateMapMarkers(map, nodes) {
-    // Clear existing markers
-    map.eachLayer(layer => { 
-        if (layer instanceof L.Marker) map.removeLayer(layer); 
-    });
-    
-    // Add filtered markers
-    nodes.forEach(({ marker }) => marker.addTo(map));
-    console.log(`🔄 Updated with ${nodes.length} markers`);
-}
-
-function isExchangeNode(node) {
-    const name = (node.name || '').toLowerCase();
-    const url = (node.url || '').toLowerCase();
-    const exchangeKeywords = ['binance', 'huobi', 'okex', 'poloniex', 'coinex', 'gate', 'kraken', 'bitfinex'];
-    return exchangeKeywords.some(keyword => name.includes(keyword) || url.includes(keyword));
-}
-
-function getNodeContinent(lat, lng) {
-    if (lat >= 35 && lng >= 25 && lng <= 180) return 'Asia';
-    if (lat >= 35 && lng >= -25 && lng < 25) return 'Europe';
-    if (lat >= 15 && lng >= -170 && lng <= -30) return 'North America';
-    if (lat < 15 && lat >= -60 && lng >= -90 && lng <= -30) return 'South America';
-    if (lat >= -35 && lng >= 10 && lng <= 55) return 'Africa';
-    if (lat <= -10 && lng >= 110 && lng <= 180) return 'Oceania';
-    return 'Global';
-}
-
-function addDemoMarkers(map) {
-    const demoNodes = [
-        { name: 'SF Hub', lat: 37.7749, lng: -122.4194, type: 'Demo' },
-        { name: 'London Node', lat: 51.5074, lng: -0.1278, type: 'Demo' },
-        { name: 'Tokyo Validator', lat: 35.6762, lng: 139.6503, type: 'Demo' },
-        { name: 'Singapore SR', lat: 1.3521, lng: 103.8198, type: 'Demo' },
-        { name: 'NYC Exchange', lat: 40.7128, lng: -74.0060, type: 'Demo' }
-    ];
-    
-    demoNodes.forEach(node => {
-        const marker = L.marker([node.lat, node.lng])
-            .bindPopup(`<b>${node.name}</b><br>Type: ${node.type}`);
-        allMarkers.push({ marker, type: node.type, name: node.name });
-    });
-    
-    updateMapMarkers(map, allMarkers);
-    console.log('✨ Added 5 demo markers');
-}
-
-// Setup filter event listeners and map interactions
-function setupMapFilters() {
-    const filterButtons = {
-        'show-all-nodes': () => allMarkers,
-        'show-super-reps': () => allMarkers.filter(n => n.type === 'Super Rep' || n.type === 'super_representative' || !n.type),
-        'show-exchanges': () => allMarkers.filter(n => n.exchange),
-        'show-cloud': () => allMarkers.filter(n => n.type === 'cloud' || (n.name && n.name.toLowerCase().includes('cloud')))
-    };
-
-    Object.entries(filterButtons).forEach(([buttonId, filterFn]) => {
-        const button = document.getElementById(buttonId);
-        if (button) {
-            button.addEventListener('click', () => {
-                console.log(`📍 Filter: ${buttonId}`);
-                filteredNodes = filterFn();
-                if (globalMap) {
-                    updateMapMarkers(globalMap, filteredNodes);
-                }
-                
-                // Update active button state
-                document.querySelectorAll('[id^="show-"]').forEach(btn => btn.classList.remove('active'));
-                button.classList.add('active');
-            });
-        }
-    });
-}
