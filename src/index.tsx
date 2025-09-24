@@ -435,10 +435,43 @@ app.get('/', (c) => {
                 Mission
                 <span class="absolute bottom-0 left-0 w-0 h-0.5 bg-tron-red transition-all duration-300 group-hover:w-full"></span>
               </a>
-              <a href="#what-is-megateam" class="font-montserrat font-medium text-tron-silver hover:text-tron-red transition-all duration-300 hover:glow-text relative group">
-                What is MEGATEAM?
-                <span class="absolute bottom-0 left-0 w-0 h-0.5 bg-tron-red transition-all duration-300 group-hover:w-full"></span>
-              </a>
+              <div class="relative group">
+                <button class="font-montserrat font-medium text-tron-silver hover:text-tron-red transition-all duration-300 hover:glow-text relative flex items-center space-x-1">
+                  <span>What is MEGATEAM?</span>
+                  <i class="fas fa-chevron-down text-xs transition-transform duration-300 group-hover:rotate-180"></i>
+                  <span class="absolute bottom-0 left-0 w-0 h-0.5 bg-tron-red transition-all duration-300 group-hover:w-full"></span>
+                </button>
+                
+                {/* Dropdown Menu */}
+                <div class="absolute top-full left-0 mt-2 w-64 bg-gradient-to-b from-tron-dark via-tron-black to-tron-dark border border-tron-red/30 rounded-lg shadow-xl shadow-tron-red/20 opacity-0 invisible group-hover:opacity-100 group-hover:visible transition-all duration-300 z-50">
+                  <div class="p-2 space-y-1">
+                    <a href="#what-is-megateam" class="block px-4 py-3 text-tron-silver hover:text-tron-red hover:bg-tron-red/10 rounded-lg transition-all duration-300 flex items-center space-x-3">
+                      <i class="fas fa-info-circle w-4 text-blue-400"></i>
+                      <span class="text-sm font-medium">Platform Overview</span>
+                    </a>
+                    <a href="#megateam-login" class="block px-4 py-3 text-tron-silver hover:text-tron-red hover:bg-tron-red/10 rounded-lg transition-all duration-300 flex items-center space-x-3">
+                      <i class="fas fa-sign-in-alt w-4 text-green-400"></i>
+                      <span class="text-sm font-medium">Login Interface</span>
+                    </a>
+                    <a href="#contributor-dashboard" class="block px-4 py-3 text-tron-silver hover:text-tron-red hover:bg-tron-red/10 rounded-lg transition-all duration-300 flex items-center space-x-3">
+                      <i class="fas fa-dashboard w-4 text-purple-400"></i>
+                      <span class="text-sm font-medium">Contributor Dashboard</span>
+                    </a>
+                    <a href="#bounty-discovery" class="block px-4 py-3 text-tron-silver hover:text-tron-red hover:bg-tron-red/10 rounded-lg transition-all duration-300 flex items-center space-x-3">
+                      <i class="fas fa-search w-4 text-yellow-400"></i>
+                      <span class="text-sm font-medium">Bounty Discovery</span>
+                    </a>
+                    <a href="#sponsor-creation" class="block px-4 py-3 text-tron-silver hover:text-tron-red hover:bg-tron-red/10 rounded-lg transition-all duration-300 flex items-center space-x-3">
+                      <i class="fas fa-plus-circle w-4 text-orange-400"></i>
+                      <span class="text-sm font-medium">Sponsor Dashboard</span>
+                    </a>
+                    <a href="#user-profile" class="block px-4 py-3 text-tron-silver hover:text-tron-red hover:bg-tron-red/10 rounded-lg transition-all duration-300 flex items-center space-x-3">
+                      <i class="fas fa-user w-4 text-pink-400"></i>
+                      <span class="text-sm font-medium">User Profiles</span>
+                    </a>
+                  </div>
+                </div>
+              </div>
               <a href="#objectives" class="font-montserrat font-medium text-tron-silver hover:text-tron-red transition-all duration-300 hover:glow-text relative group">
                 Objectives
                 <span class="absolute bottom-0 left-0 w-0 h-0.5 bg-tron-red transition-all duration-300 group-hover:w-full"></span>
@@ -477,9 +510,38 @@ app.get('/', (c) => {
               <a href="#mission" class="block font-montserrat font-medium text-tron-silver hover:text-tron-red transition-all duration-300 py-2 border-b border-tron-gray/20">
                 Mission
               </a>
-              <a href="#what-is-megateam" class="block font-montserrat font-medium text-tron-silver hover:text-tron-red transition-all duration-300 py-2 border-b border-tron-gray/20">
-                What is MEGATEAM?
-              </a>
+              <div class="border-b border-tron-gray/20">
+                <button class="w-full text-left font-montserrat font-medium text-tron-silver hover:text-tron-red transition-all duration-300 py-2 flex items-center justify-between" onclick="toggleMobileMegateamMenu()">
+                  <span>What is MEGATEAM?</span>
+                  <i id="mobile-megateam-arrow" class="fas fa-chevron-down text-xs transition-transform duration-300"></i>
+                </button>
+                <div id="mobile-megateam-submenu" class="hidden pl-4 pb-2 space-y-2">
+                  <a href="#what-is-megateam" class="block text-sm text-tron-silver hover:text-tron-red transition-all duration-300 py-1 flex items-center space-x-2">
+                    <i class="fas fa-info-circle w-3 text-blue-400"></i>
+                    <span>Platform Overview</span>
+                  </a>
+                  <a href="#megateam-login" class="block text-sm text-tron-silver hover:text-tron-red transition-all duration-300 py-1 flex items-center space-x-2">
+                    <i class="fas fa-sign-in-alt w-3 text-green-400"></i>
+                    <span>Login Interface</span>
+                  </a>
+                  <a href="#contributor-dashboard" class="block text-sm text-tron-silver hover:text-tron-red transition-all duration-300 py-1 flex items-center space-x-2">
+                    <i class="fas fa-dashboard w-3 text-purple-400"></i>
+                    <span>Contributor Dashboard</span>
+                  </a>
+                  <a href="#bounty-discovery" class="block text-sm text-tron-silver hover:text-tron-red transition-all duration-300 py-1 flex items-center space-x-2">
+                    <i class="fas fa-search w-3 text-yellow-400"></i>
+                    <span>Bounty Discovery</span>
+                  </a>
+                  <a href="#sponsor-creation" class="block text-sm text-tron-silver hover:text-tron-red transition-all duration-300 py-1 flex items-center space-x-2">
+                    <i class="fas fa-plus-circle w-3 text-orange-400"></i>
+                    <span>Sponsor Dashboard</span>
+                  </a>
+                  <a href="#user-profile" class="block text-sm text-tron-silver hover:text-tron-red transition-all duration-300 py-1 flex items-center space-x-2">
+                    <i class="fas fa-user w-3 text-pink-400"></i>
+                    <span>User Profiles</span>
+                  </a>
+                </div>
+              </div>
               <a href="#objectives" class="block font-montserrat font-medium text-tron-silver hover:text-tron-red transition-all duration-300 py-2 border-b border-tron-gray/20">
                 Objectives
               </a>
@@ -969,7 +1031,7 @@ app.get('/', (c) => {
             </div>
 
             {/* Login Mockup */}
-            <div class="mt-20" data-aos="fade-up" data-aos-delay="600">
+            <div id="megateam-login" class="mt-20" data-aos="fade-up" data-aos-delay="600">
               <h3 class="text-3xl font-bold mb-8 text-center text-tron-red">Access MEGATEAM Platform</h3>
               <p class="text-center text-gray-300 mb-12 max-w-3xl mx-auto text-lg">
                 Connect your wallet or sign up with email to join the largest builder coordination platform on TRON.
@@ -1146,7 +1208,7 @@ app.get('/', (c) => {
             </div>
 
             {/* Contributor Dashboard Mockup */}
-            <div class="mt-12" data-aos="fade-up" data-aos-delay="700">
+            <div id="contributor-dashboard" class="mt-12" data-aos="fade-up" data-aos-delay="700">
               <h3 class="text-3xl font-bold mb-8 text-center text-tron-red">Contributor Dashboard Preview</h3>
               <p class="text-center text-gray-300 mb-12 max-w-3xl mx-auto text-lg">
                 Experience your personalized MEGATEAM workspace. Track quests, manage submissions, discover opportunities, 
@@ -1464,7 +1526,7 @@ app.get('/', (c) => {
             </div>
 
             {/* Bounty Discovery Page Mockup */}
-            <div class="mt-20" data-aos="fade-up" data-aos-delay="800">
+            <div id="bounty-discovery" class="mt-20" data-aos="fade-up" data-aos-delay="800">
               <h3 class="text-3xl font-bold mb-8 text-center text-tron-red">Task Bounty Discovery</h3>
               <p class="text-center text-gray-300 mb-12 max-w-3xl mx-auto text-lg">
                 Explore available bounties, filter by skills and rewards, and discover your next earning opportunity in the TRON ecosystem.
@@ -1794,7 +1856,7 @@ app.get('/', (c) => {
             </div>
 
             {/* Sponsorship Creation Page Mockup */}
-            <div class="mt-20" data-aos="fade-up" data-aos-delay="900">
+            <div id="sponsor-creation" class="mt-20" data-aos="fade-up" data-aos-delay="900">
               <h3 class="text-3xl font-bold mb-8 text-center text-tron-red">Sponsor Dashboard - Create Bounty</h3>
               <p class="text-center text-gray-300 mb-12 max-w-3xl mx-auto text-lg">
                 Post your project, set rewards, and connect with verified TRON builders. 
@@ -2150,7 +2212,7 @@ app.get('/', (c) => {
             </div>
 
             {/* User Profile Page Mockup */}
-            <div class="mt-20" data-aos="fade-up" data-aos-delay="1000">
+            <div id="user-profile" class="mt-20" data-aos="fade-up" data-aos-delay="1000">
               <h3 class="text-3xl font-bold mb-8 text-center text-tron-red">Contributor Profile</h3>
               <p class="text-center text-gray-300 mb-12 max-w-3xl mx-auto text-lg">
                 Showcase your expertise, track record, and reputation in the TRON ecosystem. 
@@ -3076,6 +3138,37 @@ app.get('/', (c) => {
           </div>
         </div>
       </section>
+
+      {/* JavaScript for Navigation */}
+      <script>
+        {`
+          function toggleMobileMegateamMenu() {
+            const submenu = document.getElementById('mobile-megateam-submenu');
+            const arrow = document.getElementById('mobile-megateam-arrow');
+            
+            if (submenu.classList.contains('hidden')) {
+              submenu.classList.remove('hidden');
+              arrow.classList.add('rotate-180');
+            } else {
+              submenu.classList.add('hidden');
+              arrow.classList.remove('rotate-180');
+            }
+          }
+          
+          function toggleMobileMenu() {
+            const menu = document.getElementById('mobile-menu');
+            const toggle = document.getElementById('mobile-menu-toggle');
+            
+            if (menu.classList.contains('hidden')) {
+              menu.classList.remove('hidden');
+              toggle.classList.add('active');
+            } else {
+              menu.classList.add('hidden');
+              toggle.classList.remove('active');
+            }
+          }
+        `}
+      </script>
 
       {/* Footer */}
       <footer class="py-12 bg-tron-gray border-t border-tron-red/20">
