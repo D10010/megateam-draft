@@ -120,6 +120,7 @@ export const renderer = jsxRenderer(({ children }) => {
         {/* Scripts */}
         <script src="https://cdn.jsdelivr.net/npm/aos@2.3.4/dist/aos.js"></script>
         <link href="https://cdn.jsdelivr.net/npm/aos@2.3.4/dist/aos.css" rel="stylesheet" />
+        <script src="/static/navigation.js"></script>
         <script src="/static/app.js"></script>
       </body>
     </html>
