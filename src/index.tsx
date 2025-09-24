@@ -967,6 +967,239 @@ app.get('/', (c) => {
                 </div>
               </div>
             </div>
+
+            {/* Dashboard Mockup */}
+            <div class="mt-20" data-aos="fade-up" data-aos-delay="600">
+              <h3 class="text-3xl font-bold mb-8 text-center text-tron-red">MEGATEAM Dashboard Preview</h3>
+              <p class="text-center text-gray-300 mb-12 max-w-3xl mx-auto text-lg">
+                Experience the future of coordinated building on TRON. Our dashboard connects talent, tracks progress, 
+                and ensures transparent accountability across all initiatives.
+              </p>
+              
+              {/* Dashboard Container */}
+              <div class="cyber-card p-8 rounded-xl border border-tron-red/30 bg-gradient-to-br from-tron-dark/50 to-black/80">
+                
+                {/* Dashboard Header */}
+                <div class="flex flex-col md:flex-row justify-between items-start md:items-center mb-8 pb-6 border-b border-tron-red/20">
+                  <div class="flex items-center space-x-4 mb-4 md:mb-0">
+                    <div class="w-12 h-12 rounded-full bg-gradient-to-br from-tron-red to-tron-dark-red border-2 border-white overflow-hidden">
+                      <img src="/static/mt-logo.jpg" alt="MEGATEAM" class="w-full h-full object-cover" />
+                    </div>
+                    <div>
+                      <h4 class="text-xl font-bold text-white">MEGATEAM Control Center</h4>
+                      <p class="text-tron-silver text-sm">Coordinating TRON's Future</p>
+                    </div>
+                  </div>
+                  <div class="flex items-center space-x-4">
+                    <div class="flex items-center space-x-2">
+                      <div class="w-3 h-3 bg-green-500 rounded-full animate-pulse"></div>
+                      <span class="text-green-400 text-sm font-medium">Live Network</span>
+                    </div>
+                    <div class="text-tron-silver text-sm">
+                      Block #75,892,341
+                    </div>
+                  </div>
+                </div>
+
+                {/* Key Metrics Row */}
+                <div class="grid grid-cols-1 md:grid-cols-4 gap-6 mb-8">
+                  <div class="bg-gradient-to-br from-tron-red/20 to-tron-red/5 border border-tron-red/30 rounded-lg p-4 text-center">
+                    <div class="text-3xl font-bold text-tron-red mb-1">847</div>
+                    <div class="text-sm text-tron-silver">Active Builders</div>
+                    <div class="text-xs text-green-400 mt-1">↗ +23 this week</div>
+                  </div>
+                  <div class="bg-gradient-to-br from-blue-500/20 to-blue-500/5 border border-blue-500/30 rounded-lg p-4 text-center">
+                    <div class="text-3xl font-bold text-blue-400 mb-1">127</div>
+                    <div class="text-sm text-tron-silver">Active Projects</div>
+                    <div class="text-xs text-green-400 mt-1">↗ +8 this week</div>
+                  </div>
+                  <div class="bg-gradient-to-br from-green-500/20 to-green-500/5 border border-green-500/30 rounded-lg p-4 text-center">
+                    <div class="text-3xl font-bold text-green-400 mb-1">$2.4M</div>
+                    <div class="text-sm text-tron-silver">Distributed (TRX)</div>
+                    <div class="text-xs text-green-400 mt-1">↗ $347K this month</div>
+                  </div>
+                  <div class="bg-gradient-to-br from-yellow-500/20 to-yellow-500/5 border border-yellow-500/30 rounded-lg p-4 text-center">
+                    <div class="text-3xl font-bold text-yellow-400 mb-1">89</div>
+                    <div class="text-sm text-tron-silver">Guardians</div>
+                    <div class="text-xs text-green-400 mt-1">↗ +5 verified</div>
+                  </div>
+                </div>
+
+                {/* Main Content Grid */}
+                <div class="grid grid-cols-1 lg:grid-cols-3 gap-8">
+                  
+                  {/* Active Projects List */}
+                  <div class="lg:col-span-2">
+                    <h5 class="text-lg font-bold text-white mb-4 flex items-center">
+                      <i class="fas fa-rocket text-tron-red mr-2"></i>
+                      Active Initiatives
+                    </h5>
+                    <div class="space-y-4">
+                      
+                      {/* Project 1 */}
+                      <div class="bg-tron-dark/50 border border-tron-red/20 rounded-lg p-4 hover:border-tron-red/50 transition-all cursor-pointer">
+                        <div class="flex items-center justify-between mb-3">
+                          <div class="flex items-center space-x-3">
+                            <div class="w-10 h-10 bg-gradient-to-br from-purple-500 to-purple-700 rounded-lg flex items-center justify-center">
+                              <i class="fas fa-gamepad text-white"></i>
+                            </div>
+                            <div>
+                              <h6 class="text-white font-semibold">TRON Gaming Hub</h6>
+                              <p class="text-tron-silver text-sm">Multi-chain gaming platform</p>
+                            </div>
+                          </div>
+                          <div class="text-right">
+                            <div class="text-green-400 font-semibold">$45K TRX</div>
+                            <div class="text-xs text-tron-silver">Milestone 3/5</div>
+                          </div>
+                        </div>
+                        <div class="flex items-center justify-between">
+                          <div class="flex items-center space-x-4">
+                            <span class="px-2 py-1 bg-green-500/20 text-green-400 text-xs rounded border border-green-500/30">Development</span>
+                            <span class="text-tron-silver text-sm">12 Contributors</span>
+                          </div>
+                          <div class="w-24 bg-tron-gray rounded-full h-2">
+                            <div class="w-3/5 bg-gradient-to-r from-tron-red to-tron-light h-2 rounded-full"></div>
+                          </div>
+                        </div>
+                      </div>
+
+                      {/* Project 2 */}
+                      <div class="bg-tron-dark/50 border border-tron-red/20 rounded-lg p-4 hover:border-tron-red/50 transition-all cursor-pointer">
+                        <div class="flex items-center justify-between mb-3">
+                          <div class="flex items-center space-x-3">
+                            <div class="w-10 h-10 bg-gradient-to-br from-blue-500 to-blue-700 rounded-lg flex items-center justify-center">
+                              <i class="fas fa-graduation-cap text-white"></i>
+                            </div>
+                            <div>
+                              <h6 class="text-white font-semibold">DeFi Education Series</h6>
+                              <p class="text-tron-silver text-sm">Multilingual learning content</p>
+                            </div>
+                          </div>
+                          <div class="text-right">
+                            <div class="text-green-400 font-semibold">$28K TRX</div>
+                            <div class="text-xs text-tron-silver">Milestone 4/6</div>
+                          </div>
+                        </div>
+                        <div class="flex items-center justify-between">
+                          <div class="flex items-center space-x-4">
+                            <span class="px-2 py-1 bg-blue-500/20 text-blue-400 text-xs rounded border border-blue-500/30">Content</span>
+                            <span class="text-tron-silver text-sm">8 Contributors</span>
+                          </div>
+                          <div class="w-24 bg-tron-gray rounded-full h-2">
+                            <div class="w-4/6 bg-gradient-to-r from-blue-500 to-blue-400 h-2 rounded-full"></div>
+                          </div>
+                        </div>
+                      </div>
+
+                      {/* Project 3 */}
+                      <div class="bg-tron-dark/50 border border-tron-red/20 rounded-lg p-4 hover:border-tron-red/50 transition-all cursor-pointer">
+                        <div class="flex items-center justify-between mb-3">
+                          <div class="flex items-center space-x-3">
+                            <div class="w-10 h-10 bg-gradient-to-br from-green-500 to-green-700 rounded-lg flex items-center justify-center">
+                              <i class="fas fa-mobile-alt text-white"></i>
+                            </div>
+                            <div>
+                              <h6 class="text-white font-semibold">Mobile Wallet SDK</h6>
+                              <p class="text-tron-silver text-sm">Cross-platform development kit</p>
+                            </div>
+                          </div>
+                          <div class="text-right">
+                            <div class="text-green-400 font-semibold">$67K TRX</div>
+                            <div class="text-xs text-tron-silver">Milestone 2/4</div>
+                          </div>
+                        </div>
+                        <div class="flex items-center justify-between">
+                          <div class="flex items-center space-x-4">
+                            <span class="px-2 py-1 bg-yellow-500/20 text-yellow-400 text-xs rounded border border-yellow-500/30">SDK</span>
+                            <span class="text-tron-silver text-sm">15 Contributors</span>
+                          </div>
+                          <div class="w-24 bg-tron-gray rounded-full h-2">
+                            <div class="w-1/2 bg-gradient-to-r from-green-500 to-green-400 h-2 rounded-full"></div>
+                          </div>
+                        </div>
+                      </div>
+
+                    </div>
+                  </div>
+
+                  {/* Right Sidebar */}
+                  <div class="space-y-6">
+                    
+                    {/* Recent Activity */}
+                    <div>
+                      <h5 class="text-lg font-bold text-white mb-4 flex items-center">
+                        <i class="fas fa-bolt text-yellow-400 mr-2"></i>
+                        Live Activity
+                      </h5>
+                      <div class="bg-tron-dark/30 border border-tron-red/20 rounded-lg p-4 space-y-3 max-h-64 overflow-y-auto">
+                        <div class="flex items-center space-x-3 text-sm">
+                          <div class="w-2 h-2 bg-green-500 rounded-full"></div>
+                          <span class="text-tron-silver">Milestone approved: Gaming Hub UI</span>
+                        </div>
+                        <div class="flex items-center space-x-3 text-sm">
+                          <div class="w-2 h-2 bg-blue-500 rounded-full"></div>
+                          <span class="text-tron-silver">New Guardian: Alex Chen verified</span>
+                        </div>
+                        <div class="flex items-center space-x-3 text-sm">
+                          <div class="w-2 h-2 bg-yellow-500 rounded-full"></div>
+                          <span class="text-tron-silver">Payment processed: 5,000 TRX</span>
+                        </div>
+                        <div class="flex items-center space-x-3 text-sm">
+                          <div class="w-2 h-2 bg-purple-500 rounded-full"></div>
+                          <span class="text-tron-silver">New proposal: NFT Marketplace</span>
+                        </div>
+                        <div class="flex items-center space-x-3 text-sm">
+                          <div class="w-2 h-2 bg-red-500 rounded-full"></div>
+                          <span class="text-tron-silver">Team formation: DeFi Analytics</span>
+                        </div>
+                      </div>
+                    </div>
+
+                    {/* Guardian Network */}
+                    <div>
+                      <h5 class="text-lg font-bold text-white mb-4 flex items-center">
+                        <i class="fas fa-shield-alt text-blue-400 mr-2"></i>
+                        Guardian Network
+                      </h5>
+                      <div class="bg-tron-dark/30 border border-tron-red/20 rounded-lg p-4">
+                        <div class="flex items-center justify-between mb-4">
+                          <span class="text-tron-silver">Verification Rate</span>
+                          <span class="text-green-400 font-semibold">98.3%</span>
+                        </div>
+                        <div class="w-full bg-tron-gray rounded-full h-3 mb-4">
+                          <div class="w-[98%] bg-gradient-to-r from-green-500 to-green-400 h-3 rounded-full"></div>
+                        </div>
+                        <div class="space-y-2 text-sm">
+                          <div class="flex justify-between">
+                            <span class="text-tron-silver">Active Reviews</span>
+                            <span class="text-white">23</span>
+                          </div>
+                          <div class="flex justify-between">
+                            <span class="text-tron-silver">Avg. Review Time</span>
+                            <span class="text-white">2.4 days</span>
+                          </div>
+                          <div class="flex justify-between">
+                            <span class="text-tron-silver">Total Verified</span>
+                            <span class="text-white">1,847</span>
+                          </div>
+                        </div>
+                      </div>
+                    </div>
+
+                  </div>
+                </div>
+
+                {/* Call to Action */}
+                <div class="mt-8 pt-6 border-t border-tron-red/20 text-center">
+                  <p class="text-tron-silver mb-4">Ready to join the coordination revolution?</p>
+                  <button class="bg-gradient-to-r from-tron-red to-tron-dark-red hover:from-tron-dark-red hover:to-tron-red text-white px-6 py-3 rounded-lg font-semibold transition-all hover:scale-105 transform">
+                    Access Dashboard Beta
+                  </button>
+                </div>
+
+              </div>
+            </div>
           </div>
         </div>
       </section>
