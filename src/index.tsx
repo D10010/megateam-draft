@@ -1157,84 +1157,56 @@ app.get('/', (c) => {
               <div class="cyber-card rounded-xl border border-tron-red/30 bg-gradient-to-br from-tron-dark/50 to-black/80 overflow-hidden">
                 
                 {/* Top Banner */}
-                <div class="bg-gradient-to-r from-tron-red/20 via-tron-dark/40 to-tron-red/20 p-6 border-b border-tron-red/20">
-                  <div class="flex flex-col lg:flex-row justify-between items-start lg:items-center space-y-4 lg:space-y-0">
+                <div class="bg-gradient-to-r from-tron-red/20 via-tron-dark/40 to-tron-red/20 p-4 border-b border-tron-red/20">
+                  <div class="flex flex-col lg:flex-row justify-between items-start lg:items-center space-y-3 lg:space-y-0">
                     
                     {/* User Profile Section */}
-                    <div class="flex items-center space-x-4">
+                    <div class="flex items-center space-x-3">
                       <div class="relative">
-                        <div class="w-16 h-16 rounded-full bg-gradient-to-br from-purple-500 to-blue-600 border-3 border-white overflow-hidden">
+                        <div class="w-12 h-12 rounded-full bg-gradient-to-br from-purple-500 to-blue-600 border-2 border-white overflow-hidden">
                           <img src="/static/mt-logo.jpg" alt="Avatar" class="w-full h-full object-cover" />
                         </div>
-                        <div class="absolute -bottom-1 -right-1 w-6 h-6 bg-gradient-to-br from-tron-red to-tron-dark-red rounded-full border-2 border-white flex items-center justify-center">
-                          <i class="fas fa-link text-white text-xs"></i>
-                        </div>
+                        <div class="absolute -bottom-0.5 -right-0.5 w-4 h-4 bg-green-500 rounded-full border-2 border-white"></div>
                       </div>
                       <div>
-                        <h4 class="text-xl font-bold text-white flex items-center space-x-2">
+                        <h4 class="text-lg font-bold text-white flex items-center space-x-2">
                           <span>Alex Chen</span>
-                          <div class="flex items-center space-x-1">
-                            <i class="fas fa-star text-yellow-400"></i>
-                            <i class="fas fa-star text-yellow-400"></i>
-                            <i class="fas fa-star text-yellow-400"></i>
+                          <div class="flex items-center">
+                            <i class="fas fa-star text-yellow-400 text-sm"></i>
+                            <i class="fas fa-star text-yellow-400 text-sm"></i>
+                            <i class="fas fa-star text-yellow-400 text-sm"></i>
                           </div>
                         </h4>
-                        <div class="flex items-center space-x-3">
-                          <span class="text-yellow-400 font-semibold">Level 3 Contributor – Gold Tier</span>
-                          <div class="flex items-center space-x-2">
-                            <button class="flex items-center space-x-2 px-3 py-1 bg-tron-red/20 text-tron-red text-xs rounded border border-tron-red/30 hover:bg-tron-red/30 transition-all">
-                              <div class="w-2 h-2 bg-tron-red rounded-full"></div>
-                              <span>TRON Mainnet</span>
-                              <i class="fas fa-chevron-down text-xs"></i>
-                            </button>
-                            <div class="flex items-center space-x-1 px-2 py-1 bg-green-500/20 text-green-400 text-xs rounded border border-green-500/30">
-                              <div class="w-2 h-2 bg-green-400 rounded-full animate-pulse"></div>
-                              <span>Online</span>
-                            </div>
-                          </div>
+                        <div class="flex items-center space-x-2">
+                          <span class="text-yellow-400 font-medium text-sm">Gold Tier Contributor</span>
+                          <button class="flex items-center space-x-1 px-2 py-0.5 bg-tron-red/20 text-tron-red text-xs rounded border border-tron-red/30">
+                            <div class="w-1.5 h-1.5 bg-tron-red rounded-full"></div>
+                            <span>TRON</span>
+                          </button>
                         </div>
                       </div>
                     </div>
 
-                    {/* Balance Tracker & Controls */}
-                    <div class="flex flex-col lg:flex-row items-end lg:items-center space-y-4 lg:space-y-0 lg:space-x-6">
-                      
-                      {/* Balance Grid */}
-                      <div class="grid grid-cols-2 lg:grid-cols-4 gap-4 lg:gap-6">
+                    {/* Balance Summary */}
+                    <div class="flex items-center space-x-6">
+                      <div class="grid grid-cols-3 gap-4">
                         <div class="text-center">
-                          <div class="text-2xl font-bold text-green-400">$2,847</div>
-                          <div class="text-xs text-tron-silver">USDT Earned</div>
+                          <div class="text-xl font-bold text-green-400">$2,847</div>
+                          <div class="text-xs text-tron-silver">Total Earned</div>
                         </div>
                         <div class="text-center">
-                          <div class="text-2xl font-bold text-yellow-400">$456</div>
+                          <div class="text-xl font-bold text-yellow-400">$456</div>
                           <div class="text-xs text-tron-silver">Pending</div>
                         </div>
                         <div class="text-center">
-                          <div class="text-2xl font-bold text-blue-400">$189</div>
-                          <div class="text-xs text-tron-silver">Quest Rewards</div>
-                        </div>
-                        <div class="text-center">
-                          <div class="text-2xl font-bold text-purple-400">1,247</div>
+                          <div class="text-xl font-bold text-purple-400">1,247</div>
                           <div class="text-xs text-tron-silver">Rep Points</div>
                         </div>
                       </div>
-
-                      {/* Quick Action Buttons */}
-                      <div class="flex items-center space-x-3">
-                        <button class="flex items-center space-x-2 px-4 py-2 bg-green-600 hover:bg-green-700 text-white rounded-lg transition-all">
-                          <i class="fas fa-download text-sm"></i>
-                          <span class="text-sm font-medium">Withdraw</span>
-                        </button>
-                        <button class="flex items-center space-x-2 px-4 py-2 bg-tron-red hover:bg-tron-dark-red text-white rounded-lg transition-all">
-                          <i class="fas fa-cog text-sm"></i>
-                          <span class="text-sm font-medium">Settings</span>
-                        </button>
-                        <div class="relative">
-                          <button class="flex items-center justify-center w-10 h-10 bg-tron-dark hover:bg-tron-gray text-tron-silver hover:text-white rounded-lg border border-tron-red/30 transition-all">
-                            <i class="fas fa-ellipsis-v"></i>
-                          </button>
-                        </div>
-                      </div>
+                      
+                      <button class="px-4 py-2 bg-green-600 hover:bg-green-700 text-white text-sm rounded-lg transition-all">
+                        Withdraw
+                      </button>
                     </div>
                   </div>
                 </div>
@@ -1244,115 +1216,60 @@ app.get('/', (c) => {
                   
                   {/* Left Panel - Navigation */}
                   <div class="lg:col-span-3 bg-tron-dark/30 p-6 border-r border-tron-red/20">
-                    <nav class="space-y-2">
-                      {/* Core Features */}
-                      <a href="#" class="flex items-center space-x-3 px-4 py-3 bg-tron-red/20 text-tron-red rounded-lg border border-tron-red/30">
-                        <i class="fas fa-home w-5"></i>
-                        <span class="font-medium">Dashboard Home</span>
+                    <nav class="space-y-1">
+                      {/* Main Navigation */}
+                      <a href="#" class="flex items-center space-x-3 px-3 py-2.5 bg-tron-red/20 text-tron-red rounded-lg border border-tron-red/30">
+                        <i class="fas fa-home w-4"></i>
+                        <span class="font-medium">Dashboard</span>
                       </a>
-                      <a href="#" class="flex items-center space-x-3 px-4 py-3 text-tron-silver hover:bg-tron-red/10 hover:text-white rounded-lg transition-all">
-                        <i class="fas fa-puzzle-piece w-5"></i>
+                      <a href="#" class="flex items-center space-x-3 px-3 py-2.5 text-tron-silver hover:bg-tron-red/10 hover:text-white rounded-lg transition-all">
+                        <i class="fas fa-puzzle-piece w-4"></i>
                         <span>My Quests</span>
-                        <span class="ml-auto bg-blue-500 text-white text-xs px-2 py-1 rounded-full">3</span>
+                        <span class="ml-auto bg-blue-500 text-white text-xs px-1.5 py-0.5 rounded-full">3</span>
                       </a>
-                      <a href="#" class="flex items-center space-x-3 px-4 py-3 text-tron-silver hover:bg-tron-red/10 hover:text-white rounded-lg transition-all">
-                        <i class="fas fa-briefcase w-5"></i>
-                        <span>Grants & Milestones</span>
+                      <a href="#" class="flex items-center space-x-3 px-3 py-2.5 text-tron-silver hover:bg-tron-red/10 hover:text-white rounded-lg transition-all">
+                        <i class="fas fa-briefcase w-4"></i>
+                        <span>Grants</span>
                       </a>
-                      <a href="#" class="flex items-center space-x-3 px-4 py-3 text-tron-silver hover:bg-tron-red/10 hover:text-white rounded-lg transition-all">
-                        <i class="fas fa-chart-line w-5"></i>
-                        <span>Reputation & Badges</span>
+                      <a href="#" class="flex items-center space-x-3 px-3 py-2.5 text-tron-silver hover:bg-tron-red/10 hover:text-white rounded-lg transition-all">
+                        <i class="fas fa-search w-4"></i>
+                        <span>Discover</span>
+                        <span class="ml-auto bg-green-500 text-white text-xs px-1.5 py-0.5 rounded-full">12</span>
                       </a>
-                      <a href="#" class="flex items-center space-x-3 px-4 py-3 text-tron-silver hover:bg-tron-red/10 hover:text-white rounded-lg transition-all">
-                        <i class="fas fa-upload w-5"></i>
-                        <span>Submit Work</span>
-                      </a>
-                      <a href="#" class="flex items-center space-x-3 px-4 py-3 text-tron-silver hover:bg-tron-red/10 hover:text-white rounded-lg transition-all">
-                        <i class="fas fa-search w-5"></i>
-                        <span>Discover New Quests</span>
-                        <span class="ml-auto bg-green-500 text-white text-xs px-2 py-1 rounded-full">12</span>
-                      </a>
-
-                      {/* Divider */}
-                      <div class="py-2">
-                        <div class="h-px bg-tron-red/20"></div>
-                      </div>
-
-                      {/* DApp Management Features */}
-                      <div class="px-4 py-2">
-                        <h6 class="text-xs font-semibold text-tron-silver uppercase tracking-wider">Management</h6>
-                      </div>
                       
-                      <a href="#" class="flex items-center space-x-3 px-4 py-3 text-tron-silver hover:bg-tron-red/10 hover:text-white rounded-lg transition-all">
-                        <i class="fas fa-wallet w-5"></i>
-                        <span>Wallet Manager</span>
-                        <span class="ml-auto text-green-400 text-xs">Connected</span>
-                      </a>
-                      <a href="#" class="flex items-center space-x-3 px-4 py-3 text-tron-silver hover:bg-tron-red/10 hover:text-white rounded-lg transition-all">
-                        <i class="fas fa-coins w-5"></i>
-                        <span>Token Portfolio</span>
-                      </a>
-                      <a href="#" class="flex items-center space-x-3 px-4 py-3 text-tron-silver hover:bg-tron-red/10 hover:text-white rounded-lg transition-all">
-                        <i class="fas fa-exchange-alt w-5"></i>
-                        <span>Transaction History</span>
-                      </a>
-                      <a href="#" class="flex items-center space-x-3 px-4 py-3 text-tron-silver hover:bg-tron-red/10 hover:text-white rounded-lg transition-all">
-                        <i class="fas fa-bell w-5"></i>
-                        <span>Notifications</span>
-                        <span class="ml-auto bg-tron-red text-white text-xs px-2 py-1 rounded-full">2</span>
-                      </a>
-                      <a href="#" class="flex items-center space-x-3 px-4 py-3 text-tron-silver hover:bg-tron-red/10 hover:text-white rounded-lg transition-all">
-                        <i class="fas fa-link w-5"></i>
-                        <span>Connected Apps</span>
-                      </a>
-
                       {/* Divider */}
-                      <div class="py-2">
+                      <div class="py-3">
                         <div class="h-px bg-tron-red/20"></div>
                       </div>
 
-                      {/* Settings & Support */}
-                      <div class="px-4 py-2">
-                        <h6 class="text-xs font-semibold text-tron-silver uppercase tracking-wider">Settings</h6>
-                      </div>
-
-                      <a href="#" class="flex items-center space-x-3 px-4 py-3 text-tron-silver hover:bg-tron-red/10 hover:text-white rounded-lg transition-all">
-                        <i class="fas fa-user-cog w-5"></i>
-                        <span>Profile Settings</span>
+                      {/* Account & Settings */}
+                      <a href="#" class="flex items-center space-x-3 px-3 py-2.5 text-tron-silver hover:bg-tron-red/10 hover:text-white rounded-lg transition-all">
+                        <i class="fas fa-wallet w-4"></i>
+                        <span>Wallet</span>
+                        <div class="ml-auto w-2 h-2 bg-green-400 rounded-full"></div>
                       </a>
-                      <a href="#" class="flex items-center space-x-3 px-4 py-3 text-tron-silver hover:bg-tron-red/10 hover:text-white rounded-lg transition-all">
-                        <i class="fas fa-shield-alt w-5"></i>
-                        <span>Security</span>
+                      <a href="#" class="flex items-center space-x-3 px-3 py-2.5 text-tron-silver hover:bg-tron-red/10 hover:text-white rounded-lg transition-all">
+                        <i class="fas fa-bell w-4"></i>
+                        <span>Notifications</span>
+                        <span class="ml-auto bg-tron-red text-white text-xs px-1.5 py-0.5 rounded-full">2</span>
                       </a>
-                      <a href="#" class="flex items-center space-x-3 px-4 py-3 text-tron-silver hover:bg-tron-red/10 hover:text-white rounded-lg transition-all">
-                        <i class="fas fa-globe w-5"></i>
-                        <span>Network Settings</span>
-                      </a>
-                      <a href="#" class="flex items-center space-x-3 px-4 py-3 text-tron-silver hover:bg-tron-red/10 hover:text-white rounded-lg transition-all">
-                        <i class="fas fa-question-circle w-5"></i>
-                        <span>Help & Support</span>
-                      </a>
-                      <a href="#" class="flex items-center space-x-3 px-4 py-3 text-tron-silver hover:bg-tron-red/10 hover:text-white rounded-lg transition-all">
-                        <i class="fas fa-sign-out-alt w-5"></i>
-                        <span>Disconnect</span>
+                      <a href="#" class="flex items-center space-x-3 px-3 py-2.5 text-tron-silver hover:bg-tron-red/10 hover:text-white rounded-lg transition-all">
+                        <i class="fas fa-cog w-4"></i>
+                        <span>Settings</span>
                       </a>
                     </nav>
 
                     {/* Quick Stats */}
-                    <div class="mt-8 pt-6 border-t border-tron-red/20">
-                      <h6 class="text-tron-silver font-semibold mb-4">Quick Stats</h6>
-                      <div class="space-y-3 text-sm">
-                        <div class="flex justify-between">
-                          <span class="text-tron-silver">Completed Quests</span>
-                          <span class="text-white font-semibold">23</span>
-                        </div>
-                        <div class="flex justify-between">
+                    <div class="mt-8 pt-4 border-t border-tron-red/20">
+                      <h6 class="text-tron-silver font-semibold mb-3 text-sm">Performance</h6>
+                      <div class="space-y-2 text-sm">
+                        <div class="flex justify-between items-center">
                           <span class="text-tron-silver">Success Rate</span>
                           <span class="text-green-400 font-semibold">96%</span>
                         </div>
-                        <div class="flex justify-between">
-                          <span class="text-tron-silver">Avg Response</span>
-                          <span class="text-white font-semibold">1.2 days</span>
+                        <div class="flex justify-between items-center">
+                          <span class="text-tron-silver">Completed</span>
+                          <span class="text-white font-semibold">23</span>
                         </div>
                       </div>
                     </div>
@@ -1368,90 +1285,65 @@ app.get('/', (c) => {
                     <div class="space-y-4">
                       
                       {/* Submission 1 */}
-                      <div class="bg-tron-dark/40 border border-green-500/30 rounded-lg p-4">
-                        <div class="flex items-start justify-between mb-3">
-                          <div class="flex items-start space-x-3">
-                            <div class="w-10 h-10 bg-gradient-to-br from-green-500 to-green-700 rounded-lg flex items-center justify-center flex-shrink-0">
-                              <i class="fas fa-mobile-alt text-white"></i>
+                      <div class="bg-tron-dark/40 border border-green-500/30 rounded-lg p-3">
+                        <div class="flex items-center justify-between mb-2">
+                          <div class="flex items-center space-x-3">
+                            <div class="w-8 h-8 bg-gradient-to-br from-green-500 to-green-700 rounded flex items-center justify-center">
+                              <i class="fas fa-mobile-alt text-white text-sm"></i>
                             </div>
-                            <div class="flex-1">
-                              <h6 class="text-white font-semibold">Mobile Wallet Integration</h6>
-                              <p class="text-tron-silver text-sm">Milestone 2: API Documentation</p>
-                              <div class="flex items-center space-x-4 mt-2">
-                                <span class="px-2 py-1 bg-green-500/20 text-green-400 text-xs rounded border border-green-500/30">Approved</span>
-                                <span class="text-green-400 font-semibold">+$250 USDT</span>
-                              </div>
+                            <div>
+                              <h6 class="text-white font-semibold text-sm">Mobile Wallet Integration</h6>
+                              <p class="text-tron-silver text-xs">API Documentation</p>
                             </div>
                           </div>
-                          <div class="text-right flex-shrink-0">
-                            <div class="text-green-400 text-sm font-semibold">✓ Completed</div>
-                            <div class="text-xs text-tron-silver">2 hours ago</div>
+                          <div class="text-right">
+                            <div class="text-green-400 font-semibold text-sm">+$250</div>
+                            <div class="text-green-400 text-xs">✓ Approved</div>
                           </div>
-                        </div>
-                        <div class="bg-green-500/10 border border-green-500/20 rounded p-3">
-                          <div class="flex items-center space-x-2 mb-2">
-                            <i class="fas fa-comment-alt text-green-400"></i>
-                            <span class="text-green-400 font-semibold text-sm">Guardian Feedback</span>
-                          </div>
-                          <p class="text-tron-silver text-sm">"Excellent documentation quality. API endpoints well-structured and examples are clear."</p>
                         </div>
                       </div>
 
                       {/* Submission 2 */}
-                      <div class="bg-tron-dark/40 border border-blue-500/30 rounded-lg p-4">
-                        <div class="flex items-start justify-between mb-3">
-                          <div class="flex items-start space-x-3">
-                            <div class="w-10 h-10 bg-gradient-to-br from-blue-500 to-blue-700 rounded-lg flex items-center justify-center flex-shrink-0">
-                              <i class="fas fa-code text-white"></i>
+                      <div class="bg-tron-dark/40 border border-blue-500/30 rounded-lg p-3">
+                        <div class="flex items-center justify-between mb-2">
+                          <div class="flex items-center space-x-3">
+                            <div class="w-8 h-8 bg-gradient-to-br from-blue-500 to-blue-700 rounded flex items-center justify-center">
+                              <i class="fas fa-code text-white text-sm"></i>
                             </div>
-                            <div class="flex-1">
-                              <h6 class="text-white font-semibold">DeFi Dashboard Component</h6>
-                              <p class="text-tron-silver text-sm">Quest: React Trading Interface</p>
-                              <div class="flex items-center space-x-4 mt-2">
-                                <span class="px-2 py-1 bg-blue-500/20 text-blue-400 text-xs rounded border border-blue-500/30">Under Review</span>
-                                <span class="text-yellow-400 font-semibold">$180 USDT</span>
-                              </div>
+                            <div>
+                              <h6 class="text-white font-semibold text-sm">DeFi Dashboard Component</h6>
+                              <p class="text-tron-silver text-xs">React Trading Interface</p>
                             </div>
                           </div>
-                          <div class="text-right flex-shrink-0">
-                            <div class="text-blue-400 text-sm font-semibold">⏳ Pending</div>
-                            <div class="text-xs text-tron-silver">Est. 1-2 days</div>
+                          <div class="text-right">
+                            <div class="text-yellow-400 font-semibold text-sm">$180</div>
+                            <div class="text-blue-400 text-xs">⏳ Review (75%)</div>
                           </div>
                         </div>
-                        <div class="flex items-center space-x-4">
-                          <div class="flex-1 bg-tron-gray rounded-full h-2">
-                            <div class="w-3/4 bg-gradient-to-r from-blue-500 to-blue-400 h-2 rounded-full animate-pulse"></div>
-                          </div>
-                          <span class="text-blue-400 text-sm">75% Review Complete</span>
+                        <div class="w-full bg-tron-gray rounded-full h-1.5">
+                          <div class="w-3/4 bg-gradient-to-r from-blue-500 to-blue-400 h-1.5 rounded-full"></div>
                         </div>
                       </div>
 
                       {/* Submission 3 */}
-                      <div class="bg-tron-dark/40 border border-yellow-500/30 rounded-lg p-4">
-                        <div class="flex items-start justify-between mb-3">
-                          <div class="flex items-start space-x-3">
-                            <div class="w-10 h-10 bg-gradient-to-br from-yellow-500 to-orange-600 rounded-lg flex items-center justify-center flex-shrink-0">
-                              <i class="fas fa-video text-white"></i>
+                      <div class="bg-tron-dark/40 border border-yellow-500/30 rounded-lg p-3">
+                        <div class="flex items-center justify-between mb-2">
+                          <div class="flex items-center space-x-3">
+                            <div class="w-8 h-8 bg-gradient-to-br from-yellow-500 to-orange-600 rounded flex items-center justify-center">
+                              <i class="fas fa-video text-white text-sm"></i>
                             </div>
-                            <div class="flex-1">
-                              <h6 class="text-white font-semibold">TRON Tutorial Video Series</h6>
-                              <p class="text-tron-silver text-sm">Content: Smart Contract Basics</p>
-                              <div class="flex items-center space-x-4 mt-2">
-                                <span class="px-2 py-1 bg-orange-500/20 text-orange-400 text-xs rounded border border-orange-500/30">In Progress</span>
-                                <span class="text-purple-400 font-semibold">$320 USDT</span>
-                              </div>
+                            <div>
+                              <h6 class="text-white font-semibold text-sm">TRON Tutorial Video</h6>
+                              <p class="text-tron-silver text-xs">Smart Contract Basics</p>
                             </div>
                           </div>
-                          <div class="text-right flex-shrink-0">
-                            <div class="text-orange-400 text-sm font-semibold">⏰ 3 days left</div>
-                            <div class="text-xs text-tron-silver">Due: Dec 28</div>
+                          <div class="text-right">
+                            <div class="text-purple-400 font-semibold text-sm">$320</div>
+                            <div class="text-orange-400 text-xs">⏰ 3 days left</div>
                           </div>
                         </div>
-                        <div class="flex items-center space-x-4">
-                          <div class="flex-1 bg-tron-gray rounded-full h-2">
-                            <div class="w-2/5 bg-gradient-to-r from-yellow-500 to-orange-400 h-2 rounded-full"></div>
-                          </div>
-                          <span class="text-yellow-400 text-sm">40% Complete</span>
+                        <div class="w-full bg-tron-gray rounded-full h-1.5">
+                          <div class="w-2/5 bg-gradient-to-r from-yellow-500 to-orange-400 h-1.5 rounded-full"></div>
                         </div>
                       </div>
 
