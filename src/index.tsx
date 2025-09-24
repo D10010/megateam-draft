@@ -1100,16 +1100,25 @@ app.get('/', (c) => {
                         {/* Social Login Options */}
                         <div class="pt-4">
                           <p class="text-tron-silver text-sm text-center mb-4">Or continue with</p>
-                          <div class="grid grid-cols-3 gap-4">
-                            <button class="flex items-center justify-center p-3 bg-gray-800 hover:bg-gray-700 rounded-lg transition-all">
-                              <i class="fab fa-google text-white text-lg"></i>
+                          <div class="grid grid-cols-2 md:grid-cols-4 gap-4">
+                            <button class="flex items-center justify-center p-3 bg-gradient-to-r from-blue-600 to-blue-700 hover:from-blue-700 hover:to-blue-800 rounded-lg transition-all group">
+                              <i class="fab fa-google text-white text-lg group-hover:scale-110 transform transition-transform"></i>
                             </button>
-                            <button class="flex items-center justify-center p-3 bg-gray-800 hover:bg-gray-700 rounded-lg transition-all">
-                              <i class="fab fa-github text-white text-lg"></i>
+                            <button class="flex items-center justify-center p-3 bg-gradient-to-r from-gray-700 to-gray-800 hover:from-gray-800 hover:to-gray-900 rounded-lg transition-all group">
+                              <i class="fab fa-github text-white text-lg group-hover:scale-110 transform transition-transform"></i>
                             </button>
-                            <button class="flex items-center justify-center p-3 bg-gray-800 hover:bg-gray-700 rounded-lg transition-all">
-                              <i class="fab fa-discord text-white text-lg"></i>
+                            <button class="flex items-center justify-center p-3 bg-gradient-to-r from-indigo-600 to-indigo-700 hover:from-indigo-700 hover:to-indigo-800 rounded-lg transition-all group">
+                              <i class="fab fa-discord text-white text-lg group-hover:scale-110 transform transition-transform"></i>
                             </button>
+                            <button class="flex items-center justify-center p-3 bg-gradient-to-r from-black to-gray-900 hover:from-gray-900 hover:to-black rounded-lg transition-all group border border-gray-600 hover:border-gray-500">
+                              <i class="fab fa-x-twitter text-white text-lg group-hover:scale-110 transform transition-transform"></i>
+                            </button>
+                          </div>
+                          <div class="grid grid-cols-2 md:grid-cols-4 gap-4 mt-2 text-xs text-center text-tron-silver">
+                            <span>Google</span>
+                            <span>GitHub</span>
+                            <span>Discord</span>
+                            <span>X.com</span>
                           </div>
                         </div>
                       </div>
