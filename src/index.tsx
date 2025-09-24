@@ -1134,234 +1134,331 @@ app.get('/', (c) => {
               </div>
             </div>
 
-            {/* Dashboard Mockup */}
+            {/* Contributor Dashboard Mockup */}
             <div class="mt-12" data-aos="fade-up" data-aos-delay="700">
-              <h3 class="text-3xl font-bold mb-8 text-center text-tron-red">MEGATEAM Dashboard Preview</h3>
+              <h3 class="text-3xl font-bold mb-8 text-center text-tron-red">Contributor Dashboard Preview</h3>
               <p class="text-center text-gray-300 mb-12 max-w-3xl mx-auto text-lg">
-                Experience the future of coordinated building on TRON. Our dashboard connects talent, tracks progress, 
-                and ensures transparent accountability across all initiatives.
+                Experience your personalized MEGATEAM workspace. Track quests, manage submissions, discover opportunities, 
+                and build your reputation in the TRON ecosystem.
               </p>
               
               {/* Dashboard Container */}
-              <div class="cyber-card p-8 rounded-xl border border-tron-red/30 bg-gradient-to-br from-tron-dark/50 to-black/80">
+              <div class="cyber-card rounded-xl border border-tron-red/30 bg-gradient-to-br from-tron-dark/50 to-black/80 overflow-hidden">
                 
-                {/* Dashboard Header */}
-                <div class="flex flex-col md:flex-row justify-between items-start md:items-center mb-8 pb-6 border-b border-tron-red/20">
-                  <div class="flex items-center space-x-4 mb-4 md:mb-0">
-                    <div class="w-12 h-12 rounded-full bg-gradient-to-br from-tron-red to-tron-dark-red border-2 border-white overflow-hidden">
-                      <img src="/static/mt-logo.jpg" alt="MEGATEAM" class="w-full h-full object-cover" />
+                {/* Top Banner */}
+                <div class="bg-gradient-to-r from-tron-red/20 via-tron-dark/40 to-tron-red/20 p-6 border-b border-tron-red/20">
+                  <div class="flex flex-col lg:flex-row justify-between items-start lg:items-center space-y-4 lg:space-y-0">
+                    
+                    {/* User Profile Section */}
+                    <div class="flex items-center space-x-4">
+                      <div class="relative">
+                        <div class="w-16 h-16 rounded-full bg-gradient-to-br from-purple-500 to-blue-600 border-3 border-white overflow-hidden">
+                          <img src="/static/mt-logo.jpg" alt="Avatar" class="w-full h-full object-cover" />
+                        </div>
+                        <div class="absolute -bottom-1 -right-1 w-6 h-6 bg-gradient-to-br from-tron-red to-tron-dark-red rounded-full border-2 border-white flex items-center justify-center">
+                          <i class="fas fa-link text-white text-xs"></i>
+                        </div>
+                      </div>
+                      <div>
+                        <h4 class="text-xl font-bold text-white flex items-center space-x-2">
+                          <span>Alex Chen</span>
+                          <div class="flex items-center space-x-1">
+                            <i class="fas fa-star text-yellow-400"></i>
+                            <i class="fas fa-star text-yellow-400"></i>
+                            <i class="fas fa-star text-yellow-400"></i>
+                          </div>
+                        </h4>
+                        <div class="flex items-center space-x-3">
+                          <span class="text-yellow-400 font-semibold">Level 3 Contributor – Gold Tier</span>
+                          <span class="px-2 py-1 bg-tron-red/20 text-tron-red text-xs rounded border border-tron-red/30">TRON Chain</span>
+                        </div>
+                      </div>
                     </div>
-                    <div>
-                      <h4 class="text-xl font-bold text-white">MEGATEAM Control Center</h4>
-                      <p class="text-tron-silver text-sm">Coordinating TRON's Future</p>
-                    </div>
-                  </div>
-                  <div class="flex items-center space-x-4">
-                    <div class="flex items-center space-x-2">
-                      <div class="w-3 h-3 bg-green-500 rounded-full animate-pulse"></div>
-                      <span class="text-green-400 text-sm font-medium">Live Network</span>
-                    </div>
-                    <div class="text-tron-silver text-sm">
-                      Block #75,892,341
+
+                    {/* Balance Tracker */}
+                    <div class="grid grid-cols-2 lg:grid-cols-4 gap-4 lg:gap-6">
+                      <div class="text-center">
+                        <div class="text-2xl font-bold text-green-400">$2,847</div>
+                        <div class="text-xs text-tron-silver">USDT Earned</div>
+                      </div>
+                      <div class="text-center">
+                        <div class="text-2xl font-bold text-yellow-400">$456</div>
+                        <div class="text-xs text-tron-silver">Pending</div>
+                      </div>
+                      <div class="text-center">
+                        <div class="text-2xl font-bold text-blue-400">$189</div>
+                        <div class="text-xs text-tron-silver">Quest Rewards</div>
+                      </div>
+                      <div class="text-center">
+                        <div class="text-2xl font-bold text-purple-400">1,247</div>
+                        <div class="text-xs text-tron-silver">Rep Points</div>
+                      </div>
                     </div>
                   </div>
                 </div>
 
-                {/* Key Metrics Row */}
-                <div class="grid grid-cols-1 md:grid-cols-4 gap-6 mb-8">
-                  <div class="bg-gradient-to-br from-tron-red/20 to-tron-red/5 border border-tron-red/30 rounded-lg p-4 text-center">
-                    <div class="text-3xl font-bold text-tron-red mb-1">847</div>
-                    <div class="text-sm text-tron-silver">Active Builders</div>
-                    <div class="text-xs text-green-400 mt-1">↗ +23 this week</div>
-                  </div>
-                  <div class="bg-gradient-to-br from-blue-500/20 to-blue-500/5 border border-blue-500/30 rounded-lg p-4 text-center">
-                    <div class="text-3xl font-bold text-blue-400 mb-1">127</div>
-                    <div class="text-sm text-tron-silver">Active Projects</div>
-                    <div class="text-xs text-green-400 mt-1">↗ +8 this week</div>
-                  </div>
-                  <div class="bg-gradient-to-br from-green-500/20 to-green-500/5 border border-green-500/30 rounded-lg p-4 text-center">
-                    <div class="text-3xl font-bold text-green-400 mb-1">$2.4M</div>
-                    <div class="text-sm text-tron-silver">Distributed (TRX)</div>
-                    <div class="text-xs text-green-400 mt-1">↗ $347K this month</div>
-                  </div>
-                  <div class="bg-gradient-to-br from-yellow-500/20 to-yellow-500/5 border border-yellow-500/30 rounded-lg p-4 text-center">
-                    <div class="text-3xl font-bold text-yellow-400 mb-1">89</div>
-                    <div class="text-sm text-tron-silver">Guardians</div>
-                    <div class="text-xs text-green-400 mt-1">↗ +5 verified</div>
-                  </div>
-                </div>
-
-                {/* Main Content Grid */}
-                <div class="grid grid-cols-1 lg:grid-cols-3 gap-8">
+                {/* Main 3-Column Layout */}
+                <div class="grid grid-cols-1 lg:grid-cols-12 gap-0 min-h-[600px]">
                   
-                  {/* Active Projects List */}
-                  <div class="lg:col-span-2">
-                    <h5 class="text-lg font-bold text-white mb-4 flex items-center">
-                      <i class="fas fa-rocket text-tron-red mr-2"></i>
-                      Active Initiatives
+                  {/* Left Panel - Navigation */}
+                  <div class="lg:col-span-3 bg-tron-dark/30 p-6 border-r border-tron-red/20">
+                    <nav class="space-y-2">
+                      <a href="#" class="flex items-center space-x-3 px-4 py-3 bg-tron-red/20 text-tron-red rounded-lg border border-tron-red/30">
+                        <i class="fas fa-home w-5"></i>
+                        <span class="font-medium">Dashboard Home</span>
+                      </a>
+                      <a href="#" class="flex items-center space-x-3 px-4 py-3 text-tron-silver hover:bg-tron-red/10 hover:text-white rounded-lg transition-all">
+                        <i class="fas fa-puzzle-piece w-5"></i>
+                        <span>My Quests</span>
+                        <span class="ml-auto bg-blue-500 text-white text-xs px-2 py-1 rounded-full">3</span>
+                      </a>
+                      <a href="#" class="flex items-center space-x-3 px-4 py-3 text-tron-silver hover:bg-tron-red/10 hover:text-white rounded-lg transition-all">
+                        <i class="fas fa-briefcase w-5"></i>
+                        <span>Grants & Milestones</span>
+                      </a>
+                      <a href="#" class="flex items-center space-x-3 px-4 py-3 text-tron-silver hover:bg-tron-red/10 hover:text-white rounded-lg transition-all">
+                        <i class="fas fa-chart-line w-5"></i>
+                        <span>Reputation & Badges</span>
+                      </a>
+                      <a href="#" class="flex items-center space-x-3 px-4 py-3 text-tron-silver hover:bg-tron-red/10 hover:text-white rounded-lg transition-all">
+                        <i class="fas fa-upload w-5"></i>
+                        <span>Submit Work</span>
+                      </a>
+                      <a href="#" class="flex items-center space-x-3 px-4 py-3 text-tron-silver hover:bg-tron-red/10 hover:text-white rounded-lg transition-all">
+                        <i class="fas fa-search w-5"></i>
+                        <span>Discover New Quests</span>
+                        <span class="ml-auto bg-green-500 text-white text-xs px-2 py-1 rounded-full">12</span>
+                      </a>
+                    </nav>
+
+                    {/* Quick Stats */}
+                    <div class="mt-8 pt-6 border-t border-tron-red/20">
+                      <h6 class="text-tron-silver font-semibold mb-4">Quick Stats</h6>
+                      <div class="space-y-3 text-sm">
+                        <div class="flex justify-between">
+                          <span class="text-tron-silver">Completed Quests</span>
+                          <span class="text-white font-semibold">23</span>
+                        </div>
+                        <div class="flex justify-between">
+                          <span class="text-tron-silver">Success Rate</span>
+                          <span class="text-green-400 font-semibold">96%</span>
+                        </div>
+                        <div class="flex justify-between">
+                          <span class="text-tron-silver">Avg Response</span>
+                          <span class="text-white font-semibold">1.2 days</span>
+                        </div>
+                      </div>
+                    </div>
+                  </div>
+
+                  {/* Center Panel - Active Work */}
+                  <div class="lg:col-span-6 p-6">
+                    <h5 class="text-xl font-bold text-white mb-6 flex items-center">
+                      <i class="fas fa-tasks text-tron-red mr-3"></i>
+                      Your Current Submissions
                     </h5>
+                    
                     <div class="space-y-4">
                       
-                      {/* Project 1 */}
-                      <div class="bg-tron-dark/50 border border-tron-red/20 rounded-lg p-4 hover:border-tron-red/50 transition-all cursor-pointer">
-                        <div class="flex items-center justify-between mb-3">
-                          <div class="flex items-center space-x-3">
-                            <div class="w-10 h-10 bg-gradient-to-br from-purple-500 to-purple-700 rounded-lg flex items-center justify-center">
-                              <i class="fas fa-gamepad text-white"></i>
-                            </div>
-                            <div>
-                              <h6 class="text-white font-semibold">TRON Gaming Hub</h6>
-                              <p class="text-tron-silver text-sm">Multi-chain gaming platform</p>
-                            </div>
-                          </div>
-                          <div class="text-right">
-                            <div class="text-green-400 font-semibold">$45K TRX</div>
-                            <div class="text-xs text-tron-silver">Milestone 3/5</div>
-                          </div>
-                        </div>
-                        <div class="flex items-center justify-between">
-                          <div class="flex items-center space-x-4">
-                            <span class="px-2 py-1 bg-green-500/20 text-green-400 text-xs rounded border border-green-500/30">Development</span>
-                            <span class="text-tron-silver text-sm">12 Contributors</span>
-                          </div>
-                          <div class="w-24 bg-tron-gray rounded-full h-2">
-                            <div class="w-3/5 bg-gradient-to-r from-tron-red to-tron-light h-2 rounded-full"></div>
-                          </div>
-                        </div>
-                      </div>
-
-                      {/* Project 2 */}
-                      <div class="bg-tron-dark/50 border border-tron-red/20 rounded-lg p-4 hover:border-tron-red/50 transition-all cursor-pointer">
-                        <div class="flex items-center justify-between mb-3">
-                          <div class="flex items-center space-x-3">
-                            <div class="w-10 h-10 bg-gradient-to-br from-blue-500 to-blue-700 rounded-lg flex items-center justify-center">
-                              <i class="fas fa-graduation-cap text-white"></i>
-                            </div>
-                            <div>
-                              <h6 class="text-white font-semibold">DeFi Education Series</h6>
-                              <p class="text-tron-silver text-sm">Multilingual learning content</p>
-                            </div>
-                          </div>
-                          <div class="text-right">
-                            <div class="text-green-400 font-semibold">$28K TRX</div>
-                            <div class="text-xs text-tron-silver">Milestone 4/6</div>
-                          </div>
-                        </div>
-                        <div class="flex items-center justify-between">
-                          <div class="flex items-center space-x-4">
-                            <span class="px-2 py-1 bg-blue-500/20 text-blue-400 text-xs rounded border border-blue-500/30">Content</span>
-                            <span class="text-tron-silver text-sm">8 Contributors</span>
-                          </div>
-                          <div class="w-24 bg-tron-gray rounded-full h-2">
-                            <div class="w-4/6 bg-gradient-to-r from-blue-500 to-blue-400 h-2 rounded-full"></div>
-                          </div>
-                        </div>
-                      </div>
-
-                      {/* Project 3 */}
-                      <div class="bg-tron-dark/50 border border-tron-red/20 rounded-lg p-4 hover:border-tron-red/50 transition-all cursor-pointer">
-                        <div class="flex items-center justify-between mb-3">
-                          <div class="flex items-center space-x-3">
-                            <div class="w-10 h-10 bg-gradient-to-br from-green-500 to-green-700 rounded-lg flex items-center justify-center">
+                      {/* Submission 1 */}
+                      <div class="bg-tron-dark/40 border border-green-500/30 rounded-lg p-4">
+                        <div class="flex items-start justify-between mb-3">
+                          <div class="flex items-start space-x-3">
+                            <div class="w-10 h-10 bg-gradient-to-br from-green-500 to-green-700 rounded-lg flex items-center justify-center flex-shrink-0">
                               <i class="fas fa-mobile-alt text-white"></i>
                             </div>
-                            <div>
-                              <h6 class="text-white font-semibold">Mobile Wallet SDK</h6>
-                              <p class="text-tron-silver text-sm">Cross-platform development kit</p>
+                            <div class="flex-1">
+                              <h6 class="text-white font-semibold">Mobile Wallet Integration</h6>
+                              <p class="text-tron-silver text-sm">Milestone 2: API Documentation</p>
+                              <div class="flex items-center space-x-4 mt-2">
+                                <span class="px-2 py-1 bg-green-500/20 text-green-400 text-xs rounded border border-green-500/30">Approved</span>
+                                <span class="text-green-400 font-semibold">+$250 USDT</span>
+                              </div>
                             </div>
                           </div>
-                          <div class="text-right">
-                            <div class="text-green-400 font-semibold">$67K TRX</div>
-                            <div class="text-xs text-tron-silver">Milestone 2/4</div>
+                          <div class="text-right flex-shrink-0">
+                            <div class="text-green-400 text-sm font-semibold">✓ Completed</div>
+                            <div class="text-xs text-tron-silver">2 hours ago</div>
                           </div>
                         </div>
-                        <div class="flex items-center justify-between">
-                          <div class="flex items-center space-x-4">
-                            <span class="px-2 py-1 bg-yellow-500/20 text-yellow-400 text-xs rounded border border-yellow-500/30">SDK</span>
-                            <span class="text-tron-silver text-sm">15 Contributors</span>
+                        <div class="bg-green-500/10 border border-green-500/20 rounded p-3">
+                          <div class="flex items-center space-x-2 mb-2">
+                            <i class="fas fa-comment-alt text-green-400"></i>
+                            <span class="text-green-400 font-semibold text-sm">Guardian Feedback</span>
                           </div>
-                          <div class="w-24 bg-tron-gray rounded-full h-2">
-                            <div class="w-1/2 bg-gradient-to-r from-green-500 to-green-400 h-2 rounded-full"></div>
+                          <p class="text-tron-silver text-sm">"Excellent documentation quality. API endpoints well-structured and examples are clear."</p>
+                        </div>
+                      </div>
+
+                      {/* Submission 2 */}
+                      <div class="bg-tron-dark/40 border border-blue-500/30 rounded-lg p-4">
+                        <div class="flex items-start justify-between mb-3">
+                          <div class="flex items-start space-x-3">
+                            <div class="w-10 h-10 bg-gradient-to-br from-blue-500 to-blue-700 rounded-lg flex items-center justify-center flex-shrink-0">
+                              <i class="fas fa-code text-white"></i>
+                            </div>
+                            <div class="flex-1">
+                              <h6 class="text-white font-semibold">DeFi Dashboard Component</h6>
+                              <p class="text-tron-silver text-sm">Quest: React Trading Interface</p>
+                              <div class="flex items-center space-x-4 mt-2">
+                                <span class="px-2 py-1 bg-blue-500/20 text-blue-400 text-xs rounded border border-blue-500/30">Under Review</span>
+                                <span class="text-yellow-400 font-semibold">$180 USDT</span>
+                              </div>
+                            </div>
                           </div>
+                          <div class="text-right flex-shrink-0">
+                            <div class="text-blue-400 text-sm font-semibold">⏳ Pending</div>
+                            <div class="text-xs text-tron-silver">Est. 1-2 days</div>
+                          </div>
+                        </div>
+                        <div class="flex items-center space-x-4">
+                          <div class="flex-1 bg-tron-gray rounded-full h-2">
+                            <div class="w-3/4 bg-gradient-to-r from-blue-500 to-blue-400 h-2 rounded-full animate-pulse"></div>
+                          </div>
+                          <span class="text-blue-400 text-sm">75% Review Complete</span>
+                        </div>
+                      </div>
+
+                      {/* Submission 3 */}
+                      <div class="bg-tron-dark/40 border border-yellow-500/30 rounded-lg p-4">
+                        <div class="flex items-start justify-between mb-3">
+                          <div class="flex items-start space-x-3">
+                            <div class="w-10 h-10 bg-gradient-to-br from-yellow-500 to-orange-600 rounded-lg flex items-center justify-center flex-shrink-0">
+                              <i class="fas fa-video text-white"></i>
+                            </div>
+                            <div class="flex-1">
+                              <h6 class="text-white font-semibold">TRON Tutorial Video Series</h6>
+                              <p class="text-tron-silver text-sm">Content: Smart Contract Basics</p>
+                              <div class="flex items-center space-x-4 mt-2">
+                                <span class="px-2 py-1 bg-orange-500/20 text-orange-400 text-xs rounded border border-orange-500/30">In Progress</span>
+                                <span class="text-purple-400 font-semibold">$320 USDT</span>
+                              </div>
+                            </div>
+                          </div>
+                          <div class="text-right flex-shrink-0">
+                            <div class="text-orange-400 text-sm font-semibold">⏰ 3 days left</div>
+                            <div class="text-xs text-tron-silver">Due: Dec 28</div>
+                          </div>
+                        </div>
+                        <div class="flex items-center space-x-4">
+                          <div class="flex-1 bg-tron-gray rounded-full h-2">
+                            <div class="w-2/5 bg-gradient-to-r from-yellow-500 to-orange-400 h-2 rounded-full"></div>
+                          </div>
+                          <span class="text-yellow-400 text-sm">40% Complete</span>
                         </div>
                       </div>
 
                     </div>
+
+                    {/* Action Button */}
+                    <div class="mt-6 text-center">
+                      <button class="bg-gradient-to-r from-tron-red to-tron-dark-red hover:from-tron-dark-red hover:to-tron-red text-white px-6 py-3 rounded-lg font-semibold transition-all hover:scale-105 transform">
+                        <i class="fas fa-plus mr-2"></i>
+                        Submit New Work
+                      </button>
+                    </div>
                   </div>
 
-                  {/* Right Sidebar */}
-                  <div class="space-y-6">
+                  {/* Right Panel - Opportunities Feed */}
+                  <div class="lg:col-span-3 bg-tron-dark/30 p-6 border-l border-tron-red/20">
                     
-                    {/* Recent Activity */}
-                    <div>
-                      <h5 class="text-lg font-bold text-white mb-4 flex items-center">
-                        <i class="fas fa-bolt text-yellow-400 mr-2"></i>
-                        Live Activity
-                      </h5>
-                      <div class="bg-tron-dark/30 border border-tron-red/20 rounded-lg p-4 space-y-3 max-h-64 overflow-y-auto">
-                        <div class="flex items-center space-x-3 text-sm">
-                          <div class="w-2 h-2 bg-green-500 rounded-full"></div>
-                          <span class="text-tron-silver">Milestone approved: Gaming Hub UI</span>
-                        </div>
-                        <div class="flex items-center space-x-3 text-sm">
-                          <div class="w-2 h-2 bg-blue-500 rounded-full"></div>
-                          <span class="text-tron-silver">New Guardian: Alex Chen verified</span>
-                        </div>
-                        <div class="flex items-center space-x-3 text-sm">
-                          <div class="w-2 h-2 bg-yellow-500 rounded-full"></div>
-                          <span class="text-tron-silver">Payment processed: 5,000 TRX</span>
-                        </div>
-                        <div class="flex items-center space-x-3 text-sm">
-                          <div class="w-2 h-2 bg-purple-500 rounded-full"></div>
-                          <span class="text-tron-silver">New proposal: NFT Marketplace</span>
-                        </div>
-                        <div class="flex items-center space-x-3 text-sm">
-                          <div class="w-2 h-2 bg-red-500 rounded-full"></div>
-                          <span class="text-tron-silver">Team formation: DeFi Analytics</span>
-                        </div>
-                      </div>
+                    {/* Filter Tabs */}
+                    <div class="flex flex-wrap gap-2 mb-6">
+                      <button class="px-3 py-1 bg-tron-red/20 text-tron-red border border-tron-red/30 rounded text-sm font-medium">New</button>
+                      <button class="px-3 py-1 text-tron-silver hover:text-white rounded text-sm">High Reward</button>
+                      <button class="px-3 py-1 text-tron-silver hover:text-white rounded text-sm">Deadline Soon</button>
+                      <button class="px-3 py-1 text-tron-silver hover:text-white rounded text-sm">Popular</button>
                     </div>
 
-                    {/* Guardian Network */}
-                    <div>
-                      <h5 class="text-lg font-bold text-white mb-4 flex items-center">
-                        <i class="fas fa-shield-alt text-blue-400 mr-2"></i>
-                        Guardian Network
-                      </h5>
-                      <div class="bg-tron-dark/30 border border-tron-red/20 rounded-lg p-4">
-                        <div class="flex items-center justify-between mb-4">
-                          <span class="text-tron-silver">Verification Rate</span>
-                          <span class="text-green-400 font-semibold">98.3%</span>
-                        </div>
-                        <div class="w-full bg-tron-gray rounded-full h-3 mb-4">
-                          <div class="w-[98%] bg-gradient-to-r from-green-500 to-green-400 h-3 rounded-full"></div>
-                        </div>
-                        <div class="space-y-2 text-sm">
-                          <div class="flex justify-between">
-                            <span class="text-tron-silver">Active Reviews</span>
-                            <span class="text-white">23</span>
+                    <h5 class="text-lg font-bold text-white mb-4 flex items-center">
+                      <i class="fas fa-star text-yellow-400 mr-2"></i>
+                      Featured Quests
+                    </h5>
+                    
+                    <div class="space-y-4">
+                      
+                      {/* Quest 1 */}
+                      <div class="bg-tron-dark/50 border border-tron-red/20 rounded-lg p-4 hover:border-tron-red/50 transition-all">
+                        <div class="flex items-start space-x-3 mb-3">
+                          <div class="w-8 h-8 bg-gradient-to-br from-purple-500 to-purple-700 rounded flex items-center justify-center flex-shrink-0">
+                            <i class="fas fa-gamepad text-white text-sm"></i>
                           </div>
-                          <div class="flex justify-between">
-                            <span class="text-tron-silver">Avg. Review Time</span>
-                            <span class="text-white">2.4 days</span>
-                          </div>
-                          <div class="flex justify-between">
-                            <span class="text-tron-silver">Total Verified</span>
-                            <span class="text-white">1,847</span>
+                          <div class="flex-1">
+                            <h6 class="text-white font-semibold text-sm">GameFi UI Components</h6>
+                            <p class="text-tron-silver text-xs">React components for gaming dApps</p>
                           </div>
                         </div>
+                        <div class="flex items-center justify-between mb-3">
+                          <span class="text-green-400 font-bold text-sm">$450 USDT</span>
+                          <span class="text-xs text-tron-silver">7 days left</span>
+                        </div>
+                        <div class="flex items-center space-x-2 mb-3">
+                          <span class="px-2 py-1 bg-blue-500/20 text-blue-400 text-xs rounded">React</span>
+                          <span class="px-2 py-1 bg-purple-500/20 text-purple-400 text-xs rounded">Gaming</span>
+                        </div>
+                        <button class="w-full bg-gradient-to-r from-tron-red to-tron-dark-red hover:from-tron-dark-red hover:to-tron-red text-white py-2 px-4 rounded text-sm font-semibold transition-all">
+                          Apply Now
+                        </button>
                       </div>
+
+                      {/* Quest 2 */}
+                      <div class="bg-tron-dark/50 border border-tron-red/20 rounded-lg p-4 hover:border-tron-red/50 transition-all">
+                        <div class="flex items-start space-x-3 mb-3">
+                          <div class="w-8 h-8 bg-gradient-to-br from-green-500 to-green-700 rounded flex items-center justify-center flex-shrink-0">
+                            <i class="fas fa-leaf text-white text-sm"></i>
+                          </div>
+                          <div class="flex-1">
+                            <h6 class="text-white font-semibold text-sm">Carbon Credit Tracker</h6>
+                            <p class="text-tron-silver text-xs">Environmental impact dashboard</p>
+                          </div>
+                        </div>
+                        <div class="flex items-center justify-between mb-3">
+                          <span class="text-green-400 font-bold text-sm">$320 USDT</span>
+                          <span class="text-xs text-tron-silver">12 days left</span>
+                        </div>
+                        <div class="flex items-center space-x-2 mb-3">
+                          <span class="px-2 py-1 bg-green-500/20 text-green-400 text-xs rounded">Vue.js</span>
+                          <span class="px-2 py-1 bg-blue-500/20 text-blue-400 text-xs rounded">Charts</span>
+                        </div>
+                        <button class="w-full bg-gradient-to-r from-tron-red to-tron-dark-red hover:from-tron-dark-red hover:to-tron-red text-white py-2 px-4 rounded text-sm font-semibold transition-all">
+                          Apply Now
+                        </button>
+                      </div>
+
+                      {/* Quest 3 */}
+                      <div class="bg-tron-dark/50 border border-tron-red/20 rounded-lg p-4 hover:border-tron-red/50 transition-all">
+                        <div class="flex items-start space-x-3 mb-3">
+                          <div class="w-8 h-8 bg-gradient-to-br from-blue-500 to-blue-700 rounded flex items-center justify-center flex-shrink-0">
+                            <i class="fas fa-robot text-white text-sm"></i>
+                          </div>
+                          <div class="flex-1">
+                            <h6 class="text-white font-semibold text-sm">AI Trading Bot Tutorial</h6>
+                            <p class="text-tron-silver text-xs">Python automation guide</p>
+                          </div>
+                        </div>
+                        <div class="flex items-center justify-between mb-3">
+                          <span class="text-green-400 font-bold text-sm">$280 USDT</span>
+                          <span class="text-xs text-orange-400">Hot 🔥</span>
+                        </div>
+                        <div class="flex items-center space-x-2 mb-3">
+                          <span class="px-2 py-1 bg-yellow-500/20 text-yellow-400 text-xs rounded">Python</span>
+                          <span class="px-2 py-1 bg-purple-500/20 text-purple-400 text-xs rounded">AI</span>
+                        </div>
+                        <button class="w-full bg-gradient-to-r from-tron-red to-tron-dark-red hover:from-tron-dark-red hover:to-tron-red text-white py-2 px-4 rounded text-sm font-semibold transition-all">
+                          Apply Now
+                        </button>
+                      </div>
+
+                    </div>
+
+                    {/* View All Button */}
+                    <div class="mt-6 text-center">
+                      <button class="text-tron-red hover:text-white font-semibold text-sm transition-colors">
+                        View All Quests →
+                      </button>
                     </div>
 
                   </div>
-                </div>
-
-                {/* Call to Action */}
-                <div class="mt-8 pt-6 border-t border-tron-red/20 text-center">
-                  <p class="text-tron-silver mb-4">Ready to join the coordination revolution?</p>
-                  <button class="bg-gradient-to-r from-tron-red to-tron-dark-red hover:from-tron-dark-red hover:to-tron-red text-white px-6 py-3 rounded-lg font-semibold transition-all hover:scale-105 transform">
-                    Access Dashboard Beta
-                  </button>
                 </div>
 
               </div>
