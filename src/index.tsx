@@ -1792,6 +1792,362 @@ app.get('/', (c) => {
 
               </div>
             </div>
+
+            {/* Sponsorship Creation Page Mockup */}
+            <div class="mt-20" data-aos="fade-up" data-aos-delay="900">
+              <h3 class="text-3xl font-bold mb-8 text-center text-tron-red">Sponsor Dashboard - Create Bounty</h3>
+              <p class="text-center text-gray-300 mb-12 max-w-3xl mx-auto text-lg">
+                Post your project, set rewards, and connect with verified TRON builders. 
+                Our Guardian network ensures quality delivery and transparent milestone tracking.
+              </p>
+              
+              {/* Sponsor Creation Container */}
+              <div class="cyber-card rounded-xl border border-tron-red/30 bg-gradient-to-br from-tron-dark/50 to-black/80 overflow-hidden">
+                
+                {/* Sponsor Header */}
+                <div class="bg-gradient-to-r from-green-600/20 via-tron-dark/40 to-blue-600/20 p-4 border-b border-tron-red/20">
+                  <div class="flex flex-col lg:flex-row justify-between items-start lg:items-center space-y-3 lg:space-y-0">
+                    
+                    {/* Company Profile */}
+                    <div class="flex items-center space-x-3">
+                      <div class="w-12 h-12 rounded-lg bg-gradient-to-br from-blue-500 to-blue-700 border-2 border-white flex items-center justify-center">
+                        <i class="fas fa-building text-white"></i>
+                      </div>
+                      <div>
+                        <h4 class="text-lg font-bold text-white">TronTech Solutions</h4>
+                        <div class="flex items-center space-x-2">
+                          <span class="text-blue-400 font-medium text-sm">Verified Sponsor</span>
+                          <div class="flex items-center">
+                            <i class="fas fa-star text-yellow-400 text-sm"></i>
+                            <i class="fas fa-star text-yellow-400 text-sm"></i>
+                            <i class="fas fa-star text-yellow-400 text-sm"></i>
+                            <i class="fas fa-star text-yellow-400 text-sm"></i>
+                            <i class="fas fa-star text-yellow-400 text-sm"></i>
+                          </div>
+                        </div>
+                      </div>
+                    </div>
+
+                    {/* Sponsor Stats */}
+                    <div class="flex items-center space-x-6">
+                      <div class="text-center">
+                        <div class="text-xl font-bold text-green-400">$47K</div>
+                        <div class="text-xs text-tron-silver">Total Funded</div>
+                      </div>
+                      <div class="text-center">
+                        <div class="text-xl font-bold text-blue-400">23</div>
+                        <div class="text-xs text-tron-silver">Projects Posted</div>
+                      </div>
+                      <div class="text-center">
+                        <div class="text-xl font-bold text-purple-400">89%</div>
+                        <div class="text-xs text-tron-silver">Success Rate</div>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+
+                {/* Creation Form */}
+                <div class="p-6">
+                  <div class="grid grid-cols-1 lg:grid-cols-3 gap-8">
+                    
+                    {/* Main Form - Left 2 Columns */}
+                    <div class="lg:col-span-2 space-y-6">
+                      
+                      {/* Project Details */}
+                      <div class="bg-tron-dark/40 border border-tron-red/20 rounded-lg p-5">
+                        <h5 class="text-lg font-bold text-white mb-4 flex items-center">
+                          <i class="fas fa-clipboard-list text-tron-red mr-3"></i>
+                          Project Details
+                        </h5>
+                        
+                        <div class="space-y-4">
+                          <div>
+                            <label class="block text-tron-silver text-sm font-medium mb-2">Project Title</label>
+                            <input 
+                              type="text" 
+                              value="Multi-Chain Bridge Integration"
+                              class="w-full px-4 py-3 bg-tron-dark border border-tron-red/30 rounded-lg text-white focus:outline-none focus:border-tron-red"
+                            />
+                          </div>
+                          
+                          <div class="grid grid-cols-1 md:grid-cols-2 gap-4">
+                            <div>
+                              <label class="block text-tron-silver text-sm font-medium mb-2">Category</label>
+                              <select class="w-full px-4 py-3 bg-tron-dark border border-tron-red/30 rounded-lg text-white focus:outline-none focus:border-tron-red">
+                                <option>Development</option>
+                                <option>Design</option>
+                                <option>Content Creation</option>
+                                <option>Marketing</option>
+                                <option>Audit & Security</option>
+                              </select>
+                            </div>
+                            <div>
+                              <label class="block text-tron-silver text-sm font-medium mb-2">Difficulty Level</label>
+                              <select class="w-full px-4 py-3 bg-tron-dark border border-tron-red/30 rounded-lg text-white focus:outline-none focus:border-tron-red">
+                                <option>Intermediate</option>
+                                <option>Beginner</option>
+                                <option>Advanced</option>
+                                <option>Expert</option>
+                              </select>
+                            </div>
+                          </div>
+                          
+                          <div>
+                            <label class="block text-tron-silver text-sm font-medium mb-2">Project Description</label>
+                            <textarea 
+                              rows="4"
+                              placeholder="Describe your project requirements, goals, and deliverables..."
+                              class="w-full px-4 py-3 bg-tron-dark border border-tron-red/30 rounded-lg text-white placeholder-tron-silver/50 focus:outline-none focus:border-tron-red resize-none"
+                            >Develop a secure multi-chain bridge connecting TRON to Ethereum and BSC networks. Must include smart contracts, frontend interface, and comprehensive testing suite.</textarea>
+                          </div>
+                        </div>
+                      </div>
+
+                      {/* Requirements & Skills */}
+                      <div class="bg-tron-dark/40 border border-tron-red/20 rounded-lg p-5">
+                        <h5 class="text-lg font-bold text-white mb-4 flex items-center">
+                          <i class="fas fa-tools text-blue-400 mr-3"></i>
+                          Requirements & Skills
+                        </h5>
+                        
+                        <div class="space-y-4">
+                          <div>
+                            <label class="block text-tron-silver text-sm font-medium mb-2">Required Skills</label>
+                            <div class="flex flex-wrap gap-2 mb-3">
+                              <span class="px-3 py-1 bg-blue-500/20 text-blue-400 text-sm rounded border border-blue-500/30 flex items-center">
+                                Solidity
+                                <i class="fas fa-times ml-2 cursor-pointer hover:text-white"></i>
+                              </span>
+                              <span class="px-3 py-1 bg-green-500/20 text-green-400 text-sm rounded border border-green-500/30 flex items-center">
+                                JavaScript
+                                <i class="fas fa-times ml-2 cursor-pointer hover:text-white"></i>
+                              </span>
+                              <span class="px-3 py-1 bg-purple-500/20 text-purple-400 text-sm rounded border border-purple-500/30 flex items-center">
+                                Web3.js
+                                <i class="fas fa-times ml-2 cursor-pointer hover:text-white"></i>
+                              </span>
+                              <span class="px-3 py-1 bg-yellow-500/20 text-yellow-400 text-sm rounded border border-yellow-500/30 flex items-center">
+                                React
+                                <i class="fas fa-times ml-2 cursor-pointer hover:text-white"></i>
+                              </span>
+                            </div>
+                            <div class="flex items-center space-x-2">
+                              <input 
+                                type="text" 
+                                placeholder="Add skill (press Enter)"
+                                class="flex-1 px-3 py-2 bg-tron-dark border border-tron-red/30 rounded text-white placeholder-tron-silver/50 text-sm focus:outline-none focus:border-tron-red"
+                              />
+                              <button class="px-4 py-2 bg-tron-red hover:bg-tron-dark-red text-white rounded text-sm transition-all">
+                                Add
+                              </button>
+                            </div>
+                          </div>
+                          
+                          <div>
+                            <label class="block text-tron-silver text-sm font-medium mb-2">Deliverables</label>
+                            <div class="space-y-2">
+                              <div class="flex items-center space-x-3 p-3 bg-tron-dark/50 rounded border border-tron-red/10">
+                                <i class="fas fa-check-circle text-green-400"></i>
+                                <span class="text-white flex-1">Smart contract code with full documentation</span>
+                                <button class="text-tron-silver hover:text-red-400 transition-colors">
+                                  <i class="fas fa-trash"></i>
+                                </button>
+                              </div>
+                              <div class="flex items-center space-x-3 p-3 bg-tron-dark/50 rounded border border-tron-red/10">
+                                <i class="fas fa-check-circle text-green-400"></i>
+                                <span class="text-white flex-1">Frontend interface with wallet integration</span>
+                                <button class="text-tron-silver hover:text-red-400 transition-colors">
+                                  <i class="fas fa-trash"></i>
+                                </button>
+                              </div>
+                              <div class="flex items-center space-x-2">
+                                <input 
+                                  type="text" 
+                                  placeholder="Add deliverable..."
+                                  class="flex-1 px-3 py-2 bg-tron-dark border border-tron-red/30 rounded text-white placeholder-tron-silver/50 text-sm focus:outline-none focus:border-tron-red"
+                                />
+                                <button class="px-4 py-2 bg-green-600 hover:bg-green-700 text-white rounded text-sm transition-all">
+                                  <i class="fas fa-plus"></i>
+                                </button>
+                              </div>
+                            </div>
+                          </div>
+                        </div>
+                      </div>
+
+                      {/* Timeline & Budget */}
+                      <div class="bg-tron-dark/40 border border-tron-red/20 rounded-lg p-5">
+                        <h5 class="text-lg font-bold text-white mb-4 flex items-center">
+                          <i class="fas fa-dollar-sign text-green-400 mr-3"></i>
+                          Timeline & Budget
+                        </h5>
+                        
+                        <div class="grid grid-cols-1 md:grid-cols-3 gap-4">
+                          <div>
+                            <label class="block text-tron-silver text-sm font-medium mb-2">Total Budget</label>
+                            <div class="relative">
+                              <input 
+                                type="number" 
+                                value="2500"
+                                class="w-full px-4 py-3 pr-16 bg-tron-dark border border-tron-red/30 rounded-lg text-white focus:outline-none focus:border-tron-red"
+                              />
+                              <span class="absolute right-4 top-1/2 transform -translate-y-1/2 text-tron-silver text-sm">USDT</span>
+                            </div>
+                          </div>
+                          <div>
+                            <label class="block text-tron-silver text-sm font-medium mb-2">Project Duration</label>
+                            <select class="w-full px-4 py-3 bg-tron-dark border border-tron-red/30 rounded-lg text-white focus:outline-none focus:border-tron-red">
+                              <option>30 days</option>
+                              <option>14 days</option>
+                              <option>45 days</option>
+                              <option>60 days</option>
+                              <option>90+ days</option>
+                            </select>
+                          </div>
+                          <div>
+                            <label class="block text-tron-silver text-sm font-medium mb-2">Payment Structure</label>
+                            <select class="w-full px-4 py-3 bg-tron-dark border border-tron-red/30 rounded-lg text-white focus:outline-none focus:border-tron-red">
+                              <option>Milestone-based</option>
+                              <option>Full upfront</option>
+                              <option>50% upfront, 50% completion</option>
+                              <option>Weekly payments</option>
+                            </select>
+                          </div>
+                        </div>
+
+                        {/* Milestone Breakdown */}
+                        <div class="mt-6">
+                          <label class="block text-tron-silver text-sm font-medium mb-3">Milestone Breakdown</label>
+                          <div class="space-y-3">
+                            <div class="flex items-center space-x-3 p-3 bg-gradient-to-r from-blue-500/10 to-blue-500/5 border border-blue-500/20 rounded">
+                              <div class="w-8 h-8 bg-blue-500 text-white rounded flex items-center justify-center font-semibold text-sm">1</div>
+                              <div class="flex-1">
+                                <div class="text-white font-medium">Smart Contract Development</div>
+                                <div class="text-tron-silver text-sm">Core bridge contracts and security implementation</div>
+                              </div>
+                              <div class="text-green-400 font-semibold">$1,000</div>
+                            </div>
+                            <div class="flex items-center space-x-3 p-3 bg-gradient-to-r from-purple-500/10 to-purple-500/5 border border-purple-500/20 rounded">
+                              <div class="w-8 h-8 bg-purple-500 text-white rounded flex items-center justify-center font-semibold text-sm">2</div>
+                              <div class="flex-1">
+                                <div class="text-white font-medium">Frontend Integration</div>
+                                <div class="text-tron-silver text-sm">User interface and wallet connectivity</div>
+                              </div>
+                              <div class="text-green-400 font-semibold">$800</div>
+                            </div>
+                            <div class="flex items-center space-x-3 p-3 bg-gradient-to-r from-green-500/10 to-green-500/5 border border-green-500/20 rounded">
+                              <div class="w-8 h-8 bg-green-500 text-white rounded flex items-center justify-center font-semibold text-sm">3</div>
+                              <div class="flex-1">
+                                <div class="text-white font-medium">Testing & Documentation</div>
+                                <div class="text-tron-silver text-sm">Comprehensive testing suite and user guides</div>
+                              </div>
+                              <div class="text-green-400 font-semibold">$700</div>
+                            </div>
+                          </div>
+                        </div>
+                      </div>
+                    </div>
+
+                    {/* Sidebar - Right Column */}
+                    <div class="space-y-6">
+                      
+                      {/* Preview Card */}
+                      <div class="bg-gradient-to-br from-tron-red/20 to-tron-red/5 border border-tron-red/30 rounded-lg p-4">
+                        <h6 class="text-white font-semibold mb-3 flex items-center">
+                          <i class="fas fa-eye text-tron-red mr-2"></i>
+                          Live Preview
+                        </h6>
+                        <div class="bg-tron-dark/60 border border-tron-red/20 rounded p-3 text-sm">
+                          <div class="flex items-start justify-between mb-2">
+                            <div class="flex items-center space-x-2">
+                              <div class="w-6 h-6 bg-gradient-to-br from-blue-500 to-blue-700 rounded flex items-center justify-center">
+                                <i class="fas fa-code text-white text-xs"></i>
+                              </div>
+                              <span class="px-2 py-0.5 bg-blue-500/20 text-blue-400 text-xs rounded">Development</span>
+                            </div>
+                            <div class="text-green-400 font-bold">$2,500</div>
+                          </div>
+                          <div class="text-white font-medium mb-1">Multi-Chain Bridge Integration</div>
+                          <div class="text-tron-silver text-xs mb-2">Intermediate • 30 days left</div>
+                          <div class="flex flex-wrap gap-1 mb-2">
+                            <span class="px-1.5 py-0.5 bg-blue-500/20 text-blue-400 text-xs rounded">Solidity</span>
+                            <span class="px-1.5 py-0.5 bg-green-500/20 text-green-400 text-xs rounded">JavaScript</span>
+                            <span class="px-1.5 py-0.5 bg-purple-500/20 text-purple-400 text-xs rounded">Web3.js</span>
+                          </div>
+                        </div>
+                      </div>
+
+                      {/* Talent Matching */}
+                      <div class="bg-tron-dark/40 border border-tron-red/20 rounded-lg p-4">
+                        <h6 class="text-white font-semibold mb-3 flex items-center">
+                          <i class="fas fa-users text-blue-400 mr-2"></i>
+                          Talent Match
+                        </h6>
+                        <div class="text-center mb-4">
+                          <div class="text-3xl font-bold text-blue-400">47</div>
+                          <div class="text-tron-silver text-sm">Qualified Contributors</div>
+                        </div>
+                        <div class="space-y-2 text-sm">
+                          <div class="flex justify-between">
+                            <span class="text-tron-silver">Skill Match</span>
+                            <span class="text-green-400">92%</span>
+                          </div>
+                          <div class="flex justify-between">
+                            <span class="text-tron-silver">Avg Success Rate</span>
+                            <span class="text-green-400">94%</span>
+                          </div>
+                          <div class="flex justify-between">
+                            <span class="text-tron-silver">Est. Applications</span>
+                            <span class="text-white">12-18</span>
+                          </div>
+                        </div>
+                      </div>
+
+                      {/* Guardian Review */}
+                      <div class="bg-tron-dark/40 border border-tron-red/20 rounded-lg p-4">
+                        <h6 class="text-white font-semibold mb-3 flex items-center">
+                          <i class="fas fa-shield-alt text-yellow-400 mr-2"></i>
+                          Guardian Review
+                        </h6>
+                        <div class="text-sm space-y-2">
+                          <div class="flex items-center space-x-2">
+                            <i class="fas fa-check-circle text-green-400"></i>
+                            <span class="text-tron-silver">Milestone verification</span>
+                          </div>
+                          <div class="flex items-center space-x-2">
+                            <i class="fas fa-check-circle text-green-400"></i>
+                            <span class="text-tron-silver">Quality assurance</span>
+                          </div>
+                          <div class="flex items-center space-x-2">
+                            <i class="fas fa-check-circle text-green-400"></i>
+                            <span class="text-tron-silver">Dispute resolution</span>
+                          </div>
+                        </div>
+                        <div class="mt-3 p-2 bg-yellow-500/10 border border-yellow-500/20 rounded text-xs text-yellow-400">
+                          <i class="fas fa-info-circle mr-1"></i>
+                          Guardian fee: 3% of total budget
+                        </div>
+                      </div>
+
+                      {/* Action Buttons */}
+                      <div class="space-y-3">
+                        <button class="w-full bg-gradient-to-r from-tron-red to-tron-dark-red hover:from-tron-dark-red hover:to-tron-red text-white py-3 rounded-lg font-semibold transition-all">
+                          Post Bounty ($75 USDT)
+                        </button>
+                        <button class="w-full border-2 border-tron-red text-tron-red hover:bg-tron-red hover:text-white py-3 rounded-lg font-semibold transition-all">
+                          Save as Draft
+                        </button>
+                        <div class="text-center text-xs text-tron-silver">
+                          Posting fee refunded if no suitable applicants
+                        </div>
+                      </div>
+                    </div>
+
+                  </div>
+                </div>
+
+              </div>
+            </div>
           </div>
         </div>
       </section>
