@@ -968,8 +968,174 @@ app.get('/', (c) => {
               </div>
             </div>
 
-            {/* Dashboard Mockup */}
+            {/* Login Mockup */}
             <div class="mt-20" data-aos="fade-up" data-aos-delay="600">
+              <h3 class="text-3xl font-bold mb-8 text-center text-tron-red">Access MEGATEAM Platform</h3>
+              <p class="text-center text-gray-300 mb-12 max-w-3xl mx-auto text-lg">
+                Connect your wallet or sign up with email to join the largest builder coordination platform on TRON.
+              </p>
+              
+              {/* Login Interface Mockup */}
+              <div class="max-w-2xl mx-auto mb-16">
+                <div class="cyber-card p-8 rounded-xl border border-tron-red/30 bg-gradient-to-br from-tron-dark/50 to-black/80">
+                  
+                  {/* Login Header */}
+                  <div class="text-center mb-8">
+                    <div class="flex justify-center mb-4">
+                      <div class="w-16 h-16 rounded-full bg-gradient-to-br from-tron-red to-tron-dark-red border-2 border-white overflow-hidden">
+                        <img src="/static/mt-logo.jpg" alt="MEGATEAM" class="w-full h-full object-cover" />
+                      </div>
+                    </div>
+                    <h4 class="text-2xl font-bold text-white mb-2">Welcome to MEGATEAM</h4>
+                    <p class="text-tron-silver">Choose your preferred login method</p>
+                  </div>
+
+                  {/* Login Methods */}
+                  <div class="space-y-6">
+                    
+                    {/* Wallet Connection Section */}
+                    <div>
+                      <h5 class="text-lg font-semibold text-white mb-4 flex items-center">
+                        <i class="fas fa-wallet text-tron-red mr-2"></i>
+                        Connect Wallet
+                      </h5>
+                      <div class="grid grid-cols-1 md:grid-cols-2 gap-4">
+                        
+                        {/* TronLink */}
+                        <button class="flex items-center justify-between p-4 bg-gradient-to-r from-tron-red/20 to-tron-red/10 border border-tron-red/30 rounded-lg hover:border-tron-red hover:bg-tron-red/20 transition-all group">
+                          <div class="flex items-center space-x-3">
+                            <div class="w-10 h-10 bg-gradient-to-br from-red-500 to-red-700 rounded-lg flex items-center justify-center">
+                              <i class="fas fa-link text-white"></i>
+                            </div>
+                            <div class="text-left">
+                              <div class="text-white font-semibold">TronLink</div>
+                              <div class="text-tron-silver text-sm">Official TRON wallet</div>
+                            </div>
+                          </div>
+                          <i class="fas fa-arrow-right text-tron-red group-hover:text-white transition-colors"></i>
+                        </button>
+
+                        {/* WalletConnect */}
+                        <button class="flex items-center justify-between p-4 bg-gradient-to-r from-blue-500/20 to-blue-500/10 border border-blue-500/30 rounded-lg hover:border-blue-500 hover:bg-blue-500/20 transition-all group">
+                          <div class="flex items-center space-x-3">
+                            <div class="w-10 h-10 bg-gradient-to-br from-blue-500 to-blue-700 rounded-lg flex items-center justify-center">
+                              <i class="fas fa-qrcode text-white"></i>
+                            </div>
+                            <div class="text-left">
+                              <div class="text-white font-semibold">WalletConnect</div>
+                              <div class="text-tron-silver text-sm">Mobile & desktop wallets</div>
+                            </div>
+                          </div>
+                          <i class="fas fa-arrow-right text-blue-500 group-hover:text-white transition-colors"></i>
+                        </button>
+
+                        {/* MetaMask */}
+                        <button class="flex items-center justify-between p-4 bg-gradient-to-r from-orange-500/20 to-orange-500/10 border border-orange-500/30 rounded-lg hover:border-orange-500 hover:bg-orange-500/20 transition-all group">
+                          <div class="flex items-center space-x-3">
+                            <div class="w-10 h-10 bg-gradient-to-br from-orange-500 to-orange-700 rounded-lg flex items-center justify-center">
+                              <i class="fab fa-ethereum text-white"></i>
+                            </div>
+                            <div class="text-left">
+                              <div class="text-white font-semibold">MetaMask</div>
+                              <div class="text-tron-silver text-sm">Via TRON network</div>
+                            </div>
+                          </div>
+                          <i class="fas fa-arrow-right text-orange-500 group-hover:text-white transition-colors"></i>
+                        </button>
+
+                        {/* Hardware Wallets */}
+                        <button class="flex items-center justify-between p-4 bg-gradient-to-r from-green-500/20 to-green-500/10 border border-green-500/30 rounded-lg hover:border-green-500 hover:bg-green-500/20 transition-all group">
+                          <div class="flex items-center space-x-3">
+                            <div class="w-10 h-10 bg-gradient-to-br from-green-500 to-green-700 rounded-lg flex items-center justify-center">
+                              <i class="fas fa-shield-alt text-white"></i>
+                            </div>
+                            <div class="text-left">
+                              <div class="text-white font-semibold">Hardware</div>
+                              <div class="text-tron-silver text-sm">Ledger & Trezor</div>
+                            </div>
+                          </div>
+                          <i class="fas fa-arrow-right text-green-500 group-hover:text-white transition-colors"></i>
+                        </button>
+
+                      </div>
+                    </div>
+
+                    {/* Divider */}
+                    <div class="flex items-center space-x-4">
+                      <div class="flex-1 h-px bg-gradient-to-r from-transparent via-tron-red/30 to-transparent"></div>
+                      <span class="text-tron-silver text-sm font-medium px-3">OR</span>
+                      <div class="flex-1 h-px bg-gradient-to-r from-transparent via-tron-red/30 to-transparent"></div>
+                    </div>
+
+                    {/* Email/Traditional Login Section */}
+                    <div>
+                      <h5 class="text-lg font-semibold text-white mb-4 flex items-center">
+                        <i class="fas fa-envelope text-blue-400 mr-2"></i>
+                        Email Authentication
+                      </h5>
+                      
+                      <div class="space-y-4">
+                        {/* Email Input */}
+                        <div>
+                          <label class="block text-tron-silver text-sm font-medium mb-2">Email Address</label>
+                          <input 
+                            type="email" 
+                            placeholder="your.email@domain.com"
+                            class="w-full px-4 py-3 bg-tron-dark/50 border border-tron-red/30 rounded-lg text-white placeholder-tron-silver/50 focus:outline-none focus:border-tron-red focus:ring-1 focus:ring-tron-red transition-all"
+                          />
+                        </div>
+
+                        {/* Action Buttons */}
+                        <div class="grid grid-cols-1 md:grid-cols-2 gap-4">
+                          <button class="flex items-center justify-center px-6 py-3 bg-gradient-to-r from-tron-red to-tron-dark-red hover:from-tron-dark-red hover:to-tron-red text-white rounded-lg font-semibold transition-all hover:scale-105 transform">
+                            <i class="fas fa-sign-in-alt mr-2"></i>
+                            Sign In
+                          </button>
+                          <button class="flex items-center justify-center px-6 py-3 border-2 border-tron-red text-tron-red hover:bg-tron-red hover:text-white rounded-lg font-semibold transition-all">
+                            <i class="fas fa-user-plus mr-2"></i>
+                            Create Account
+                          </button>
+                        </div>
+
+                        {/* Social Login Options */}
+                        <div class="pt-4">
+                          <p class="text-tron-silver text-sm text-center mb-4">Or continue with</p>
+                          <div class="grid grid-cols-3 gap-4">
+                            <button class="flex items-center justify-center p-3 bg-gray-800 hover:bg-gray-700 rounded-lg transition-all">
+                              <i class="fab fa-google text-white text-lg"></i>
+                            </button>
+                            <button class="flex items-center justify-center p-3 bg-gray-800 hover:bg-gray-700 rounded-lg transition-all">
+                              <i class="fab fa-github text-white text-lg"></i>
+                            </button>
+                            <button class="flex items-center justify-center p-3 bg-gray-800 hover:bg-gray-700 rounded-lg transition-all">
+                              <i class="fab fa-discord text-white text-lg"></i>
+                            </button>
+                          </div>
+                        </div>
+                      </div>
+                    </div>
+
+                    {/* Security Notice */}
+                    <div class="mt-6 p-4 bg-blue-500/10 border border-blue-500/20 rounded-lg">
+                      <div class="flex items-start space-x-3">
+                        <i class="fas fa-info-circle text-blue-400 text-lg mt-0.5"></i>
+                        <div>
+                          <h6 class="text-blue-400 font-semibold mb-1">Secure & Decentralized</h6>
+                          <p class="text-tron-silver text-sm">
+                            Your wallet remains in your control. MEGATEAM never stores private keys. 
+                            Email accounts use enterprise-grade security with 2FA support.
+                          </p>
+                        </div>
+                      </div>
+                    </div>
+
+                  </div>
+                </div>
+              </div>
+            </div>
+
+            {/* Dashboard Mockup */}
+            <div class="mt-12" data-aos="fade-up" data-aos-delay="700">
               <h3 class="text-3xl font-bold mb-8 text-center text-tron-red">MEGATEAM Dashboard Preview</h3>
               <p class="text-center text-gray-300 mb-12 max-w-3xl mx-auto text-lg">
                 Experience the future of coordinated building on TRON. Our dashboard connects talent, tracks progress, 
