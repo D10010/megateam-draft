@@ -2148,6 +2148,456 @@ app.get('/', (c) => {
 
               </div>
             </div>
+
+            {/* User Profile Page Mockup */}
+            <div class="mt-20" data-aos="fade-up" data-aos-delay="1000">
+              <h3 class="text-3xl font-bold mb-8 text-center text-tron-red">Contributor Profile</h3>
+              <p class="text-center text-gray-300 mb-12 max-w-3xl mx-auto text-lg">
+                Showcase your expertise, track record, and reputation in the TRON ecosystem. 
+                Build trust with sponsors through verified achievements and Guardian endorsements.
+              </p>
+              
+              {/* Profile Container */}
+              <div class="cyber-card rounded-xl border border-tron-red/30 bg-gradient-to-br from-tron-dark/50 to-black/80 overflow-hidden">
+                
+                {/* Profile Header */}
+                <div class="relative">
+                  {/* Cover Image */}
+                  <div class="h-32 bg-gradient-to-r from-purple-600/80 via-tron-red/60 to-blue-600/80 relative overflow-hidden">
+                    <div class="absolute inset-0 bg-gradient-to-r from-tron-dark/40 to-transparent"></div>
+                    <div class="absolute top-4 right-4">
+                      <button class="px-3 py-1.5 bg-white/10 backdrop-blur text-white text-sm rounded-lg border border-white/20 hover:bg-white/20 transition-all">
+                        <i class="fas fa-edit mr-1"></i>Edit Profile
+                      </button>
+                    </div>
+                  </div>
+                  
+                  {/* Profile Info */}
+                  <div class="relative px-6 pb-6">
+                    <div class="flex flex-col lg:flex-row items-start lg:items-end space-y-4 lg:space-y-0 lg:space-x-6 -mt-16 lg:-mt-12">
+                      
+                      {/* Avatar & Basic Info */}
+                      <div class="flex items-end space-x-4">
+                        <div class="relative">
+                          <div class="w-24 h-24 lg:w-32 lg:h-32 rounded-xl bg-gradient-to-br from-purple-500 to-blue-600 border-4 border-white shadow-xl overflow-hidden">
+                            <img src="/static/mt-logo.jpg" alt="Alex Chen" class="w-full h-full object-cover" />
+                          </div>
+                          <div class="absolute -bottom-2 -right-2 w-8 h-8 bg-green-500 rounded-full border-3 border-white flex items-center justify-center">
+                            <i class="fas fa-check text-white text-sm"></i>
+                          </div>
+                        </div>
+                        <div class="pb-2">
+                          <h4 class="text-2xl lg:text-3xl font-bold text-white flex items-center space-x-3">
+                            <span>Alex Chen</span>
+                            <div class="flex items-center space-x-1">
+                              <i class="fas fa-star text-yellow-400"></i>
+                              <i class="fas fa-star text-yellow-400"></i>
+                              <i class="fas fa-star text-yellow-400"></i>
+                              <i class="fas fa-star text-yellow-400"></i>
+                              <i class="fas fa-star text-tron-silver"></i>
+                            </div>
+                          </h4>
+                          <div class="flex flex-wrap items-center gap-2 mt-2">
+                            <span class="px-3 py-1 bg-gradient-to-r from-yellow-500/20 to-orange-500/20 text-yellow-400 text-sm rounded-full border border-yellow-500/30">
+                              <i class="fas fa-crown mr-1"></i>Gold Tier Contributor
+                            </span>
+                            <span class="px-3 py-1 bg-tron-red/20 text-tron-red text-sm rounded-full border border-tron-red/30">
+                              Level 3
+                            </span>
+                            <span class="px-2 py-1 bg-green-500/20 text-green-400 text-xs rounded border border-green-500/30">
+                              <i class="fas fa-shield-alt mr-1"></i>Guardian Verified
+                            </span>
+                          </div>
+                        </div>
+                      </div>
+
+                      {/* Stats Overview */}
+                      <div class="flex-1 lg:text-right">
+                        <div class="grid grid-cols-2 lg:grid-cols-4 gap-4">
+                          <div class="text-center lg:text-right">
+                            <div class="text-xl lg:text-2xl font-bold text-green-400">$12,847</div>
+                            <div class="text-xs text-tron-silver">Total Earned</div>
+                          </div>
+                          <div class="text-center lg:text-right">
+                            <div class="text-xl lg:text-2xl font-bold text-blue-400">47</div>
+                            <div class="text-xs text-tron-silver">Projects Done</div>
+                          </div>
+                          <div class="text-center lg:text-right">
+                            <div class="text-xl lg:text-2xl font-bold text-purple-400">96%</div>
+                            <div class="text-xs text-tron-silver">Success Rate</div>
+                          </div>
+                          <div class="text-center lg:text-right">
+                            <div class="text-xl lg:text-2xl font-bold text-yellow-400">4.8</div>
+                            <div class="text-xs text-tron-silver">Avg Rating</div>
+                          </div>
+                        </div>
+                      </div>
+                    </div>
+
+                    {/* Bio & Contact */}
+                    <div class="mt-6 grid grid-cols-1 lg:grid-cols-3 gap-6">
+                      <div class="lg:col-span-2">
+                        <p class="text-tron-silver leading-relaxed">
+                          Senior blockchain developer with 5+ years experience building on TRON. 
+                          Specialized in DeFi protocols, smart contract security, and cross-chain integrations. 
+                          Guardian-verified contributor with proven track record in delivering high-quality solutions.
+                        </p>
+                        <div class="flex flex-wrap gap-2 mt-3">
+                          <span class="px-2 py-1 bg-blue-500/20 text-blue-400 text-xs rounded">Solidity Expert</span>
+                          <span class="px-2 py-1 bg-green-500/20 text-green-400 text-xs rounded">DeFi Specialist</span>
+                          <span class="px-2 py-1 bg-purple-500/20 text-purple-400 text-xs rounded">Smart Contract Auditor</span>
+                          <span class="px-2 py-1 bg-yellow-500/20 text-yellow-400 text-xs rounded">Full Stack Dev</span>
+                        </div>
+                      </div>
+                      <div class="space-y-2">
+                        <div class="flex items-center space-x-2 text-sm">
+                          <i class="fas fa-map-marker-alt text-tron-red w-4"></i>
+                          <span class="text-tron-silver">San Francisco, CA</span>
+                        </div>
+                        <div class="flex items-center space-x-2 text-sm">
+                          <i class="fas fa-calendar text-tron-red w-4"></i>
+                          <span class="text-tron-silver">Joined March 2023</span>
+                        </div>
+                        <div class="flex items-center space-x-2 text-sm">
+                          <i class="fas fa-clock text-tron-red w-4"></i>
+                          <span class="text-green-400">Available for projects</span>
+                        </div>
+                        <div class="flex items-center space-x-3 mt-4">
+                          <a href="#" class="text-tron-silver hover:text-white transition-colors">
+                            <i class="fab fa-github text-lg"></i>
+                          </a>
+                          <a href="#" class="text-tron-silver hover:text-white transition-colors">
+                            <i class="fab fa-linkedin text-lg"></i>
+                          </a>
+                          <a href="#" class="text-tron-silver hover:text-white transition-colors">
+                            <i class="fab fa-twitter text-lg"></i>
+                          </a>
+                          <a href="#" class="text-tron-silver hover:text-white transition-colors">
+                            <i class="fas fa-globe text-lg"></i>
+                          </a>
+                        </div>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+
+                {/* Profile Content */}
+                <div class="p-6">
+                  <div class="grid grid-cols-1 lg:grid-cols-3 gap-8">
+                    
+                    {/* Main Content - Left 2 Columns */}
+                    <div class="lg:col-span-2 space-y-8">
+                      
+                      {/* Recent Work */}
+                      <div>
+                        <h5 class="text-xl font-bold text-white mb-6 flex items-center">
+                          <i class="fas fa-briefcase text-tron-red mr-3"></i>
+                          Recent Work
+                        </h5>
+                        
+                        <div class="space-y-4">
+                          {/* Project 1 */}
+                          <div class="bg-tron-dark/40 border border-green-500/30 rounded-lg p-4">
+                            <div class="flex items-start justify-between mb-3">
+                              <div class="flex items-start space-x-3">
+                                <div class="w-12 h-12 bg-gradient-to-br from-green-500 to-green-700 rounded-lg flex items-center justify-center">
+                                  <i class="fas fa-exchange-alt text-white"></i>
+                                </div>
+                                <div>
+                                  <h6 class="text-white font-semibold">Multi-Chain DEX Integration</h6>
+                                  <p class="text-tron-silver text-sm">Cross-chain trading platform with automated market making</p>
+                                  <div class="flex items-center space-x-2 mt-2">
+                                    <span class="px-2 py-1 bg-green-500/20 text-green-400 text-xs rounded">Completed</span>
+                                    <span class="text-tron-silver text-xs">• TronTech Solutions</span>
+                                  </div>
+                                </div>
+                              </div>
+                              <div class="text-right">
+                                <div class="text-green-400 font-semibold">$2,500</div>
+                                <div class="flex items-center space-x-1 mt-1">
+                                  <i class="fas fa-star text-yellow-400 text-xs"></i>
+                                  <i class="fas fa-star text-yellow-400 text-xs"></i>
+                                  <i class="fas fa-star text-yellow-400 text-xs"></i>
+                                  <i class="fas fa-star text-yellow-400 text-xs"></i>
+                                  <i class="fas fa-star text-yellow-400 text-xs"></i>
+                                  <span class="text-xs text-tron-silver ml-1">5.0</span>
+                                </div>
+                              </div>
+                            </div>
+                            <div class="bg-green-500/10 border border-green-500/20 rounded p-3">
+                              <div class="flex items-center space-x-2 mb-2">
+                                <i class="fas fa-quote-left text-green-400"></i>
+                                <span class="text-green-400 font-semibold text-sm">Client Review</span>
+                              </div>
+                              <p class="text-tron-silver text-sm italic">"Alex delivered exceptional work ahead of schedule. The smart contracts were secure, well-documented, and exceeded our expectations. Highly recommended!"</p>
+                            </div>
+                          </div>
+
+                          {/* Project 2 */}
+                          <div class="bg-tron-dark/40 border border-blue-500/30 rounded-lg p-4">
+                            <div class="flex items-start justify-between mb-3">
+                              <div class="flex items-start space-x-3">
+                                <div class="w-12 h-12 bg-gradient-to-br from-blue-500 to-blue-700 rounded-lg flex items-center justify-center">
+                                  <i class="fas fa-shield-alt text-white"></i>
+                                </div>
+                                <div>
+                                  <h6 class="text-white font-semibold">Smart Contract Security Audit</h6>
+                                  <p class="text-tron-silver text-sm">Comprehensive security review of DeFi lending protocol</p>
+                                  <div class="flex items-center space-x-2 mt-2">
+                                    <span class="px-2 py-1 bg-blue-500/20 text-blue-400 text-xs rounded">Completed</span>
+                                    <span class="text-tron-silver text-xs">• DeFi Innovations</span>
+                                  </div>
+                                </div>
+                              </div>
+                              <div class="text-right">
+                                <div class="text-green-400 font-semibold">$1,800</div>
+                                <div class="flex items-center space-x-1 mt-1">
+                                  <i class="fas fa-star text-yellow-400 text-xs"></i>
+                                  <i class="fas fa-star text-yellow-400 text-xs"></i>
+                                  <i class="fas fa-star text-yellow-400 text-xs"></i>
+                                  <i class="fas fa-star text-yellow-400 text-xs"></i>
+                                  <i class="fas fa-star text-yellow-400 text-xs"></i>
+                                  <span class="text-xs text-tron-silver ml-1">5.0</span>
+                                </div>
+                              </div>
+                            </div>
+                          </div>
+
+                          {/* Project 3 */}
+                          <div class="bg-tron-dark/40 border border-purple-500/30 rounded-lg p-4">
+                            <div class="flex items-start justify-between mb-3">
+                              <div class="flex items-start space-x-3">
+                                <div class="w-12 h-12 bg-gradient-to-br from-purple-500 to-purple-700 rounded-lg flex items-center justify-center">
+                                  <i class="fas fa-gamepad text-white"></i>
+                                </div>
+                                <div>
+                                  <h6 class="text-white font-semibold">NFT Gaming Platform</h6>
+                                  <p class="text-tron-silver text-sm">Play-to-earn game with NFT marketplace integration</p>
+                                  <div class="flex items-center space-x-2 mt-2">
+                                    <span class="px-2 py-1 bg-purple-500/20 text-purple-400 text-xs rounded">Completed</span>
+                                    <span class="text-tron-silver text-xs">• GameFi Studios</span>
+                                  </div>
+                                </div>
+                              </div>
+                              <div class="text-right">
+                                <div class="text-green-400 font-semibold">$3,200</div>
+                                <div class="flex items-center space-x-1 mt-1">
+                                  <i class="fas fa-star text-yellow-400 text-xs"></i>
+                                  <i class="fas fa-star text-yellow-400 text-xs"></i>
+                                  <i class="fas fa-star text-yellow-400 text-xs"></i>
+                                  <i class="fas fa-star text-yellow-400 text-xs"></i>
+                                  <i class="far fa-star text-tron-silver text-xs"></i>
+                                  <span class="text-xs text-tron-silver ml-1">4.8</span>
+                                </div>
+                              </div>
+                            </div>
+                          </div>
+                        </div>
+
+                        <div class="text-center mt-6">
+                          <button class="px-6 py-2 border border-tron-red text-tron-red hover:bg-tron-red hover:text-white rounded-lg transition-all">
+                            View All Projects (47)
+                          </button>
+                        </div>
+                      </div>
+
+                      {/* Skills & Expertise */}
+                      <div>
+                        <h5 class="text-xl font-bold text-white mb-6 flex items-center">
+                          <i class="fas fa-code text-blue-400 mr-3"></i>
+                          Skills & Expertise
+                        </h5>
+                        
+                        <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
+                          <div>
+                            <h6 class="text-white font-semibold mb-3">Development</h6>
+                            <div class="space-y-3">
+                              <div>
+                                <div class="flex justify-between mb-1">
+                                  <span class="text-tron-silver text-sm">Solidity</span>
+                                  <span class="text-blue-400 text-sm font-semibold">Expert</span>
+                                </div>
+                                <div class="w-full bg-tron-gray rounded-full h-2">
+                                  <div class="w-11/12 bg-gradient-to-r from-blue-500 to-blue-400 h-2 rounded-full"></div>
+                                </div>
+                              </div>
+                              <div>
+                                <div class="flex justify-between mb-1">
+                                  <span class="text-tron-silver text-sm">JavaScript/TypeScript</span>
+                                  <span class="text-green-400 text-sm font-semibold">Advanced</span>
+                                </div>
+                                <div class="w-full bg-tron-gray rounded-full h-2">
+                                  <div class="w-5/6 bg-gradient-to-r from-green-500 to-green-400 h-2 rounded-full"></div>
+                                </div>
+                              </div>
+                              <div>
+                                <div class="flex justify-between mb-1">
+                                  <span class="text-tron-silver text-sm">React/Next.js</span>
+                                  <span class="text-purple-400 text-sm font-semibold">Advanced</span>
+                                </div>
+                                <div class="w-full bg-tron-gray rounded-full h-2">
+                                  <div class="w-4/5 bg-gradient-to-r from-purple-500 to-purple-400 h-2 rounded-full"></div>
+                                </div>
+                              </div>
+                            </div>
+                          </div>
+                          
+                          <div>
+                            <h6 class="text-white font-semibold mb-3">Blockchain</h6>
+                            <div class="space-y-3">
+                              <div>
+                                <div class="flex justify-between mb-1">
+                                  <span class="text-tron-silver text-sm">TRON Protocol</span>
+                                  <span class="text-tron-red text-sm font-semibold">Expert</span>
+                                </div>
+                                <div class="w-full bg-tron-gray rounded-full h-2">
+                                  <div class="w-11/12 bg-gradient-to-r from-tron-red to-tron-light h-2 rounded-full"></div>
+                                </div>
+                              </div>
+                              <div>
+                                <div class="flex justify-between mb-1">
+                                  <span class="text-tron-silver text-sm">DeFi Protocols</span>
+                                  <span class="text-yellow-400 text-sm font-semibold">Expert</span>
+                                </div>
+                                <div class="w-full bg-tron-gray rounded-full h-2">
+                                  <div class="w-10/12 bg-gradient-to-r from-yellow-500 to-yellow-400 h-2 rounded-full"></div>
+                                </div>
+                              </div>
+                              <div>
+                                <div class="flex justify-between mb-1">
+                                  <span class="text-tron-silver text-sm">Smart Contract Security</span>
+                                  <span class="text-orange-400 text-sm font-semibold">Advanced</span>
+                                </div>
+                                <div class="w-full bg-tron-gray rounded-full h-2">
+                                  <div class="w-4/5 bg-gradient-to-r from-orange-500 to-orange-400 h-2 rounded-full"></div>
+                                </div>
+                              </div>
+                            </div>
+                          </div>
+                        </div>
+                      </div>
+                    </div>
+
+                    {/* Sidebar - Right Column */}
+                    <div class="space-y-6">
+                      
+                      {/* Achievements & Badges */}
+                      <div class="bg-tron-dark/40 border border-tron-red/20 rounded-lg p-5">
+                        <h6 class="text-white font-semibold mb-4 flex items-center">
+                          <i class="fas fa-trophy text-yellow-400 mr-2"></i>
+                          Achievements
+                        </h6>
+                        
+                        <div class="space-y-3">
+                          <div class="flex items-center space-x-3 p-3 bg-gradient-to-r from-yellow-500/10 to-yellow-500/5 border border-yellow-500/20 rounded">
+                            <div class="w-10 h-10 bg-gradient-to-br from-yellow-500 to-orange-600 rounded-lg flex items-center justify-center">
+                              <i class="fas fa-crown text-white"></i>
+                            </div>
+                            <div>
+                              <div class="text-white font-medium text-sm">Top Performer</div>
+                              <div class="text-tron-silver text-xs">50+ successful projects</div>
+                            </div>
+                          </div>
+                          
+                          <div class="flex items-center space-x-3 p-3 bg-gradient-to-r from-blue-500/10 to-blue-500/5 border border-blue-500/20 rounded">
+                            <div class="w-10 h-10 bg-gradient-to-br from-blue-500 to-blue-700 rounded-lg flex items-center justify-center">
+                              <i class="fas fa-shield-alt text-white"></i>
+                            </div>
+                            <div>
+                              <div class="text-white font-medium text-sm">Security Expert</div>
+                              <div class="text-tron-silver text-xs">25+ audits completed</div>
+                            </div>
+                          </div>
+                          
+                          <div class="flex items-center space-x-3 p-3 bg-gradient-to-r from-green-500/10 to-green-500/5 border border-green-500/20 rounded">
+                            <div class="w-10 h-10 bg-gradient-to-br from-green-500 to-green-700 rounded-lg flex items-center justify-center">
+                              <i class="fas fa-clock text-white"></i>
+                            </div>
+                            <div>
+                              <div class="text-white font-medium text-sm">Fast Delivery</div>
+                              <div class="text-tron-silver text-xs">95% on-time completion</div>
+                            </div>
+                          </div>
+                        </div>
+                      </div>
+
+                      {/* Reputation Score */}
+                      <div class="bg-tron-dark/40 border border-tron-red/20 rounded-lg p-5">
+                        <h6 class="text-white font-semibold mb-4 flex items-center">
+                          <i class="fas fa-chart-line text-purple-400 mr-2"></i>
+                          Reputation Score
+                        </h6>
+                        
+                        <div class="text-center mb-4">
+                          <div class="text-4xl font-bold text-purple-400 mb-2">1,847</div>
+                          <div class="text-tron-silver text-sm">Total Rep Points</div>
+                        </div>
+                        
+                        <div class="space-y-3 text-sm">
+                          <div class="flex justify-between">
+                            <span class="text-tron-silver">Quality Score</span>
+                            <span class="text-green-400 font-semibold">98/100</span>
+                          </div>
+                          <div class="flex justify-between">
+                            <span class="text-tron-silver">Reliability</span>
+                            <span class="text-blue-400 font-semibold">96/100</span>
+                          </div>
+                          <div class="flex justify-between">
+                            <span class="text-tron-silver">Communication</span>
+                            <span class="text-yellow-400 font-semibold">95/100</span>
+                          </div>
+                          <div class="flex justify-between">
+                            <span class="text-tron-silver">Guardian Endorsements</span>
+                            <span class="text-white font-semibold">12</span>
+                          </div>
+                        </div>
+                      </div>
+
+                      {/* Activity Stats */}
+                      <div class="bg-tron-dark/40 border border-tron-red/20 rounded-lg p-5">
+                        <h6 class="text-white font-semibold mb-4 flex items-center">
+                          <i class="fas fa-activity text-green-400 mr-2"></i>
+                          Activity
+                        </h6>
+                        
+                        <div class="space-y-3 text-sm">
+                          <div class="flex justify-between">
+                            <span class="text-tron-silver">Last Active</span>
+                            <span class="text-green-400">2 hours ago</span>
+                          </div>
+                          <div class="flex justify-between">
+                            <span class="text-tron-silver">Response Time</span>
+                            <span class="text-white">&lt; 4 hours</span>
+                          </div>
+                          <div class="flex justify-between">
+                            <span class="text-tron-silver">Projects This Month</span>
+                            <span class="text-white">3</span>
+                          </div>
+                          <div class="flex justify-between">
+                            <span class="text-tron-silver">Repeat Clients</span>
+                            <span class="text-blue-400">78%</span>
+                          </div>
+                        </div>
+                      </div>
+
+                      {/* Contact Actions */}
+                      <div class="space-y-3">
+                        <button class="w-full bg-gradient-to-r from-tron-red to-tron-dark-red hover:from-tron-dark-red hover:to-tron-red text-white py-3 rounded-lg font-semibold transition-all">
+                          <i class="fas fa-envelope mr-2"></i>
+                          Contact Alex
+                        </button>
+                        <button class="w-full border-2 border-blue-500 text-blue-400 hover:bg-blue-500 hover:text-white py-3 rounded-lg font-semibold transition-all">
+                          <i class="fas fa-user-plus mr-2"></i>
+                          Follow Profile
+                        </button>
+                      </div>
+                    </div>
+
+                  </div>
+                </div>
+
+              </div>
+            </div>
           </div>
         </div>
       </section>
