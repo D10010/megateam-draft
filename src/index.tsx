@@ -1462,6 +1462,336 @@ app.get('/', (c) => {
 
               </div>
             </div>
+
+            {/* Bounty Discovery Page Mockup */}
+            <div class="mt-20" data-aos="fade-up" data-aos-delay="800">
+              <h3 class="text-3xl font-bold mb-8 text-center text-tron-red">Task Bounty Discovery</h3>
+              <p class="text-center text-gray-300 mb-12 max-w-3xl mx-auto text-lg">
+                Explore available bounties, filter by skills and rewards, and discover your next earning opportunity in the TRON ecosystem.
+              </p>
+              
+              {/* Bounty Discovery Container */}
+              <div class="cyber-card rounded-xl border border-tron-red/30 bg-gradient-to-br from-tron-dark/50 to-black/80 overflow-hidden">
+                
+                {/* Discovery Header & Filters */}
+                <div class="bg-tron-dark/30 p-6 border-b border-tron-red/20">
+                  <div class="flex flex-col lg:flex-row justify-between items-start lg:items-center space-y-4 lg:space-y-0">
+                    
+                    {/* Search & Filters */}
+                    <div class="flex-1 flex flex-col md:flex-row items-start md:items-center space-y-3 md:space-y-0 md:space-x-4">
+                      <div class="relative flex-1 max-w-md">
+                        <i class="fas fa-search absolute left-3 top-1/2 transform -translate-y-1/2 text-tron-silver"></i>
+                        <input 
+                          type="text" 
+                          placeholder="Search bounties..."
+                          class="w-full pl-10 pr-4 py-2 bg-tron-dark border border-tron-red/30 rounded-lg text-white placeholder-tron-silver focus:outline-none focus:border-tron-red"
+                        />
+                      </div>
+                      
+                      <div class="flex items-center space-x-3">
+                        <select class="px-3 py-2 bg-tron-dark border border-tron-red/30 rounded-lg text-white text-sm focus:outline-none focus:border-tron-red">
+                          <option>All Categories</option>
+                          <option>Development</option>
+                          <option>Content Creation</option>
+                          <option>Design</option>
+                          <option>Marketing</option>
+                        </select>
+                        
+                        <select class="px-3 py-2 bg-tron-dark border border-tron-red/30 rounded-lg text-white text-sm focus:outline-none focus:border-tron-red">
+                          <option>All Rewards</option>
+                          <option>$100 - $500</option>
+                          <option>$500 - $1000</option>
+                          <option>$1000+</option>
+                        </select>
+                      </div>
+                    </div>
+
+                    {/* Sort & View Options */}
+                    <div class="flex items-center space-x-3">
+                      <div class="flex items-center bg-tron-dark rounded-lg border border-tron-red/30 overflow-hidden">
+                        <button class="px-3 py-2 bg-tron-red/20 text-tron-red text-sm">Newest</button>
+                        <button class="px-3 py-2 text-tron-silver hover:text-white text-sm">Highest Reward</button>
+                        <button class="px-3 py-2 text-tron-silver hover:text-white text-sm">Deadline</button>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+
+                {/* Bounty Grid */}
+                <div class="p-6">
+                  <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
+                    
+                    {/* Bounty Card 1 - Development */}
+                    <div class="bg-gradient-to-br from-tron-dark/60 to-black/40 border border-purple-500/30 rounded-lg p-5 hover:border-purple-500/60 transition-all cursor-pointer group">
+                      <div class="flex items-start justify-between mb-4">
+                        <div class="flex items-center space-x-3">
+                          <div class="w-12 h-12 bg-gradient-to-br from-purple-500 to-purple-700 rounded-lg flex items-center justify-center">
+                            <i class="fas fa-gamepad text-white text-lg"></i>
+                          </div>
+                          <div>
+                            <span class="px-2 py-1 bg-purple-500/20 text-purple-400 text-xs rounded border border-purple-500/30">Development</span>
+                          </div>
+                        </div>
+                        <div class="text-right">
+                          <div class="text-2xl font-bold text-green-400">$850</div>
+                          <div class="text-xs text-tron-silver">USDT</div>
+                        </div>
+                      </div>
+                      
+                      <h4 class="text-lg font-bold text-white mb-2 group-hover:text-purple-400 transition-colors">GameFi Tournament Platform</h4>
+                      <p class="text-tron-silver text-sm mb-4 leading-relaxed">Build a decentralized tournament system for TRON-based games with smart contract integration, leaderboards, and prize distribution.</p>
+                      
+                      <div class="flex flex-wrap gap-2 mb-4">
+                        <span class="px-2 py-1 bg-blue-500/20 text-blue-400 text-xs rounded">Solidity</span>
+                        <span class="px-2 py-1 bg-green-500/20 text-green-400 text-xs rounded">React</span>
+                        <span class="px-2 py-1 bg-yellow-500/20 text-yellow-400 text-xs rounded">Web3.js</span>
+                      </div>
+                      
+                      <div class="flex items-center justify-between mb-4">
+                        <div class="flex items-center space-x-4 text-xs text-tron-silver">
+                          <span><i class="fas fa-clock mr-1"></i>14 days left</span>
+                          <span><i class="fas fa-users mr-1"></i>3 applicants</span>
+                        </div>
+                        <div class="flex items-center space-x-1">
+                          <div class="w-2 h-2 bg-orange-500 rounded-full"></div>
+                          <span class="text-orange-400 text-xs font-medium">Intermediate</span>
+                        </div>
+                      </div>
+                      
+                      <button class="w-full bg-gradient-to-r from-purple-600 to-purple-700 hover:from-purple-700 hover:to-purple-800 text-white py-2.5 rounded-lg font-semibold transition-all group-hover:scale-105 transform">
+                        Apply Now
+                      </button>
+                    </div>
+
+                    {/* Bounty Card 2 - Content Creation */}
+                    <div class="bg-gradient-to-br from-tron-dark/60 to-black/40 border border-blue-500/30 rounded-lg p-5 hover:border-blue-500/60 transition-all cursor-pointer group">
+                      <div class="flex items-start justify-between mb-4">
+                        <div class="flex items-center space-x-3">
+                          <div class="w-12 h-12 bg-gradient-to-br from-blue-500 to-blue-700 rounded-lg flex items-center justify-center">
+                            <i class="fas fa-video text-white text-lg"></i>
+                          </div>
+                          <div>
+                            <span class="px-2 py-1 bg-blue-500/20 text-blue-400 text-xs rounded border border-blue-500/30">Content</span>
+                          </div>
+                        </div>
+                        <div class="text-right">
+                          <div class="text-2xl font-bold text-green-400">$420</div>
+                          <div class="text-xs text-tron-silver">USDT</div>
+                        </div>
+                      </div>
+                      
+                      <h4 class="text-lg font-bold text-white mb-2 group-hover:text-blue-400 transition-colors">DeFi Tutorial Video Series</h4>
+                      <p class="text-tron-silver text-sm mb-4 leading-relaxed">Create 5-part educational video series covering TRON DeFi basics, yield farming, and risk management for beginners.</p>
+                      
+                      <div class="flex flex-wrap gap-2 mb-4">
+                        <span class="px-2 py-1 bg-red-500/20 text-red-400 text-xs rounded">Video Editing</span>
+                        <span class="px-2 py-1 bg-purple-500/20 text-purple-400 text-xs rounded">DeFi Knowledge</span>
+                        <span class="px-2 py-1 bg-green-500/20 text-green-400 text-xs rounded">Teaching</span>
+                      </div>
+                      
+                      <div class="flex items-center justify-between mb-4">
+                        <div class="flex items-center space-x-4 text-xs text-tron-silver">
+                          <span><i class="fas fa-clock mr-1"></i>21 days left</span>
+                          <span><i class="fas fa-users mr-1"></i>7 applicants</span>
+                        </div>
+                        <div class="flex items-center space-x-1">
+                          <div class="w-2 h-2 bg-green-500 rounded-full"></div>
+                          <span class="text-green-400 text-xs font-medium">Beginner</span>
+                        </div>
+                      </div>
+                      
+                      <button class="w-full bg-gradient-to-r from-blue-600 to-blue-700 hover:from-blue-700 hover:to-blue-800 text-white py-2.5 rounded-lg font-semibold transition-all group-hover:scale-105 transform">
+                        Apply Now
+                      </button>
+                    </div>
+
+                    {/* Bounty Card 3 - Design */}
+                    <div class="bg-gradient-to-br from-tron-dark/60 to-black/40 border border-pink-500/30 rounded-lg p-5 hover:border-pink-500/60 transition-all cursor-pointer group relative">
+                      <div class="absolute top-3 right-3">
+                        <span class="px-2 py-1 bg-red-500 text-white text-xs rounded font-semibold">🔥 HOT</span>
+                      </div>
+                      
+                      <div class="flex items-start justify-between mb-4">
+                        <div class="flex items-center space-x-3">
+                          <div class="w-12 h-12 bg-gradient-to-br from-pink-500 to-pink-700 rounded-lg flex items-center justify-center">
+                            <i class="fas fa-palette text-white text-lg"></i>
+                          </div>
+                          <div>
+                            <span class="px-2 py-1 bg-pink-500/20 text-pink-400 text-xs rounded border border-pink-500/30">Design</span>
+                          </div>
+                        </div>
+                        <div class="text-right">
+                          <div class="text-2xl font-bold text-green-400">$680</div>
+                          <div class="text-xs text-tron-silver">USDT</div>
+                        </div>
+                      </div>
+                      
+                      <h4 class="text-lg font-bold text-white mb-2 group-hover:text-pink-400 transition-colors">NFT Marketplace UI/UX</h4>
+                      <p class="text-tron-silver text-sm mb-4 leading-relaxed">Design modern, user-friendly interface for TRON NFT marketplace including mobile responsiveness and dark/light themes.</p>
+                      
+                      <div class="flex flex-wrap gap-2 mb-4">
+                        <span class="px-2 py-1 bg-cyan-500/20 text-cyan-400 text-xs rounded">Figma</span>
+                        <span class="px-2 py-1 bg-orange-500/20 text-orange-400 text-xs rounded">UI/UX</span>
+                        <span class="px-2 py-1 bg-purple-500/20 text-purple-400 text-xs rounded">Mobile Design</span>
+                      </div>
+                      
+                      <div class="flex items-center justify-between mb-4">
+                        <div class="flex items-center space-x-4 text-xs text-tron-silver">
+                          <span><i class="fas fa-clock mr-1"></i>10 days left</span>
+                          <span><i class="fas fa-users mr-1"></i>12 applicants</span>
+                        </div>
+                        <div class="flex items-center space-x-1">
+                          <div class="w-2 h-2 bg-orange-500 rounded-full"></div>
+                          <span class="text-orange-400 text-xs font-medium">Intermediate</span>
+                        </div>
+                      </div>
+                      
+                      <button class="w-full bg-gradient-to-r from-pink-600 to-pink-700 hover:from-pink-700 hover:to-pink-800 text-white py-2.5 rounded-lg font-semibold transition-all group-hover:scale-105 transform">
+                        Apply Now
+                      </button>
+                    </div>
+
+                    {/* Bounty Card 4 - Marketing */}
+                    <div class="bg-gradient-to-br from-tron-dark/60 to-black/40 border border-green-500/30 rounded-lg p-5 hover:border-green-500/60 transition-all cursor-pointer group">
+                      <div class="flex items-start justify-between mb-4">
+                        <div class="flex items-center space-x-3">
+                          <div class="w-12 h-12 bg-gradient-to-br from-green-500 to-green-700 rounded-lg flex items-center justify-center">
+                            <i class="fas fa-bullhorn text-white text-lg"></i>
+                          </div>
+                          <div>
+                            <span class="px-2 py-1 bg-green-500/20 text-green-400 text-xs rounded border border-green-500/30">Marketing</span>
+                          </div>
+                        </div>
+                        <div class="text-right">
+                          <div class="text-2xl font-bold text-green-400">$320</div>
+                          <div class="text-xs text-tron-silver">USDT</div>
+                        </div>
+                      </div>
+                      
+                      <h4 class="text-lg font-bold text-white mb-2 group-hover:text-green-400 transition-colors">Social Media Campaign</h4>
+                      <p class="text-tron-silver text-sm mb-4 leading-relaxed">Launch comprehensive social media campaign to promote TRON ecosystem projects across Twitter, LinkedIn, and Telegram.</p>
+                      
+                      <div class="flex flex-wrap gap-2 mb-4">
+                        <span class="px-2 py-1 bg-blue-500/20 text-blue-400 text-xs rounded">Social Media</span>
+                        <span class="px-2 py-1 bg-purple-500/20 text-purple-400 text-xs rounded">Content Strategy</span>
+                        <span class="px-2 py-1 bg-yellow-500/20 text-yellow-400 text-xs rounded">Analytics</span>
+                      </div>
+                      
+                      <div class="flex items-center justify-between mb-4">
+                        <div class="flex items-center space-x-4 text-xs text-tron-silver">
+                          <span><i class="fas fa-clock mr-1"></i>30 days left</span>
+                          <span><i class="fas fa-users mr-1"></i>5 applicants</span>
+                        </div>
+                        <div class="flex items-center space-x-1">
+                          <div class="w-2 h-2 bg-green-500 rounded-full"></div>
+                          <span class="text-green-400 text-xs font-medium">Beginner</span>
+                        </div>
+                      </div>
+                      
+                      <button class="w-full bg-gradient-to-r from-green-600 to-green-700 hover:from-green-700 hover:to-green-800 text-white py-2.5 rounded-lg font-semibold transition-all group-hover:scale-105 transform">
+                        Apply Now
+                      </button>
+                    </div>
+
+                    {/* Bounty Card 5 - Development */}
+                    <div class="bg-gradient-to-br from-tron-dark/60 to-black/40 border border-tron-red/30 rounded-lg p-5 hover:border-tron-red/60 transition-all cursor-pointer group">
+                      <div class="flex items-start justify-between mb-4">
+                        <div class="flex items-center space-x-3">
+                          <div class="w-12 h-12 bg-gradient-to-br from-tron-red to-tron-dark-red rounded-lg flex items-center justify-center">
+                            <i class="fas fa-robot text-white text-lg"></i>
+                          </div>
+                          <div>
+                            <span class="px-2 py-1 bg-tron-red/20 text-tron-red text-xs rounded border border-tron-red/30">AI/ML</span>
+                          </div>
+                        </div>
+                        <div class="text-right">
+                          <div class="text-2xl font-bold text-green-400">$1,200</div>
+                          <div class="text-xs text-tron-silver">USDT</div>
+                        </div>
+                      </div>
+                      
+                      <h4 class="text-lg font-bold text-white mb-2 group-hover:text-tron-red transition-colors">AI Trading Bot Integration</h4>
+                      <p class="text-tron-silver text-sm mb-4 leading-relaxed">Develop AI-powered trading bot with machine learning algorithms for TRON DEX arbitrage and automated portfolio management.</p>
+                      
+                      <div class="flex flex-wrap gap-2 mb-4">
+                        <span class="px-2 py-1 bg-yellow-500/20 text-yellow-400 text-xs rounded">Python</span>
+                        <span class="px-2 py-1 bg-purple-500/20 text-purple-400 text-xs rounded">Machine Learning</span>
+                        <span class="px-2 py-1 bg-blue-500/20 text-blue-400 text-xs rounded">Trading APIs</span>
+                      </div>
+                      
+                      <div class="flex items-center justify-between mb-4">
+                        <div class="flex items-center space-x-4 text-xs text-tron-silver">
+                          <span><i class="fas fa-clock mr-1"></i>45 days left</span>
+                          <span><i class="fas fa-users mr-1"></i>2 applicants</span>
+                        </div>
+                        <div class="flex items-center space-x-1">
+                          <div class="w-2 h-2 bg-red-500 rounded-full"></div>
+                          <span class="text-red-400 text-xs font-medium">Advanced</span>
+                        </div>
+                      </div>
+                      
+                      <button class="w-full bg-gradient-to-r from-tron-red to-tron-dark-red hover:from-tron-dark-red hover:to-tron-red text-white py-2.5 rounded-lg font-semibold transition-all group-hover:scale-105 transform">
+                        Apply Now
+                      </button>
+                    </div>
+
+                    {/* Bounty Card 6 - Quick Task */}
+                    <div class="bg-gradient-to-br from-tron-dark/60 to-black/40 border border-yellow-500/30 rounded-lg p-5 hover:border-yellow-500/60 transition-all cursor-pointer group">
+                      <div class="flex items-start justify-between mb-4">
+                        <div class="flex items-center space-x-3">
+                          <div class="w-12 h-12 bg-gradient-to-br from-yellow-500 to-orange-600 rounded-lg flex items-center justify-center">
+                            <i class="fas fa-zap text-white text-lg"></i>
+                          </div>
+                          <div>
+                            <span class="px-2 py-1 bg-yellow-500/20 text-yellow-400 text-xs rounded border border-yellow-500/30">Quick Task</span>
+                          </div>
+                        </div>
+                        <div class="text-right">
+                          <div class="text-2xl font-bold text-green-400">$150</div>
+                          <div class="text-xs text-tron-silver">USDT</div>
+                        </div>
+                      </div>
+                      
+                      <h4 class="text-lg font-bold text-white mb-2 group-hover:text-yellow-400 transition-colors">Smart Contract Audit Report</h4>
+                      <p class="text-tron-silver text-sm mb-4 leading-relaxed">Review and audit simple TRC-20 token contract, provide security assessment and optimization recommendations.</p>
+                      
+                      <div class="flex flex-wrap gap-2 mb-4">
+                        <span class="px-2 py-1 bg-red-500/20 text-red-400 text-xs rounded">Security</span>
+                        <span class="px-2 py-1 bg-blue-500/20 text-blue-400 text-xs rounded">Solidity</span>
+                        <span class="px-2 py-1 bg-green-500/20 text-green-400 text-xs rounded">Documentation</span>
+                      </div>
+                      
+                      <div class="flex items-center justify-between mb-4">
+                        <div class="flex items-center space-x-4 text-xs text-tron-silver">
+                          <span><i class="fas fa-clock mr-1"></i>5 days left</span>
+                          <span><i class="fas fa-users mr-1"></i>8 applicants</span>
+                        </div>
+                        <div class="flex items-center space-x-1">
+                          <div class="w-2 h-2 bg-orange-500 rounded-full"></div>
+                          <span class="text-orange-400 text-xs font-medium">Intermediate</span>
+                        </div>
+                      </div>
+                      
+                      <button class="w-full bg-gradient-to-r from-yellow-600 to-orange-600 hover:from-yellow-700 hover:to-orange-700 text-white py-2.5 rounded-lg font-semibold transition-all group-hover:scale-105 transform">
+                        Apply Now
+                      </button>
+                    </div>
+
+                  </div>
+
+                  {/* Load More & Stats */}
+                  <div class="mt-8 flex flex-col md:flex-row justify-between items-center space-y-4 md:space-y-0">
+                    <div class="text-tron-silver text-sm">
+                      Showing 6 of 127 available bounties • Total rewards: $2.4M USDT
+                    </div>
+                    <button class="px-6 py-3 bg-gradient-to-r from-tron-red to-tron-dark-red hover:from-tron-dark-red hover:to-tron-red text-white rounded-lg font-semibold transition-all">
+                      Load More Bounties
+                    </button>
+                  </div>
+                </div>
+
+              </div>
+            </div>
           </div>
         </div>
       </section>
