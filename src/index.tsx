@@ -805,7 +805,7 @@ app.get('/', (c) => {
             
             {/* The Problem */}
             <div class="mb-16" data-aos="fade-up">
-              <h3 class="text-2xl font-bold mb-6 text-tron-red">The Problem</h3>
+              <h3 class="text-2xl font-bold mb-6 text-white">The Problem</h3>
               <div class="cyber-card p-8 rounded-xl">
                 <p class="text-lg text-gray-300 leading-relaxed">
                   Crypto talent is <span class="text-tron-light font-semibold">fragmented across countless Discord servers and Telegram groups</span>. 
@@ -817,7 +817,7 @@ app.get('/', (c) => {
 
             {/* The Solution */}
             <div class="mb-16" data-aos="fade-up" data-aos-delay="200">
-              <h3 class="text-2xl font-bold mb-6 text-tron-red">The Solution</h3>
+              <h3 class="text-2xl font-bold mb-6 text-white">The Solution</h3>
               <div class="cyber-card p-8 rounded-xl">
                 <p class="text-lg text-gray-300 leading-relaxed mb-6">
                   <span class="text-transparent bg-clip-text bg-tron-gradient font-semibold">MEGATEAM</span> is a coordinated hub that connects <span class="text-tron-light font-semibold">builders, creatives, and guardians</span> on TRON—creating sustainable career paths while delivering accountability to sponsors and TRON DAO.
@@ -970,7 +970,7 @@ app.get('/', (c) => {
 
             {/* Why It Matters */}
             <div data-aos="fade-up" data-aos-delay="400">
-              <h3 class="text-2xl font-bold mb-8 text-tron-red">Why It Matters</h3>
+              <h3 class="text-2xl font-bold mb-8 text-white">Why It Matters</h3>
               
               <div class="grid md:grid-cols-3 gap-8">
                 {/* For Contributors */}
@@ -1016,7 +1016,7 @@ app.get('/', (c) => {
 
             {/* How MEGATEAM Delivers */}
             <div class="mt-16" data-aos="fade-up" data-aos-delay="500">
-              <h3 class="text-2xl font-bold mb-8 text-tron-red text-center">How MEGATEAM Delivers</h3>
+              <h3 class="text-2xl font-bold mb-8 text-white text-center">How MEGATEAM Delivers</h3>
               <div class="grid md:grid-cols-3 gap-8">
                 <div class="cyber-card p-6 rounded-xl border border-tron-red/20">
                   <i class="fas fa-shield-alt text-tron-red text-3xl mb-4"></i>
@@ -1040,7 +1040,7 @@ app.get('/', (c) => {
 
             {/* Login Mockup */}
             <div id="megateam-login" class="mt-20" data-aos="fade-up" data-aos-delay="600">
-              <h3 class="text-3xl font-bold mb-8 text-center text-tron-red">Access MEGATEAM Platform</h3>
+              <h3 class="text-3xl font-bold mb-8 text-center text-white">Access MEGATEAM Platform</h3>
               <p class="text-center text-gray-300 mb-12 max-w-3xl mx-auto text-lg">
                 Connect your wallet or sign up with email to join the largest builder coordination platform on TRON.
               </p>
@@ -1217,7 +1217,7 @@ app.get('/', (c) => {
 
             {/* Contributor Dashboard Mockup */}
             <div id="contributor-dashboard" class="mt-12" data-aos="fade-up" data-aos-delay="700">
-              <h3 class="text-3xl font-bold mb-8 text-center text-tron-red">Contributor Dashboard Preview</h3>
+              <h3 class="text-3xl font-bold mb-8 text-center text-white">Contributor Dashboard Preview</h3>
               <p class="text-center text-gray-300 mb-12 max-w-3xl mx-auto text-lg">
                 Experience your personalized MEGATEAM workspace. Track quests, manage submissions, discover opportunities, 
                 and build your reputation in the TRON ecosystem.
@@ -1535,7 +1535,7 @@ app.get('/', (c) => {
 
             {/* Bounty Discovery Page Mockup */}
             <div id="bounty-discovery" class="mt-20" data-aos="fade-up" data-aos-delay="800">
-              <h3 class="text-3xl font-bold mb-8 text-center text-tron-red">Task Bounty Discovery</h3>
+              <h3 class="text-3xl font-bold mb-8 text-center text-white">Task Bounty Discovery</h3>
               <p class="text-center text-gray-300 mb-12 max-w-3xl mx-auto text-lg">
                 Explore available bounties, filter by skills and rewards, and discover your next earning opportunity in the TRON ecosystem.
               </p>
@@ -1865,7 +1865,7 @@ app.get('/', (c) => {
 
             {/* Sponsorship Creation Page Mockup */}
             <div id="sponsor-creation" class="mt-20" data-aos="fade-up" data-aos-delay="900">
-              <h3 class="text-3xl font-bold mb-8 text-center text-tron-red">Sponsor Dashboard - Create Bounty</h3>
+              <h3 class="text-3xl font-bold mb-8 text-center text-white">Sponsor Dashboard - Create Bounty</h3>
               <p class="text-center text-gray-300 mb-12 max-w-3xl mx-auto text-lg">
                 Post your project, set rewards, and connect with verified TRON builders. 
                 Our Guardian network ensures quality delivery and transparent milestone tracking.
@@ -2221,7 +2221,7 @@ app.get('/', (c) => {
 
             {/* User Profile Page Mockup */}
             <div id="user-profile" class="mt-20" data-aos="fade-up" data-aos-delay="1000">
-              <h3 class="text-3xl font-bold mb-8 text-center text-tron-red">Contributor Profile</h3>
+              <h3 class="text-3xl font-bold mb-8 text-center text-white">Contributor Profile</h3>
               <p class="text-center text-gray-300 mb-12 max-w-3xl mx-auto text-lg">
                 Showcase your expertise, track record, and reputation in the TRON ecosystem. 
                 Build trust with sponsors through verified achievements and Guardian endorsements.
@@ -2660,6 +2660,428 @@ app.get('/', (c) => {
                           <i class="fas fa-user-plus mr-2"></i>
                           Follow Profile
                         </button>
+                      </div>
+                    </div>
+
+                  </div>
+                </div>
+
+              </div>
+            </div>
+
+            {/* Guardian Dashboard Mockup */}
+            <div id="guardian-dashboard" class="mt-20" data-aos="fade-up" data-aos-delay="1100">
+              <h3 class="text-3xl font-bold mb-8 text-center text-white">Guardian Dashboard - Quality Control</h3>
+              <p class="text-center text-gray-300 mb-12 max-w-3xl mx-auto text-lg">
+                Experience the Guardian oversight system that ensures quality, accountability, and fair dispute resolution. 
+                Guardians maintain the integrity of MEGATEAM's bounty and grant programs.
+              </p>
+              
+              {/* Guardian Dashboard Container */}
+              <div class="cyber-card rounded-xl border border-tron-red/30 bg-gradient-to-br from-tron-dark/50 to-black/80 overflow-hidden">
+                
+                {/* Guardian Header */}
+                <div class="bg-gradient-to-r from-blue-600/20 via-tron-dark/40 to-purple-600/20 p-4 border-b border-tron-red/20">
+                  <div class="flex flex-col lg:flex-row justify-between items-start lg:items-center space-y-3 lg:space-y-0">
+                    
+                    {/* Guardian Profile */}
+                    <div class="flex items-center space-x-3">
+                      <div class="w-12 h-12 rounded-lg bg-gradient-to-br from-blue-500 to-purple-600 border-2 border-white flex items-center justify-center">
+                        <i class="fas fa-shield-alt text-white"></i>
+                      </div>
+                      <div>
+                        <h4 class="text-lg font-bold text-white flex items-center space-x-2">
+                          <span>Guardian Sarah K.</span>
+                          <div class="flex items-center">
+                            <i class="fas fa-star text-yellow-400 text-sm"></i>
+                            <i class="fas fa-star text-yellow-400 text-sm"></i>
+                            <i class="fas fa-star text-yellow-400 text-sm"></i>
+                            <i class="fas fa-star text-yellow-400 text-sm"></i>
+                            <i class="fas fa-star text-yellow-400 text-sm"></i>
+                          </div>
+                        </h4>
+                        <div class="flex items-center space-x-2">
+                          <span class="text-blue-400 font-medium text-sm">Senior Guardian</span>
+                          <span class="px-2 py-0.5 bg-green-500/20 text-green-400 text-xs rounded border border-green-500/30">
+                            <i class="fas fa-check mr-1"></i>Verified
+                          </span>
+                        </div>
+                      </div>
+                    </div>
+
+                    {/* Guardian Stats */}
+                    <div class="flex items-center space-x-6">
+                      <div class="text-center">
+                        <div class="text-xl font-bold text-blue-400">247</div>
+                        <div class="text-xs text-tron-silver">Reviews</div>
+                      </div>
+                      <div class="text-center">
+                        <div class="text-xl font-bold text-green-400">98%</div>
+                        <div class="text-xs text-tron-silver">Accuracy</div>
+                      </div>
+                      <div class="text-center">
+                        <div class="text-xl font-bold text-purple-400">$14.2K</div>
+                        <div class="text-xs text-tron-silver">Rewards Earned</div>
+                      </div>
+                      <button class="px-4 py-2 bg-blue-600 hover:bg-blue-700 text-white text-sm rounded-lg transition-all">
+                        Review Queue
+                      </button>
+                    </div>
+                  </div>
+                </div>
+
+                {/* Guardian Dashboard Content */}
+                <div class="p-6">
+                  <div class="grid grid-cols-1 lg:grid-cols-4 gap-6">
+                    
+                    {/* Left Sidebar - Navigation & Stats */}
+                    <div class="lg:col-span-1 space-y-6">
+                      
+                      {/* Navigation */}
+                      <div class="bg-tron-dark/40 border border-tron-red/20 rounded-lg p-4">
+                        <h5 class="text-white font-semibold mb-4">Guardian Tools</h5>
+                        <nav class="space-y-2">
+                          <a href="#" class="flex items-center space-x-3 px-3 py-2 bg-blue-500/20 text-blue-400 rounded-lg border border-blue-500/30">
+                            <i class="fas fa-list w-4"></i>
+                            <span class="text-sm font-medium">Review Queue</span>
+                            <span class="ml-auto bg-red-500 text-white text-xs px-1.5 py-0.5 rounded-full">5</span>
+                          </a>
+                          <a href="#" class="flex items-center space-x-3 px-3 py-2 text-tron-silver hover:bg-tron-red/10 hover:text-white rounded-lg transition-all">
+                            <i class="fas fa-history w-4"></i>
+                            <span class="text-sm">My Reviews</span>
+                            <span class="ml-auto text-xs">247</span>
+                          </a>
+                          <a href="#" class="flex items-center space-x-3 px-3 py-2 text-tron-silver hover:bg-tron-red/10 hover:text-white rounded-lg transition-all">
+                            <i class="fas fa-gavel w-4"></i>
+                            <span class="text-sm">Disputes</span>
+                            <span class="ml-auto bg-yellow-500 text-white text-xs px-1.5 py-0.5 rounded-full">2</span>
+                          </a>
+                          <a href="#" class="flex items-center space-x-3 px-3 py-2 text-tron-silver hover:bg-tron-red/10 hover:text-white rounded-lg transition-all">
+                            <i class="fas fa-chart-line w-4"></i>
+                            <span class="text-sm">Analytics</span>
+                          </a>
+                          <a href="#" class="flex items-center space-x-3 px-3 py-2 text-tron-silver hover:bg-tron-red/10 hover:text-white rounded-lg transition-all">
+                            <i class="fas fa-cog w-4"></i>
+                            <span class="text-sm">Settings</span>
+                          </a>
+                        </nav>
+                      </div>
+
+                      {/* Guardian Performance */}
+                      <div class="bg-tron-dark/40 border border-tron-red/20 rounded-lg p-4">
+                        <h6 class="text-white font-semibold mb-4 flex items-center">
+                          <i class="fas fa-trophy text-yellow-400 mr-2"></i>
+                          Performance
+                        </h6>
+                        
+                        <div class="space-y-3 text-sm">
+                          <div class="flex justify-between">
+                            <span class="text-tron-silver">This Month</span>
+                            <span class="text-white font-semibold">23 reviews</span>
+                          </div>
+                          <div class="flex justify-between">
+                            <span class="text-tron-silver">Avg Response Time</span>
+                            <span class="text-green-400">2.4 hours</span>
+                          </div>
+                          <div class="flex justify-between">
+                            <span class="text-tron-silver">Quality Score</span>
+                            <span class="text-blue-400">98/100</span>
+                          </div>
+                          <div class="flex justify-between">
+                            <span class="text-tron-silver">Community Rating</span>
+                            <span class="text-yellow-400">4.9/5.0</span>
+                          </div>
+                        </div>
+                        
+                        <div class="mt-4 p-2 bg-green-500/10 border border-green-500/20 rounded text-xs text-green-400">
+                          <i class="fas fa-arrow-up mr-1"></i>
+                          Top 5% Guardian this quarter
+                        </div>
+                      </div>
+                    </div>
+
+                    {/* Main Content - Review Queue */}
+                    <div class="lg:col-span-2 space-y-6">
+                      <h5 class="text-xl font-bold text-white flex items-center">
+                        <i class="fas fa-clipboard-check text-blue-400 mr-3"></i>
+                        Active Review Queue
+                      </h5>
+                      
+                      <div class="space-y-4">
+                        
+                        {/* Review Item 1 - High Priority */}
+                        <div class="bg-gradient-to-r from-red-500/20 to-red-500/5 border border-red-500/30 rounded-lg p-4">
+                          <div class="flex items-start justify-between mb-3">
+                            <div class="flex items-start space-x-3">
+                              <div class="w-10 h-10 bg-gradient-to-br from-red-500 to-red-700 rounded-lg flex items-center justify-center">
+                                <i class="fas fa-code text-white"></i>
+                              </div>
+                              <div>
+                                <div class="flex items-center space-x-2 mb-1">
+                                  <h6 class="text-white font-semibold">DeFi Protocol Security Audit</h6>
+                                  <span class="px-2 py-0.5 bg-red-500 text-white text-xs rounded">HIGH PRIORITY</span>
+                                </div>
+                                <p class="text-tron-silver text-sm">Submitted by Alex Chen • Budget: $1,800 USDT</p>
+                                <div class="flex items-center space-x-2 mt-2">
+                                  <span class="px-2 py-1 bg-blue-500/20 text-blue-400 text-xs rounded">Solidity</span>
+                                  <span class="px-2 py-1 bg-red-500/20 text-red-400 text-xs rounded">Security</span>
+                                </div>
+                              </div>
+                            </div>
+                            <div class="text-right">
+                              <div class="text-red-400 font-semibold text-sm">Deadline: 6 hours</div>
+                              <div class="text-xs text-tron-silver">Milestone 2/3</div>
+                            </div>
+                          </div>
+                          
+                          <div class="bg-tron-dark/50 border border-tron-red/20 rounded p-3 mb-3">
+                            <h6 class="text-white font-medium text-sm mb-2">Submission Summary:</h6>
+                            <p class="text-tron-silver text-sm">
+                              Comprehensive security audit report for lending protocol. Found 3 medium-risk vulnerabilities, 
+                              provided detailed remediation steps and gas optimization suggestions.
+                            </p>
+                          </div>
+                          
+                          <div class="flex items-center justify-between">
+                            <div class="flex items-center space-x-3">
+                              <button class="px-4 py-2 bg-blue-600 hover:bg-blue-700 text-white text-sm rounded transition-all">
+                                <i class="fas fa-eye mr-2"></i>Review Details
+                              </button>
+                              <button class="px-3 py-2 border border-yellow-500 text-yellow-400 hover:bg-yellow-500 hover:text-black text-sm rounded transition-all">
+                                <i class="fas fa-download mr-1"></i>Files
+                              </button>
+                            </div>
+                            <div class="flex items-center space-x-2">
+                              <button class="px-3 py-2 bg-green-600 hover:bg-green-700 text-white text-sm rounded transition-all">
+                                <i class="fas fa-check mr-1"></i>Approve
+                              </button>
+                              <button class="px-3 py-2 bg-red-600 hover:bg-red-700 text-white text-sm rounded transition-all">
+                                <i class="fas fa-times mr-1"></i>Reject
+                              </button>
+                            </div>
+                          </div>
+                        </div>
+
+                        {/* Review Item 2 - Medium Priority */}
+                        <div class="bg-gradient-to-r from-yellow-500/20 to-yellow-500/5 border border-yellow-500/30 rounded-lg p-4">
+                          <div class="flex items-start justify-between mb-3">
+                            <div class="flex items-start space-x-3">
+                              <div class="w-10 h-10 bg-gradient-to-br from-yellow-500 to-orange-600 rounded-lg flex items-center justify-center">
+                                <i class="fas fa-video text-white"></i>
+                              </div>
+                              <div>
+                                <div class="flex items-center space-x-2 mb-1">
+                                  <h6 class="text-white font-semibold">TRON DeFi Tutorial Series</h6>
+                                  <span class="px-2 py-0.5 bg-yellow-500 text-black text-xs rounded font-medium">MEDIUM</span>
+                                </div>
+                                <p class="text-tron-silver text-sm">Submitted by Maria Lopez • Budget: $420 USDT</p>
+                                <div class="flex items-center space-x-2 mt-2">
+                                  <span class="px-2 py-1 bg-red-500/20 text-red-400 text-xs rounded">Video</span>
+                                  <span class="px-2 py-1 bg-green-500/20 text-green-400 text-xs rounded">Education</span>
+                                </div>
+                              </div>
+                            </div>
+                            <div class="text-right">
+                              <div class="text-yellow-400 font-semibold text-sm">Deadline: 2 days</div>
+                              <div class="text-xs text-tron-silver">Final Milestone</div>
+                            </div>
+                          </div>
+                          
+                          <div class="flex items-center justify-between">
+                            <div class="flex items-center space-x-3">
+                              <button class="px-4 py-2 bg-blue-600 hover:bg-blue-700 text-white text-sm rounded transition-all">
+                                <i class="fas fa-eye mr-2"></i>Review Details
+                              </button>
+                              <button class="px-3 py-2 border border-yellow-500 text-yellow-400 hover:bg-yellow-500 hover:text-black text-sm rounded transition-all">
+                                <i class="fas fa-play mr-1"></i>Preview
+                              </button>
+                            </div>
+                            <div class="flex items-center space-x-2">
+                              <button class="px-3 py-2 bg-green-600 hover:bg-green-700 text-white text-sm rounded transition-all">
+                                <i class="fas fa-check mr-1"></i>Approve
+                              </button>
+                              <button class="px-3 py-2 bg-red-600 hover:bg-red-700 text-white text-sm rounded transition-all">
+                                <i class="fas fa-times mr-1"></i>Reject
+                              </button>
+                            </div>
+                          </div>
+                        </div>
+
+                        {/* Review Item 3 - Low Priority */}
+                        <div class="bg-tron-dark/40 border border-green-500/30 rounded-lg p-4">
+                          <div class="flex items-start justify-between mb-3">
+                            <div class="flex items-start space-x-3">
+                              <div class="w-10 h-10 bg-gradient-to-br from-green-500 to-green-700 rounded-lg flex items-center justify-center">
+                                <i class="fas fa-gamepad text-white"></i>
+                              </div>
+                              <div>
+                                <div class="flex items-center space-x-2 mb-1">
+                                  <h6 class="text-white font-semibold">NFT Gaming UI Components</h6>
+                                  <span class="px-2 py-0.5 bg-green-500 text-black text-xs rounded font-medium">LOW</span>
+                                </div>
+                                <p class="text-tron-silver text-sm">Submitted by David Kim • Budget: $680 USDT</p>
+                                <div class="flex items-center space-x-2 mt-2">
+                                  <span class="px-2 py-1 bg-purple-500/20 text-purple-400 text-xs rounded">React</span>
+                                  <span class="px-2 py-1 bg-orange-500/20 text-orange-400 text-xs rounded">Gaming</span>
+                                </div>
+                              </div>
+                            </div>
+                            <div class="text-right">
+                              <div class="text-green-400 font-semibold text-sm">Deadline: 5 days</div>
+                              <div class="text-xs text-tron-silver">Milestone 1/2</div>
+                            </div>
+                          </div>
+                          
+                          <div class="flex items-center justify-between">
+                            <div class="flex items-center space-x-3">
+                              <button class="px-4 py-2 bg-blue-600 hover:bg-blue-700 text-white text-sm rounded transition-all">
+                                <i class="fas fa-eye mr-2"></i>Review Details
+                              </button>
+                              <button class="px-3 py-2 border border-yellow-500 text-yellow-400 hover:bg-yellow-500 hover:text-black text-sm rounded transition-all">
+                                <i class="fas fa-code mr-1"></i>Demo
+                              </button>
+                            </div>
+                            <div class="flex items-center space-x-2">
+                              <button class="px-3 py-2 bg-green-600 hover:bg-green-700 text-white text-sm rounded transition-all">
+                                <i class="fas fa-check mr-1"></i>Approve
+                              </button>
+                              <button class="px-3 py-2 bg-red-600 hover:bg-red-700 text-white text-sm rounded transition-all">
+                                <i class="fas fa-times mr-1"></i>Reject
+                              </button>
+                            </div>
+                          </div>
+                        </div>
+
+                      </div>
+
+                      {/* Load More */}
+                      <div class="text-center">
+                        <button class="px-6 py-3 border-2 border-blue-500 text-blue-400 hover:bg-blue-500 hover:text-white rounded-lg font-semibold transition-all">
+                          Load More Reviews (12 remaining)
+                        </button>
+                      </div>
+                    </div>
+
+                    {/* Right Sidebar - Dispute Resolution & Network */}
+                    <div class="lg:col-span-1 space-y-6">
+                      
+                      {/* Active Disputes */}
+                      <div class="bg-tron-dark/40 border border-tron-red/20 rounded-lg p-4">
+                        <h6 class="text-white font-semibold mb-4 flex items-center">
+                          <i class="fas fa-gavel text-orange-400 mr-2"></i>
+                          Active Disputes
+                        </h6>
+                        
+                        <div class="space-y-3">
+                          <div class="p-3 bg-orange-500/10 border border-orange-500/20 rounded">
+                            <div class="flex items-center space-x-2 mb-2">
+                              <div class="w-6 h-6 bg-orange-500 rounded flex items-center justify-center">
+                                <i class="fas fa-exclamation text-white text-xs"></i>
+                              </div>
+                              <h6 class="text-white font-medium text-sm">Smart Contract Dispute</h6>
+                            </div>
+                            <p class="text-tron-silver text-xs mb-2">
+                              Client claims incomplete deliverables for bridge integration project.
+                            </p>
+                            <div class="flex justify-between items-center">
+                              <span class="text-orange-400 text-xs">$2,500 USDT</span>
+                              <button class="px-2 py-1 bg-orange-500 hover:bg-orange-600 text-white text-xs rounded transition-all">
+                                Mediate
+                              </button>
+                            </div>
+                          </div>
+                          
+                          <div class="p-3 bg-red-500/10 border border-red-500/20 rounded">
+                            <div class="flex items-center space-x-2 mb-2">
+                              <div class="w-6 h-6 bg-red-500 rounded flex items-center justify-center">
+                                <i class="fas fa-times text-white text-xs"></i>
+                              </div>
+                              <h6 class="text-white font-medium text-sm">Quality Concern</h6>
+                            </div>
+                            <p class="text-tron-silver text-xs mb-2">
+                              Plagiarism allegations on educational content submission.
+                            </p>
+                            <div class="flex justify-between items-center">
+                              <span class="text-red-400 text-xs">$420 USDT</span>
+                              <button class="px-2 py-1 bg-red-500 hover:bg-red-600 text-white text-xs rounded transition-all">
+                                Investigate
+                              </button>
+                            </div>
+                          </div>
+                        </div>
+                      </div>
+
+                      {/* Guardian Network */}
+                      <div class="bg-tron-dark/40 border border-tron-red/20 rounded-lg p-4">
+                        <h6 class="text-white font-semibold mb-4 flex items-center">
+                          <i class="fas fa-users text-blue-400 mr-2"></i>
+                          Guardian Network
+                        </h6>
+                        
+                        <div class="text-center mb-4">
+                          <div class="text-2xl font-bold text-blue-400">47</div>
+                          <div class="text-tron-silver text-xs">Active Guardians</div>
+                        </div>
+                        
+                        <div class="space-y-2 text-sm">
+                          <div class="flex justify-between">
+                            <span class="text-tron-silver">Online Now</span>
+                            <span class="text-green-400">31</span>
+                          </div>
+                          <div class="flex justify-between">
+                            <span class="text-tron-silver">Avg Response Time</span>
+                            <span class="text-white">3.2 hours</span>
+                          </div>
+                          <div class="flex justify-between">
+                            <span class="text-tron-silver">Reviews Today</span>
+                            <span class="text-white">89</span>
+                          </div>
+                        </div>
+                      </div>
+
+                      {/* Quality Metrics */}
+                      <div class="bg-tron-dark/40 border border-tron-red/20 rounded-lg p-4">
+                        <h6 class="text-white font-semibold mb-4 flex items-center">
+                          <i class="fas fa-chart-bar text-green-400 mr-2"></i>
+                          Quality Metrics
+                        </h6>
+                        
+                        <div class="space-y-3">
+                          <div>
+                            <div class="flex justify-between mb-1">
+                              <span class="text-tron-silver text-sm">Approval Rate</span>
+                              <span class="text-green-400 text-sm font-semibold">87%</span>
+                            </div>
+                            <div class="w-full bg-tron-gray rounded-full h-2">
+                              <div class="w-5/6 bg-gradient-to-r from-green-500 to-green-400 h-2 rounded-full"></div>
+                            </div>
+                          </div>
+                          
+                          <div>
+                            <div class="flex justify-between mb-1">
+                              <span class="text-tron-silver text-sm">Revision Rate</span>
+                              <span class="text-yellow-400 text-sm font-semibold">8%</span>
+                            </div>
+                            <div class="w-full bg-tron-gray rounded-full h-2">
+                              <div class="w-1/12 bg-gradient-to-r from-yellow-500 to-yellow-400 h-2 rounded-full"></div>
+                            </div>
+                          </div>
+                          
+                          <div>
+                            <div class="flex justify-between mb-1">
+                              <span class="text-tron-silver text-sm">Dispute Rate</span>
+                              <span class="text-red-400 text-sm font-semibold">5%</span>
+                            </div>
+                            <div class="w-full bg-tron-gray rounded-full h-2">
+                              <div class="w-1/20 bg-gradient-to-r from-red-500 to-red-400 h-2 rounded-full"></div>
+                            </div>
+                          </div>
+                        </div>
+                        
+                        <div class="mt-4 p-2 bg-blue-500/10 border border-blue-500/20 rounded text-xs text-blue-400">
+                          <i class="fas fa-info-circle mr-1"></i>
+                          Network maintains 95%+ satisfaction rate
+                        </div>
                       </div>
                     </div>
 
@@ -3146,7 +3568,7 @@ app.get('/', (c) => {
 
             {/* Guardian Dashboard Mockup */}
             <div id="guardian-dashboard" class="mt-20" data-aos="fade-up" data-aos-delay="1100">
-              <h3 class="text-3xl font-bold mb-8 text-center text-tron-red">Guardian Dashboard</h3>
+              <h3 class="text-3xl font-bold mb-8 text-center text-white">Guardian Dashboard</h3>
               <p class="text-center text-gray-300 mb-12 max-w-3xl mx-auto text-lg">
                 Maintain quality standards and ensure accountability across all MEGATEAM projects. 
                 Guardians review submissions, verify milestones, and resolve disputes with professional oversight.
