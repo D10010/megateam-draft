@@ -1181,28 +1181,59 @@ app.get('/', (c) => {
                         </h4>
                         <div class="flex items-center space-x-3">
                           <span class="text-yellow-400 font-semibold">Level 3 Contributor – Gold Tier</span>
-                          <span class="px-2 py-1 bg-tron-red/20 text-tron-red text-xs rounded border border-tron-red/30">TRON Chain</span>
+                          <div class="flex items-center space-x-2">
+                            <button class="flex items-center space-x-2 px-3 py-1 bg-tron-red/20 text-tron-red text-xs rounded border border-tron-red/30 hover:bg-tron-red/30 transition-all">
+                              <div class="w-2 h-2 bg-tron-red rounded-full"></div>
+                              <span>TRON Mainnet</span>
+                              <i class="fas fa-chevron-down text-xs"></i>
+                            </button>
+                            <div class="flex items-center space-x-1 px-2 py-1 bg-green-500/20 text-green-400 text-xs rounded border border-green-500/30">
+                              <div class="w-2 h-2 bg-green-400 rounded-full animate-pulse"></div>
+                              <span>Online</span>
+                            </div>
+                          </div>
                         </div>
                       </div>
                     </div>
 
-                    {/* Balance Tracker */}
-                    <div class="grid grid-cols-2 lg:grid-cols-4 gap-4 lg:gap-6">
-                      <div class="text-center">
-                        <div class="text-2xl font-bold text-green-400">$2,847</div>
-                        <div class="text-xs text-tron-silver">USDT Earned</div>
+                    {/* Balance Tracker & Controls */}
+                    <div class="flex flex-col lg:flex-row items-end lg:items-center space-y-4 lg:space-y-0 lg:space-x-6">
+                      
+                      {/* Balance Grid */}
+                      <div class="grid grid-cols-2 lg:grid-cols-4 gap-4 lg:gap-6">
+                        <div class="text-center">
+                          <div class="text-2xl font-bold text-green-400">$2,847</div>
+                          <div class="text-xs text-tron-silver">USDT Earned</div>
+                        </div>
+                        <div class="text-center">
+                          <div class="text-2xl font-bold text-yellow-400">$456</div>
+                          <div class="text-xs text-tron-silver">Pending</div>
+                        </div>
+                        <div class="text-center">
+                          <div class="text-2xl font-bold text-blue-400">$189</div>
+                          <div class="text-xs text-tron-silver">Quest Rewards</div>
+                        </div>
+                        <div class="text-center">
+                          <div class="text-2xl font-bold text-purple-400">1,247</div>
+                          <div class="text-xs text-tron-silver">Rep Points</div>
+                        </div>
                       </div>
-                      <div class="text-center">
-                        <div class="text-2xl font-bold text-yellow-400">$456</div>
-                        <div class="text-xs text-tron-silver">Pending</div>
-                      </div>
-                      <div class="text-center">
-                        <div class="text-2xl font-bold text-blue-400">$189</div>
-                        <div class="text-xs text-tron-silver">Quest Rewards</div>
-                      </div>
-                      <div class="text-center">
-                        <div class="text-2xl font-bold text-purple-400">1,247</div>
-                        <div class="text-xs text-tron-silver">Rep Points</div>
+
+                      {/* Quick Action Buttons */}
+                      <div class="flex items-center space-x-3">
+                        <button class="flex items-center space-x-2 px-4 py-2 bg-green-600 hover:bg-green-700 text-white rounded-lg transition-all">
+                          <i class="fas fa-download text-sm"></i>
+                          <span class="text-sm font-medium">Withdraw</span>
+                        </button>
+                        <button class="flex items-center space-x-2 px-4 py-2 bg-tron-red hover:bg-tron-dark-red text-white rounded-lg transition-all">
+                          <i class="fas fa-cog text-sm"></i>
+                          <span class="text-sm font-medium">Settings</span>
+                        </button>
+                        <div class="relative">
+                          <button class="flex items-center justify-center w-10 h-10 bg-tron-dark hover:bg-tron-gray text-tron-silver hover:text-white rounded-lg border border-tron-red/30 transition-all">
+                            <i class="fas fa-ellipsis-v"></i>
+                          </button>
+                        </div>
                       </div>
                     </div>
                   </div>
@@ -1214,6 +1245,7 @@ app.get('/', (c) => {
                   {/* Left Panel - Navigation */}
                   <div class="lg:col-span-3 bg-tron-dark/30 p-6 border-r border-tron-red/20">
                     <nav class="space-y-2">
+                      {/* Core Features */}
                       <a href="#" class="flex items-center space-x-3 px-4 py-3 bg-tron-red/20 text-tron-red rounded-lg border border-tron-red/30">
                         <i class="fas fa-home w-5"></i>
                         <span class="font-medium">Dashboard Home</span>
@@ -1239,6 +1271,70 @@ app.get('/', (c) => {
                         <i class="fas fa-search w-5"></i>
                         <span>Discover New Quests</span>
                         <span class="ml-auto bg-green-500 text-white text-xs px-2 py-1 rounded-full">12</span>
+                      </a>
+
+                      {/* Divider */}
+                      <div class="py-2">
+                        <div class="h-px bg-tron-red/20"></div>
+                      </div>
+
+                      {/* DApp Management Features */}
+                      <div class="px-4 py-2">
+                        <h6 class="text-xs font-semibold text-tron-silver uppercase tracking-wider">Management</h6>
+                      </div>
+                      
+                      <a href="#" class="flex items-center space-x-3 px-4 py-3 text-tron-silver hover:bg-tron-red/10 hover:text-white rounded-lg transition-all">
+                        <i class="fas fa-wallet w-5"></i>
+                        <span>Wallet Manager</span>
+                        <span class="ml-auto text-green-400 text-xs">Connected</span>
+                      </a>
+                      <a href="#" class="flex items-center space-x-3 px-4 py-3 text-tron-silver hover:bg-tron-red/10 hover:text-white rounded-lg transition-all">
+                        <i class="fas fa-coins w-5"></i>
+                        <span>Token Portfolio</span>
+                      </a>
+                      <a href="#" class="flex items-center space-x-3 px-4 py-3 text-tron-silver hover:bg-tron-red/10 hover:text-white rounded-lg transition-all">
+                        <i class="fas fa-exchange-alt w-5"></i>
+                        <span>Transaction History</span>
+                      </a>
+                      <a href="#" class="flex items-center space-x-3 px-4 py-3 text-tron-silver hover:bg-tron-red/10 hover:text-white rounded-lg transition-all">
+                        <i class="fas fa-bell w-5"></i>
+                        <span>Notifications</span>
+                        <span class="ml-auto bg-tron-red text-white text-xs px-2 py-1 rounded-full">2</span>
+                      </a>
+                      <a href="#" class="flex items-center space-x-3 px-4 py-3 text-tron-silver hover:bg-tron-red/10 hover:text-white rounded-lg transition-all">
+                        <i class="fas fa-link w-5"></i>
+                        <span>Connected Apps</span>
+                      </a>
+
+                      {/* Divider */}
+                      <div class="py-2">
+                        <div class="h-px bg-tron-red/20"></div>
+                      </div>
+
+                      {/* Settings & Support */}
+                      <div class="px-4 py-2">
+                        <h6 class="text-xs font-semibold text-tron-silver uppercase tracking-wider">Settings</h6>
+                      </div>
+
+                      <a href="#" class="flex items-center space-x-3 px-4 py-3 text-tron-silver hover:bg-tron-red/10 hover:text-white rounded-lg transition-all">
+                        <i class="fas fa-user-cog w-5"></i>
+                        <span>Profile Settings</span>
+                      </a>
+                      <a href="#" class="flex items-center space-x-3 px-4 py-3 text-tron-silver hover:bg-tron-red/10 hover:text-white rounded-lg transition-all">
+                        <i class="fas fa-shield-alt w-5"></i>
+                        <span>Security</span>
+                      </a>
+                      <a href="#" class="flex items-center space-x-3 px-4 py-3 text-tron-silver hover:bg-tron-red/10 hover:text-white rounded-lg transition-all">
+                        <i class="fas fa-globe w-5"></i>
+                        <span>Network Settings</span>
+                      </a>
+                      <a href="#" class="flex items-center space-x-3 px-4 py-3 text-tron-silver hover:bg-tron-red/10 hover:text-white rounded-lg transition-all">
+                        <i class="fas fa-question-circle w-5"></i>
+                        <span>Help & Support</span>
+                      </a>
+                      <a href="#" class="flex items-center space-x-3 px-4 py-3 text-tron-silver hover:bg-tron-red/10 hover:text-white rounded-lg transition-all">
+                        <i class="fas fa-sign-out-alt w-5"></i>
+                        <span>Disconnect</span>
                       </a>
                     </nav>
 
