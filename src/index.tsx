@@ -3094,6 +3094,46 @@ app.get('/', (c) => {
         </div>
       </section>
 
+      {/* Guardian Dashboard Section */}
+      <section id="guardian-dashboard-section" class="py-20">
+        <div class="container mx-auto px-6">
+          <div class="max-w-6xl mx-auto">
+            <h3 class="text-3xl font-bold mb-8 text-center text-white">Guardian Dashboard</h3>
+            <p class="text-center text-gray-300 mb-12 max-w-3xl mx-auto text-lg">
+              Maintain quality standards and ensure accountability across all MEGATEAM projects. 
+              Guardians review submissions, verify milestones, and resolve disputes with professional oversight.
+            </p>
+            
+            <div class="cyber-card rounded-xl border border-tron-red/30 bg-gradient-to-br from-tron-dark/50 to-black/80 p-8">
+              <div class="text-center">
+                <i class="fas fa-shield-alt text-tron-red text-4xl mb-4"></i>
+                <h4 class="text-xl font-bold text-white mb-4">Guardian Quality Control System</h4>
+                <p class="text-tron-silver">Professional oversight ensuring high standards across all MEGATEAM initiatives.</p>
+                
+                <div class="mt-8 grid grid-cols-1 md:grid-cols-3 gap-6">
+                  <div class="bg-tron-dark/40 border border-tron-red/20 rounded-lg p-4">
+                    <i class="fas fa-clipboard-check text-blue-400 text-2xl mb-3"></i>
+                    <h5 class="text-white font-semibold mb-2">Review Queue</h5>
+                    <p class="text-tron-silver text-sm">Milestone verification and quality assessment</p>
+                  </div>
+                  <div class="bg-tron-dark/40 border border-tron-red/20 rounded-lg p-4">
+                    <i class="fas fa-balance-scale text-yellow-400 text-2xl mb-3"></i>
+                    <h5 class="text-white font-semibold mb-2">Dispute Resolution</h5>
+                    <p class="text-tron-silver text-sm">Fair mediation and conflict resolution</p>
+                  </div>
+                  <div class="bg-tron-dark/40 border border-tron-red/20 rounded-lg p-4">
+                    <i class="fas fa-users text-purple-400 text-2xl mb-3"></i>
+                    <h5 class="text-white font-semibold mb-2">Network Stats</h5>
+                    <p class="text-tron-silver text-sm">Guardian performance and network health</p>
+                  </div>
+                </div>
+              </div>
+            </div>
+            
+          </div>
+        </div>
+      </section>
+
       {/* Objectives Section */}
       <section id="objectives" class="py-20">
         <div class="container mx-auto px-6">
