@@ -703,6 +703,13 @@ app.get('/', (c) => {
                 delivering an unparalleled energy-rental model that lets developers run at near-zero gas cost.
               </p>
               <p class="text-xl font-semibold text-tron-red">Yet billions still don't know that story.</p>
+              <p class="mt-8 text-xl leading-relaxed">
+                <span class="text-transparent bg-clip-text bg-tron-gradient font-semibold">MEGATEAM's journey begins on TRON</span>, 
+                where we're building the foundational infrastructure and community that will champion 
+                <span class="text-white font-semibold">interoperability and decentralization</span> across all blockchain ecosystems. 
+                Starting here allows us to prove our model on the world's most efficient network, before expanding 
+                to connect builders across <span class="text-tron-light font-semibold">every major blockchain</span>.
+              </p>
             </div>
 
             {/* 7 Key Advantages Grid */}
