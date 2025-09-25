@@ -603,7 +603,7 @@ app.get('/', (c) => {
               TRON
             </span>
             <br />
-            <span class="text-tron-light font-black">And Beyond</span>
+            <span class="text-tron-light font-black animate-pulse" style="text-shadow: 0 0 10px #FF4444, 0 0 20px #FF4444, 0 0 30px #FF4444; filter: drop-shadow(0 0 8px #FF4444);">And Beyond</span>
           </h1>
           
 
