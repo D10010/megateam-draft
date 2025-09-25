@@ -602,6 +602,8 @@ app.get('/', (c) => {
             <span class="text-transparent bg-clip-text bg-gradient-to-r from-tron-red via-tron-light to-tron-dark-red">
               TRON
             </span>
+            <br />
+            <span class="text-tron-light font-black">And Beyond</span>
           </h1>
           
 
