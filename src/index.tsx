@@ -93,7 +93,7 @@ app.get('/signup', (c) => {
                 <div class="absolute inset-0 fas fa-rocket text-tron-red text-2xl blur-sm opacity-30"></div>
               </div>
               <a href="/" class="text-2xl font-montserrat font-bold tracking-wider hover:opacity-80 transition-opacity">
-                TRON <span class="text-transparent bg-clip-text bg-tron-gradient">MEGATEAM</span>
+                <span class="text-transparent bg-clip-text bg-tron-gradient">MEGATEAM</span>
               </a>
             </div>
             <div class="hidden md:flex items-center space-x-8">
@@ -426,7 +426,7 @@ app.get('/', (c) => {
                 <div class="absolute inset-0 fas fa-rocket text-tron-red text-2xl blur-sm opacity-30"></div>
               </div>
               <span class="text-2xl font-montserrat font-bold tracking-wider">
-                TRON <span class="text-transparent bg-clip-text bg-tron-gradient">MEGATEAM</span>
+                <span class="text-transparent bg-clip-text bg-tron-gradient">MEGATEAM</span>
               </span>
             </div>
             {/* Desktop Navigation */}
