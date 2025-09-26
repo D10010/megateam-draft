@@ -600,7 +600,7 @@ app.get('/', (c) => {
               TRON
             </span>
             <br />
-            <span class="text-tron-light font-black animate-pulse" style="text-shadow: 0 0 1px #FF4444, 0 0 2px #FF4444, 0 1px 0 #FF4444, 1px 0 0 #FF4444, -1px 0 0 #FF4444, 0 -1px 0 #FF4444;">And Beyond</span>
+            <span class="text-tron-light font-black animate-pulse beyond-glow">And Beyond</span>
           </h1>
           
 

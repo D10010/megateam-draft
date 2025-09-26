@@ -560,6 +560,35 @@ a:focus {
   100% { transform: rotate(360deg); }
 }
 
+/* Responsive "And Beyond" glow effect */
+.beyond-glow {
+  /* Desktop glow effect - more intense */
+  text-shadow: 
+    0 0 2px #FF4444,
+    0 0 4px #FF4444,
+    0 0 6px #FF4444,
+    0 1px 0 #FF4444;
+}
+
+/* Mobile-specific styling - much more subtle glow */
+@media (max-width: 768px) {
+  .beyond-glow {
+    text-shadow: 
+      0 0 1px #FF4444,
+      0 0 2px rgba(255, 68, 68, 0.6),
+      0 0 3px rgba(255, 68, 68, 0.3);
+  }
+}
+
+/* Extra small screens - minimal glow */
+@media (max-width: 480px) {
+  .beyond-glow {
+    text-shadow: 
+      0 0 1px rgba(255, 68, 68, 0.8),
+      0 0 2px rgba(255, 68, 68, 0.4);
+  }
+}
+
 /* Print styles */
 @media print {
   .no-print {
