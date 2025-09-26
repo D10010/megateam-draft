@@ -570,22 +570,32 @@ a:focus {
     0 1px 0 #FF4444;
 }
 
-/* Mobile-specific styling - much more subtle glow */
+/* Mobile-specific styling - ensure maximum visibility */
 @media (max-width: 768px) {
   .beyond-glow {
+    /* Make text bright white on mobile for maximum visibility */
+    color: #FFFFFF !important;
+    font-size: 1.5rem !important; /* Ensure it's visible size */
+    display: block !important;
+    margin-top: 0.5rem !important;
     text-shadow: 
-      0 0 1px #FF4444,
-      0 0 2px rgba(255, 68, 68, 0.6),
-      0 0 3px rgba(255, 68, 68, 0.3);
+      0 0 2px #FF4444,
+      0 0 4px #FF4444,
+      0 0 6px rgba(255, 68, 68, 0.8);
   }
 }
 
-/* Extra small screens - minimal glow */
+/* Extra small screens - maximum visibility */
 @media (max-width: 480px) {
   .beyond-glow {
+    /* Ensure maximum visibility on very small screens */
+    color: #FFFFFF !important;
+    font-size: 1.25rem !important;
+    display: block !important;
+    margin-top: 0.5rem !important;
     text-shadow: 
-      0 0 1px rgba(255, 68, 68, 0.8),
-      0 0 2px rgba(255, 68, 68, 0.4);
+      0 0 2px #FF4444,
+      0 0 4px rgba(255, 68, 68, 0.9);
   }
 }
 
