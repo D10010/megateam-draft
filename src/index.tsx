@@ -563,9 +563,6 @@ app.get('/', (c) => {
                 Join MEGATEAM <i class="fas fa-external-link-alt ml-1 text-sm opacity-80"></i>
               </a>
             </div>
-            <button class="md:hidden text-tron-red text-xl hover:text-tron-light transition-colors" id="mobile-menu-btn">
-              <i class="fas fa-bars"></i>
-            </button>
           </div>
         </div>
       </nav>
