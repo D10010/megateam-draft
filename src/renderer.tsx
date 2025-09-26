@@ -76,7 +76,10 @@ export const renderer = jsxRenderer(({ children }) => {
                     'tron-gray': '#333333',
                     'tron-light-gray': '#666666',
                     'tron-white': '#FFFFFF',
-                    'tron-silver': '#C0C0C0'
+                    'tron-silver': '#C0C0C0',
+                    'gold-400': '#FBBF24',
+                    'gold-500': '#F59E0B',
+                    'gold-600': '#D97706'
                   },
                   fontFamily: {
                     'montserrat': ['Montserrat', 'sans-serif'],

@@ -603,7 +603,7 @@ app.get('/', (c) => {
               TRON
             </span>
             <br />
-            <span class="text-tron-light font-black animate-pulse" style="text-shadow: 0 0 10px #FF4444, 0 0 20px #FF4444, 0 0 30px #FF4444; filter: drop-shadow(0 0 8px #FF4444);">And Beyond</span>
+            <span class="text-tron-light font-black animate-pulse" style="text-shadow: 0 0 1px #FF4444, 0 0 2px #FF4444, 0 1px 0 #FF4444, 1px 0 0 #FF4444, -1px 0 0 #FF4444, 0 -1px 0 #FF4444;">And Beyond</span>
           </h1>
           
 
@@ -1047,18 +1047,83 @@ app.get('/', (c) => {
               </div>
             </div>
 
+            {/* Platform Development Status */}
+            <div class="mt-16 mb-8" data-aos="fade-up" data-aos-delay="500">
+              <div class="max-w-4xl mx-auto bg-gradient-to-r from-blue-900/40 via-purple-900/40 to-blue-900/40 border border-blue-500/30 rounded-xl p-6">
+                <div class="text-center">
+                  <div class="flex items-center justify-center mb-4">
+                    <i class="fas fa-info-circle text-blue-400 text-2xl mr-3"></i>
+                    <h4 class="text-xl font-bold text-white">Platform Development Status</h4>
+                  </div>
+                  <p class="text-blue-300 mb-4">
+                    MEGATEAM is currently under active development. The interface previews below showcase the planned user experience and feature set.
+                  </p>
+                  <div class="flex flex-wrap justify-center gap-3">
+                    <div class="flex items-center px-3 py-1 bg-yellow-600/20 border border-yellow-500/40 rounded-full text-yellow-400 text-sm">
+                      <i class="fas fa-hammer mr-2"></i>
+                      In Development
+                    </div>
+                    <div class="flex items-center px-3 py-1 bg-blue-600/20 border border-blue-500/40 rounded-full text-blue-400 text-sm">
+                      <i class="fas fa-eye mr-2"></i>
+                      UI Previews Below
+                    </div>
+                    <div class="flex items-center px-3 py-1 bg-green-600/20 border border-green-500/40 rounded-full text-green-400 text-sm">
+                      <i class="fas fa-rocket mr-2"></i>
+                      Coming Soon
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </div>
+
             {/* Login Mockup */}
             <div id="megateam-login" class="mt-20" data-aos="fade-up" data-aos-delay="600">
-              <h3 class="text-3xl font-bold mb-8 text-center text-white">Access MEGATEAM Platform</h3>
-              <p class="text-center text-gray-300 mb-12 max-w-3xl mx-auto text-lg">
-                Connect your wallet or sign up with email to join the largest builder coordination platform on TRON.
-              </p>
+              <div class="text-center mb-8">
+                <h3 class="text-3xl font-bold text-white mb-4">Access MEGATEAM Platform</h3>
+                <div class="inline-flex items-center px-4 py-2 bg-yellow-600/20 border border-yellow-500/40 rounded-full text-yellow-400 text-sm font-medium mb-4">
+                  <i class="fas fa-exclamation-triangle mr-2"></i>
+                  MOCKUP PREVIEW - Interface Not Functional
+                </div>
+              </div>
+              <div class="text-center text-gray-300 mb-12 max-w-3xl mx-auto text-lg">
+                <p class="mb-2">Connect your wallet or sign up with email to join the largest builder coordination platform on TRON.</p>
+                <p class="text-blue-400 text-base font-medium">↓ This is a design preview of the upcoming platform ↓</p>
+              </div>
               
               {/* Login Interface Mockup */}
-              <div class="max-w-2xl mx-auto mb-16">
-                <div class="cyber-card p-8 rounded-xl border border-tron-red/30 bg-gradient-to-br from-tron-dark/50 to-black/80">
-                  
-                  {/* Login Header */}
+              <div class="max-w-4xl mx-auto mb-16">
+                {/* Computer Monitor Frame */}
+                <div class="relative bg-gradient-to-b from-gray-800 to-gray-900 rounded-2xl p-8 shadow-2xl">
+                  {/* Monitor Bezel */}
+                  <div class="bg-gradient-to-b from-gray-700 to-gray-800 rounded-xl p-6">
+                    {/* Screen */}
+                    <div class="bg-black rounded-lg p-4 relative overflow-hidden">
+                      {/* Screen Glow */}
+                      <div class="absolute inset-0 bg-gradient-to-br from-blue-500/5 via-transparent to-tron-red/5 rounded-lg"></div>
+                      
+                      {/* Browser Chrome */}
+                      <div class="bg-gray-800 rounded-t-lg p-3 mb-4 border-b border-gray-600">
+                        <div class="flex items-center justify-between">
+                          <div class="flex items-center space-x-2">
+                            <div class="flex space-x-1">
+                              <div class="w-3 h-3 bg-red-500 rounded-full"></div>
+                              <div class="w-3 h-3 bg-yellow-500 rounded-full"></div>
+                              <div class="w-3 h-3 bg-green-500 rounded-full"></div>
+                            </div>
+                          </div>
+                          <div class="flex-1 mx-4">
+                            <div class="bg-gray-700 rounded px-3 py-1 text-xs text-gray-300 text-center">
+                              https://app.megateam.network/login
+                            </div>
+                          </div>
+                          <div class="w-16"></div>
+                        </div>
+                      </div>
+                      
+                      {/* Login Content */}
+                      <div class="cyber-card p-8 rounded-xl border border-tron-red/30 bg-gradient-to-br from-tron-dark/50 to-black/80">
+                        
+                        {/* Login Header */}
                   <div class="text-center mb-8">
                     <div class="flex justify-center mb-4">
                       <div class="w-16 h-16 rounded-full bg-gradient-to-br from-tron-red to-tron-dark-red border-2 border-white overflow-hidden">
@@ -1165,15 +1230,20 @@ app.get('/', (c) => {
                         </div>
 
                         {/* Action Buttons */}
-                        <div class="grid grid-cols-1 md:grid-cols-2 gap-4">
-                          <button class="flex items-center justify-center px-6 py-3 bg-gradient-to-r from-tron-red to-tron-dark-red hover:from-tron-dark-red hover:to-tron-red text-white rounded-lg font-semibold transition-all hover:scale-105 transform">
+                        <div class="grid grid-cols-1 md:grid-cols-2 gap-4 relative">
+                          <button class="flex items-center justify-center px-6 py-3 bg-gradient-to-r from-tron-red to-tron-dark-red hover:from-tron-dark-red hover:to-tron-red text-white rounded-lg font-semibold transition-all hover:scale-105 transform opacity-70 cursor-not-allowed">
                             <i class="fas fa-sign-in-alt mr-2"></i>
                             Sign In
                           </button>
-                          <button class="flex items-center justify-center px-6 py-3 border-2 border-tron-red text-tron-red hover:bg-tron-red hover:text-white rounded-lg font-semibold transition-all">
+                          <button class="flex items-center justify-center px-6 py-3 border-2 border-tron-red text-tron-red hover:bg-tron-red hover:text-white rounded-lg font-semibold transition-all opacity-70 cursor-not-allowed">
                             <i class="fas fa-user-plus mr-2"></i>
                             Create Account
                           </button>
+                          <div class="absolute inset-0 flex items-center justify-center pointer-events-none">
+                            <span class="bg-black/80 text-yellow-400 px-3 py-1 rounded text-xs font-medium border border-yellow-400/50">
+                              Preview Mode - Not Functional
+                            </span>
+                          </div>
                         </div>
 
                         {/* Social Login Options */}
@@ -1205,32 +1275,49 @@ app.get('/', (c) => {
                       </div>
                     </div>
 
-                    {/* Security Notice */}
-                    <div class="mt-6 p-4 bg-blue-500/10 border border-blue-500/20 rounded-lg">
-                      <div class="flex items-start space-x-3">
-                        <i class="fas fa-info-circle text-blue-400 text-lg mt-0.5"></i>
-                        <div>
-                          <h6 class="text-blue-400 font-semibold mb-1">Secure & Decentralized</h6>
-                          <p class="text-tron-silver text-sm">
-                            Your wallet remains in your control. MEGATEAM never stores private keys. 
-                            Email accounts use enterprise-grade security with 2FA support.
-                          </p>
+                        {/* Security Notice */}
+                        <div class="mt-6 p-4 bg-blue-500/10 border border-blue-500/20 rounded-lg">
+                          <div class="flex items-start space-x-3">
+                            <i class="fas fa-info-circle text-blue-400 text-lg mt-0.5"></i>
+                            <div>
+                              <h6 class="text-blue-400 font-semibold mb-1">Secure & Decentralized</h6>
+                              <p class="text-tron-silver text-sm">
+                                Your wallet remains in your control. MEGATEAM never stores private keys. 
+                                Email accounts use enterprise-grade security with 2FA support.
+                              </p>
+                            </div>
+                          </div>
                         </div>
                       </div>
                     </div>
-
                   </div>
                 </div>
+              </div>
+                  
+                  {/* Monitor Stand */}
+                  <div class="flex justify-center mt-4">
+                    <div class="bg-gradient-to-b from-gray-600 to-gray-700 w-24 h-8 rounded-b-lg"></div>
+                  </div>
+                  <div class="flex justify-center mt-2">
+                    <div class="bg-gradient-to-b from-gray-700 to-gray-800 w-40 h-6 rounded-lg"></div>
+                  </div>
               </div>
             </div>
 
             {/* Contributor Dashboard Mockup */}
             <div id="contributor-dashboard" class="mt-12" data-aos="fade-up" data-aos-delay="700">
-              <h3 class="text-3xl font-bold mb-8 text-center text-white">Contributor Dashboard Preview</h3>
-              <p class="text-center text-gray-300 mb-12 max-w-3xl mx-auto text-lg">
-                Experience your personalized MEGATEAM workspace. Track quests, manage submissions, discover opportunities, 
-                and build your reputation in the TRON ecosystem.
-              </p>
+              <div class="text-center mb-8">
+                <h3 class="text-3xl font-bold text-white mb-4">Contributor Dashboard Preview</h3>
+                <div class="inline-flex items-center px-4 py-2 bg-yellow-600/20 border border-yellow-500/40 rounded-full text-yellow-400 text-sm font-medium mb-4">
+                  <i class="fas fa-exclamation-triangle mr-2"></i>
+                  MOCKUP PREVIEW - Interface Not Functional
+                </div>
+              </div>
+              <div class="text-center text-gray-300 mb-12 max-w-3xl mx-auto text-lg">
+                <p class="mb-2">Experience your personalized MEGATEAM workspace. Track quests, manage submissions, discover opportunities, 
+                and build your reputation in the TRON ecosystem.</p>
+                <p class="text-orange-400 text-base font-medium">↓ Interactive dashboard preview below ↓</p>
+              </div>
               
               {/* Dashboard Container */}
               <div class="cyber-card rounded-xl border border-tron-red/30 bg-gradient-to-br from-tron-dark/50 to-black/80 overflow-hidden">
@@ -1544,10 +1631,17 @@ app.get('/', (c) => {
 
             {/* Bounty Discovery Page Mockup */}
             <div id="bounty-discovery" class="mt-20" data-aos="fade-up" data-aos-delay="800">
-              <h3 class="text-3xl font-bold mb-8 text-center text-white">Task Bounty Discovery</h3>
-              <p class="text-center text-gray-300 mb-12 max-w-3xl mx-auto text-lg">
-                Explore available bounties, filter by skills and rewards, and discover your next earning opportunity in the TRON ecosystem.
-              </p>
+              <div class="text-center mb-8">
+                <h3 class="text-3xl font-bold text-white mb-4">Task Bounty Discovery</h3>
+                <div class="inline-flex items-center px-4 py-2 bg-yellow-600/20 border border-yellow-500/40 rounded-full text-yellow-400 text-sm font-medium mb-4">
+                  <i class="fas fa-exclamation-triangle mr-2"></i>
+                  MOCKUP PREVIEW - Interface Not Functional
+                </div>
+              </div>
+              <div class="text-center text-gray-300 mb-12 max-w-3xl mx-auto text-lg">
+                <p class="mb-2">Explore available bounties, filter by skills and rewards, and discover your next earning opportunity in the TRON ecosystem.</p>
+                <p class="text-yellow-400 text-base font-medium">↓ Bounty discovery interface preview ↓</p>
+              </div>
               
               {/* Bounty Discovery Container */}
               <div class="cyber-card rounded-xl border border-tron-red/30 bg-gradient-to-br from-tron-dark/50 to-black/80 overflow-hidden">
@@ -1874,11 +1968,18 @@ app.get('/', (c) => {
 
             {/* Sponsorship Creation Page Mockup */}
             <div id="sponsor-creation" class="mt-20" data-aos="fade-up" data-aos-delay="900">
-              <h3 class="text-3xl font-bold mb-8 text-center text-white">Sponsor Dashboard - Create Bounty</h3>
-              <p class="text-center text-gray-300 mb-12 max-w-3xl mx-auto text-lg">
-                Post your project, set rewards, and connect with verified TRON builders. 
-                Our Guardian network ensures quality delivery and transparent milestone tracking.
-              </p>
+              <div class="text-center mb-8">
+                <h3 class="text-3xl font-bold text-white mb-4">Sponsor Dashboard - Create Bounty</h3>
+                <div class="inline-flex items-center px-4 py-2 bg-yellow-600/20 border border-yellow-500/40 rounded-full text-yellow-400 text-sm font-medium mb-4">
+                  <i class="fas fa-exclamation-triangle mr-2"></i>
+                  MOCKUP PREVIEW - Interface Not Functional
+                </div>
+              </div>
+              <div class="text-center text-gray-300 mb-12 max-w-3xl mx-auto text-lg">
+                <p class="mb-2">Post your project, set rewards, and connect with verified TRON builders. 
+                Our Guardian network ensures quality delivery and transparent milestone tracking.</p>
+                <p class="text-yellow-400 text-base font-medium">↓ Sponsor dashboard interface preview ↓</p>
+              </div>
               
               {/* Sponsor Creation Container */}
               <div class="cyber-card rounded-xl border border-tron-red/30 bg-gradient-to-br from-tron-dark/50 to-black/80 overflow-hidden">
@@ -2230,11 +2331,18 @@ app.get('/', (c) => {
 
             {/* User Profile Page Mockup */}
             <div id="user-profile" class="mt-20" data-aos="fade-up" data-aos-delay="1000">
-              <h3 class="text-3xl font-bold mb-8 text-center text-white">Contributor Profile</h3>
-              <p class="text-center text-gray-300 mb-12 max-w-3xl mx-auto text-lg">
-                Showcase your expertise, track record, and reputation in the TRON ecosystem. 
-                Build trust with sponsors through verified achievements and Guardian endorsements.
-              </p>
+              <div class="text-center mb-8">
+                <h3 class="text-3xl font-bold text-white mb-4">Contributor Profile</h3>
+                <div class="inline-flex items-center px-4 py-2 bg-yellow-600/20 border border-yellow-500/40 rounded-full text-yellow-400 text-sm font-medium mb-4">
+                  <i class="fas fa-exclamation-triangle mr-2"></i>
+                  MOCKUP PREVIEW - Interface Not Functional
+                </div>
+              </div>
+              <div class="text-center text-gray-300 mb-12 max-w-3xl mx-auto text-lg">
+                <p class="mb-2">Showcase your expertise, track record, and reputation in the TRON ecosystem. 
+                Build trust with sponsors through verified achievements and Guardian endorsements.</p>
+                <p class="text-green-400 text-base font-medium">↓ Example contributor profile layout ↓</p>
+              </div>
               
               {/* Profile Container */}
               <div class="cyber-card rounded-xl border border-tron-red/30 bg-gradient-to-br from-tron-dark/50 to-black/80 overflow-hidden">
@@ -2678,50 +2786,263 @@ app.get('/', (c) => {
               </div>
             </div>
 
-
-          </div>
-        </div>
-      </section>
-
-      {/* Guardian Dashboard Section */}
-      <section id="guardian-dashboard-section" class="py-20">
-        <div class="container mx-auto px-6">
-          <div class="max-w-6xl mx-auto">
-            <h3 class="text-3xl font-bold mb-8 text-center text-white">Guardian Dashboard</h3>
-            <p class="text-center text-gray-300 mb-12 max-w-3xl mx-auto text-lg">
-              Maintain quality standards and ensure accountability across all MEGATEAM projects. 
-              Guardians review submissions, verify milestones, and resolve disputes with professional oversight.
-            </p>
-            
-            <div class="cyber-card rounded-xl border border-tron-red/30 bg-gradient-to-br from-tron-dark/50 to-black/80 p-8">
-              <div class="text-center">
-                <i class="fas fa-shield-alt text-tron-red text-4xl mb-4"></i>
-                <h4 class="text-xl font-bold text-white mb-4">Guardian Quality Control System</h4>
-                <p class="text-tron-silver">Professional oversight ensuring high standards across all MEGATEAM initiatives.</p>
+            {/* Mock Guardian Dashboard */}
+            <div id="guardian-dashboard" class="mt-20" data-aos="fade-up" data-aos-delay="1100">
+              <div class="text-center mb-8">
+                <h3 class="text-3xl font-bold text-white mb-4">Guardian Dashboard</h3>
+                <div class="inline-flex items-center px-4 py-2 bg-yellow-600/20 border border-yellow-500/40 rounded-full text-yellow-400 text-sm font-medium mb-4">
+                  <i class="fas fa-exclamation-triangle mr-2"></i>
+                  MOCKUP PREVIEW - Interface Not Functional
+                </div>
+              </div>
+              <div class="text-center text-gray-300 mb-12 max-w-3xl mx-auto text-lg">
+                <p class="mb-2">The Guardian Dashboard provides comprehensive oversight tools for quest verification, contributor evaluation, 
+                and ecosystem governance. Guardians maintain quality and fairness across the MEGATEAM platform.</p>
+                <p class="text-purple-400 text-base font-medium">↓ Guardian interface concept below ↓</p>
+              </div>
+              
+              {/* Guardian Dashboard Container */}
+              <div class="cyber-card rounded-xl border border-tron-red/30 bg-gradient-to-br from-tron-dark/50 to-black/80 overflow-hidden">
                 
-                <div class="mt-8 grid grid-cols-1 md:grid-cols-3 gap-6">
-                  <div class="bg-tron-dark/40 border border-tron-red/20 rounded-lg p-4">
-                    <i class="fas fa-clipboard-check text-blue-400 text-2xl mb-3"></i>
-                    <h5 class="text-white font-semibold mb-2">Review Queue</h5>
-                    <p class="text-tron-silver text-sm">Milestone verification and quality assessment</p>
+                {/* Guardian Header */}
+                <div class="bg-gradient-to-r from-purple-600/20 via-tron-red/20 to-blue-600/20 p-6 border-b border-tron-red/20">
+                  <div class="flex flex-col lg:flex-row justify-between items-start lg:items-center space-y-4 lg:space-y-0">
+                    
+                    {/* Guardian Profile */}
+                    <div class="flex items-center space-x-4">
+                      <div class="relative">
+                        <div class="w-16 h-16 rounded-full bg-gradient-to-br from-gold-400 to-yellow-600 border-3 border-white overflow-hidden ring-4 ring-purple-500/50">
+                          <img src="/static/mt-logo.jpg" alt="Guardian" class="w-full h-full object-cover" />
+                        </div>
+                        <div class="absolute -top-1 -right-1 w-6 h-6 bg-purple-600 rounded-full border-2 border-white flex items-center justify-center">
+                          <i class="fas fa-shield-alt text-white text-xs"></i>
+                        </div>
+                      </div>
+                      <div>
+                        <h4 class="text-xl font-bold text-white flex items-center space-x-2">
+                          <span>Guardian Sarah</span>
+                          <div class="flex items-center space-x-1">
+                            <i class="fas fa-crown text-gold-400"></i>
+                            <span class="text-purple-400 text-sm font-medium">Level 5 Guardian</span>
+                          </div>
+                        </h4>
+                        <div class="flex items-center space-x-4 mt-1">
+                          <span class="text-purple-300 text-sm">Specialization: DeFi & Smart Contracts</span>
+                          <div class="flex items-center space-x-1">
+                            <div class="w-2 h-2 bg-green-500 rounded-full animate-pulse"></div>
+                            <span class="text-green-400 text-sm">Active</span>
+                          </div>
+                        </div>
+                      </div>
+                    </div>
+
+                    {/* Guardian Stats */}
+                    <div class="flex items-center space-x-6">
+                      <div class="text-center">
+                        <div class="text-2xl font-bold text-purple-400">847</div>
+                        <div class="text-xs text-tron-silver">Quests Verified</div>
+                      </div>
+                      <div class="text-center">
+                        <div class="text-2xl font-bold text-green-400">98.5%</div>
+                        <div class="text-xs text-tron-silver">Accuracy Rate</div>
+                      </div>
+                      <div class="text-center">
+                        <div class="text-2xl font-bold text-yellow-400">156</div>
+                        <div class="text-xs text-tron-silver">Contributors Mentored</div>
+                      </div>
+                    </div>
                   </div>
-                  <div class="bg-tron-dark/40 border border-tron-red/20 rounded-lg p-4">
-                    <i class="fas fa-balance-scale text-yellow-400 text-2xl mb-3"></i>
-                    <h5 class="text-white font-semibold mb-2">Dispute Resolution</h5>
-                    <p class="text-tron-silver text-sm">Fair mediation and conflict resolution</p>
+                </div>
+
+                {/* Dashboard Content */}
+                <div class="p-6 space-y-6">
+                  
+                  {/* Quick Actions */}
+                  <div class="grid grid-cols-2 md:grid-cols-4 gap-4 mb-8">
+                    <button class="flex flex-col items-center p-4 bg-gradient-to-br from-purple-600/20 to-purple-800/20 border border-purple-500/30 rounded-lg hover:border-purple-400 transition-all group">
+                      <i class="fas fa-tasks text-purple-400 text-2xl mb-2 group-hover:scale-110 transform transition-transform"></i>
+                      <span class="text-white font-medium text-sm">Review Queue</span>
+                      <span class="text-purple-300 text-xs mt-1">23 pending</span>
+                    </button>
+                    <button class="flex flex-col items-center p-4 bg-gradient-to-br from-blue-600/20 to-blue-800/20 border border-blue-500/30 rounded-lg hover:border-blue-400 transition-all group">
+                      <i class="fas fa-users text-blue-400 text-2xl mb-2 group-hover:scale-110 transform transition-transform"></i>
+                      <span class="text-white font-medium text-sm">Contributors</span>
+                      <span class="text-blue-300 text-xs mt-1">1,247 active</span>
+                    </button>
+                    <button class="flex flex-col items-center p-4 bg-gradient-to-br from-tron-red/20 to-red-800/20 border border-tron-red/30 rounded-lg hover:border-tron-red transition-all group">
+                      <i class="fas fa-flag text-tron-red text-2xl mb-2 group-hover:scale-110 transform transition-transform"></i>
+                      <span class="text-white font-medium text-sm">Reports</span>
+                      <span class="text-red-300 text-xs mt-1">5 urgent</span>
+                    </button>
+                    <button class="flex flex-col items-center p-4 bg-gradient-to-br from-green-600/20 to-green-800/20 border border-green-500/30 rounded-lg hover:border-green-400 transition-all group">
+                      <i class="fas fa-chart-line text-green-400 text-2xl mb-2 group-hover:scale-110 transform transition-transform"></i>
+                      <span class="text-white font-medium text-sm">Analytics</span>
+                      <span class="text-green-300 text-xs mt-1">Weekly report</span>
+                    </button>
                   </div>
-                  <div class="bg-tron-dark/40 border border-tron-red/20 rounded-lg p-4">
-                    <i class="fas fa-users text-purple-400 text-2xl mb-3"></i>
-                    <h5 class="text-white font-semibold mb-2">Network Stats</h5>
-                    <p class="text-tron-silver text-sm">Guardian performance and network health</p>
+
+                  {/* Pending Reviews Section */}
+                  <div class="bg-gradient-to-br from-purple-900/30 to-black/50 rounded-lg p-6 border border-purple-500/20">
+                    <div class="flex items-center justify-between mb-6">
+                      <h5 class="text-xl font-bold text-white flex items-center">
+                        <i class="fas fa-clipboard-check text-purple-400 mr-3"></i>
+                        Pending Reviews
+                      </h5>
+                      <div class="flex items-center space-x-2">
+                        <span class="px-3 py-1 bg-purple-600/20 text-purple-300 text-sm rounded-full border border-purple-500/30">
+                          23 items
+                        </span>
+                        <button class="px-3 py-1 bg-purple-600 hover:bg-purple-700 text-white text-sm rounded-lg transition-all">
+                          Review All
+                        </button>
+                      </div>
+                    </div>
+
+                    {/* Review Items */}
+                    <div class="space-y-4">
+                      {/* Quest Submission */}
+                      <div class="bg-black/30 rounded-lg p-4 border border-purple-500/20 hover:border-purple-400/40 transition-all">
+                        <div class="flex items-start justify-between">
+                          <div class="flex items-start space-x-4">
+                            <div class="w-12 h-12 rounded-lg bg-gradient-to-br from-blue-500 to-purple-600 flex items-center justify-center">
+                              <i class="fas fa-code text-white"></i>
+                            </div>
+                            <div class="flex-1">
+                              <h6 class="font-semibold text-white mb-2">DeFi Protocol Integration Quest</h6>
+                              <p class="text-tron-silver text-sm mb-3">Submitted by Alex Chen • Smart Contract Development</p>
+                              <div class="flex items-center space-x-4 text-xs">
+                                <span class="text-green-400"><i class="fas fa-dollar-sign mr-1"></i>$500 TRX</span>
+                                <span class="text-blue-400"><i class="fas fa-clock mr-1"></i>2 hours ago</span>
+                                <span class="text-purple-400"><i class="fas fa-star mr-1"></i>High Priority</span>
+                              </div>
+                            </div>
+                          </div>
+                          <div class="flex items-center space-x-2">
+                            <button class="px-3 py-1.5 bg-green-600/20 text-green-400 text-sm rounded border border-green-500/30 hover:bg-green-600/30 transition-all">
+                              <i class="fas fa-check mr-1"></i>Approve
+                            </button>
+                            <button class="px-3 py-1.5 bg-red-600/20 text-red-400 text-sm rounded border border-red-500/30 hover:bg-red-600/30 transition-all">
+                              <i class="fas fa-times mr-1"></i>Reject
+                            </button>
+                          </div>
+                        </div>
+                      </div>
+
+                      {/* Contributor Report */}
+                      <div class="bg-black/30 rounded-lg p-4 border border-yellow-500/20 hover:border-yellow-400/40 transition-all">
+                        <div class="flex items-start justify-between">
+                          <div class="flex items-start space-x-4">
+                            <div class="w-12 h-12 rounded-lg bg-gradient-to-br from-yellow-500 to-orange-600 flex items-center justify-center">
+                              <i class="fas fa-user-shield text-white"></i>
+                            </div>
+                            <div class="flex-1">
+                              <h6 class="font-semibold text-white mb-2">Contributor Misconduct Report</h6>
+                              <p class="text-tron-silver text-sm mb-3">Reported by Community • Requires Investigation</p>
+                              <div class="flex items-center space-x-4 text-xs">
+                                <span class="text-red-400"><i class="fas fa-exclamation-triangle mr-1"></i>Urgent</span>
+                                <span class="text-blue-400"><i class="fas fa-clock mr-1"></i>45 minutes ago</span>
+                                <span class="text-yellow-400"><i class="fas fa-shield-alt mr-1"></i>Guardian Review</span>
+                              </div>
+                            </div>
+                          </div>
+                          <div class="flex items-center space-x-2">
+                            <button class="px-3 py-1.5 bg-blue-600/20 text-blue-400 text-sm rounded border border-blue-500/30 hover:bg-blue-600/30 transition-all">
+                              <i class="fas fa-search mr-1"></i>Investigate
+                            </button>
+                            <button class="px-3 py-1.5 bg-gray-600/20 text-gray-400 text-sm rounded border border-gray-500/30 hover:bg-gray-600/30 transition-all">
+                              <i class="fas fa-archive mr-1"></i>Dismiss
+                            </button>
+                          </div>
+                        </div>
+                      </div>
+                    </div>
+                  </div>
+
+                  {/* Guardian Tools */}
+                  <div class="grid grid-cols-1 lg:grid-cols-2 gap-6">
+                    
+                    {/* Quality Control */}
+                    <div class="bg-gradient-to-br from-blue-900/30 to-black/50 rounded-lg p-6 border border-blue-500/20">
+                      <h6 class="text-lg font-bold text-white mb-4 flex items-center">
+                        <i class="fas fa-quality text-blue-400 mr-3"></i>
+                        Quality Control
+                      </h6>
+                      <div class="space-y-4">
+                        <div class="flex items-center justify-between p-3 bg-black/40 rounded border border-blue-500/20">
+                          <span class="text-tron-silver">Avg. Review Time</span>
+                          <span class="text-blue-400 font-semibold">4.2 hours</span>
+                        </div>
+                        <div class="flex items-center justify-between p-3 bg-black/40 rounded border border-green-500/20">
+                          <span class="text-tron-silver">Approval Rate</span>
+                          <span class="text-green-400 font-semibold">87.3%</span>
+                        </div>
+                        <div class="flex items-center justify-between p-3 bg-black/40 rounded border border-purple-500/20">
+                          <span class="text-tron-silver">Quality Score</span>
+                          <span class="text-purple-400 font-semibold">9.4/10</span>
+                        </div>
+                      </div>
+                    </div>
+
+                    {/* Recent Activity */}
+                    <div class="bg-gradient-to-br from-green-900/30 to-black/50 rounded-lg p-6 border border-green-500/20">
+                      <h6 class="text-lg font-bold text-white mb-4 flex items-center">
+                        <i class="fas fa-history text-green-400 mr-3"></i>
+                        Recent Activity
+                      </h6>
+                      <div class="space-y-3">
+                        <div class="flex items-center space-x-3 p-3 bg-black/40 rounded border border-green-500/20">
+                          <div class="w-2 h-2 bg-green-500 rounded-full"></div>
+                          <span class="text-tron-silver text-sm">Approved TRX Staking Quest</span>
+                          <span class="text-green-400 text-xs ml-auto">5m ago</span>
+                        </div>
+                        <div class="flex items-center space-x-3 p-3 bg-black/40 rounded border border-yellow-500/20">
+                          <div class="w-2 h-2 bg-yellow-500 rounded-full"></div>
+                          <span class="text-tron-silver text-sm">Flagged suspicious submission</span>
+                          <span class="text-yellow-400 text-xs ml-auto">12m ago</span>
+                        </div>
+                        <div class="flex items-center space-x-3 p-3 bg-black/40 rounded border border-blue-500/20">
+                          <div class="w-2 h-2 bg-blue-500 rounded-full"></div>
+                          <span class="text-tron-silver text-sm">Mentored new contributor</span>
+                          <span class="text-blue-400 text-xs ml-auto">1h ago</span>
+                        </div>
+                      </div>
+                    </div>
+                  </div>
+
+                  {/* Guardian Powers */}
+                  <div class="bg-gradient-to-br from-purple-900/30 to-black/50 rounded-lg p-6 border border-purple-500/20">
+                    <h6 class="text-lg font-bold text-white mb-4 flex items-center">
+                      <i class="fas fa-magic text-purple-400 mr-3"></i>
+                      Guardian Powers & Responsibilities
+                    </h6>
+                    <div class="grid grid-cols-1 md:grid-cols-3 gap-4">
+                      <div class="text-center p-4 bg-black/30 rounded-lg border border-purple-500/20">
+                        <i class="fas fa-gavel text-purple-400 text-2xl mb-2"></i>
+                        <h6 class="text-white font-semibold mb-2">Quest Verification</h6>
+                        <p class="text-tron-silver text-sm">Review and approve quest submissions with technical expertise</p>
+                      </div>
+                      <div class="text-center p-4 bg-black/30 rounded-lg border border-blue-500/20">
+                        <i class="fas fa-users-cog text-blue-400 text-2xl mb-2"></i>
+                        <h6 class="text-white font-semibold mb-2">Community Moderation</h6>
+                        <p class="text-tron-silver text-sm">Maintain order and resolve disputes in the MEGATEAM ecosystem</p>
+                      </div>
+                      <div class="text-center p-4 bg-black/30 rounded-lg border border-green-500/20">
+                        <i class="fas fa-graduation-cap text-green-400 text-2xl mb-2"></i>
+                        <h6 class="text-white font-semibold mb-2">Contributor Mentorship</h6>
+                        <p class="text-tron-silver text-sm">Guide new builders and help them navigate the TRON ecosystem</p>
+                      </div>
+                    </div>
                   </div>
                 </div>
               </div>
             </div>
-            
+
+
           </div>
         </div>
       </section>
+
+
 
       {/* Objectives Section */}
       <section id="objectives" class="py-20">
@@ -2829,34 +3150,6 @@ app.get('/', (c) => {
         </div>
       </section>
 
-      {/* Platform Features */}
-      <section class="py-20">
-        <div class="container mx-auto px-6">
-          <h2 class="text-4xl font-bold text-center mb-16" data-aos="fade-up">
-            MEGATEAM <span class="text-tron-red">Platform</span>
-          </h2>
-          
-          <div class="grid md:grid-cols-2 lg:grid-cols-3 gap-8 max-w-6xl mx-auto">
-            <div class="bg-tron-gray/30 p-6 rounded-lg border border-tron-red/20" data-aos="fade-up" data-aos-delay="100">
-              <i class="fas fa-tasks text-tron-red text-3xl mb-4"></i>
-              <h3 class="text-xl font-bold mb-3">Unified Opportunities</h3>
-              <p class="text-gray-300">Discover bounties, grants, and quests all in one place. Filter by category, type, and reward amount.</p>
-            </div>
-            
-            <div class="bg-tron-gray/30 p-6 rounded-lg border border-tron-red/20" data-aos="fade-up" data-aos-delay="200">
-              <i class="fas fa-user-circle text-tron-red text-3xl mb-4"></i>
-              <h3 class="text-xl font-bold mb-3">Builder Profiles</h3>
-              <p class="text-gray-300">Track your contributions, earned rewards, and build your reputation with badges and levels.</p>
-            </div>
-            
-            <div class="bg-tron-gray/30 p-6 rounded-lg border border-tron-red/20" data-aos="fade-up" data-aos-delay="300">
-              <i class="fas fa-wallet text-tron-red text-3xl mb-4"></i>
-              <h3 class="text-xl font-bold mb-3">Instant Payouts</h3>
-              <p class="text-gray-300">Receive TRX, USDD, or other TRON tokens directly to your wallet upon task completion.</p>
-            </div>
-          </div>
-        </div>
-      </section>
 
       {/* Roadmap Infographic */}
       <section id="roadmap" class="py-20 bg-gradient-to-br from-tron-black via-tron-gray/20 to-tron-black relative overflow-hidden">
