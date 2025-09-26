@@ -570,12 +570,26 @@ a:focus {
     0 1px 0 #FF4444;
 }
 
-/* Mobile-specific styling - subtle and visible */
+/* Mobile-specific styling - enhanced visibility and layout */
 @media (max-width: 768px) {
   .beyond-glow {
     text-shadow: 
-      0 0 1px #FF4444,
-      0 0 2px rgba(255, 68, 68, 0.5);
+      0 0 2px #FF4444,
+      0 0 4px rgba(255, 68, 68, 0.7),
+      0 2px 4px rgba(0, 0, 0, 0.8);
+  }
+  
+  /* Ensure hero text has proper spacing and visibility on mobile */
+  section h1 {
+    text-shadow: 
+      0 2px 4px rgba(0, 0, 0, 0.8),
+      0 0 10px rgba(0, 0, 0, 0.5);
+  }
+  
+  /* Enhanced mobile notifications */
+  .bg-yellow-600\/30 {
+    background-color: rgba(217, 119, 6, 0.4) !important;
+    border-color: rgba(245, 158, 11, 0.8) !important;
   }
 }
 
