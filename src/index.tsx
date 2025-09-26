@@ -568,7 +568,7 @@ app.get('/', (c) => {
       </nav>
 
       {/* Hero Section */}
-      <section class="min-h-screen flex items-center justify-center relative overflow-hidden pt-16 md:pt-20 pb-16 md:pb-0">
+      <section class="min-h-screen flex items-start md:items-center justify-center relative overflow-hidden pt-20 md:pt-20 pb-16 md:pb-0">
         {/* Background Video */}
         <div class="absolute inset-0 w-full h-full overflow-hidden">
           <iframe 
@@ -600,7 +600,7 @@ app.get('/', (c) => {
               TRON
             </span>
             <br />
-            <span class="text-tron-light font-black animate-pulse beyond-glow block mt-2">And Beyond</span>
+            <span class="text-white md:text-tron-light font-black animate-pulse beyond-glow">And Beyond</span>
           </h1>
           
 
