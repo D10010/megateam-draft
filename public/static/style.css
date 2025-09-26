@@ -570,20 +570,39 @@ a:focus {
     0 1px 0 #FF4444;
 }
 
-/* Mobile-specific styling - enhanced visibility and layout */
+/* Mobile-specific styling - enhanced visibility over video */
 @media (max-width: 768px) {
   .beyond-glow {
+    color: #FFFFFF !important;
     text-shadow: 
-      0 0 2px #FF4444,
-      0 0 4px rgba(255, 68, 68, 0.7),
-      0 2px 4px rgba(0, 0, 0, 0.8);
+      0 0 3px #FF4444,
+      0 0 6px rgba(255, 68, 68, 0.8),
+      0 3px 6px rgba(0, 0, 0, 0.9),
+      0 0 20px rgba(0, 0, 0, 0.7);
   }
   
-  /* Ensure hero text has proper spacing and visibility on mobile */
-  section h1 {
+  /* Mobile hero text - maximum visibility over video */
+  .mobile-hero-text {
     text-shadow: 
-      0 2px 4px rgba(0, 0, 0, 0.8),
-      0 0 10px rgba(0, 0, 0, 0.5);
+      0 3px 6px rgba(0, 0, 0, 0.9),
+      0 0 20px rgba(0, 0, 0, 0.8),
+      0 0 40px rgba(0, 0, 0, 0.5);
+  }
+  
+  .mobile-text-white {
+    color: #FFFFFF !important;
+    background: none !important;
+    -webkit-background-clip: unset !important;
+    background-clip: unset !important;
+    -webkit-text-fill-color: #FFFFFF !important;
+  }
+  
+  .mobile-text-tron-red {
+    color: #FF4444 !important;
+    background: none !important;
+    -webkit-background-clip: unset !important;
+    background-clip: unset !important;
+    -webkit-text-fill-color: #FF4444 !important;
   }
   
   /* Enhanced mobile notifications */

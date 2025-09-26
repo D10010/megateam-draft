@@ -569,8 +569,8 @@ app.get('/', (c) => {
 
       {/* Hero Section */}
       <section class="min-h-screen flex items-start md:items-center justify-center relative overflow-hidden pt-20 md:pt-20 pb-16 md:pb-0">
-        {/* Background Video - Hidden on mobile, shown on desktop */}
-        <div class="hidden md:block absolute inset-0 w-full h-full overflow-hidden">
+        {/* Background Video - Shown on all devices */}
+        <div class="absolute inset-0 w-full h-full overflow-hidden z-0">
           <iframe 
             class="absolute top-1/2 left-1/2 min-w-full min-h-full w-auto h-auto transform -translate-x-1/2 -translate-y-1/2 pointer-events-none"
             src="https://www.youtube.com/embed/gU6Jfz2jOHA?autoplay=1&mute=1&loop=1&playlist=gU6Jfz2jOHA&controls=0&showinfo=0&rel=0&iv_load_policy=3&modestbranding=1&disablekb=1&fs=0&cc_load_policy=0&playsinline=1&enablejsapi=0"
@@ -578,33 +578,30 @@ app.get('/', (c) => {
             frameborder="0"
             allow="autoplay; encrypted-media"
           ></iframe>
-          {/* Overlay for better text readability */}
-          <div class="absolute inset-0 bg-black/40"></div>
+          {/* Overlay for better text readability - stronger on mobile */}
+          <div class="absolute inset-0 bg-black/60 md:bg-black/40"></div>
         </div>
         
-        {/* Mobile Background - Solid gradient instead of video */}
-        <div class="md:hidden absolute inset-0 bg-gradient-to-br from-tron-black via-tron-gray/20 to-tron-dark"></div>
-        
-        <div class="container mx-auto px-4 md:px-6 text-center relative z-30" data-aos="fade-up">
+        <div class="container mx-auto px-4 md:px-6 text-center relative z-40" data-aos="fade-up">
           <div class="mb-4 md:mb-8 relative">
             <div class="relative inline-block">
               <i class="fas fa-rocket text-3xl md:text-5xl text-transparent bg-clip-text bg-tron-gradient"></i>
             </div>
           </div>
           
-          <h1 class="text-2xl md:text-6xl font-montserrat font-black mb-6 md:mb-8 leading-tight md:leading-tight tracking-wider drop-shadow-lg">
-            <span class="inline-block transform hover:scale-105 transition-transform duration-300 text-white drop-shadow-md">Build</span>{" "}
-            <span class="text-transparent bg-clip-text bg-tron-gradient drop-shadow-sm">Everywhere</span>
+          <h1 class="text-2xl md:text-6xl font-montserrat font-black mb-6 md:mb-8 leading-tight md:leading-tight tracking-wider mobile-hero-text">
+            <span class="inline-block transform hover:scale-105 transition-transform duration-300 text-white">Build</span>{" "}
+            <span class="text-transparent bg-clip-text bg-tron-gradient md:text-transparent mobile-text-white">Everywhere</span>
             <br />
-            <span class="inline-block transform hover:scale-105 transition-transform duration-300 text-white drop-shadow-md">Earn</span>{" "}
-            <span class="text-transparent bg-clip-text bg-tron-holographic animate-hologram drop-shadow-sm">Anywhere</span>
+            <span class="inline-block transform hover:scale-105 transition-transform duration-300 text-white">Earn</span>{" "}
+            <span class="text-transparent bg-clip-text bg-tron-holographic animate-hologram md:text-transparent mobile-text-white">Anywhere</span>
             <br />
-            <span class="text-tron-silver font-black drop-shadow-md">Together on </span>
-            <span class="text-transparent bg-clip-text bg-gradient-to-r from-tron-red via-tron-light to-tron-dark-red drop-shadow-sm">
+            <span class="text-white md:text-tron-silver font-black">Together on </span>
+            <span class="text-transparent bg-clip-text bg-gradient-to-r from-tron-red via-tron-light to-tron-dark-red md:text-transparent mobile-text-tron-red">
               TRON
             </span>
             <br />
-            <span class="text-white md:text-tron-light font-black animate-pulse beyond-glow drop-shadow-lg">And Beyond</span>
+            <span class="text-white md:text-tron-light font-black animate-pulse beyond-glow">And Beyond</span>
           </h1>
           
 
