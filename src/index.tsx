@@ -1090,31 +1090,18 @@ app.get('/', (c) => {
               
               {/* Login Interface Mockup */}
               <div class="max-w-4xl mx-auto mb-16">
-                {/* Computer Monitor Frame */}
-                <div class="relative bg-gradient-to-b from-gray-800 to-gray-900 rounded-2xl p-8 shadow-2xl">
-                  {/* Monitor Bezel */}
-                  <div class="bg-gradient-to-b from-gray-700 to-gray-800 rounded-xl p-6">
-                    {/* Screen */}
-                    <div class="bg-black rounded-lg p-4 relative overflow-hidden">
-                      {/* Screen Glow */}
-                      <div class="absolute inset-0 bg-gradient-to-br from-blue-500/5 via-transparent to-tron-red/5 rounded-lg"></div>
+                {/* Computer Monitor Frame - Hidden */}
+                <div class="relative">
+                  {/* Monitor Bezel - Hidden */}
+                  <div>
+                    {/* Screen - Hidden */}
+                    <div>
+                      {/* Screen Glow - Hidden */}
+                      <div class="hidden"></div>
                       
-                      {/* Browser Chrome */}
-                      <div class="bg-gray-800 rounded-t-lg p-3 mb-4 border-b border-gray-600">
-                        <div class="flex items-center justify-between">
-                          <div class="flex items-center space-x-2">
-                            <div class="flex space-x-1">
-                              <div class="w-3 h-3 bg-red-500 rounded-full"></div>
-                              <div class="w-3 h-3 bg-yellow-500 rounded-full"></div>
-                              <div class="w-3 h-3 bg-green-500 rounded-full"></div>
-                            </div>
-                          </div>
-                          <div class="flex-1 mx-4">
-                            <div class="bg-gray-700 rounded px-3 py-1 text-xs text-gray-300 text-center">
-                              https://app.megateam.network/login
-                            </div>
-                          </div>
-                          <div class="w-16"></div>
+                      {/* Browser Chrome - Hidden */}
+                      <div class="hidden">
+                        <div class="hidden">
                         </div>
                       </div>
                       
@@ -1292,12 +1279,10 @@ app.get('/', (c) => {
                 </div>
               </div>
                   
-                  {/* Monitor Stand */}
-                  <div class="flex justify-center mt-4">
-                    <div class="bg-gradient-to-b from-gray-600 to-gray-700 w-24 h-8 rounded-b-lg"></div>
+                  {/* Monitor Stand - Hidden */}
+                  <div class="hidden">
                   </div>
-                  <div class="flex justify-center mt-2">
-                    <div class="bg-gradient-to-b from-gray-700 to-gray-800 w-40 h-6 rounded-lg"></div>
+                  <div class="hidden">
                   </div>
               </div>
             </div>
